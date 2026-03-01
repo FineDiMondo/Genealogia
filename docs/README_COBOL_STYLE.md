@@ -2,97 +2,100 @@
 
 ## Filosofia
 
-Il progetto adotta uno stile "COBOL su Unix":
+Struttura "COBOL su UNIX":
 
-- base dati in file sequenziali record-oriented (`.DAT`)
-- layout tracciati documentato in `copy/*.CPY`
-- job operativi shell in `proc/`
-- output statico HTML generato in `PORTALE_GN/generated/`
+- base dati in file sequenziali `.DAT` (pipe-delimited)
+- tracciati documentati in `copy/*.CPY`
+- job batch in `proc/*.sh`
+- output HTML statico in `PORTALE_GN/`
 
-Nessun database e nessun JSON come base dati.
+Niente JSON come base dati.
 
-## Struttura directory
+## Input GEDCOM
 
-```text
-src/      programmi sorgente e utility
-copy/     copybook (spec tracciati record)
-data/     file sequenziali .DAT
-proc/     job shell (build, validate, new_*)
-out/      output tecnici (report, indici flat)
-docs/     documentazione operativa
-logs/     log ultima esecuzione job
-PORTALE_GN/generated/ output HTML pubblicabile su Pages
-```
+File di input:
 
-## Tracciati record
+- `data/import/raw/latest.ged`
 
-Delimitatore: `|` senza spazi intorno.
-
-### PERSONE.DAT
-
-`ID|COGNOME|NOME|SESSO|DATA_NASCITA|LUOGO_NASCITA|DATA_MORTE|LUOGO_MORTE|ID_FAMIGLIA|ID_FONTI|NOTE|STATO`
-
-Esempio:
-
-`P000001|GIARDINA|DANIEL|M|1988-04-12|PALERMO|||F000001|S000001,S000002|CURATORE PROGETTO|VERIFICATO`
-
-### FAMIGLIE.DAT
-
-`ID|COGNOME_FAMIGLIA|MACRO_GRUPPO|TIPO|ORIGINE|ID_FONTI|NOTE`
-
-### FONTI.DAT
-
-`ID|TIPO|TITOLO|DATA_DOCUMENTO|ARCHIVIO|RIFERIMENTO|URL|NOTE`
-
-### EVENTI.DAT
-
-`ID|TIPO_EVENTO|DATA_EVENTO|LUOGO|ID_PERSONA|ID_FAMIGLIA|ID_FONTE|DESCRIZIONE`
-
-## Regole
-
-- ID sequenziali:
-  - Persona: `P000001`
-  - Famiglia: `F000001`
-  - Fonte: `S000001`
-  - Evento: `E000001`
-- Date ISO: `YYYY-MM-DD` oppure campo vuoto.
-- Encoding file: UTF-8 senza BOM.
-- Righe commento ammesse con `#`.
-
-## Aggiungere record
+Import:
 
 ```bash
-./proc/new_person.sh COGNOME NOME M F000001 S000001,S000002 "NOTA"
-./proc/new_family.sh COGNOME_FAMIGLIA 2 COLLATERALE SICILIA S000001 "NOTA"
-./proc/new_source.sh TIPO "TITOLO FONTE" 2026-03-01 ARCHIVIO RIF-001 "" "NOTA"
+./proc/import_gedcom.sh
 ```
 
-## Validare
+Output import:
+
+- `data/PERSONE.DAT`
+- `data/FAMIGLIE.DAT`
+- `data/FONTI.DAT`
+- `data/EVENTI.DAT`
+- `data/import/GEDMAP.DAT` (mapping GEDID -> ID sequenziale stabile)
+- `logs/duplicates.log` (potenziali duplicati per nome+nascita)
+
+## Araldica avanzata
+
+File:
+
+- `data/araldica/CASATI.DAT`
+- `data/araldica/RAMI.DAT`
+- `data/araldica/STEMMI.DAT`
+- `data/araldica/APPARTENENZE.DAT`
+- `data/araldica/ALLIANZE.DAT`
+
+Asset immagini:
+
+- `PORTALE_GN/assets/heraldry/`
+
+### Regole risoluzione stemma (deterministica)
+
+Per ogni persona:
+
+1. Data riferimento:
+   - se nascita+morte: midpoint
+   - altrimenti nascita
+   - altrimenti morte
+   - altrimenti vuoto
+2. In `APPARTENENZE.DAT`: seleziona appartenenza valida nel range `DAL..AL`.
+   - se multiple: scegli `DAL` più recente
+3. In `STEMMI.DAT`: filtra per `CASATO+RAMO` e range data.
+   - scegli `PRIORITA` più alta
+4. Fallback:
+   - stemma di casato senza ramo
+   - poi `TIPO=ARMIGERIA_BASE`
+
+## Validate + Build
 
 ```bash
 ./proc/validate_data.sh
-```
-
-Output:
-
-- `out/VALIDATION_REPORT.txt`
-- `logs/validate_latest.log`
-
-## Generare portale statico
-
-```bash
 ./proc/build_portale.sh
 ```
 
-Output HTML:
+Genera:
 
-- `PORTALE_GN/generated/index.html`
-- `PORTALE_GN/generated/people/*.html`
-- `PORTALE_GN/generated/families/*.html`
-- `PORTALE_GN/generated/sources/*.html`
-- `PORTALE_GN/generated/reports/index.html`
+- `PORTALE_GN/people/*.html`
+- `PORTALE_GN/families/*.html`
+- `PORTALE_GN/sources/*.html`
+- `PORTALE_GN/heraldry/*.html`
+- `PORTALE_GN/reports/index.html`
 
-Indice tecnico flat:
+Log/report:
 
-- `PORTALE_GN/generated/LISTA.DAT`
+- `out/VALIDATION_REPORT.txt`
 - `out/BUILD_INDEX.DAT`
+- `logs/missing_heraldry_assets.log`
+
+## Inserimento manuale record
+
+```bash
+./proc/new_person.sh I999 COGNOME NOME M F000001 S000001 "NOTA"
+./proc/new_family.sh F999 COGNOME-FAMIGLIA P000001 P000002 P000003 2000-01-01 PALERMO S000001 "NOTA"
+./proc/new_source.sh ARCHIVIO "Titolo fonte" 2026-03-01 ARCH RIF "" "NOTE"
+```
+
+## Regole file
+
+- UTF-8 senza BOM
+- 1 record = 1 riga
+- delimitatore `|`
+- no spazi attorno al delimitatore
+- date: `YYYY` o `YYYY-MM` o `YYYY-MM-DD` o vuoto

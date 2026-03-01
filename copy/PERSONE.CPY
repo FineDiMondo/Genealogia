@@ -1,31 +1,27 @@
       ***************************************************************
       * COPYBOOK: PERSONE.CPY
-      * SCOPO   : SPEC TRACCIATO FILE SEQUENZIALE PERSONE.DAT
-      * FORMATO : 1 RECORD = 1 RIGA, CAMPI DELIMITATI DA "|"
-      * ENCODING: UTF-8 SENZA BOM
+      * STILE   : COBOL SU UNIX, FILE SEQUENZIALE TESTUALE
+      ***************************************************************
+      * FILE: PERSONE.DAT
+      * DELIMITATORE: "|"
+      * RECORD: 1 RIGA = 1 PERSONA
       ***************************************************************
 
-      [FILE]
-      NOME-FILE         : PERSONE.DAT
-      DELIMITATORE      : |
-      COMMENTI-AMMESSI  : RIGHE INIZIANTI CON "#"
+      01 ID-PERSONA               OBBL  POS 01  ESEMPIO: P000001
+      02 GEDCOM-ID                OBBL  POS 02  ESEMPIO: I123
+      03 COGNOME                  OBBL  POS 03  ESEMPIO: GIARDINA
+      04 NOME                     OBBL  POS 04  ESEMPIO: DANIEL
+      05 SESSO                    FAC   POS 05  ESEMPIO: M
+      06 DATA-NASCITA             FAC   POS 06  ESEMPIO: 1988-04-12
+      07 LUOGO-NASCITA            FAC   POS 07  ESEMPIO: PALERMO
+      08 DATA-MORTE               FAC   POS 08  ESEMPIO: 2020-01-01
+      09 LUOGO-MORTE              FAC   POS 09  ESEMPIO: PALERMO
+      10 FAMIGLIA-ORIGINE         FAC   POS 10  ESEMPIO: F000001
+      11 FAMIGLIA-PRINCIPALE      FAC   POS 11  ESEMPIO: F000002
+      12 ID-FONTI                 FAC   POS 12  ESEMPIO: S000001,S000002
+      13 NOTE                     FAC   POS 13  ESEMPIO: IMPORT GEDCOM
 
-      [LAYOUT]
-      01  ID-PERSONA              OBBL.  ESEMPIO: P000001
-      02  COGNOME                 OBBL.  ESEMPIO: GIARDINA
-      03  NOME                    OBBL.  ESEMPIO: DANIEL
-      04  SESSO                   OBBL.  ESEMPIO: M (M/F/U)
-      05  DATA-NASCITA            FAC.   ESEMPIO: 1988-04-12
-      06  LUOGO-NASCITA           FAC.   ESEMPIO: PALERMO
-      07  DATA-MORTE              FAC.   ESEMPIO: 2020-01-01
-      08  LUOGO-MORTE             FAC.   ESEMPIO: PALERMO
-      09  ID-FAMIGLIA             FAC.   ESEMPIO: F000001
-      10  ID-FONTI                FAC.   ESEMPIO: S000001,S000002
-      11  NOTE                    FAC.   ESEMPIO: CURATORE PROGETTO
-      12  STATO                   FAC.   ESEMPIO: VERIFICATO
-
-      [VINCOLI]
-      - ID-PERSONA UNIVOCO NEL FILE
-      - ID-FAMIGLIA DEVE ESISTERE IN FAMIGLIE.DAT (SE VALORIZZATO)
-      - ID-FONTI DEVONO ESISTERE IN FONTI.DAT (SE VALORIZZATI)
-      - DATE IN FORMATO ISO YYYY-MM-DD OPPURE VUOTO
+      * VINCOLI:
+      * - ID-PERSONA UNIVOCO
+      * - DATE IN FORMATO YYYY | YYYY-MM | YYYY-MM-DD O VUOTO
+      * - FAMIGLIE E FONTI RIFERITE DEVONO ESISTERE

@@ -24,10 +24,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Import GEDCOM
+        run: bash ./proc/import_gedcom.sh
+
       - name: Validate sequential data
         run: bash ./proc/validate_data.sh
 
-      - name: Build generated portal
+      - name: Build portal
         run: bash ./proc/build_portale.sh
 
       - name: Configure Pages

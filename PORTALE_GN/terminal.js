@@ -21,7 +21,7 @@
     6: "fonti.html",
     7: "media.html",
     8: "spazio_agentico.html",
-    9: "generated/index.html"
+    9: "people/index.html"
   };
 
   const state = {

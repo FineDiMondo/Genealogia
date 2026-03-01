@@ -1,22 +1,21 @@
       ***************************************************************
       * COPYBOOK: FAMIGLIE.CPY
-      * SCOPO   : SPEC TRACCIATO FILE SEQUENZIALE FAMIGLIE.DAT
       ***************************************************************
+      * FILE: FAMIGLIE.DAT
+      * DELIMITATORE: "|"
 
-      [FILE]
-      NOME-FILE         : FAMIGLIE.DAT
-      DELIMITATORE      : |
-      COMMENTI-AMMESSI  : RIGHE INIZIANTI CON "#"
+      01 ID-FAMIGLIA              OBBL  POS 01  ESEMPIO: F000001
+      02 GEDCOM-ID                OBBL  POS 02  ESEMPIO: F12
+      03 COGNOME-FAMIGLIA         FAC   POS 03  ESEMPIO: GIARDINA-NEGRINI
+      04 ID-HUSB                  FAC   POS 04  ESEMPIO: P000001
+      05 ID-WIFE                  FAC   POS 05  ESEMPIO: P000002
+      06 ID-FIGLI                 FAC   POS 06  ESEMPIO: P000003,P000004
+      07 DATA-MATRIMONIO          FAC   POS 07  ESEMPIO: 1985-06-01
+      08 LUOGO-MATRIMONIO         FAC   POS 08  ESEMPIO: PALERMO
+      09 ID-FONTI                 FAC   POS 09  ESEMPIO: S000001
+      10 NOTE                     FAC   POS 10  ESEMPIO: IMPORT GEDCOM
 
-      [LAYOUT]
-      01  ID-FAMIGLIA             OBBL.  ESEMPIO: F000001
-      02  COGNOME-FAMIGLIA        OBBL.  ESEMPIO: GIARDINA
-      03  MACRO-GRUPPO            OBBL.  ESEMPIO: 1
-      04  TIPO                    FAC.   ESEMPIO: DIRETTA
-      05  ORIGINE                 FAC.   ESEMPIO: SICILIA
-      06  ID-FONTI                FAC.   ESEMPIO: S000001,S000003
-      07  NOTE                    FAC.   ESEMPIO: RAMO PATERNO
-
-      [VINCOLI]
-      - ID-FAMIGLIA UNIVOCO NEL FILE
-      - ID-FONTI DEVONO ESISTERE IN FONTI.DAT (SE VALORIZZATI)
+      * VINCOLI:
+      * - ID-FAMIGLIA UNIVOCO
+      * - ID-HUSB, ID-WIFE, ID-FIGLI DEVONO ESISTERE IN PERSONE.DAT
+      * - DATE FORMATO YYYY | YYYY-MM | YYYY-MM-DD O VUOTO

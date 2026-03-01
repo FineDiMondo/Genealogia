@@ -3,134 +3,187 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DATA_DIR="$ROOT_DIR/data"
-LOG_DIR="$ROOT_DIR/logs"
+AR_DIR="$DATA_DIR/araldica"
+ASSET_DIR="$ROOT_DIR/PORTALE_GN/assets/heraldry"
 OUT_DIR="$ROOT_DIR/out"
+LOG_DIR="$ROOT_DIR/logs"
 
-mkdir -p "$LOG_DIR" "$OUT_DIR"
+mkdir -p "$OUT_DIR" "$LOG_DIR"
 
-REPORT_FILE="$OUT_DIR/VALIDATION_REPORT.txt"
-LOG_FILE="$LOG_DIR/validate_latest.log"
-
-python3 - "$DATA_DIR" "$REPORT_FILE" <<'PY' | tee "$LOG_FILE"
-import datetime
+python3 - "$DATA_DIR" "$AR_DIR" "$ASSET_DIR" "$OUT_DIR" "$LOG_DIR" <<'PY' | tee "$LOG_DIR/validate_latest.log"
 import pathlib
 import re
 import sys
 
 data_dir = pathlib.Path(sys.argv[1])
-report_file = pathlib.Path(sys.argv[2])
+ar_dir = pathlib.Path(sys.argv[2])
+asset_dir = pathlib.Path(sys.argv[3])
+out_dir = pathlib.Path(sys.argv[4])
+log_dir = pathlib.Path(sys.argv[5])
 
 spec = {
-    "PERSONE.DAT": {"fields": 12, "id_re": r"^P\d{6}$", "id_col": 0},
-    "FAMIGLIE.DAT": {"fields": 7, "id_re": r"^F\d{6}$", "id_col": 0},
-    "FONTI.DAT": {"fields": 8, "id_re": r"^S\d{6}$", "id_col": 0},
-    "EVENTI.DAT": {"fields": 8, "id_re": r"^E\d{6}$", "id_col": 0},
+    data_dir / "PERSONE.DAT": (13, r"^P\d{6}$"),
+    data_dir / "FAMIGLIE.DAT": (10, r"^F\d{6}$"),
+    data_dir / "FONTI.DAT": (8, r"^S\d{6}$"),
+    data_dir / "EVENTI.DAT": (8, r"^E\d{6}$"),
+    ar_dir / "CASATI.DAT": (7, r"^C\d{6}$"),
+    ar_dir / "RAMI.DAT": (6, r"^R\d{6}$"),
+    ar_dir / "STEMMI.DAT": (11, r"^H\d{6}$"),
+    ar_dir / "APPARTENENZE.DAT": (8, r"^A\d{6}$"),
+    ar_dir / "ALLIANZE.DAT": (7, r"^L\d{6}$"),
 }
 
-def parse_file(path, expected_fields):
+def is_date_ok(v):
+    if not v:
+        return True
+    return bool(re.match(r"^\d{4}(-\d{2}(-\d{2})?)?$", v))
+
+def read_rows(path, expected):
     rows = []
-    issues = []
+    errs = []
     if not path.exists():
-        issues.append(f"ERROR|{path.name}|MISSING_FILE")
-        return rows, issues
-    for i, raw in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+        errs.append(f"ERROR|{path.name}|MISSING_FILE")
+        return rows, errs
+    for ln, raw in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
         line = raw.strip()
         if not line or line.startswith("#"):
             continue
         cols = line.split("|")
-        if len(cols) != expected_fields:
-            issues.append(f"ERROR|{path.name}|LINE_{i}|BAD_FIELD_COUNT|EXPECTED={expected_fields}|FOUND={len(cols)}")
+        if len(cols) != expected:
+            errs.append(f"ERROR|{path.name}|LINE_{ln}|FIELD_COUNT|EXPECTED={expected}|FOUND={len(cols)}")
             continue
-        rows.append((i, cols))
-    return rows, issues
+        rows.append((ln, cols))
+    return rows, errs
 
-def valid_date(v):
-    if v == "":
-        return True
-    if not re.match(r"^\d{4}-\d{2}-\d{2}$", v):
-        return False
-    try:
-        datetime.date.fromisoformat(v)
-    except ValueError:
-        return False
-    return True
-
-issues = []
 rows = {}
+issues = []
 ids = {}
 
-for fn, s in spec.items():
-    r, isf = parse_file(data_dir / fn, s["fields"])
-    rows[fn] = r
-    issues.extend(isf)
+for p, (cnt, id_re) in spec.items():
+    rr, ee = read_rows(p, cnt)
+    rows[p.name] = rr
+    issues.extend(ee)
     seen = set()
-    ids[fn] = set()
-    for ln, cols in r:
-        rid = cols[s["id_col"]]
-        if not re.match(s["id_re"], rid):
-            issues.append(f"ERROR|{fn}|LINE_{ln}|BAD_ID_FORMAT|VALUE={rid}")
+    ids[p.name] = set()
+    for ln, c in rr:
+        rid = c[0]
+        if not re.match(id_re, rid):
+            issues.append(f"ERROR|{p.name}|LINE_{ln}|BAD_ID|{rid}")
         if rid in seen:
-            issues.append(f"ERROR|{fn}|LINE_{ln}|DUPLICATE_ID|VALUE={rid}")
+            issues.append(f"ERROR|{p.name}|LINE_{ln}|DUPLICATE_ID|{rid}")
         seen.add(rid)
-        ids[fn].add(rid)
+        ids[p.name].add(rid)
 
-fam_ids = ids.get("FAMIGLIE.DAT", set())
-src_ids = ids.get("FONTI.DAT", set())
-per_ids = ids.get("PERSONE.DAT", set())
+person_ids = ids.get("PERSONE.DAT", set())
+family_ids = ids.get("FAMIGLIE.DAT", set())
+source_ids = ids.get("FONTI.DAT", set())
+casati_ids = ids.get("CASATI.DAT", set())
+rami_ids = ids.get("RAMI.DAT", set())
 
-# PERSONE checks
 for ln, c in rows.get("PERSONE.DAT", []):
-    if c[3] not in {"M", "F", "U"}:
-        issues.append(f"ERROR|PERSONE.DAT|LINE_{ln}|BAD_SESSO|VALUE={c[3]}")
-    for idx in (4, 6):
-        if not valid_date(c[idx]):
-            issues.append(f"ERROR|PERSONE.DAT|LINE_{ln}|BAD_DATE|COL={idx+1}|VALUE={c[idx]}")
-    if c[8] and c[8] not in fam_ids:
-        issues.append(f"ERROR|PERSONE.DAT|LINE_{ln}|MISSING_FAMILY_REF|VALUE={c[8]}")
-    if c[9]:
-        for sid in [x.strip() for x in c[9].split(",") if x.strip()]:
-            if sid not in src_ids:
-                issues.append(f"ERROR|PERSONE.DAT|LINE_{ln}|MISSING_SOURCE_REF|VALUE={sid}")
+    for idx in (5, 7):
+        if not is_date_ok(c[idx]):
+            issues.append(f"ERROR|PERSONE.DAT|LINE_{ln}|BAD_DATE|COL={idx+1}|VAL={c[idx]}")
+    for ref in (c[9], c[10]):
+        if ref and ref not in family_ids:
+            issues.append(f"ERROR|PERSONE.DAT|LINE_{ln}|MISSING_FAMILY_REF|{ref}")
+    if c[11]:
+        for sid in [x.strip() for x in c[11].split(",") if x.strip()]:
+            if sid not in source_ids:
+                issues.append(f"ERROR|PERSONE.DAT|LINE_{ln}|MISSING_SOURCE_REF|{sid}")
 
-# FAMIGLIE checks
 for ln, c in rows.get("FAMIGLIE.DAT", []):
+    for ref in (c[3], c[4]):
+        if ref and ref not in person_ids:
+            issues.append(f"ERROR|FAMIGLIE.DAT|LINE_{ln}|MISSING_PERSON_REF|{ref}")
     if c[5]:
-        for sid in [x.strip() for x in c[5].split(",") if x.strip()]:
-            if sid not in src_ids:
-                issues.append(f"ERROR|FAMIGLIE.DAT|LINE_{ln}|MISSING_SOURCE_REF|VALUE={sid}")
+        for pid in [x.strip() for x in c[5].split(",") if x.strip()]:
+            if pid not in person_ids:
+                issues.append(f"ERROR|FAMIGLIE.DAT|LINE_{ln}|MISSING_CHILD_REF|{pid}")
+    if not is_date_ok(c[6]):
+        issues.append(f"ERROR|FAMIGLIE.DAT|LINE_{ln}|BAD_DATE|COL=7|VAL={c[6]}")
+    if c[8]:
+        for sid in [x.strip() for x in c[8].split(",") if x.strip()]:
+            if sid not in source_ids:
+                issues.append(f"ERROR|FAMIGLIE.DAT|LINE_{ln}|MISSING_SOURCE_REF|{sid}")
 
-# FONTI checks
 for ln, c in rows.get("FONTI.DAT", []):
-    if not valid_date(c[3]):
-        issues.append(f"ERROR|FONTI.DAT|LINE_{ln}|BAD_DATE|COL=4|VALUE={c[3]}")
+    if not is_date_ok(c[3]):
+        issues.append(f"ERROR|FONTI.DAT|LINE_{ln}|BAD_DATE|COL=4|VAL={c[3]}")
 
-# EVENTI checks
 for ln, c in rows.get("EVENTI.DAT", []):
-    if not valid_date(c[2]):
-        issues.append(f"ERROR|EVENTI.DAT|LINE_{ln}|BAD_DATE|COL=3|VALUE={c[2]}")
-    if not c[4] and not c[5]:
-        issues.append(f"ERROR|EVENTI.DAT|LINE_{ln}|MISSING_OWNER_REF|EXPECT_PERSON_OR_FAMILY")
-    if c[4] and c[4] not in per_ids:
-        issues.append(f"ERROR|EVENTI.DAT|LINE_{ln}|MISSING_PERSON_REF|VALUE={c[4]}")
-    if c[5] and c[5] not in fam_ids:
-        issues.append(f"ERROR|EVENTI.DAT|LINE_{ln}|MISSING_FAMILY_REF|VALUE={c[5]}")
-    if c[6] and c[6] not in src_ids:
-        issues.append(f"ERROR|EVENTI.DAT|LINE_{ln}|MISSING_SOURCE_REF|VALUE={c[6]}")
+    if not is_date_ok(c[2]):
+        issues.append(f"ERROR|EVENTI.DAT|LINE_{ln}|BAD_DATE|COL=3|VAL={c[2]}")
+    if c[4] and c[4] not in person_ids:
+        issues.append(f"ERROR|EVENTI.DAT|LINE_{ln}|MISSING_PERSON_REF|{c[4]}")
+    if c[5] and c[5] not in family_ids:
+        issues.append(f"ERROR|EVENTI.DAT|LINE_{ln}|MISSING_FAMILY_REF|{c[5]}")
+    if c[6] and c[6] not in source_ids:
+        issues.append(f"ERROR|EVENTI.DAT|LINE_{ln}|MISSING_SOURCE_REF|{c[6]}")
 
-summary = []
-summary.append("VALIDATION REPORT")
-summary.append("=================")
-for fn in spec:
-    summary.append(f"FILE|{fn}|RECORDS={len(rows.get(fn, []))}")
-summary.append(f"ISSUES|COUNT={len(issues)}")
+for ln, c in rows.get("CASATI.DAT", []):
+    if not is_date_ok(c[3]) or not is_date_ok(c[4]):
+        issues.append(f"ERROR|CASATI.DAT|LINE_{ln}|BAD_DATE_RANGE")
+    if c[6] and c[6] not in source_ids:
+        issues.append(f"ERROR|CASATI.DAT|LINE_{ln}|MISSING_SOURCE_REF|{c[6]}")
 
-print("\n".join(summary))
-for i in issues:
-    print(i)
+for ln, c in rows.get("RAMI.DAT", []):
+    if c[1] and c[1] not in casati_ids:
+        issues.append(f"ERROR|RAMI.DAT|LINE_{ln}|MISSING_CASATO_REF|{c[1]}")
+    if not is_date_ok(c[3]) or not is_date_ok(c[4]):
+        issues.append(f"ERROR|RAMI.DAT|LINE_{ln}|BAD_DATE_RANGE")
 
-report_lines = summary + issues
-report_file.write_text("\n".join(report_lines) + "\n", encoding="utf-8")
+missing_assets = []
+for ln, c in rows.get("STEMMI.DAT", []):
+    if c[1] and c[1] not in casati_ids:
+        issues.append(f"ERROR|STEMMI.DAT|LINE_{ln}|MISSING_CASATO_REF|{c[1]}")
+    if c[2] and c[2] not in rami_ids:
+        issues.append(f"ERROR|STEMMI.DAT|LINE_{ln}|MISSING_RAMO_REF|{c[2]}")
+    if not is_date_ok(c[6]) or not is_date_ok(c[7]):
+        issues.append(f"ERROR|STEMMI.DAT|LINE_{ln}|BAD_DATE_RANGE")
+    if not re.match(r"^\d+$", c[8]):
+        issues.append(f"ERROR|STEMMI.DAT|LINE_{ln}|BAD_PRIORITY|{c[8]}")
+    if c[9] and c[9] not in source_ids:
+        issues.append(f"ERROR|STEMMI.DAT|LINE_{ln}|MISSING_SOURCE_REF|{c[9]}")
+    if c[5]:
+        rel = pathlib.Path(c[5]).as_posix()
+        if rel.startswith("assets/heraldry/"):
+            ap = asset_dir / pathlib.Path(rel).name
+            if not ap.exists():
+                missing_assets.append(f"MISSING_ASSET|{c[0]}|{c[5]}")
 
+for ln, c in rows.get("APPARTENENZE.DAT", []):
+    if c[1] and c[1] not in person_ids:
+        issues.append(f"ERROR|APPARTENENZE.DAT|LINE_{ln}|MISSING_PERSON_REF|{c[1]}")
+    if c[2] and c[2] not in casati_ids:
+        issues.append(f"ERROR|APPARTENENZE.DAT|LINE_{ln}|MISSING_CASATO_REF|{c[2]}")
+    if c[3] and c[3] not in rami_ids:
+        issues.append(f"ERROR|APPARTENENZE.DAT|LINE_{ln}|MISSING_RAMO_REF|{c[3]}")
+    if not is_date_ok(c[5]) or not is_date_ok(c[6]):
+        issues.append(f"ERROR|APPARTENENZE.DAT|LINE_{ln}|BAD_DATE_RANGE")
+
+for ln, c in rows.get("ALLIANZE.DAT", []):
+    if c[1] and c[1] not in casati_ids:
+        issues.append(f"ERROR|ALLIANZE.DAT|LINE_{ln}|MISSING_CASATO_REF|{c[1]}")
+    if c[2] and c[2] not in casati_ids:
+        issues.append(f"ERROR|ALLIANZE.DAT|LINE_{ln}|MISSING_CASATO_REF|{c[2]}")
+    if not is_date_ok(c[3]) or not is_date_ok(c[4]):
+        issues.append(f"ERROR|ALLIANZE.DAT|LINE_{ln}|BAD_DATE_RANGE")
+    if c[6] and c[6] not in source_ids:
+        issues.append(f"ERROR|ALLIANZE.DAT|LINE_{ln}|MISSING_SOURCE_REF|{c[6]}")
+
+report = ["VALIDATION REPORT", "================="]
+for name in ("PERSONE.DAT", "FAMIGLIE.DAT", "FONTI.DAT", "EVENTI.DAT", "CASATI.DAT", "RAMI.DAT", "STEMMI.DAT", "APPARTENENZE.DAT", "ALLIANZE.DAT"):
+    report.append(f"FILE|{name}|RECORDS={len(rows.get(name, []))}")
+report.append(f"ISSUES|COUNT={len(issues)}")
+report.extend(issues)
+
+(out_dir / "VALIDATION_REPORT.txt").write_text("\n".join(report) + "\n", encoding="utf-8")
+(log_dir / "missing_heraldry_assets.log").write_text(("\n".join(missing_assets) if missing_assets else "# NONE\n") + "\n", encoding="utf-8")
+
+print("\n".join(report[:12]))
+if missing_assets:
+    print(f"WARN|MISSING_HERALDRY_ASSETS={len(missing_assets)}")
 if issues:
     sys.exit(1)
 PY
