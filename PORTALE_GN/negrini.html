@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GN300 · FAMIGLIA NEGRINI — RAMO MATERNO</title>
+<link rel="stylesheet" href="terminal.css">
+<style>
+.tab-nav { display:flex; gap:0; border-bottom:1px solid var(--border-hi); margin:8px 0 0; }
+.tab-btn { padding:6px 18px; font-family:inherit; font-size:12px; color:var(--fg-dim); background:#000900; border:1px solid var(--border); border-bottom:none; cursor:pointer; letter-spacing:1px; text-transform:uppercase; transition:color .1s,background .1s; }
+.tab-btn:hover { color:var(--fg-bright); }
+.tab-btn.active { color:var(--amber); background:var(--bg-panel); border-color:var(--border-hi); }
+.tab-pane { display:none; padding:10px 0; }
+.tab-pane.active { display:block; }
+.col-2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+@media (max-width:640px) { .col-2 { grid-template-columns:1fr; } }
+.tree-block { font-size:13px; line-height:1.9; padding:8px 14px; white-space:pre; overflow-x:auto; }
+.tree-block .tl { color:var(--fg-dim); }
+.tree-block .tn { color:var(--fg-bright); font-weight:700; }
+.tree-block .ti { color:var(--amber-dim); font-size:12px; }
+.tree-block .tu { color:var(--cyan-dim); }
+</style>
+</head>
+<body>
+<div class="terminal">
+
+<!-- HEADER -->
+<header class="sys-header">
+  <span class="sys-id">SIG·GN</span>
+  <span class="sys-meta">01/03/2026 21:02 &nbsp;|&nbsp; SESSIONE: ADM-001</span>
+  <span class="screen-id">GN300<br>LINEA NEGRINI</span>
+</header>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb">
+  <a href="index.html">⌂ HOME</a><span class="sep">›</span>
+  <a href="famiglie.html">FAMIGLIE</a><span class="sep">›</span>
+  <span class="curr">NEGRINI</span>
+</nav>
+
+<!-- TITLE -->
+<div class="title-block">
+  <h1>FAMIGLIA NEGRINI</h1>
+  <div class="tagline">RAMO MATERNO — 17 NOMINATIVI UNIVOCI — MACRO-GRUPPO 2</div>
+</div>
+
+<!-- KPI -->
+<div class="kpi-row">
+  <div class="kpi-box"><span class="kpi-value">17</span><span class="kpi-label">NOMINATIVI</span></div>
+  <div class="kpi-box"><span class="kpi-value">1</span><span class="kpi-label">VARIANTE (NEGRI)</span></div>
+  <div class="kpi-box"><span class="kpi-value">I0003</span><span class="kpi-label">CONGIUNZIONE GN</span></div>
+  <div class="kpi-box"><span class="kpi-value">ALTA</span><span class="kpi-label">PRIORITÀ RICERCA</span></div>
+</div>
+
+<!-- COBOL -->
+<div class="cobol-id">
+  <span class="kw">DATA DIVISION.</span><br>
+  &nbsp;&nbsp;<span class="kw">WORKING-STORAGE SECTION.</span><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">01 FAM-NEGRINI.</span><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">05 COGNOME-PRINCIPALE</span>&nbsp;&nbsp;<span class="val">PIC X(20) VALUE "NEGRINI".</span><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">05 MACRO-GRUPPO</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="val">PIC 9    VALUE 2.</span><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">05 NOMINATIVI-TOT</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="val">PIC 99   VALUE 17.</span><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">05 PUNTO-CONGIUNZIONE</span>&nbsp;<span class="val">PIC X(10) VALUE "I0003".</span><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">05 CONGIUNZIONE-CON</span>&nbsp;&nbsp;&nbsp;<span class="val">PIC X(20) VALUE "GIARDINA-DANIEL-I0001".</span>
+</div>
+
+<!-- TABS -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('nominativi',this)">NOMINATIVI (17)</button>
+  <button class="tab-btn" onclick="switchTab('albero',this)">ALBERO VISUALE</button>
+  <button class="tab-btn" onclick="switchTab('connessione',this)">CONNESSIONE GN</button>
+  <button class="tab-btn" onclick="switchTab('note',this)">NOTE &amp; VERIFICHE</button>
+</div>
+
+<!-- TAB: NOMINATIVI -->
+<div id="tab-nominativi" class="tab-pane active">
+<div class="section">
+  <div class="section-hdr">ELENCO NOMINATIVI — FAMIGLIA NEGRINI (17 REC.)</div>
+  <div class="section-body">
+  <div class="status-line" style="margin:0 0 6px;">
+    <span>NOTA: MAIUSCOLO = FORMATO ORIGINALE DA FONTE</span>
+    <span>ORDINAMENTO: PER ID</span>
+  </div>
+  <div class="person-row" style="color:var(--amber);font-size:11px;border-bottom:1px solid var(--border-hi);padding-bottom:4px;">
+    <span class="p-id">ID</span><span class="p-name">NOME COMPLETO</span><span class="p-info">NOTE</span>
+  </div>
+  <div class="person-row"><span class="p-id">I0003</span><span class="p-name">Negrini, Fiamma</span><span class="p-info" style="color:var(--fg-bright)">◄ CONGIUNZIONE GN (MADRE)</span></div>
+  <div class="person-row"><span class="p-id">I0007</span><span class="p-name">Negrini, Angelo</span><span class="p-info"></span></div>
+  <div class="person-row"><span class="p-id">I0020</span><span class="p-name">NEGRINI, CESARE (ANTONIO)</span><span class="p-info" style="color:var(--amber-dim)">FORMATO ORIGINALE</span></div>
+  <div class="person-row"><span class="p-id">I0024</span><span class="p-name">NEGRINI, MARIA VIRGINIA</span><span class="p-info"></span></div>
+  <div class="person-row"><span class="p-id">I0025</span><span class="p-name">NEGRINI, LUIGI ANTONIO</span><span class="p-info"></span></div>
+  <div class="person-row"><span class="p-id">I0027</span><span class="p-name">NEGRINI, ERMINIO</span><span class="p-info"></span></div>
+  <div class="person-row"><span class="p-id">I0028</span><span class="p-name">NEGRINI, BRUNO</span><span class="p-info"></span></div>
+  <div class="person-row"><span class="p-id">I0029</span><span class="p-name">NEGRINI, ROMANO</span><span class="p-info"></span></div>
+  <div class="person-row"><span class="p-id">I0031</span><span class="p-name">NEGRINI, GIACOMO</span><span class="p-info"></span></div>
+  <div class="person-row"><span class="p-id">I0033</span><span class="p-name">NEGRINI, ANTONIO</span><span class="p-info"></span></div>
+  <div class="person-row"><span class="p-id">I0034</span><span class="p-name">NEGRINI, ANTONIO MARIA</span><span class="p-info" style="color:var(--amber-dim)">⚠ OMONIMIA CON I0033?</span></div>
+  <div class="person-row"><span class="p-id">I0035</span><span class="p-name">NEGRINI, LUIGI GIUSEPPE</span><span class="p-info"></span></div>
+  <div class="person-row"><span class="p-id">I0047</span><span class="p-name">NEGRINI, NOEMI</span><span class="p-info"></span></div>
+  <div class="person-row"><span class="p-id">I0048</span><span class="p-name">NEGRINI, CESARE GIUSEPPE</span><span class="p-info" style="color:var(--amber-dim)">⚠ OMONIMIA CON I0020?</span></div>
+  <div class="person-row"><span class="p-id">I0049</span><span class="p-name">NEGRINI, VIRGINIA PASQUA (PASCHA)</span><span class="p-info"></span></div>
+  <div class="person-row"><span class="p-id">I0055</span><span class="p-name">NEGRINI, FRANCESCO</span><span class="p-info"></span></div>
+  <div class="person-row"><span class="p-id">I0068</span><span class="p-name">Negrini, Giuseppe</span><span class="p-info"></span></div>
+  </div>
+</div>
+<div class="alert alert-warn">⚠ 13 nominativi in MAIUSCOLO — formato originale da fonte da normalizzare. Possibili omonimie: Antonio×2, Cesare×2.</div>
+</div>
+
+<!-- TAB: ALBERO -->
+<div id="tab-albero" class="tab-pane">
+<div class="section">
+  <div class="section-hdr">ALBERO SCHEMATICO — LINEA NEGRINI (PARZIALE)</div>
+  <div class="section-body">
+<div class="tree-block"><span class="tl">RADICE LINEA NEGRINI</span>
+<span class="tl">└── </span><span class="tn">[NEGRINI, CESARE GIUSEPPE — I0048]</span>
+<span class="tl">    ├── </span><span class="tn">[NEGRINI, CESARE (ANTONIO) — I0020]</span>
+<span class="tl">    │   ├── </span><span class="tn">[NEGRINI, ERMINIO — I0027]</span>
+<span class="tl">    │   ├── </span><span class="tn">[NEGRINI, BRUNO — I0028]</span>
+<span class="tl">    │   ├── </span><span class="tn">[NEGRINI, ROMANO — I0029]</span>
+<span class="tl">    │   └── </span><span class="tn">[NEGRINI, GIACOMO — I0031]</span>
+<span class="tl">    │       └── </span><span class="tn">[Negrini, Angelo — I0007]</span>
+<span class="tl">    │           └── </span><span class="tn">[Negrini, Fiamma — I0003]</span> <span class="tu">◄ CONGIUNZIONE GIARDINA</span>
+<span class="tl">    ├── </span><span class="tn">[NEGRINI, LUIGI ANTONIO — I0025]</span>
+<span class="tl">    │   └── </span><span class="tn">[NEGRINI, LUIGI GIUSEPPE — I0035]</span>
+<span class="tl">    ├── </span><span class="tn">[NEGRINI, ANTONIO MARIA — I0034]</span>
+<span class="tl">    │   ├── </span><span class="tn">[NEGRINI, NOEMI — I0047]</span>
+<span class="tl">    │   ├── </span><span class="tn">[NEGRINI, VIRGINIA PASQUA — I0049]</span>
+<span class="tl">    │   └── </span><span class="tn">[NEGRINI, MARIA VIRGINIA — I0024]</span>
+<span class="tl">    └── </span><span class="tn">[NEGRINI, FRANCESCO — I0055]</span>
+<span class="tl">        └── </span><span class="tn">[Negrini, Giuseppe — I0068]</span>
+
+<span class="ti">NOTE: Struttura ipotetica basata su IDs — richiede validazione con
+      eventi (nascita, matrimonio, morte) e fonti primarie.</span></div>
+  </div>
+</div>
+</div>
+
+<!-- TAB: CONNESSIONE GN -->
+<div id="tab-connessione" class="tab-pane">
+<div class="section">
+  <div class="section-hdr">PUNTO DI CONGIUNZIONE GIARDINA ↔ NEGRINI</div>
+  <div class="section-body">
+    <div class="alert alert-ok">◈ NODO DI CONGIUNZIONE: Negrini, Fiamma (I0003) × Giardina, Franco (I0002/I0006)</div>
+    <br>
+    <div class="col-2">
+      <div>
+        <div class="field-pair"><span class="fl">LATO GIARDINA:</span><span class="fv">Franco Giardina (I0002 / I0006)</span></div>
+        <div class="field-pair"><span class="fl">FIGLIO:</span><span class="fv">Daniel Giardina (I0001) ◄ PROPONENTE</span></div>
+        <div class="field-pair"><span class="fl">MACRO-GRUPPO:</span><span class="fv">1 — Linea paterna diretta</span></div>
+        <div class="field-pair"><span class="fl">DETTAGLIO:</span><span class="fv"><a href="giardina.html">→ GN200 GIARDINA</a></span></div>
+      </div>
+      <div>
+        <div class="field-pair"><span class="fl">LATO NEGRINI:</span><span class="fv">Fiamma Negrini (I0003)</span></div>
+        <div class="field-pair"><span class="fl">PADRE:</span><span class="fv">Angelo Negrini (I0007)</span></div>
+        <div class="field-pair"><span class="fl">MACRO-GRUPPO:</span><span class="fv">2 — Ramo materno</span></div>
+        <div class="field-pair"><span class="fl">NOTE:</span><span class="fv">Unione matrimoniale da documentare con atto</span></div>
+      </div>
+    </div>
+    <br>
+    <div class="alert alert-warn">⚠ DOMANDA APERTA: Qual è il collegamento documentato tra Negrini e Giardina? Verificare con atti matrimoniali. → <a href="analisi.html">GN500 ANALISI</a></div>
+    <div class="alert alert-warn">⚠ Franco Giardina: OMONIMIA I0002 / I0006 — verificare quale sia il padre di Daniel (I0001)</div>
+  </div>
+</div>
+<div class="section">
+  <div class="section-hdr">FAMIGLIE DEL RAMO MATERNO (MACRO-GRUPPO 2)</div>
+  <div class="section-body">
+    <div class="person-row"><span class="p-id" style="width:130px;">Negrini</span><span class="p-name">Famiglia principale ramo materno — 17 nominativi</span><span class="p-info"><span class="badge b-green">ATTIVA</span></span></div>
+    <div class="person-row"><span class="p-id" style="width:130px;">Negri</span><span class="p-name">Possibile variante / ramo separato da Negrini</span><span class="p-info"><span class="badge b-amber">DA VERIF.</span></span></div>
+    <div class="person-row"><span class="p-id" style="width:130px;">Ingargia</span><span class="p-name">Connessione ramo materno</span><span class="p-info"><span class="badge b-amber">DA VERIF.</span></span></div>
+    <div class="person-row"><span class="p-id" style="width:130px;">Scammacca</span><span class="p-name">Connessione ramo materno</span><span class="p-info"><span class="badge b-amber">DA VERIF.</span></span></div>
+    <div class="person-row"><span class="p-id" style="width:130px;">Lo Porto</span><span class="p-name">Connessione ramo materno</span><span class="p-info"><span class="badge b-amber">DA VERIF.</span></span></div>
+  </div>
+</div>
+</div>
+
+<!-- TAB: NOTE -->
+<div id="tab-note" class="tab-pane">
+<div class="section">
+  <div class="section-hdr">VERIFICHE PRIORITARIE — FAMIGLIA NEGRINI</div>
+  <div class="section-body">
+    <div class="field-pair"><span class="fl">FONTE ESTRAZIONE:</span><span class="fv">det_ancestor_report.txt + file GED</span></div>
+    <div class="field-pair"><span class="fl">STATO SCHEDA:</span><span class="fv"><span class="badge b-amber">IN COMPILAZIONE</span></span></div>
+    <div class="field-pair"><span class="fl">PROBLEMA 1:</span><span class="fv">13 nominativi in MAIUSCOLO — normalizzazione necessaria</span></div>
+    <div class="field-pair"><span class="fl">PROBLEMA 2:</span><span class="fv">Omonimie Antonio×2, Cesare×2 — distinguere per date/luoghi</span></div>
+    <div class="field-pair"><span class="fl">RICERCA 1:</span><span class="fv">Atti matrimoniali Negrini-Giardina per documentare congiunzione</span></div>
+    <div class="field-pair"><span class="fl">RICERCA 2:</span><span class="fv">Registri parrocchiali / stato civile per validare struttura familiare</span></div>
+    <div class="field-pair"><span class="fl">RICERCA 3:</span><span class="fv">Verificare esistenza altri Negrini nella stessa area geografica</span></div>
+    <div class="field-pair"><span class="fl">AREE GEOGRAFICHE:</span><span class="fv">Da definire — verificare origine geografica ramo Negrini</span></div>
+  </div>
+</div>
+</div>
+
+<!-- STATUS -->
+<div class="status-line">
+  <span>RECORD ATTIVO: NEGRINI (F-009)</span>
+  <span>17 NOMINATIVI — 2 OMONIMIE POSSIBILI — 13 DA NORMALIZZARE</span>
+</div>
+
+<!-- PF-KEY BAR -->
+<footer class="pf-bar">
+  <a class="pf" href="index.html"><span class="pf-k">PF1</span><span class="pf-l">HOME</span></a>
+  <a class="pf" href="famiglie.html"><span class="pf-k">PF3</span><span class="pf-l">FAMIGLIE</span></a>
+  <a class="pf" href="giardina.html"><span class="pf-k">PF4</span><span class="pf-l">GIARDINA</span></a>
+  <a class="pf" href="negrini.html"><span class="pf-k">PF5</span><span class="pf-l">NEGRINI</span></a>
+  <a class="pf" href="nobili.html"><span class="pf-k">PF6</span><span class="pf-l">NOBILI</span></a>
+  <a class="pf" href="analisi.html"><span class="pf-k">PF7</span><span class="pf-l">ANALISI</span></a>
+  <a class="pf" href="media.html"><span class="pf-k">PF9</span><span class="pf-l">MEDIA</span></a>
+</footer>
+</div>
+
+<script>
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GN600 · FONTI E DOCUMENTI</title>
+<link rel="stylesheet" href="terminal.css">
+<style>
+.tab-nav { display:flex; gap:0; border-bottom:1px solid var(--border-hi); margin:8px 0 0; }
+.tab-btn { padding:6px 16px; font-family:inherit; font-size:12px; color:var(--fg-dim); background:#000900; border:1px solid var(--border); border-bottom:none; cursor:pointer; letter-spacing:1px; text-transform:uppercase; }
+.tab-btn:hover { color:var(--fg-bright); }
+.tab-btn.active { color:var(--amber); background:var(--bg-panel); border-color:var(--border-hi); }
+.tab-pane { display:none; padding:8px 0; }
+.tab-pane.active { display:block; }
+
+.source-card {
+  border: 1px solid var(--border);
+  margin: 6px 0;
+  background: var(--bg-panel);
+}
+.source-hdr {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 7px 14px;
+  background: #001000;
+  border-bottom: 1px solid var(--border);
+}
+.source-type {
+  font-size: 10px;
+  padding: 2px 7px;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+.source-name { color: var(--fg-bright); font-weight: 700; flex: 1; font-size: 13px; }
+.source-body { padding: 10px 14px; }
+
+.t-primaria  { color: var(--fg-bright); border: 1px solid var(--fg-dim); }
+.t-secondaria{ color: var(--amber);     border: 1px solid var(--amber-dim); }
+.t-terziaria { color: var(--cyan);      border: 1px solid var(--cyan-dim); }
+.t-digitale  { color: var(--fg-mid);    border: 1px solid var(--border-hi); }
+
+.col-2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+@media (max-width:640px) { .col-2 { grid-template-columns:1fr; } }
+
+.citazione {
+  font-size: 12px;
+  color: var(--fg-dim);
+  border-left: 2px solid var(--border-hi);
+  padding: 4px 10px;
+  margin: 6px 0;
+  font-style: italic;
+}
+</style>
+</head>
+<body>
+<div class="terminal">
+
+<!-- HEADER -->
+<header class="sys-header">
+  <span class="sys-id">SIG·GN</span>
+  <span class="sys-meta">01/03/2026 21:02 &nbsp;|&nbsp; SESSIONE: ADM-001</span>
+  <span class="screen-id">GN600<br>FONTI</span>
+</header>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb">
+  <a href="index.html">⌂ HOME</a><span class="sep">›</span>
+  <span class="curr">FONTI E DOCUMENTI</span>
+</nav>
+
+<!-- TITLE -->
+<div class="title-block">
+  <h1>FONTI E DOCUMENTI</h1>
+  <div class="tagline">ARCHIVIO DOCUMENTALE — ATTI · ARCHIVI · TRASCRIZIONI · BIBLIOGRAFIA</div>
+</div>
+
+<!-- KPI -->
+<div class="kpi-row">
+  <div class="kpi-box"><span class="kpi-value">5</span><span class="kpi-label">FILE GED/TREE</span></div>
+  <div class="kpi-box"><span class="kpi-value">1</span><span class="kpi-label">FILE XLSX</span></div>
+  <div class="kpi-box"><span class="kpi-value">1</span><span class="kpi-label">FILE PDF (BLASONE)</span></div>
+  <div class="kpi-box"><span class="kpi-value">3</span><span class="kpi-label">TIPI FONTE</span></div>
+</div>
+
+<!-- COBOL -->
+<div class="cobol-id">
+  <span class="kw">ENVIRONMENT DIVISION.</span><br>
+  &nbsp;&nbsp;<span class="kw">INPUT-OUTPUT SECTION.</span><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">FILE-CONTROL.</span><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">SELECT FONTI-FILE</span> <span class="val">ASSIGN TO "03_Fonti_e_Documenti"</span><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="val">ORGANIZATION IS INDEXED.</span><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">SELECT DATASET-FILE</span> <span class="val">ASSIGN TO "01_Dati_Genealogici_Verificati"</span><br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="val">ORGANIZATION IS SEQUENTIAL.</span>
+</div>
+
+<!-- TABS -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('dataset',this)">DATASET PRINCIPALE</button>
+  <button class="tab-btn" onclick="switchTab('atti',this)">ATTI E ARCHIVI</button>
+  <button class="tab-btn" onclick="switchTab('biblio',this)">BIBLIOGRAFIA</button>
+  <button class="tab-btn" onclick="switchTab('standard',this)">STANDARD CITAZIONE</button>
+</div>
+
+<!-- ══ TAB: DATASET ════════════════════════════════════════════════════════ -->
+<div id="tab-dataset" class="tab-pane active">
+
+<div class="status-line" style="margin:4px 0 8px;">
+  <span>PATH: 01_Dati_Genealogici_Verificati/Dataset_originali/</span>
+  <span>5 FILE GENEALOGICI + 1 XLSX</span>
+</div>
+
+<!-- ROOTSMAGIC -->
+<div class="source-card">
+  <div class="source-hdr">
+    <span class="source-type t-primaria badge">PRIMARIO</span>
+    <span class="source-name">Albero Genealogico 20260301.rmtree</span>
+    <span style="color:var(--fg-dim);font-size:11px;">RootsMagic</span>
+  </div>
+  <div class="source-body">
+    <div class="col-2">
+      <div>
+        <div class="field-pair"><span class="fl">FORMATO:</span><span class="fv">RootsMagic (.rmtree)</span></div>
+        <div class="field-pair"><span class="fl">DATA:</span><span class="fv">01/03/2026</span></div>
+        <div class="field-pair"><span class="fl">PATH:</span><span class="fv">01_Dati_Genealogici_Verificati/Dataset_originali/</span></div>
+      </div>
+      <div>
+        <div class="field-pair"><span class="fl">CONTENUTO:</span><span class="fv">Albero genealogico principale — formato nativo RootsMagic 8+</span></div>
+        <div class="field-pair"><span class="fl">STATO:</span><span class="fv"><span class="badge b-green">DISPONIBILE</span></span></div>
+        <div class="field-pair"><span class="fl">PRIORITÀ:</span><span class="fv">ALTA — fonte di riferimento principale</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GED PRINCIPALE -->
+<div class="source-card">
+  <div class="source-hdr">
+    <span class="source-type t-primaria badge">PRIMARIO</span>
+    <span class="source-name">Albero Genealogico famiglia Giardina - Negrini.ged</span>
+    <span style="color:var(--fg-dim);font-size:11px;">GEDCOM</span>
+  </div>
+  <div class="source-body">
+    <div class="col-2">
+      <div>
+        <div class="field-pair"><span class="fl">FORMATO:</span><span class="fv">GEDCOM 5.5.1 standard</span></div>
+        <div class="field-pair"><span class="fl">FAMIGLIE:</span><span class="fv">Giardina + Negrini (dataset completo)</span></div>
+        <div class="field-pair"><span class="fl">STATO:</span><span class="fv"><span class="badge b-green">DISPONIBILE</span></span></div>
+      </div>
+      <div>
+        <div class="field-pair"><span class="fl">CONTENUTO:</span><span class="fv">Export GED completo — compatibile con tutti i software genealogici</span></div>
+        <div class="field-pair"><span class="fl">NOTE:</span><span class="fv">Fonte per estrazione delle 45 schede famiglia</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GED ANCESTRIS -->
+<div class="source-card">
+  <div class="source-hdr">
+    <span class="source-type t-secondaria badge">SECONDARIO</span>
+    <span class="source-name">Albero Genealogico famiglia Giardina - Negrini_ancestris.ged</span>
+    <span style="color:var(--fg-dim);font-size:11px;">Ancestris/GEDCOM</span>
+  </div>
+  <div class="source-body">
+    <div class="field-pair"><span class="fl">FORMATO:</span><span class="fv">GEDCOM con estensioni Ancestris</span></div>
+    <div class="field-pair"><span class="fl">NOTA:</span><span class="fv">Versione Ancestris — può contenere tag estesi non standard</span></div>
+    <div class="field-pair"><span class="fl">STATO:</span><span class="fv"><span class="badge b-green">DISPONIBILE</span></span></div>
+  </div>
+</div>
+
+<!-- AQ FILES -->
+<div class="source-card">
+  <div class="source-hdr">
+    <span class="source-type t-secondaria badge">SECONDARIO</span>
+    <span class="source-name">Giardina - Negrini.aq / .aq_FMPHints</span>
+    <span style="color:var(--fg-dim);font-size:11px;">Ancestris native</span>
+  </div>
+  <div class="source-body">
+    <div class="field-pair"><span class="fl">FORMATO:</span><span class="fv">Ancestris .aq (formato nativo) + file hints FamilyTreeMaker</span></div>
+    <div class="field-pair"><span class="fl">CONTENUTO:</span><span class="fv">Database nativo Ancestris con suggerimenti FMP integrati</span></div>
+    <div class="field-pair"><span class="fl">STATO:</span><span class="fv"><span class="badge b-green">DISPONIBILE</span></span></div>
+  </div>
+</div>
+
+<!-- GED GIARDINA SINGOLO -->
+<div class="source-card">
+  <div class="source-hdr">
+    <span class="source-type t-secondaria badge">SECONDARIO</span>
+    <span class="source-name">Giardina.ged</span>
+    <span style="color:var(--fg-dim);font-size:11px;">GEDCOM singolo ramo</span>
+  </div>
+  <div class="source-body">
+    <div class="field-pair"><span class="fl">FORMATO:</span><span class="fv">GEDCOM — solo ramo Giardina</span></div>
+    <div class="field-pair"><span class="fl">NOTE:</span><span class="fv">Export parziale — solo linea Giardina senza Negrini</span></div>
+    <div class="field-pair"><span class="fl">STATO:</span><span class="fv"><span class="badge b-green">DISPONIBILE</span></span></div>
+  </div>
+</div>
+
+<!-- XLSX -->
+<div class="source-card">
+  <div class="source-hdr">
+    <span class="source-type t-digitale badge">ANALISI</span>
+    <span class="source-name">Analisi_Qualita_Dati.xlsx</span>
+    <span style="color:var(--fg-dim);font-size:11px;">Excel</span>
+  </div>
+  <div class="source-body">
+    <div class="field-pair"><span class="fl">FORMATO:</span><span class="fv">Microsoft Excel (.xlsx)</span></div>
+    <div class="field-pair"><span class="fl">CONTENUTO:</span><span class="fv">Analisi qualità dati — metriche, completezza, validazione</span></div>
+    <div class="field-pair"><span class="fl">STATO:</span><span class="fv"><span class="badge b-amber">DA COMPLETARE</span></span></div>
+    <div class="field-pair"><span class="fl">AZIONE:</span><span class="fv">Completare dopo validazione nominativi e risoluzione omonimie</span></div>
+  </div>
+</div>
+
+<!-- REPORT TXT -->
+<div class="source-card">
+  <div class="source-hdr">
+    <span class="source-type t-digitale badge">ESTRAZIONE</span>
+    <span class="source-name">Prova import_det_ancestor_report.txt</span>
+    <span style="color:var(--fg-dim);font-size:11px;">Testo — Ancestris Report</span>
+  </div>
+  <div class="source-body">
+    <div class="field-pair"><span class="fl">FORMATO:</span><span class="fv">Testo plain (.txt) — report dettagliato Ancestris</span></div>
+    <div class="field-pair"><span class="fl">UTILIZZO:</span><span class="fv">Fonte per estrazione nominativi nelle 45 schede famiglia</span></div>
+    <div class="field-pair"><span class="fl">PATH:</span><span class="fv">05_Analisi_e_Report/Prova import_det_ancestor_report.txt</span></div>
+    <div class="field-pair"><span class="fl">STATO:</span><span class="fv"><span class="badge b-green">UTILIZZATO</span></span></div>
+  </div>
+</div>
+</div>
+
+<!-- ══ TAB: ATTI E ARCHIVI ═════════════════════════════════════════════════ -->
+<div id="tab-atti" class="tab-pane">
+
+<div class="alert alert-info">ℹ Struttura archivio pronta in 03_Fonti_e_Documenti. Documenti fisici da catalogare progressivamente.</div>
+
+<div class="col-2">
+  <div class="section">
+    <div class="section-hdr">ATTI — SOTTOCARTELLE DISPONIBILI</div>
+    <div class="section-body">
+      <div class="person-row">
+        <span class="p-id" style="width:120px;">stato_civile/</span>
+        <span class="p-name">Atti di nascita, matrimonio, morte — registro civile</span>
+        <span class="p-info"><span class="badge b-amber">DA POP.</span></span>
+      </div>
+      <div class="person-row">
+        <span class="p-id" style="width:120px;">parrocchiali/</span>
+        <span class="p-name">Registri battesimi, matrimoni, sepolture — archivi parrocchiali</span>
+        <span class="p-info"><span class="badge b-amber">DA POP.</span></span>
+      </div>
+      <div class="person-row">
+        <span class="p-id" style="width:120px;">notarili/</span>
+        <span class="p-name">Testamenti, contratti, atti di vendita — fondi notarili</span>
+        <span class="p-info"><span class="badge b-amber">DA POP.</span></span>
+      </div>
+      <div class="person-row">
+        <span class="p-id" style="width:120px;">militari/</span>
+        <span class="p-name">Ruoli matricolari, liste di leva, archivi militari</span>
+        <span class="p-info"><span class="badge b-amber">DA POP.</span></span>
+      </div>
+      <div class="person-row">
+        <span class="p-id" style="width:120px;">giudiziari/</span>
+        <span class="p-name">Atti giudiziari, successioni, tutele</span>
+        <span class="p-info"><span class="badge b-amber">DA POP.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-hdr">ARCHIVI DA CONSULTARE</div>
+    <div class="section-body">
+      <div class="person-row">
+        <span class="p-id" style="width:30px;">▸</span>
+        <span class="p-name">Archivi di Stato — sedi competenti per aree di interesse</span>
+        <span class="p-info"><span class="badge b-amber">DA DEF.</span></span>
+      </div>
+      <div class="person-row">
+        <span class="p-id" style="width:30px;">▸</span>
+        <span class="p-name">Archivi diocesani — registri parrocchiali pre-stato civile</span>
+        <span class="p-info"><span class="badge b-amber">DA DEF.</span></span>
+      </div>
+      <div class="person-row">
+        <span class="p-id" style="width:30px;">▸</span>
+        <span class="p-name">Archivi comunali — anagrafi storiche, censimenti</span>
+        <span class="p-info"><span class="badge b-amber">DA DEF.</span></span>
+      </div>
+      <div class="person-row">
+        <span class="p-id" style="width:30px;">▸</span>
+        <span class="p-name">Portali digitalizzazione (FamilySearch, Antenati, ecc.)</span>
+        <span class="p-info"><span class="badge b-green">ONLINE</span></span>
+      </div>
+      <div class="person-row">
+        <span class="p-id" style="width:30px;">▸</span>
+        <span class="p-name">Archivio Storico Diocesano — per aree siciliane</span>
+        <span class="p-info"><span class="badge b-amber">DA CONT.</span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-hdr">TRASCRIZIONI — 03_Fonti_e_Documenti/Trascrizioni/</div>
+  <div class="section-body">
+    <div class="alert alert-warn">⚠ Cartella vuota — da popolare con trascrizioni di documenti originali man mano che vengono acquisiti</div>
+    <div class="field-pair" style="margin-top:8px;"><span class="fl">STANDARD:</span><span class="fv">Trascrizioni fedeli con note paleografiche — citare sempre l'originale</span></div>
+    <div class="field-pair"><span class="fl">FORMATO:</span><span class="fv">File .md o .txt — nomenclatura: TIPO_COGNOME_ANNO_LUOGO</span></div>
+  </div>
+</div>
+
+<div class="source-card">
+  <div class="source-hdr">
+    <span class="source-type t-terziaria badge">ARALDICA</span>
+    <span class="source-name">Blasone.pdf</span>
+    <span style="color:var(--fg-dim);font-size:11px;">PDF — Araldica</span>
+  </div>
+  <div class="source-body">
+    <div class="field-pair"><span class="fl">PATH:</span><span class="fv">03_Fonti_e_Documenti/Blasone.pdf</span></div>
+    <div class="field-pair"><span class="fl">CONTENUTO:</span><span class="fv">Documento araldico — da classificare</span></div>
+    <div class="field-pair"><span class="fl">CORRELAZIONE:</span><span class="fv">Possibile riferimento a famiglie nobili documentate → <a href="nobili.html">GN400</a></span></div>
+  </div>
+</div>
+</div>
+
+<!-- ══ TAB: BIBLIOGRAFIA ══════════════════════════════════════════════════ -->
+<div id="tab-biblio" class="tab-pane">
+<div class="status-line" style="margin:4px 0 8px;">
+  <span>PATH: 03_Fonti_e_Documenti/Riferimenti_bibliografici.md</span>
+</div>
+<div class="section">
+  <div class="section-hdr">RIFERIMENTI BIBLIOGRAFICI — CATEGORIE</div>
+  <div class="section-body">
+
+  <div style="color:var(--amber);font-size:11px;letter-spacing:1px;margin-bottom:6px;">FONTI STORICHE E ARALDICHE</div>
+  <div class="source-card">
+    <div class="source-hdr">
+      <span class="source-type t-terziaria badge">TERZIARIA</span>
+      <span class="source-name">Famiglie Nobili Siciliane — documentazione web</span>
+    </div>
+    <div class="source-body">
+      <div class="field-pair"><span class="fl">FILE:</span><span class="fv">07_Famiglie/FAMIGLIE_NOBILI_DOCUMENTATE_WEB.md</span></div>
+      <div class="field-pair"><span class="fl">CONTENUTO:</span><span class="fv">Documentazione online famiglie nobili siciliane (Alagona, Naselli, Barresi, Gravina, Valguarnera)</span></div>
+      <div class="field-pair"><span class="fl">AVVERTENZA:</span><span class="fv">Fonte terziaria — verificare sempre con fonti primarie prima di usare nei dati</span></div>
+    </div>
+  </div>
+
+  <div class="source-card">
+    <div class="source-hdr">
+      <span class="source-type t-terziaria badge">TERZIARIA</span>
+      <span class="source-name">Wikimedia Commons — Stemmi Araldici</span>
+    </div>
+    <div class="source-body">
+      <div class="field-pair"><span class="fl">UTILIZZO:</span><span class="fv">7 stemmi araldici familiari acquisiti — licenze CC BY-SA 3.0/4.0</span></div>
+      <div class="field-pair"><span class="fl">REGISTRO:</span><span class="fv">07_Famiglie/STEMMI_REGISTRO.md</span></div>
+      <div class="field-pair"><span class="fl">LINK:</span><span class="fv"><a href="nobili.html">→ GN400 FAMIGLIE NOBILI</a></span></div>
+    </div>
+  </div>
+
+  <div style="color:var(--amber);font-size:11px;letter-spacing:1px;margin:10px 0 6px;">CONNESSIONI STORICHE</div>
+  <div class="source-card">
+    <div class="source-hdr">
+      <span class="source-type t-secondaria badge">SECONDARIO</span>
+      <span class="source-name">Connessioni_Storiche.docx</span>
+    </div>
+    <div class="source-body">
+      <div class="field-pair"><span class="fl">PATH:</span><span class="fv">05_Analisi_e_Report/Connessioni_Storiche.docx</span></div>
+      <div class="field-pair"><span class="fl">CONTENUTO:</span><span class="fv">Analisi connessioni storiche tra famiglie del dataset</span></div>
+      <div class="field-pair"><span class="fl">STATO:</span><span class="fv"><span class="badge b-amber">DA COMPLETARE</span></span></div>
+    </div>
+  </div>
+
+  <div class="alert alert-warn" style="margin-top:8px;">⚠ Aggiornare Riferimenti_bibliografici.md in 03_Fonti_e_Documenti/ man mano che nuove fonti vengono consultate</div>
+  </div>
+</div>
+</div>
+
+<!-- ══ TAB: STANDARD CITAZIONE ════════════════════════════════════════════ -->
+<div id="tab-standard" class="tab-pane">
+<div class="section">
+  <div class="section-hdr">FORMATO STANDARD CITAZIONI — OBBLIGATORIO</div>
+  <div class="section-body">
+    <div class="alert alert-ok">◈ Ogni dato genealogico verificato DEVE essere accompagnato da citazione completa secondo questo formato</div>
+    <br>
+    <div class="field-pair"><span class="fl">FORMATO BASE:</span><span class="fv">[Tipo Fonte], [Archivio/Istituzione], [Serie/Fondo], [Vol./Reg./Pag.], [Data]</span></div>
+
+    <div style="color:var(--amber);font-size:11px;letter-spacing:1px;margin:10px 0 6px;">ESEMPI PER TIPO DI FONTE</div>
+
+    <div class="citazione">
+      Registro Parrocchiale Battesimi, Parrocchia di [Nome], [Diocesi], Registro n. [X], Anno [AAAA], c. [N].
+    </div>
+    <div class="citazione">
+      Atto di Matrimonio, Comune di [Nome], Registro Matrimoni [AAAA], n. [X], [GG/MM/AAAA].
+    </div>
+    <div class="citazione">
+      Atto Notarile, Archivio di Stato di [Città], Notai [Distretto], Notaio [Nome], vol. [X], c. [N], [Data].
+    </div>
+    <div class="citazione">
+      Censimento [Anno], Comune di [Nome], [Istituzione archivistica], [Serie], [Busta/Fascicolo].
+    </div>
+
+    <div style="color:var(--amber);font-size:11px;letter-spacing:1px;margin:10px 0 6px;">GERARCHIA AFFIDABILITÀ</div>
+    <table class="tbl">
+    <thead><tr><th>TIPO</th><th>AFFIDABILITÀ</th><th>PESO</th><th>UTILIZZO</th></tr></thead>
+    <tbody>
+    <tr><td><span class="badge t-primaria">PRIMARIA</span></td><td class="td-n">Documento originale d'epoca</td><td style="color:var(--fg-bright);">MASSIMO</td><td>Dati verificati</td></tr>
+    <tr><td><span class="badge t-secondaria">SECONDARIA</span></td><td>Trascrizione verificata / fonte accademica</td><td style="color:var(--amber);">ALTO</td><td>Dati verificati (con nota)</td></tr>
+    <tr><td><span class="badge t-terziaria">TERZIARIA</span></td><td>Enciclopedie, database online, tradizioni</td><td style="color:var(--fg-mid);">MEDIO</td><td>Solo ipotesi e contesto</td></tr>
+    <tr><td><span class="badge t-digitale">AI/AUTOMATICA</span></td><td>Output agenti AI, analisi automatiche</td><td style="color:var(--fg-dim);">BASSO</td><td>Solo sezione ipotesi</td></tr>
+    </tbody>
+    </table>
+
+    <div style="color:var(--amber);font-size:11px;letter-spacing:1px;margin:10px 0 6px;">CRITERI INCLUSIONE IN DATI VERIFICATI</div>
+    <div class="field-pair"><span class="fl">REGOLA 1:</span><span class="fv">Almeno una fonte primaria OPPURE due fonti secondarie concordanti</span></div>
+    <div class="field-pair"><span class="fl">REGOLA 2:</span><span class="fv">Citazione completa obbligatoria — nessun dato senza fonte</span></div>
+    <div class="field-pair"><span class="fl">REGOLA 3:</span><span class="fv">Date incerte indicate con ~ (circa) o intervallo [AAAA-AAAA]</span></div>
+    <div class="field-pair"><span class="fl">REGOLA 4:</span><span class="fv">Nomi: grafia originale del documento, varianti in nota</span></div>
+  </div>
+</div>
+</div>
+
+<!-- STATUS -->
+<div class="status-line">
+  <span>RECORD ATTIVO: FONTI (GN600)</span>
+  <span>5 FILE GED/TREE — 1 XLSX — 1 PDF — 03_FONTI IN POPOLAMENTO</span>
+</div>
+
+<!-- PF-KEY BAR -->
+<footer class="pf-bar">
+  <a class="pf" href="index.html"><span class="pf-k">PF1</span><span class="pf-l">HOME</span></a>
+  <a class="pf" href="famiglie.html"><span class="pf-k">PF3</span><span class="pf-l">FAMIGLIE</span></a>
+  <a class="pf" href="giardina.html"><span class="pf-k">PF4</span><span class="pf-l">GIARDINA</span></a>
+  <a class="pf" href="negrini.html"><span class="pf-k">PF5</span><span class="pf-l">NEGRINI</span></a>
+  <a class="pf" href="nobili.html"><span class="pf-k">PF6</span><span class="pf-l">NOBILI</span></a>
+  <a class="pf" href="analisi.html"><span class="pf-k">PF7</span><span class="pf-l">ANALISI</span></a>
+  <a class="pf" href="fonti.html"><span class="pf-k">PF8</span><span class="pf-l">FONTI</span></a>
+  <a class="pf" href="media.html"><span class="pf-k">PF9</span><span class="pf-l">MEDIA</span></a>
+</footer>
+</div>
+
+<script>
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

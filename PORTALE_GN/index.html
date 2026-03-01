@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GN000 · SISTEMA GENEALOGICO GIARDINA-NEGRINI</title>
+<link rel="stylesheet" href="terminal.css">
+<style>
+/* Boot animation */
+.boot-seq {
+  font-size: 12px;
+  color: var(--fg-dim);
+  padding: 8px 0;
+  line-height: 1.8;
+}
+.boot-seq .ok  { color: var(--fg-bright); }
+.boot-seq .err { color: var(--red); }
+.boot-seq .wrn { color: var(--amber); }
+
+/* ASCII LOGO */
+.ascii-logo {
+  font-size: 11px;
+  line-height: 1.3;
+  color: var(--fg-mid);
+  white-space: pre;
+  text-align: center;
+  padding: 6px 0;
+  letter-spacing: 0;
+  text-shadow: 0 0 6px rgba(0,153,51,0.6);
+}
+
+.hero-line {
+  text-align: center;
+  font-size: 11px;
+  color: var(--amber-dim);
+  letter-spacing: 3px;
+  margin: 4px 0;
+}
+
+.prompt-line {
+  color: var(--fg-dim);
+  font-size: 12px;
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* Two-column layout */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 8px 0;
+}
+@media (max-width: 650px) { .two-col { grid-template-columns: 1fr; } }
+
+.macro-label {
+  font-size: 10px;
+  color: var(--fg-dim);
+  letter-spacing: 1px;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+}
+.macro-val {
+  color: var(--fg-bright);
+  font-size: 13px;
+}
+.macro-num {
+  color: var(--amber);
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.flash {
+  animation: flash 2.5s step-end infinite;
+  color: var(--amber);
+}
+@keyframes flash { 0%,80%,100%{opacity:1;} 40%{opacity:0;} }
+</style>
+</head>
+<body>
+
+<!-- ═══ SYSTEM HEADER ═══════════════════════════════════════════════════ -->
+<div class="terminal">
+<header class="sys-header">
+  <span class="sys-id">SIG·GN</span>
+  <span class="sys-meta">IBM SYSTEM/370 COMPATIBLE &nbsp;|&nbsp; SESSIONE: ADM-001 &nbsp;|&nbsp; 01/03/2026  21:02:00</span>
+  <span class="screen-id">GN000<br>MAIN MENU</span>
+</header>
+
+<!-- ═══ BREADCRUMB ══════════════════════════════════════════════════════ -->
+<nav class="breadcrumb">
+  <span class="curr">⌂ HOME</span>
+</nav>
+
+<!-- ═══ ASCII LOGO ══════════════════════════════════════════════════════ -->
+<div style="margin:10px 0 4px;">
+<pre class="ascii-logo">
+ ██████╗ ██╗ █████╗ ██████╗ ██████╗ ██╗███╗   ██╗ █████╗
+██╔════╝ ██║██╔══██╗██╔══██╗██╔══██╗██║████╗  ██║██╔══██╗
+██║  ███╗██║███████║██████╔╝██║  ██║██║██╔██╗ ██║███████║
+██║   ██║██║██╔══██║██╔══██╗██║  ██║██║██║╚██╗██║██╔══██║
+╚██████╔╝██║██║  ██║██║  ██║██████╔╝██║██║ ╚████║██║  ██║
+ ╚═════╝ ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝
+</pre>
+<div class="hero-line">─── NEGRINI ───────────────────────────────────────── SISTEMA INFORMATIVO FAMILIARE ───</div>
+</div>
+
+<!-- ═══ BOOT SEQUENCE ════════════════════════════════════════════════════ -->
+<div class="boot-seq" style="padding:6px 14px; border-left:2px solid var(--border); margin:6px 0;">
+  <span class="ok">[OK]</span>  MODULO DATI GENEALOGICI....... CARICATO<br>
+  <span class="ok">[OK]</span>  DATASET GEDCOM................. 5 FILE IMPORTATI<br>
+  <span class="ok">[OK]</span>  REGISTRO FAMIGLIE.............. 45 RECORD<br>
+  <span class="ok">[OK]</span>  NOMINATIVI UNIVOCI............. 153 RECORD<br>
+  <span class="wrn">[--]</span>  SCHEDE PERSONE INDIVIDUALI..... DA COMPLETARE<br>
+  <span class="ok">[OK]</span>  STEMMI ARALDICI................ 7 FAMIGLIE NOBILI<br>
+  <span class="ok">[OK]</span>  PORTALE PRONTO ................<span class="flash"> █</span>
+</div>
+
+<!-- ═══ KPI ROW ══════════════════════════════════════════════════════════ -->
+<div class="kpi-row">
+  <div class="kpi-box">
+    <span class="kpi-value">45</span>
+    <span class="kpi-label">FAMIGLIE</span>
+  </div>
+  <div class="kpi-box">
+    <span class="kpi-value">153</span>
+    <span class="kpi-label">NOMINATIVI</span>
+  </div>
+  <div class="kpi-box">
+    <span class="kpi-value">7</span>
+    <span class="kpi-label">FAM. NOBILI</span>
+  </div>
+  <div class="kpi-box">
+    <span class="kpi-value">5</span>
+    <span class="kpi-label">FILE GED/TREE</span>
+  </div>
+  <div class="kpi-box">
+    <span class="kpi-value">10</span>
+    <span class="kpi-label">FILE MEDIA</span>
+  </div>
+</div>
+
+<!-- ═══ COBOL IDENTIFICATION ════════════════════════════════════════════ -->
+<div class="cobol-id">
+  <span class="kw">IDENTIFICATION DIVISION.</span><br>
+  &nbsp;&nbsp;<span class="kw">PROGRAM-ID.</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="val">GENEALOGIA-GIARDINA-NEGRINI.</span><br>
+  &nbsp;&nbsp;<span class="kw">AUTHOR.</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="val">SISTEMA-INFORMATIVO-FAMILIARE-V1.</span><br>
+  &nbsp;&nbsp;<span class="kw">DATE-WRITTEN.</span> &nbsp;<span class="val">01/03/2026.</span><br>
+  &nbsp;&nbsp;<span class="kw">SECURITY.</span> &nbsp;&nbsp;&nbsp;<span class="val">USO-FAMILIARE-PRIVATO.</span>
+</div>
+
+<!-- ═══ MACRO-GRUPPI OVERVIEW ════════════════════════════════════════════ -->
+<div class="two-col">
+  <div class="section">
+    <div class="section-hdr">◈ MACRO-GRUPPO 1 — LINEA PATERNA DIRETTA</div>
+    <div class="section-body">
+      <div class="macro-label">FAMIGLIE INCLUSE</div>
+      <div class="macro-val"><span class="macro-num">8</span>Giardina · Giardina-Iaci · Giardina-Naselli · Iaci · Naselli · Valentini · Boerio · Lipari</div>
+      <div class="macro-label" style="margin-top:6px;">NOMINATIVI</div>
+      <div class="macro-val"><span class="macro-num">29+</span><a href="giardina.html">→ RAMO GIARDINA (dettaglio)</a></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-hdr">◈ MACRO-GRUPPO 2 — RAMO MATERNO E CONNESSIONI</div>
+    <div class="section-body">
+      <div class="macro-label">FAMIGLIE INCLUSE</div>
+      <div class="macro-val"><span class="macro-num">6</span>Negrini · Negri · Ingargia · Scammacca · Lo Porto · Martino</div>
+      <div class="macro-label" style="margin-top:6px;">NOMINATIVI</div>
+      <div class="macro-val"><span class="macro-num">17+</span><a href="negrini.html">→ RAMO NEGRINI (dettaglio)</a></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-hdr">◈ MACRO-GRUPPO 3 — FAMIGLIE NOBILI</div>
+    <div class="section-body">
+      <div class="macro-label">CASATE DOCUMENTATE</div>
+      <div class="macro-val"><span class="macro-num">7</span>Alagona · d'Alagona · d'Aragona · Barresi · Gravina · Naselli · Valguarnera</div>
+      <div class="macro-label" style="margin-top:6px;">ARALDICA</div>
+      <div class="macro-val"><a href="nobili.html">→ STEMMI E DOCUMENTAZIONE NOBILIARE</a></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-hdr">◈ MACRO-GRUPPO 4 — ALTRI RAMI</div>
+    <div class="section-body">
+      <div class="macro-label">FAMIGLIE COLLATERALI</div>
+      <div class="macro-val"><span class="macro-num">24</span>Abbate · Albanese · Alifia · Bennati · Biasi · Bonajuto · Cortina · Corvino · Danese · Del Castillo · Desconhecido · Gottardelli · Grimaldi · Isfar · Lucchese · Marquet · Martinelli · Massa · Morso · Ortolano · Peron · Torres · Vella · Senza_Cognome</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MAIN MENU ════════════════════════════════════════════════════════ -->
+<div class="menu-panel">
+  <div class="menu-hdr">══ SELEZIONARE FUNZIONE ══</div>
+
+  <a class="menu-item" href="famiglie.html">
+    <span class="mn">1.</span>
+    <span class="mc">FAMIGLIE</span>
+    <span class="md">Registro completo — 45 famiglie su 4 macro-gruppi</span>
+    <span class="mr">GN100</span>
+  </a>
+  <a class="menu-item" href="giardina.html">
+    <span class="mn">2.</span>
+    <span class="mc">LINEA GIARDINA</span>
+    <span class="md">Dettaglio ramo paterno — 29 nominativi, varianti cognominali</span>
+    <span class="mr">GN200</span>
+  </a>
+  <a class="menu-item" href="negrini.html">
+    <span class="mn">3.</span>
+    <span class="mc">LINEA NEGRINI</span>
+    <span class="md">Dettaglio ramo materno — 17 nominativi, connessioni</span>
+    <span class="mr">GN300</span>
+  </a>
+  <a class="menu-item" href="nobili.html">
+    <span class="mn">4.</span>
+    <span class="mc">FAMIGLIE NOBILI</span>
+    <span class="md">Casate aristocratiche — stemmi araldici e documentazione</span>
+    <span class="mr">GN400</span>
+  </a>
+  <a class="menu-item" href="analisi.html">
+    <span class="mn">5.</span>
+    <span class="mc">ANALISI E REPORT</span>
+    <span class="md">Incongruenze, ipotesi, domande aperte, verifiche</span>
+    <span class="mr">GN500</span>
+  </a>
+  <a class="menu-item" href="fonti.html">
+    <span class="mn">6.</span>
+    <span class="mc">FONTI</span>
+    <span class="md">Archivio documentale — atti, archivi, trascrizioni</span>
+    <span class="mr">GN600</span>
+  </a>
+  <a class="menu-item" href="media.html">
+    <span class="mn">7.</span>
+    <span class="mc">MEDIA E ALBERI</span>
+    <span class="md">Visualizzazioni, alberi genealogici, file PDF/SVG/PNG</span>
+    <span class="mr">GN700</span>
+  </a>
+  <a class="menu-item" href="spazio_agentico.html">
+    <span class="mn">8.</span>
+    <span class="mc">SPAZIO AGENTICO</span>
+    <span class="md">Interazione AI — task, log, prompt, domande aperte</span>
+    <span class="mr">GN800</span>
+  </a>
+
+  <div class="prompt-line" style="margin-top:10px;">
+    INSERIRE NUMERO FUNZIONE:&nbsp;<span class="cur-a"></span>
+  </div>
+</div>
+
+<!-- ═══ STATUS ══════════════════════════════════════════════════════════ -->
+<div class="status-line">
+  <span>STATO ARCHIVIO: <span style="color:var(--fg-bright)">OPERATIVO</span></span>
+  <span>AGG.: 01/03/2026</span>
+  <span>RECORD: 153 NOMINATIVI — 45 FAMIGLIE</span>
+</div>
+
+<!-- ═══ PF-KEY BAR ══════════════════════════════════════════════════════ -->
+<footer class="pf-bar">
+  <a class="pf" href="index.html"><span class="pf-k">PF1</span><span class="pf-l">HOME</span></a>
+  <a class="pf" href="famiglie.html"><span class="pf-k">PF3</span><span class="pf-l">FAMIGLIE</span></a>
+  <a class="pf" href="giardina.html"><span class="pf-k">PF4</span><span class="pf-l">GIARDINA</span></a>
+  <a class="pf" href="negrini.html"><span class="pf-k">PF5</span><span class="pf-l">NEGRINI</span></a>
+  <a class="pf" href="nobili.html"><span class="pf-k">PF6</span><span class="pf-l">NOBILI</span></a>
+  <a class="pf" href="analisi.html"><span class="pf-k">PF7</span><span class="pf-l">ANALISI</span></a>
+  <a class="pf" href="fonti.html"><span class="pf-k">PF8</span><span class="pf-l">FONTI</span></a>
+  <a class="pf" href="media.html"><span class="pf-k">PF9</span><span class="pf-l">MEDIA</span></a>
+  <span style="margin-left:auto;color:var(--fg-dim);font-size:10px;">SIG·GN v1.0 | IBM/370 COMPAT. | © 2026</span>
+</footer>
+</div><!-- .terminal -->
+
+</body>
+</html>

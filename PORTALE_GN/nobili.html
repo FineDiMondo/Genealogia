@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GN400 · FAMIGLIE NOBILI — CASATE ARISTOCRATICHE</title>
+<link rel="stylesheet" href="terminal.css">
+<style>
+.noble-card {
+  border: 1px solid var(--border-hi);
+  background: var(--bg-panel);
+  margin: 8px 0;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 0;
+}
+.noble-coat {
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 10px;
+  background: #000A00;
+  min-height: 160px;
+}
+.coat-placeholder {
+  width: 100px; height: 120px;
+  border: 2px solid var(--border-hi);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--fg-dim);
+  text-align: center;
+  position: relative;
+  background: #000500;
+}
+.coat-placeholder::before {
+  content: '⚜';
+  font-size: 28px;
+  color: var(--amber-dim);
+  display: block;
+  margin-bottom: 6px;
+}
+.coat-label {
+  font-size: 10px;
+  color: var(--fg-dim);
+  margin-top: 6px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.noble-info {
+  padding: 12px 16px;
+}
+.noble-title {
+  color: var(--amber);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+.noble-title .star { color: var(--cyan); margin-right: 6px; }
+.stemma-link {
+  font-size: 11px;
+  color: var(--cyan-dim);
+  margin-top: 4px;
+}
+@media (max-width: 600px) {
+  .noble-card { grid-template-columns: 1fr; }
+  .noble-coat { border-right: none; border-bottom: 1px solid var(--border); min-height: 100px; flex-direction: row; gap: 16px; }
+}
+</style>
+</head>
+<body>
+<div class="terminal">
+
+<!-- HEADER -->
+<header class="sys-header">
+  <span class="sys-id">SIG·GN</span>
+  <span class="sys-meta">01/03/2026 21:02 &nbsp;|&nbsp; SESSIONE: ADM-001</span>
+  <span class="screen-id">GN400<br>FAMIGLIE NOBILI</span>
+</header>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb">
+  <a href="index.html">⌂ HOME</a><span class="sep">›</span>
+  <a href="famiglie.html">FAMIGLIE</a><span class="sep">›</span>
+  <span class="curr">FAMIGLIE NOBILI</span>
+</nav>
+
+<!-- TITLE -->
+<div class="title-block">
+  <h1>CASATE ARISTOCRATICHE</h1>
+  <div class="tagline">7 FAMIGLIE NOBILI DOCUMENTATE — MACRO-GRUPPO 3 — STEMMI ARALDICI</div>
+</div>
+
+<!-- KPI -->
+<div class="kpi-row">
+  <div class="kpi-box"><span class="kpi-value">7</span><span class="kpi-label">CASATE NOBILI</span></div>
+  <div class="kpi-box"><span class="kpi-value">6</span><span class="kpi-label">STEMMI SCARICATI</span></div>
+  <div class="kpi-box"><span class="kpi-value">1</span><span class="kpi-label">STEMMA MANCANTE</span></div>
+  <div class="kpi-box"><span class="kpi-value">CC BY</span><span class="kpi-label">LICENZE WIKIMEDIA</span></div>
+</div>
+
+<div class="alert alert-info">ℹ Stemmi acquisiti da Wikimedia Commons — licenza CC BY-SA 3.0/4.0 — file locali in <code style="color:var(--fg-bright)">07_Famiglie/{Famiglia}/Stemma.svg|.png</code></div>
+
+<!-- DIVIDER -->
+<div class="divider">══════════════════════════════════════════════════════════════════════════════</div>
+
+<!-- ══ NASELLI ═══════════════════════════════════════════════════════════════ -->
+<div class="noble-card" id="naselli">
+  <div class="noble-coat">
+    <div class="coat-placeholder">
+      <span>STEMMA<br>NASELLI</span>
+    </div>
+    <div class="coat-label">Stemma.png<br>CC BY-SA 3.0</div>
+  </div>
+  <div class="noble-info">
+    <div class="noble-title"><span class="star">★◆</span>NASELLI</div>
+    <div class="field-pair"><span class="fl">STATO FILE:</span><span class="fv"><span class="badge b-green">SCARICATO</span> — Stemma.png</span></div>
+    <div class="field-pair"><span class="fl">MACRO-GRUPPO:</span><span class="fv">1 (Linea paterna) + 3 (Nobili)</span></div>
+    <div class="field-pair"><span class="fl">CONNESSIONE GN:</span><span class="fv">Giardina – Naselli (variante cognominale)</span></div>
+    <div class="field-pair"><span class="fl">LICENZA:</span><span class="fv">CC BY-SA 3.0 — Wikimedia Commons</span></div>
+    <div class="field-pair"><span class="fl">ORIGINE:</span><span class="fv">Sicilia — casata storica di rilievo</span></div>
+    <div class="field-pair"><span class="fl">FILE LOCALE:</span><span class="fv">07_Famiglie/Naselli/Stemma.png</span></div>
+    <div class="stemma-link">◆ STEMMA DIRETTO — Acquisito 01/03/2026</div>
+  </div>
+</div>
+
+<!-- ══ ALAGONA ════════════════════════════════════════════════════════════════ -->
+<div class="noble-card" id="alagona">
+  <div class="noble-coat">
+    <div class="coat-placeholder">
+      <span>STEMMA<br>ALAGONA</span>
+    </div>
+    <div class="coat-label">Stemma.svg<br>CC BY-SA 4.0</div>
+  </div>
+  <div class="noble-info">
+    <div class="noble-title"><span class="star">★◆</span>ALAGONA</div>
+    <div class="field-pair"><span class="fl">STATO FILE:</span><span class="fv"><span class="badge b-green">SCARICATO</span> — Stemma.svg</span></div>
+    <div class="field-pair"><span class="fl">MACRO-GRUPPO:</span><span class="fv">3 — Famiglie nobili</span></div>
+    <div class="field-pair"><span class="fl">CONNESSIONE GN:</span><span class="fv">Documentata nel dataset — da specificare</span></div>
+    <div class="field-pair"><span class="fl">LICENZA:</span><span class="fv">CC BY-SA 4.0 — Wikimedia Commons</span></div>
+    <div class="field-pair"><span class="fl">DESCRIZIONE:</span><span class="fv">Stemma diretto della famiglia Alagona (casata siciliana)</span></div>
+    <div class="field-pair"><span class="fl">FILE LOCALE:</span><span class="fv">07_Famiglie/Alagona/Stemma.svg</span></div>
+    <div class="stemma-link">◆ STEMMA DIRETTO — Acquisito 01/03/2026</div>
+  </div>
+</div>
+
+<!-- ══ D'ALAGONA ══════════════════════════════════════════════════════════════ -->
+<div class="noble-card" id="dalagona">
+  <div class="noble-coat">
+    <div class="coat-placeholder">
+      <span>STEMMA<br>d'ALAGONA</span>
+    </div>
+    <div class="coat-label">Stemma.svg<br>CC BY-SA 4.0</div>
+  </div>
+  <div class="noble-info">
+    <div class="noble-title"><span class="star">★◆</span>d'ALAGONA</div>
+    <div class="field-pair"><span class="fl">STATO FILE:</span><span class="fv"><span class="badge b-green">SCARICATO</span> — Stemma.svg</span></div>
+    <div class="field-pair"><span class="fl">MACRO-GRUPPO:</span><span class="fv">3 — Famiglie nobili</span></div>
+    <div class="field-pair"><span class="fl">RAPPORTO:</span><span class="fv">Variante cognominale del ceppo Alagona</span></div>
+    <div class="field-pair"><span class="fl">STEMMA:</span><span class="fv">Associato/derivato dal ceppo Alagona</span></div>
+    <div class="field-pair"><span class="fl">LICENZA:</span><span class="fv">CC BY-SA 4.0 — Wikimedia Commons</span></div>
+    <div class="field-pair"><span class="fl">FILE LOCALE:</span><span class="fv">07_Famiglie/d'Alagona/Stemma.svg</span></div>
+  </div>
+</div>
+
+<!-- ══ D'ARAGONA ══════════════════════════════════════════════════════════════ -->
+<div class="noble-card" id="aragona">
+  <div class="noble-coat">
+    <div class="coat-placeholder">
+      <span>STEMMA<br>d'ARAGONA</span>
+    </div>
+    <div class="coat-label">Stemma.png<br>CC BY-SA 3.0</div>
+  </div>
+  <div class="noble-info">
+    <div class="noble-title"><span class="star">★◆</span>d'ARAGONA</div>
+    <div class="field-pair"><span class="fl">STATO FILE:</span><span class="fv"><span class="badge b-green">SCARICATO</span> — Stemma.png (conv. da JPG)</span></div>
+    <div class="field-pair"><span class="fl">MACRO-GRUPPO:</span><span class="fv">3 — Famiglie nobili</span></div>
+    <div class="field-pair"><span class="fl">CASATA:</span><span class="fv">Corona d'Aragona — ramo italiano / siciliano</span></div>
+    <div class="field-pair"><span class="fl">LICENZA:</span><span class="fv">CC BY-SA 3.0 — Wikimedia Commons</span></div>
+    <div class="field-pair"><span class="fl">CONNESSIONE:</span><span class="fv">Collegamento con casata Alagona (epoca aragonese)</span></div>
+    <div class="field-pair"><span class="fl">FILE LOCALE:</span><span class="fv">07_Famiglie/d'Aragona/Stemma.png</span></div>
+    <div class="stemma-link">◆ Convertito da JPG a PNG — Acquisito 01/03/2026</div>
+  </div>
+</div>
+
+<!-- ══ BARRESI ═══════════════════════════════════════════════════════════════ -->
+<div class="noble-card" id="barresi">
+  <div class="noble-coat">
+    <div class="coat-placeholder">
+      <span>STEMMA<br>BARRESI</span>
+    </div>
+    <div class="coat-label">Stemma.png<br>CC BY-SA 4.0</div>
+  </div>
+  <div class="noble-info">
+    <div class="noble-title"><span class="star">★◆</span>BARRESI</div>
+    <div class="field-pair"><span class="fl">STATO FILE:</span><span class="fv"><span class="badge b-green">SCARICATO</span> — Stemma.png</span></div>
+    <div class="field-pair"><span class="fl">MACRO-GRUPPO:</span><span class="fv">3 — Famiglie nobili</span></div>
+    <div class="field-pair"><span class="fl">LICENZA:</span><span class="fv">CC BY-SA 4.0 — Wikimedia Commons (thumbnail)</span></div>
+    <div class="field-pair"><span class="fl">NOTE:</span><span class="fv">Acquisito come thumbnail (fallback anti-rate-limit 429)</span></div>
+    <div class="field-pair"><span class="fl">FILE LOCALE:</span><span class="fv">07_Famiglie/Barresi/Stemma.png</span></div>
+    <div class="stemma-link">◆ STEMMA DIRETTO — Acquisito 01/03/2026</div>
+  </div>
+</div>
+
+<!-- ══ GRAVINA ════════════════════════════════════════════════════════════════ -->
+<div class="noble-card" id="gravina">
+  <div class="noble-coat">
+    <div class="coat-placeholder">
+      <span>STEMMA<br>GRAVINA</span>
+    </div>
+    <div class="coat-label">Stemma.png<br>CC BY-SA 3.0</div>
+  </div>
+  <div class="noble-info">
+    <div class="noble-title"><span class="star">★◆</span>GRAVINA</div>
+    <div class="field-pair"><span class="fl">STATO FILE:</span><span class="fv"><span class="badge b-green">SCARICATO</span> — Stemma.png (conv. da JPG)</span></div>
+    <div class="field-pair"><span class="fl">MACRO-GRUPPO:</span><span class="fv">3 — Famiglie nobili</span></div>
+    <div class="field-pair"><span class="fl">CASATA:</span><span class="fv">Famiglia (di) Gravina — casata meridionale</span></div>
+    <div class="field-pair"><span class="fl">LICENZA:</span><span class="fv">CC BY-SA 3.0 — Wikimedia Commons (thumbnail)</span></div>
+    <div class="field-pair"><span class="fl">NOTE:</span><span class="fv">Acquisito come thumbnail (fallback anti-rate-limit 429)</span></div>
+    <div class="field-pair"><span class="fl">FILE LOCALE:</span><span class="fv">07_Famiglie/Gravina/Stemma.png</span></div>
+    <div class="stemma-link">◆ STEMMA DIRETTO — Acquisito 01/03/2026</div>
+  </div>
+</div>
+
+<!-- ══ VALGUARNERA ════════════════════════════════════════════════════════════ -->
+<div class="noble-card" id="valguarnera">
+  <div class="noble-coat">
+    <div class="coat-placeholder">
+      <span>STEMMA<br>VALGUARN.</span>
+    </div>
+    <div class="coat-label">Stemma.svg<br>CC BY-SA 4.0</div>
+  </div>
+  <div class="noble-info">
+    <div class="noble-title"><span class="star">★◆</span>VALGUARNERA</div>
+    <div class="field-pair"><span class="fl">STATO FILE:</span><span class="fv"><span class="badge b-green">SCARICATO</span> — Stemma.svg</span></div>
+    <div class="field-pair"><span class="fl">MACRO-GRUPPO:</span><span class="fv">3 — Famiglie nobili</span></div>
+    <div class="field-pair"><span class="fl">CASATA:</span><span class="fv">Valguarnera — casata siciliana aristocratica</span></div>
+    <div class="field-pair"><span class="fl">LICENZA:</span><span class="fv">CC BY-SA 4.0 — Wikimedia Commons</span></div>
+    <div class="field-pair"><span class="fl">FILE LOCALE:</span><span class="fv">07_Famiglie/Valguarnera/Stemma.svg</span></div>
+    <div class="stemma-link">◆ STEMMA DIRETTO — Acquisito 01/03/2026</div>
+  </div>
+</div>
+
+<!-- ══ GRIMALDI ══════════════════════════════════════════════════════════════ -->
+<div class="noble-card" id="grimaldi">
+  <div class="noble-coat">
+    <div class="coat-placeholder" style="border-color:var(--amber-dim);">
+      <span style="font-size:24px;color:var(--amber-dim);">⚜</span>
+      <span>GRIMALDI</span>
+    </div>
+    <div class="coat-label" style="color:var(--amber-dim);">NOBILE<br>NO STEMMA</div>
+  </div>
+  <div class="noble-info">
+    <div class="noble-title"><span class="star">★</span>GRIMALDI</div>
+    <div class="field-pair"><span class="fl">STATO FILE:</span><span class="fv"><span class="badge b-amber">NOBILE — STEMMA NON ACQUISITO</span></span></div>
+    <div class="field-pair"><span class="fl">MACRO-GRUPPO:</span><span class="fv">3 — Famiglie nobili</span></div>
+    <div class="field-pair"><span class="fl">NOTE:</span><span class="fv">Famiglia nobile documentata nel dataset — stemma da ricercare</span></div>
+    <div class="field-pair"><span class="fl">AZIONE:</span><span class="fv">Ricerca stemma su Wikimedia Commons o fonti araldiche</span></div>
+  </div>
+</div>
+
+<!-- REGISTRO -->
+<div class="section">
+  <div class="section-hdr">REGISTRO STEMMI COMPLETO — STATO ACQUISIZIONE</div>
+  <div class="section-body">
+    <table class="tbl">
+    <thead><tr><th>FAMIGLIA</th><th>FILE</th><th>FORMATO</th><th>LICENZA</th><th>DATA ACQ.</th><th>NOTE</th></tr></thead>
+    <tbody>
+    <tr><td class="td-n">Alagona</td><td>Stemma.svg</td><td>SVG</td><td>CC BY-SA 4.0</td><td>01/03/2026</td><td><span class="badge b-green">OK</span></td></tr>
+    <tr><td class="td-n">d'Alagona</td><td>Stemma.svg</td><td>SVG</td><td>CC BY-SA 4.0</td><td>01/03/2026</td><td><span class="badge b-green">OK</span> (ceppo Alagona)</td></tr>
+    <tr><td class="td-n">d'Aragona</td><td>Stemma.png</td><td>PNG</td><td>CC BY-SA 3.0</td><td>01/03/2026</td><td><span class="badge b-green">OK</span> conv. da JPG</td></tr>
+    <tr><td class="td-n">Valguarnera</td><td>Stemma.svg</td><td>SVG</td><td>CC BY-SA 4.0</td><td>01/03/2026</td><td><span class="badge b-green">OK</span></td></tr>
+    <tr><td class="td-n">Naselli</td><td>Stemma.png</td><td>PNG</td><td>CC BY-SA 3.0</td><td>01/03/2026</td><td><span class="badge b-green">OK</span> conv. da JPG</td></tr>
+    <tr><td class="td-n">Barresi</td><td>Stemma.png</td><td>PNG</td><td>CC BY-SA 4.0</td><td>01/03/2026</td><td><span class="badge b-green">OK</span> thumbnail</td></tr>
+    <tr><td class="td-n">Gravina</td><td>Stemma.png</td><td>PNG</td><td>CC BY-SA 3.0</td><td>01/03/2026</td><td><span class="badge b-green">OK</span> thumbnail</td></tr>
+    <tr><td class="td-n">Lucchese/Lucchesi</td><td>—</td><td>—</td><td>CC BY-SA 4.0</td><td>01/03/2026</td><td><span class="badge b-red">NON TROVATO</span></td></tr>
+    <tr><td class="td-n">Grimaldi</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="badge b-amber">DA RICERCARE</span></td></tr>
+    </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- STATUS -->
+<div class="status-line">
+  <span>RECORD ATTIVO: FAMIGLIE NOBILI (GN400)</span>
+  <span>7 CASATE — 6 STEMMI ACQUISITI — 1 MANCANTE (LUCCHESE)</span>
+</div>
+
+<!-- PF-KEY BAR -->
+<footer class="pf-bar">
+  <a class="pf" href="index.html"><span class="pf-k">PF1</span><span class="pf-l">HOME</span></a>
+  <a class="pf" href="famiglie.html"><span class="pf-k">PF3</span><span class="pf-l">FAMIGLIE</span></a>
+  <a class="pf" href="giardina.html"><span class="pf-k">PF4</span><span class="pf-l">GIARDINA</span></a>
+  <a class="pf" href="negrini.html"><span class="pf-k">PF5</span><span class="pf-l">NEGRINI</span></a>
+  <a class="pf" href="nobili.html"><span class="pf-k">PF6</span><span class="pf-l">NOBILI</span></a>
+  <a class="pf" href="analisi.html"><span class="pf-k">PF7</span><span class="pf-l">ANALISI</span></a>
+  <a class="pf" href="fonti.html"><span class="pf-k">PF8</span><span class="pf-l">FONTI</span></a>
+  <a class="pf" href="media.html"><span class="pf-k">PF9</span><span class="pf-l">MEDIA</span></a>
+</footer>
+</div>
+</body>
+</html>
