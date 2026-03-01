@@ -78,9 +78,9 @@ button:hover { background: var(--fg-bright); color: var(--bg); text-shadow: none
         <button id="nextTrackBtn" type="button">NEXT RANDOM</button>
       </div>
       <div class="status" style="margin-top:8px;">STATO: <span id="statusText">IN ATTESA FILE</span></div>
-      <div class="status">PLAYLIST: <span id="playlistText">DIGGER BOOT -> RANDOM (BACH/MOZART)</span></div>
+      <div class="status">PLAYLIST: <span id="playlistText">PARK AMBIENT -> RANDOM (VIVALDI PRIMAVERA / AMBIENT)</span></div>
       <div class="mono" style="margin-top:4px;">Nota: l'emulazione applica quantizzazione 8-bit e riduzione sample-rate in riproduzione WebAudio.</div>
-      <div class="mono">Nota licenza: il brano di avvio e' un tema originale "digger-style", non una copia diretta di "Popcorn".</div>
+      <div class="mono">Nota licenza: tema "Park Ambient" originale ispirato al mood cinematografico, non audio ufficiale Jurassic Park.</div>
     </div>
   </div>
 
@@ -137,40 +137,39 @@ const logEl = document.getElementById("log");
 const cmdInput = document.getElementById("cmdInput");
 
 const TRACKS = {
-  DIGGER_BOOT: {
-    name: "DIGGER-BOOT THEME (ORIGINALE)",
-    tempo: 138,
+  PARK_AMBIENT_BOOT: {
+    name: "PARK AMBIENT THEME (ORIGINALE)",
+    tempo: 84,
     notes: [
-      ["E5", 0.25], ["B4", 0.25], ["C5", 0.25], ["D5", 0.25],
-      ["C5", 0.25], ["B4", 0.25], ["A4", 0.25], ["A4", 0.25],
-      ["C5", 0.25], ["E5", 0.25], ["D5", 0.25], ["C5", 0.25],
-      ["B4", 0.25], ["C5", 0.25], ["D5", 0.25], ["E5", 0.25],
-      ["C5", 0.25], ["A4", 0.25], ["A4", 0.5], ["R", 0.25]
+      ["D4", 1.0], ["A3", 1.0], ["F4", 1.0], ["E4", 1.0],
+      ["D4", 0.8], ["A3", 0.8], ["C4", 0.8], ["G3", 0.8],
+      ["Bb3", 0.8], ["A3", 1.2], ["R", 0.6],
+      ["D4", 1.0], ["F4", 1.0], ["A4", 1.0], ["G4", 1.0],
+      ["F4", 1.2], ["E4", 1.2]
     ]
   },
-  BACH_BWV565: {
-    name: "BACH - BWV 565 (MOTIVO)",
-    tempo: 112,
+  VIVALDI_PRIMAVERA: {
+    name: "VIVALDI - LA PRIMAVERA (MOTIVO)",
+    tempo: 104,
     notes: [
-      ["D4", 0.4], ["C#4", 0.4], ["D4", 0.4], ["E4", 0.4],
-      ["F4", 0.4], ["E4", 0.4], ["D4", 0.4], ["C#4", 0.4],
-      ["D4", 0.4], ["A3", 0.4], ["D4", 0.4], ["F4", 0.4],
-      ["A4", 0.5], ["R", 0.2], ["A3", 0.5], ["D4", 0.6]
+      ["E5", 0.35], ["E5", 0.35], ["E5", 0.35], ["F#5", 0.35],
+      ["G#5", 0.35], ["G#5", 0.35], ["F#5", 0.35], ["E5", 0.35],
+      ["D#5", 0.35], ["E5", 0.5], ["B4", 0.35], ["C#5", 0.35],
+      ["D#5", 0.35], ["E5", 0.6], ["R", 0.2], ["E5", 0.5]
     ]
   },
-  MOZART_25: {
-    name: "MOZART - SYMPHONY N.25 (MOTIVO)",
-    tempo: 132,
+  PARK_AMBIENT_ALT: {
+    name: "PARK AMBIENT ALT (ORIGINALE)",
+    tempo: 76,
     notes: [
-      ["G4", 0.25], ["G4", 0.25], ["G4", 0.25], ["Eb4", 0.25],
-      ["R", 0.1], ["F4", 0.25], ["F4", 0.25], ["F4", 0.25], ["D4", 0.25],
-      ["R", 0.1], ["Eb4", 0.25], ["Eb4", 0.25], ["Eb4", 0.25], ["C4", 0.25],
-      ["R", 0.1], ["D4", 0.4], ["G3", 0.5]
+      ["A3", 1.0], ["E4", 1.0], ["D4", 1.0], ["A3", 1.0],
+      ["G3", 1.2], ["D4", 1.2], ["F4", 1.0], ["E4", 1.0],
+      ["D4", 1.4], ["R", 0.4], ["A3", 1.2], ["C4", 1.2]
     ]
   }
 };
 
-const RANDOM_POOL = [TRACKS.BACH_BWV565, TRACKS.MOZART_25];
+const RANDOM_POOL = [TRACKS.VIVALDI_PRIMAVERA, TRACKS.PARK_AMBIENT_ALT];
 const SEMITONES = {
   "C": 0, "C#": 1, "DB": 1, "D": 2, "D#": 3, "EB": 3, "E": 4, "F": 5,
   "F#": 6, "GB": 6, "G": 7, "G#": 8, "AB": 8, "A": 9, "A#": 10, "BB": 10, "B": 11
@@ -394,9 +393,9 @@ function queueNextRandom() {
 function startDjMode() {
   ensureAudioContext().resume().catch(function() {});
   djEnabled = true;
-  playlistText.textContent = "DIGGER BOOT -> RANDOM (BACH/MOZART)";
-  logLine("DJ MODE ON: avvio con Digger-style, poi random Bach/Mozart.", "log-ok");
-  playSynthTrack(TRACKS.DIGGER_BOOT, true);
+  playlistText.textContent = "PARK AMBIENT -> RANDOM (VIVALDI PRIMAVERA / AMBIENT)";
+  logLine("DJ MODE ON: avvio Park Ambient, poi random rilassante.", "log-ok");
+  playSynthTrack(TRACKS.PARK_AMBIENT_BOOT, true);
 }
 
 function stopDjMode() {
@@ -519,7 +518,7 @@ document.addEventListener("pointerdown", function armStart() {
 }, { once: true });
 
 logLine("GN700 pronto. Digitare HELP nella console.", "log-ok");
-logLine("Per avvio automatico playlist: START DJ (Digger-style -> random).", "log-ok");
+logLine("Per avvio automatico playlist: START DJ (Park Ambient -> random rilassante).", "log-ok");
 </script>
 </body>
 </html>
