@@ -20,13 +20,33 @@
     5: "analisi.html",
     6: "fonti.html",
     7: "media.html",
-    8: "spazio_agentico.html"
+    8: "spazio_agentico.html",
+    9: "generated/index.html"
   };
 
   const state = {
     cmdBuffer: "",
     bufferTimer: null
   };
+
+  function portalRootPrefix() {
+    const p = (window.location.pathname || "").replace(/\\/g, "/");
+    const marker = "/generated/";
+    const idx = p.indexOf(marker);
+    if (idx === -1) return "";
+    const tail = p.slice(idx + marker.length);
+    const parts = tail.split("/").filter(Boolean);
+    const depth = parts.length > 0 ? parts.length : 1;
+    return "../".repeat(depth);
+  }
+
+  function resolvePortalPath(path) {
+    if (!path) return path;
+    if (path.startsWith("http://") || path.startsWith("https://") || path.startsWith("/")) {
+      return path;
+    }
+    return portalRootPrefix() + path;
+  }
 
   function normalizePath(path) {
     return (path || "").replace(/\\/g, "/").split("/").pop().toLowerCase();
@@ -51,9 +71,10 @@
 
   function goTo(path, reason) {
     if (!path) return;
-    showMsg(reason ? reason + ": " + path : "OPEN " + path);
+    const resolved = resolvePortalPath(path);
+    showMsg(reason ? reason + ": " + resolved : "OPEN " + resolved);
     setTimeout(function() {
-      window.location.href = path;
+      window.location.href = resolved;
     }, 50);
   }
 

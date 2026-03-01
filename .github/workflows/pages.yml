@@ -24,6 +24,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Validate sequential data
+        run: bash ./proc/validate_data.sh
+
+      - name: Build generated portal
+        run: bash ./proc/build_portale.sh
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
