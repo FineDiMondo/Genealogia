@@ -442,6 +442,39 @@ body::after {
 .pf-l { color: var(--fg-dim); }
 .pf:hover .pf-l { color: var(--amber); }
 
+.pf.active .pf-k {
+  background: var(--amber);
+  color: var(--bg);
+}
+
+.pf.active .pf-l {
+  color: var(--amber-bright);
+}
+
+.terminal-msg {
+  position: fixed;
+  right: 14px;
+  bottom: 56px;
+  z-index: 9102;
+  min-width: 240px;
+  max-width: 72vw;
+  background: #001200;
+  border: 1px solid var(--border-hi);
+  color: var(--amber-bright);
+  padding: 6px 10px;
+  font-size: 11px;
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.18);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 120ms linear, transform 120ms linear;
+  pointer-events: none;
+}
+
+.terminal-msg.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ── TREE VIEW ───────────────────────────────────────────────────────────── */
 .tree {
   font-size: 13px;
