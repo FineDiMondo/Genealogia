@@ -74,14 +74,18 @@ button:hover { background: var(--fg-bright); color: var(--bg); text-shadow: none
         <button id="playBtn" type="button">PLAY 8-BIT</button>
         <button id="stopBtn" type="button">STOP</button>
         <button id="testToneBtn" type="button">TEST TONE 8-BIT</button>
+        <button id="startDjBtn" type="button">START DJ</button>
+        <button id="nextTrackBtn" type="button">NEXT RANDOM</button>
       </div>
       <div class="status" style="margin-top:8px;">STATO: <span id="statusText">IN ATTESA FILE</span></div>
+      <div class="status">PLAYLIST: <span id="playlistText">DIGGER BOOT -> RANDOM (BACH/MOZART)</span></div>
       <div class="mono" style="margin-top:4px;">Nota: l'emulazione applica quantizzazione 8-bit e riduzione sample-rate in riproduzione WebAudio.</div>
+      <div class="mono">Nota licenza: il brano di avvio e' un tema originale "digger-style", non una copia diretta di "Popcorn".</div>
     </div>
   </div>
 
   <div class="panel">
-    <div class="panel-h">CONSOLE OPERATIVA (COMANDI: HELP, LOAD, PLAY, STOP, STAT, CLR)</div>
+    <div class="panel-h">CONSOLE OPERATIVA (COMANDI: HELP, LOAD, PLAY, STOP, STAT, CLR, DJON, DJOFF, NEXT)</div>
     <div class="panel-b">
       <div id="log" class="log" aria-live="polite"></div>
       <div class="field" style="margin-top:8px;">
@@ -113,6 +117,10 @@ let emulatedBuffer = null;
 let currentSource = null;
 let loadedName = "";
 let loadedDuration = 0;
+let djEnabled = false;
+let currentSynthName = "";
+let lastTrackIndex = -1;
+let activePlayToken = 0;
 
 const audioFile = document.getElementById("audioFile");
 const sampleRate = document.getElementById("sampleRate");
@@ -121,9 +129,52 @@ const monoMix = document.getElementById("monoMix");
 const playBtn = document.getElementById("playBtn");
 const stopBtn = document.getElementById("stopBtn");
 const testToneBtn = document.getElementById("testToneBtn");
+const startDjBtn = document.getElementById("startDjBtn");
+const nextTrackBtn = document.getElementById("nextTrackBtn");
 const statusText = document.getElementById("statusText");
+const playlistText = document.getElementById("playlistText");
 const logEl = document.getElementById("log");
 const cmdInput = document.getElementById("cmdInput");
+
+const TRACKS = {
+  DIGGER_BOOT: {
+    name: "DIGGER-BOOT THEME (ORIGINALE)",
+    tempo: 138,
+    notes: [
+      ["E5", 0.25], ["B4", 0.25], ["C5", 0.25], ["D5", 0.25],
+      ["C5", 0.25], ["B4", 0.25], ["A4", 0.25], ["A4", 0.25],
+      ["C5", 0.25], ["E5", 0.25], ["D5", 0.25], ["C5", 0.25],
+      ["B4", 0.25], ["C5", 0.25], ["D5", 0.25], ["E5", 0.25],
+      ["C5", 0.25], ["A4", 0.25], ["A4", 0.5], ["R", 0.25]
+    ]
+  },
+  BACH_BWV565: {
+    name: "BACH - BWV 565 (MOTIVO)",
+    tempo: 112,
+    notes: [
+      ["D4", 0.4], ["C#4", 0.4], ["D4", 0.4], ["E4", 0.4],
+      ["F4", 0.4], ["E4", 0.4], ["D4", 0.4], ["C#4", 0.4],
+      ["D4", 0.4], ["A3", 0.4], ["D4", 0.4], ["F4", 0.4],
+      ["A4", 0.5], ["R", 0.2], ["A3", 0.5], ["D4", 0.6]
+    ]
+  },
+  MOZART_25: {
+    name: "MOZART - SYMPHONY N.25 (MOTIVO)",
+    tempo: 132,
+    notes: [
+      ["G4", 0.25], ["G4", 0.25], ["G4", 0.25], ["Eb4", 0.25],
+      ["R", 0.1], ["F4", 0.25], ["F4", 0.25], ["F4", 0.25], ["D4", 0.25],
+      ["R", 0.1], ["Eb4", 0.25], ["Eb4", 0.25], ["Eb4", 0.25], ["C4", 0.25],
+      ["R", 0.1], ["D4", 0.4], ["G3", 0.5]
+    ]
+  }
+};
+
+const RANDOM_POOL = [TRACKS.BACH_BWV565, TRACKS.MOZART_25];
+const SEMITONES = {
+  "C": 0, "C#": 1, "DB": 1, "D": 2, "D#": 3, "EB": 3, "E": 4, "F": 5,
+  "F#": 6, "GB": 6, "G": 7, "G#": 8, "AB": 8, "A": 9, "A#": 10, "BB": 10, "B": 11
+};
 
 function ensureAudioContext() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -145,11 +196,56 @@ function setStatus(text) {
 }
 
 function stopPlayback() {
+  activePlayToken++;
   if (currentSource) {
     try { currentSource.stop(); } catch (e) {}
     currentSource.disconnect();
     currentSource = null;
   }
+}
+
+function noteToFreq(note) {
+  if (!note || note === "R") return 0;
+  const m = /^([A-Ga-g])([#bB]?)(\d)$/.exec(note);
+  if (!m) return 0;
+  const key = (m[1].toUpperCase() + (m[2] || "")).replace("b", "B");
+  const octave = Number(m[3]);
+  const semitone = SEMITONES[key];
+  if (semitone === undefined) return 0;
+  const midi = (octave + 1) * 12 + semitone;
+  return 440 * Math.pow(2, (midi - 69) / 12);
+}
+
+function generateTrackBuffer(track) {
+  const ctx = ensureAudioContext();
+  const sr = ctx.sampleRate;
+  const beat = 60 / track.tempo;
+  let totalSec = 0;
+  for (const n of track.notes) totalSec += n[1] * beat;
+  const len = Math.max(1, Math.floor(totalSec * sr));
+  const raw = ctx.createBuffer(1, len, sr);
+  const out = raw.getChannelData(0);
+
+  let pos = 0;
+  for (const [note, beats] of track.notes) {
+    const sec = beats * beat;
+    const count = Math.max(1, Math.floor(sec * sr));
+    const freq = noteToFreq(note);
+    for (let i = 0; i < count && (pos + i) < out.length; i++) {
+      if (!freq) {
+        out[pos + i] = 0;
+        continue;
+      }
+      const t = i / sr;
+      const phase = 2 * Math.PI * freq * t;
+      const square = Math.sin(phase) >= 0 ? 0.72 : -0.72;
+      const envPos = i / count;
+      const env = envPos < 0.08 ? (envPos / 0.08) : (1 - Math.max(0, (envPos - 0.82) / 0.18));
+      out[pos + i] = square * env;
+    }
+    pos += count;
+  }
+  return create8BitBuffer(raw, Number(sampleRate.value), true);
 }
 
 function create8BitBuffer(srcBuffer, targetRate, forceMono) {
@@ -225,6 +321,7 @@ function playCurrentBuffer() {
     if (currentSource === src) {
       currentSource = null;
       setStatus("PRONTO");
+      if (djEnabled) queueNextRandom();
     }
   };
   src.start();
@@ -234,6 +331,8 @@ function playCurrentBuffer() {
 }
 
 function playTestTone() {
+  djEnabled = false;
+  playlistText.textContent = "DJ OFF";
   stopPlayback();
   const ctx = ensureAudioContext();
   const dur = 1.0;
@@ -255,19 +354,76 @@ function playTestTone() {
   logLine("TEST TONE 440Hz riprodotto con emulazione 8-bit.", "log-ok");
 }
 
+function playSynthTrack(track, continueRandomAfter) {
+  stopPlayback();
+  const token = activePlayToken;
+  const buf = generateTrackBuffer(track);
+  const src = ensureAudioContext().createBufferSource();
+  src.buffer = buf;
+  src.connect(ensureAudioContext().destination);
+  src.onended = function() {
+    if (activePlayToken !== token) return;
+    if (currentSource === src) currentSource = null;
+    if (continueRandomAfter && djEnabled) {
+      queueNextRandom();
+    } else {
+      setStatus("PRONTO");
+    }
+  };
+  src.start();
+  currentSource = src;
+  currentSynthName = track.name;
+  setStatus("PLAYBACK: " + track.name);
+  logLine("PLAY SYNTH: " + track.name + " | 8-bit @ " + Number(sampleRate.value) + " Hz", "log-ok");
+}
+
+function randomTrack() {
+  if (RANDOM_POOL.length === 1) return RANDOM_POOL[0];
+  let idx = Math.floor(Math.random() * RANDOM_POOL.length);
+  if (idx === lastTrackIndex) idx = (idx + 1) % RANDOM_POOL.length;
+  lastTrackIndex = idx;
+  return RANDOM_POOL[idx];
+}
+
+function queueNextRandom() {
+  if (!djEnabled) return;
+  const next = randomTrack();
+  playSynthTrack(next, true);
+}
+
+function startDjMode() {
+  ensureAudioContext().resume().catch(function() {});
+  djEnabled = true;
+  playlistText.textContent = "DIGGER BOOT -> RANDOM (BACH/MOZART)";
+  logLine("DJ MODE ON: avvio con Digger-style, poi random Bach/Mozart.", "log-ok");
+  playSynthTrack(TRACKS.DIGGER_BOOT, true);
+}
+
+function stopDjMode() {
+  djEnabled = false;
+  playlistText.textContent = "DJ OFF";
+  setStatus("DJ DISATTIVATO");
+  logLine("DJ MODE OFF.", "log-warn");
+}
+
 function showStat() {
-  if (!decodedBuffer) {
-    logLine("STAT: nessun file caricato.", "log-warn");
-    return;
+  if (decodedBuffer) {
+    logLine(
+      "STAT: FILE=" + loadedName +
+      " | DURATA=" + loadedDuration.toFixed(2) + "s" +
+      " | SRC=" + decodedBuffer.sampleRate + "Hz/" + decodedBuffer.numberOfChannels + "ch" +
+      " | TARGET=" + Number(sampleRate.value) + "Hz" +
+      (monoMix.checked ? " | MONO=ON" : " | MONO=OFF"),
+      "log-ok"
+    );
+  } else {
+    logLine(
+      "STAT: nessun file caricato | DJ=" + (djEnabled ? "ON" : "OFF") +
+      " | SYNTH=" + (currentSynthName || "N/D") +
+      " | TARGET=" + Number(sampleRate.value) + "Hz",
+      "log-warn"
+    );
   }
-  logLine(
-    "STAT: FILE=" + loadedName +
-    " | DURATA=" + loadedDuration.toFixed(2) + "s" +
-    " | SRC=" + decodedBuffer.sampleRate + "Hz/" + decodedBuffer.numberOfChannels + "ch" +
-    " | TARGET=" + Number(sampleRate.value) + "Hz" +
-    (monoMix.checked ? " | MONO=ON" : " | MONO=OFF"),
-    "log-ok"
-  );
 }
 
 function runCommand(rawCmd) {
@@ -276,22 +432,35 @@ function runCommand(rawCmd) {
   logLine("> " + cmd);
 
   if (cmd === "HELP") {
-    logLine("COMANDI: HELP, LOAD, PLAY, STOP, STAT, CLR", "log-ok");
+    logLine("COMANDI: HELP, LOAD, PLAY, STOP, STAT, CLR, DJON, DJOFF, NEXT", "log-ok");
   } else if (cmd === "LOAD") {
     loadSelectedFile().catch(function(err) {
       logLine("LOAD FAIL: " + err.message, "log-err");
       setStatus("ERRORE DI CARICAMENTO");
     });
   } else if (cmd === "PLAY") {
+    djEnabled = false;
+    playlistText.textContent = "DJ OFF";
     playCurrentBuffer();
   } else if (cmd === "STOP") {
     stopPlayback();
+    stopDjMode();
     setStatus("STOP ESEGUITO");
     logLine("STOP OK.", "log-ok");
   } else if (cmd === "STAT") {
     showStat();
   } else if (cmd === "CLR") {
     logEl.innerHTML = "";
+  } else if (cmd === "DJON") {
+    startDjMode();
+  } else if (cmd === "DJOFF") {
+    stopDjMode();
+  } else if (cmd === "NEXT") {
+    if (!djEnabled) {
+      logLine("NEXT disponibile solo con DJON.", "log-warn");
+    } else {
+      queueNextRandom();
+    }
   } else {
     logLine("Comando non riconosciuto: " + cmd, "log-err");
   }
@@ -300,6 +469,7 @@ function runCommand(rawCmd) {
 sampleRate.addEventListener("input", function() {
   sampleRateVal.textContent = sampleRate.value;
   emulatedBuffer = null;
+  if (currentSynthName) logLine("Sample-rate aggiornato: " + sampleRate.value + " Hz", "log-warn");
 });
 
 monoMix.addEventListener("change", function() {
@@ -313,13 +483,26 @@ audioFile.addEventListener("change", function() {
   });
 });
 
-playBtn.addEventListener("click", playCurrentBuffer);
+playBtn.addEventListener("click", function() {
+  djEnabled = false;
+  playlistText.textContent = "DJ OFF";
+  playCurrentBuffer();
+});
 stopBtn.addEventListener("click", function() {
   stopPlayback();
+  stopDjMode();
   setStatus("STOP ESEGUITO");
   logLine("STOP OK.", "log-ok");
 });
 testToneBtn.addEventListener("click", playTestTone);
+startDjBtn.addEventListener("click", startDjMode);
+nextTrackBtn.addEventListener("click", function() {
+  if (!djEnabled) {
+    logLine("Premere START DJ prima di NEXT RANDOM.", "log-warn");
+    return;
+  }
+  queueNextRandom();
+});
 
 cmdInput.addEventListener("keydown", function(e) {
   if (e.key === "Enter") {
@@ -328,7 +511,15 @@ cmdInput.addEventListener("keydown", function(e) {
   }
 });
 
+document.addEventListener("pointerdown", function armStart() {
+  if (!djEnabled) {
+    logLine("Interazione utente rilevata: audio engine pronto (clicca START DJ).", "log-ok");
+  }
+  document.removeEventListener("pointerdown", armStart);
+}, { once: true });
+
 logLine("GN700 pronto. Digitare HELP nella console.", "log-ok");
+logLine("Per avvio automatico playlist: START DJ (Digger-style -> random).", "log-ok");
 </script>
 </body>
 </html>
