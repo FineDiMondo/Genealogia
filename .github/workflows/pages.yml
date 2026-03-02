@@ -1,0 +1,69 @@
+name: pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build WebAssembly (SDL2 + Emscripten)
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/src" -w /src \
+            emscripten/emsdk:latest \
+            bash -lc '
+              mkdir -p engine_scummlike_web/assets
+              test -f engine_scummlike_web/assets/dummy.txt || echo ok > engine_scummlike_web/assets/dummy.txt
+              mkdir -p engine_scummlike_web/dist
+              emcc engine_scummlike_web/src/main.c \
+                -O3 \
+                -sUSE_SDL=2 \
+                -sALLOW_MEMORY_GROWTH=1 \
+                -sMAX_WEBGL_VERSION=2 \
+                -sMIN_WEBGL_VERSION=2 \
+                --preload-file engine_scummlike_web/assets@/assets \
+                -o engine_scummlike_web/dist/index.html
+            '
+
+      - name: Prepare web root
+        run: |
+          rm -rf web
+          mkdir -p web
+          cp -R engine_scummlike_web/dist/. web/
+          if [ -d PORTALE_GN ]; then
+            cp -R PORTALE_GN web/PORTALE_GN
+          fi
+          python3 tools/web/prepare_web.py web
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

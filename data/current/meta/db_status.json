@@ -1,0 +1,12 @@
+﻿{
+    "timestamp":  "2026-03-02T14:02:01.7838643Z",
+    "lastAction":  "backup",
+    "latestBackup":  "C:\\Users\\LENOVO\\OneDrive\\Genealogia\\data\\backups\\backup_20260302_150201_verify_db.zip",
+    "counts":  {
+                   "persons":  2,
+                   "families":  1,
+                   "events":  2,
+                   "files":  19,
+                   "bytes":  12482
+               }
+}

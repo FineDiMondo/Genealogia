@@ -42,5 +42,4 @@
     T.assert(scenes[1].lines.length === 2, 'scene 2 lines');
   });
 
-  T.report();
 })();

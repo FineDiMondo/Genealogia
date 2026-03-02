@@ -1,0 +1,13 @@
+{
+  "persons": [
+    "PERSON/P#SAMPLE001.rec",
+    "PERSON/P#SAMPLE002.rec"
+  ],
+  "families": [
+    "FAMILY/F#SAMPLE001.rec"
+  ],
+  "events": [
+    "EVENT/E#SAMPLE001.rec",
+    "EVENT/E#SAMPLE002.rec"
+  ]
+}

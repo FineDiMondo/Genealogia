@@ -22,9 +22,7 @@ tools/sqlite/*.zip
 # Local secrets and environments
 .env
 venv/
-app/node_modules/
-app/dist/
-app/.vercel/
+node_modules/
 .env.local
 .env.*.local
 
@@ -45,3 +43,8 @@ src/portale_giardina.DEPRECATED/
 /launcher/build/
 /launcher/.vs/
 /launcher/.vscode/
+
+# WebAssembly build outputs
+/engine_scummlike_web/dist/
+/web/*
+!/web/.gitkeep

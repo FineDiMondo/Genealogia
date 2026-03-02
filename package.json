@@ -1,0 +1,15 @@
+{
+  "name": "genealogia-tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tools/test/run_js_tests.mjs",
+    "test:all": "node tools/test/run_all_tests.mjs",
+    "test:cobol:fixtures": "node tools/test/generate_cobol_fixtures.mjs",
+    "test:db:migration": "python tools/test/test_db_migration.py",
+    "test:db:triggers": "python tests/schema/test_integrity_triggers.py"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0"
+  }
+}

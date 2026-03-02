@@ -53,6 +53,13 @@ html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); fon
   color: var(--fg-dim);
 }
 
+#job-status-line {
+  margin-top: 0.45rem;
+  padding-top: 0.35rem;
+  border-top: 1px dashed var(--line);
+  color: var(--fg);
+}
+
 .gn370-command-row {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -92,6 +99,8 @@ html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); fon
 .wrn { color: var(--warn); }
 .err { color: var(--err); }
 .sep { color: var(--fg-dim); }
+.job { color: #8eff8e; }
+.job-step { color: #b0ffb0; }
 
 @media (max-width: 900px) {
   .gn370-main { grid-template-columns: 1fr; }

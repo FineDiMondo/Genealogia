@@ -14,6 +14,9 @@
   <h1>GN370 Test Runner</h1>
   <pre id="report">Running tests...</pre>
 
+  <script src="../src/copybook/copybook_parser.js"></script>
+  <script src="../src/copybook/record_parser.js"></script>
+  <script src="../src/copybook/record_renderer_370.js"></script>
   <script src="../assets/gn370.js"></script>
   <script>
     const results = [];
@@ -45,5 +48,11 @@
   </script>
   <script src="gn370_shell.test.js"></script>
   <script src="gedcom_parser.test.js"></script>
+  <script src="copybook_parser.test.js"></script>
+  <script src="record_parser.test.js"></script>
+  <script src="progress_renderer.test.js"></script>
+  <script>
+    window.__GN370_TEST__.report();
+  </script>
 </body>
 </html>
