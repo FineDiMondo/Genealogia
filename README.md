@@ -58,7 +58,7 @@ Apri:
 
 ## Architettura evolutiva
 
-- Proposta GN370-NEXT (versione operativa): `docs/GN370_NEXT_ARCHITECTURE.md`
+- Proposta GN370-NEXT: vedi `docs/ROADMAP.md` e `docs/LEXICON.md`
 
 ## Governance
 

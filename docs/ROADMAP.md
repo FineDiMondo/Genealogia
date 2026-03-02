@@ -57,3 +57,13 @@ P2
 ## Criterio di avanzamento tra fasi
 - Ogni fase richiede: STOP -> PUSH -> GATE approvato.
 - Nessuna fase N+1 parte senza gate N approvato.
+
+## Stato documenti esistenti in docs/
+I seguenti file erano presenti prima della Fase 0 e verranno riconciliati col LEXICON durante la Fase 1:
+- `GN370_SHELL.md` - spec shell (da allineare a grammar v0.1).
+- `GN370_EVENTS.md` - spec eventi (da allineare a `EVENT_TYPE` lexicon).
+- `GN370_STORIES.md` - spec storyteller (da allineare a `STORY_AGT`).
+- `EVENT_JOURNAL.md` - spec journal (da allineare a TM Fase 3).
+- `GEDCOM_MAPPING.md` - mapping GEDCOM->schema (da verificare in Fase 1).
+- `DB_LIFECYCLE.md` - lifecycle backup/restore (da allineare a Fase 3).
+- `ROOTSMAGIC_ADAPTER.md` - adapter esterno (in scope fase futura).
