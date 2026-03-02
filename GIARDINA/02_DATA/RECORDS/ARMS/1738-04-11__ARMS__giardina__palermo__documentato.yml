@@ -1,0 +1,21 @@
+id: 1738-04-11__ARMS__giardina__palermo__documentato
+type: ARMS
+title: Stemma Giardina documentato
+status: DOCUMENTATO
+family_id: 1680-01-01__FAMILY__giardina__palermo__linea-principale
+blazon: D'oro al tondo di rosso.
+date:
+  sort: "1738-04-11"
+  display: "11 aprile 1738"
+place_id: 1600-01-01__PLACE__palermo__sicilia__citta
+reliability: DOCUMENTATO
+source_ids:
+  - 1647-01-01__SOURCE__mugnos__palermo__teatro-genealogico
+person_ids:
+  - 1710-04-12__PERSON__antonio-giardina__palermo__profilo
+media_ids:
+  - 1738-04-11__ARMS__giardina__palermo__documentato__scan001
+tags:
+  - araldica
+notes: Esempio documentato.
+

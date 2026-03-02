@@ -3,25 +3,22 @@
 
   const PF_LINKS = {
     1: "index.html",
-    3: "famiglie.html",
-    4: "giardina.html",
-    5: "negrini.html",
-    6: "nobili.html",
-    7: "analisi.html",
-    8: "fonti.html",
-    9: "media.html"
+    4: "people/index.html",
+    5: "families/index.html",
+    6: "sources/index.html",
+    7: "heraldry/index.html",
+    8: "reports/index.html",
+    9: "portale-chiaro.html"
   };
 
   const MENU_LINKS = {
-    1: "famiglie.html",
-    2: "giardina.html",
-    3: "negrini.html",
-    4: "nobili.html",
-    5: "analisi.html",
-    6: "fonti.html",
-    7: "media.html",
-    8: "spazio_agentico.html",
-    9: "people/index.html"
+    1: "people/index.html",
+    2: "families/index.html",
+    3: "sources/index.html",
+    4: "heraldry/index.html",
+    5: "reports/index.html",
+    6: "portale-chiaro.html",
+    9: "portale-370.html"
   };
 
   const state = {
@@ -31,13 +28,13 @@
 
   function portalRootPrefix() {
     const p = (window.location.pathname || "").replace(/\\/g, "/");
-    const marker = "/generated/";
-    const idx = p.indexOf(marker);
-    if (idx === -1) return "";
-    const tail = p.slice(idx + marker.length);
-    const parts = tail.split("/").filter(Boolean);
-    const depth = parts.length > 0 ? parts.length : 1;
-    return "../".repeat(depth);
+    const parts = p.split("/").filter(Boolean);
+    if (parts.length < 2) return "";
+    const parent = parts[parts.length - 2].toLowerCase();
+    if (["people", "families", "sources", "heraldry", "reports"].includes(parent)) {
+      return "../";
+    }
+    return "";
   }
 
   function resolvePortalPath(path) {

@@ -1,0 +1,2 @@
+"""GIARDINA project root package."""
+

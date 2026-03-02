@@ -1,0 +1,20 @@
+id: 1680-01-01__FAMILY__giardina__palermo__linea-principale
+type: FAMILY
+name: Famiglia Giardina
+slug: giardina-linea-principale
+date:
+  sort: "1680-01-01"
+  display: "Sec. XVII-XIX"
+place_id: 1600-01-01__PLACE__palermo__sicilia__citta
+reliability: DOCUMENTATO
+source_ids:
+  - 1647-01-01__SOURCE__mugnos__palermo__teatro-genealogico
+person_ids:
+  - 1710-04-12__PERSON__antonio-giardina__palermo__profilo
+arms_ids:
+  - 1738-04-11__ARMS__giardina__palermo__documentato
+media_ids: []
+tags:
+  - famiglia
+notes: Casata principale del portale.
+

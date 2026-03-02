@@ -1,0 +1,6 @@
+* COPY CONTRACT - BATCH RETURN CODES
+01  COPY-RETURN-CODES.
+05  RC-OK                    VALUE 0.
+05  RC-WARNING               VALUE 4.
+05  RC-ERROR                 VALUE 8.
+

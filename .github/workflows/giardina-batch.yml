@@ -1,0 +1,36 @@
+name: GIARDINA Validate Build
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  giardina-batch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install PyYAML
+
+      - name: Compile COPY
+        run: python GIARDINA/03_PROG/batch.py compile-copy
+
+      - name: Validate
+        run: python GIARDINA/03_PROG/batch.py validate
+
+      - name: Build
+        run: python GIARDINA/03_PROG/batch.py build
+
+      - name: Unit test
+        run: python GIARDINA/06_TEST/unit/test_batch.py

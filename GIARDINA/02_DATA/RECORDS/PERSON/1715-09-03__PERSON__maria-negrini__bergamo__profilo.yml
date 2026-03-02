@@ -1,0 +1,24 @@
+id: 1715-09-03__PERSON__maria-negrini__bergamo__profilo
+type: PERSON
+name: Maria Negrini
+date:
+  sort: "1715-09-03"
+  display: "1715-1789"
+birth_date: "1715-09-03"
+death_date: "1789-05-18"
+place_id: 1600-01-01__PLACE__bergamo__lombardia__citta
+reliability: DOCUMENTATO
+source_ids:
+  - 1750-01-01__SOURCE__registro-parrocchiale__palermo__matrimoni-santa-maria
+family_ids:
+  - 1690-01-01__FAMILY__negrini__bergamo__linea-storica
+person_ids:
+  - 1710-04-12__PERSON__antonio-giardina__palermo__profilo
+arms_ids:
+  - 1734-06-20__ARMS__negrini-giardina__palermo__attribuito
+media_ids: []
+tags:
+  - persona
+  - matrimonio
+notes: Placeholder biografico.
+

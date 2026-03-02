@@ -1,0 +1,20 @@
+id: 1702-05-01__EVENT__stampa-genealogica__messina__opuscolo
+type: EVENT
+title: Opuscolo genealogico in circolazione privata
+event_kind: PUBBLICAZIONE_STAMPA
+date:
+  sort: "1702-05-01"
+  display: "1 maggio 1702"
+place_id: 1600-01-01__PLACE__palermo__sicilia__citta
+reliability: STAMPA
+source_ids:
+  - 1647-01-01__SOURCE__mugnos__palermo__teatro-genealogico
+family_ids:
+  - 1690-01-01__FAMILY__negrini__bergamo__linea-storica
+person_ids: []
+arms_ids: []
+media_ids: []
+tags:
+  - stampa
+notes: Placeholder stampa secondaria.
+

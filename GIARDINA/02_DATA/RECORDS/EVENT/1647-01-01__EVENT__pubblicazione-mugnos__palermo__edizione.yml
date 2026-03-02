@@ -1,0 +1,20 @@
+id: 1647-01-01__EVENT__pubblicazione-mugnos__palermo__edizione
+type: EVENT
+title: Pubblicazione repertorio nobiliare
+event_kind: PUBBLICAZIONE_STAMPA
+date:
+  sort: "1647-01-01"
+  display: "1647"
+place_id: 1600-01-01__PLACE__palermo__sicilia__citta
+reliability: STAMPA
+source_ids:
+  - 1647-01-01__SOURCE__mugnos__palermo__teatro-genealogico
+family_ids:
+  - 1680-01-01__FAMILY__giardina__palermo__linea-principale
+person_ids: []
+arms_ids: []
+media_ids: []
+tags:
+  - stampa
+notes: Evento editoriale.
+

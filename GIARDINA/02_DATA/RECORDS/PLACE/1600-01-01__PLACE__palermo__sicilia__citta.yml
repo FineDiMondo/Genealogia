@@ -1,0 +1,15 @@
+id: 1600-01-01__PLACE__palermo__sicilia__citta
+type: PLACE
+name: Palermo
+date:
+  sort: "1600-01-01"
+  display: "Età moderna"
+region: Sicilia
+country: Italia
+reliability: DOCUMENTATO
+source_ids:
+  - 1647-01-01__SOURCE__mugnos__palermo__teatro-genealogico
+tags:
+  - luogo
+notes: Place master record.
+

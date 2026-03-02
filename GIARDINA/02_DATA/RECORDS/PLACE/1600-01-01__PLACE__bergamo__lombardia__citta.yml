@@ -1,0 +1,14 @@
+id: 1600-01-01__PLACE__bergamo__lombardia__citta
+type: PLACE
+name: Bergamo
+date:
+  sort: "1600-01-01"
+  display: "Età moderna"
+region: Lombardia
+country: Italia
+reliability: DOCUMENTATO
+source_ids: []
+tags:
+  - luogo
+notes: Place master record.
+
