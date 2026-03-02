@@ -59,3 +59,5 @@ python tests/agents/test_shell_runner_smoke.py
 - Definition of Done: [docs/DEFINITION_OF_DONE.md](docs/DEFINITION_OF_DONE.md)
 - Lexicon: [docs/LEXICON.md](docs/LEXICON.md)
 - Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
+- Runbook operativo: [docs/RUNBOOK.md](docs/RUNBOOK.md)
+- Changelog: [CHANGELOG.md](CHANGELOG.md)
