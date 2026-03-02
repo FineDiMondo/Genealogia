@@ -5,16 +5,17 @@ interface Props {
 
 const { currentEnv = "PROD" } = Astro.props;
 const path = Astro.url.pathname;
+const baseUrl = import.meta.env.BASE_URL;
 const menuItems = [
-  { label: "01 HOME", href: "/" },
-  { label: "02 DASHBOARD", href: "/gestionale/" },
-  { label: "03 PERSONE", href: "/gestionale/search?domain=people" },
-  { label: "04 FAMIGLIE", href: "/gestionale/search?domain=families" },
-  { label: "05 REPORT", href: "/gestionale/reports" },
-  { label: "06 JOBS", href: "/gestionale/batch-monitor" },
-  { label: "07 ADMIN", href: "/gestionale/admin" },
-  { label: "08 MONITOR", href: "/gestionale/monitoring" },
-  { label: "09 HELP", href: "/gestionale/help" }
+  { label: "01 HOME", href: `${baseUrl}` },
+  { label: "02 DASHBOARD", href: `${baseUrl}gestionale/` },
+  { label: "03 PERSONE", href: `${baseUrl}gestionale/search?domain=people` },
+  { label: "04 FAMIGLIE", href: `${baseUrl}gestionale/search?domain=families` },
+  { label: "05 REPORT", href: `${baseUrl}gestionale/reports` },
+  { label: "06 JOBS", href: `${baseUrl}gestionale/batch-monitor` },
+  { label: "07 ADMIN", href: `${baseUrl}gestionale/admin` },
+  { label: "08 MONITOR", href: `${baseUrl}gestionale/monitoring` },
+  { label: "09 HELP", href: `${baseUrl}gestionale/help` }
 ];
 ---
 

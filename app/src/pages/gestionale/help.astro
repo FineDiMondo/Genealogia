@@ -2,6 +2,7 @@
 import GestionalLayout from "../../layouts/GestionalLayout.astro";
 import Navigation from "../../components/Navigation.astro";
 import Panel from "../../components/ui/Panel.astro";
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <GestionalLayout title="PF1 Help">
@@ -50,7 +51,7 @@ SORT
     <Panel title="Deploy and Cache" status="LINK">
       <p>
         Guida operativa per refresh cache PWA e verifica deploy:
-        <a href="/gestionale/deploy-cache">/gestionale/deploy-cache</a>
+        <a href={`${baseUrl}gestionale/deploy-cache`}>{baseUrl}gestionale/deploy-cache</a>
       </p>
     </Panel>
   </main>

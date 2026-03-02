@@ -18,52 +18,52 @@ const baseUrl = import.meta.env.BASE_URL;
   </section>
 
   <section class="kpi-row">
-    <article class="kpi-box"><span class="kpi-value">432</span><span class="kpi-label">PERSONE</span></article>
-    <article class="kpi-box"><span class="kpi-value">211</span><span class="kpi-label">FAMIGLIE</span></article>
-    <article class="kpi-box"><span class="kpi-value">904</span><span class="kpi-label">EVENTI</span></article>
-    <article class="kpi-box"><span class="kpi-value">4</span><span class="kpi-label">STEMMI</span></article>
-    <article class="kpi-box"><span class="kpi-value">2</span><span class="kpi-label">TITOLI</span></article>
+    <article class="kpi-box"><span id="count-persone" class="kpi-value">432</span><span class="kpi-label">PERSONE</span></article>
+    <article class="kpi-box"><span id="count-famiglie" class="kpi-value">211</span><span class="kpi-label">FAMIGLIE</span></article>
+    <article class="kpi-box"><span id="count-eventi" class="kpi-value">904</span><span class="kpi-label">EVENTI</span></article>
+    <article class="kpi-box"><span id="count-stemmi" class="kpi-value">4</span><span class="kpi-label">STEMMI</span></article>
+    <article class="kpi-box"><span id="count-titoli" class="kpi-value">2</span><span class="kpi-label">TITOLI</span></article>
   </section>
 
   <section class="menu-panel">
     <div class="menu-hdr">SELEZIONARE FUNZIONE</div>
 
-    <a class="menu-item" href="/gestionale/">
+    <a class="menu-item" href={`${baseUrl}gestionale/`}>
       <span class="mn">1.</span>
       <span class="mc">DASHBOARD 370</span>
       <span class="md">Pannello operativo con metriche e stato pipeline</span>
       <span class="mr">GN100</span>
     </a>
 
-    <a class="menu-item" href="/gestionale/search?domain=people">
+    <a class="menu-item" href={`${baseUrl}gestionale/search?domain=people`}>
       <span class="mn">2.</span>
       <span class="mc">RICERCA PERSONE</span>
       <span class="md">Ricerca anagrafica su archivio normalizzato</span>
       <span class="mr">GN200</span>
     </a>
 
-    <a class="menu-item" href="/gestionale/search?domain=families">
+    <a class="menu-item" href={`${baseUrl}gestionale/search?domain=families`}>
       <span class="mn">3.</span>
       <span class="mc">RICERCA FAMIGLIE</span>
       <span class="md">Consultazione nuclei e collegamenti genealogici</span>
       <span class="mr">GN300</span>
     </a>
 
-    <a class="menu-item" href="/gestionale/reports">
+    <a class="menu-item" href={`${baseUrl}gestionale/reports`}>
       <span class="mn">4.</span>
       <span class="mc">REPORT E ANALISI</span>
       <span class="md">Output quality check, delta e controllo conflitti</span>
       <span class="mr">GN400</span>
     </a>
 
-    <a class="menu-item" href="/gestionale/batch-monitor">
+    <a class="menu-item" href={`${baseUrl}gestionale/batch-monitor`}>
       <span class="mn">5.</span>
       <span class="mc">JOBS E BATCH</span>
       <span class="md">Monitor validazione, build e ingest GIARDINA</span>
       <span class="mr">GN500</span>
     </a>
 
-    <a class="menu-item" href="/search">
+    <a class="menu-item" href={`${baseUrl}search`}>
       <span class="mn">6.</span>
       <span class="mc">PWA SEARCH</span>
       <span class="md">Interfaccia pubblica Astro su dataset corrente</span>
@@ -77,21 +77,21 @@ const baseUrl = import.meta.env.BASE_URL;
       <span class="mr">GN700</span>
     </a>
 
-    <a class="menu-item" href="/PORTALE_GN/index.html">
+    <a class="menu-item" href={`${baseUrl}PORTALE_GN/index.html`} data-unavailable="true">
       <span class="mn">8.</span>
       <span class="mc">PORTALE HTML</span>
       <span class="md">Accesso al portale statico storico in stile GN</span>
       <span class="mr">GN800</span>
     </a>
 
-    <a class="menu-item" href="/gestionale/help">
+    <a class="menu-item" href={`${baseUrl}gestionale/help`}>
       <span class="mn">9.</span>
       <span class="mc">HELP</span>
       <span class="md">Guida operativa e mappa tasti funzione</span>
       <span class="mr">GN900</span>
     </a>
 
-    <a class="menu-item" href="/gestionale/deploy-cache">
+    <a class="menu-item" href={`${baseUrl}gestionale/deploy-cache`}>
       <span class="mn">10.</span>
       <span class="mc">DEPLOY CACHE</span>
       <span class="md">Checklist rapida per aggiornare cache PWA e verificare il deploy</span>
@@ -120,15 +120,41 @@ Task:
     <button id="copy-agent-prompt" class="copy-btn">COPY PROMPT</button>
   </section>
 
-  <script>
+  <script define:vars={{ baseUrl }}>
     document.getElementById("copy-agent-prompt")?.addEventListener("click", async () => {
       const prompt = document.getElementById("agent-prompt");
+      const copyBtn = document.getElementById("copy-agent-prompt");
       if (!prompt) return;
       try {
         await navigator.clipboard.writeText(prompt.value);
+        if (copyBtn) {
+          const original = copyBtn.textContent;
+          copyBtn.textContent = "COPIATO OK";
+          setTimeout(() => {
+            copyBtn.textContent = original || "COPY PROMPT";
+          }, 2000);
+        }
       } catch {
         alert("Copia non disponibile in questo browser.");
       }
     });
+
+    fetch(`${baseUrl}data/current/manifest.json`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (!data?.counts) return;
+        const map = [
+          ["count-persone", data.counts.people_count],
+          ["count-famiglie", data.counts.families_count],
+          ["count-eventi", data.counts.events_count],
+          ["count-stemmi", data.counts.stemmi_count],
+          ["count-titoli", data.counts.titoli_count],
+        ];
+        map.forEach(([id, value]) => {
+          const el = document.getElementById(id);
+          if (el && value !== undefined) el.textContent = String(value);
+        });
+      })
+      .catch(() => {});
   </script>
 </GestionalLayout>
