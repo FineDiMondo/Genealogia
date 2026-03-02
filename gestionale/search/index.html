@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="it"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v4.16.19"><link rel="icon" type="image/png" href="/Genealogia/pwa-192.png"><title>Search | GENEALOGIA</title><link rel="stylesheet" href="/Genealogia/_astro/component-library.CVZZemzP.css"></head> <body class="terminal-body"> <div class="terminal"> <header class="sys-header"> <span class="sys-id">SIG-GN</span> <span class="sys-meta">IBM SYSTEM/370 COMPATIBLE | SESSIONE: ADM-001 | 2026-03-02 10:01:19</span> <span class="screen-id">GN000<br>SEARCH</span> </header> <nav class="breadcrumb"> <span class="curr">HOME</span> <span>&gt;</span> <span>SEARCH</span> </nav> <div class="prompt-line"> <label for="ispf-command-input">COMMAND ===&gt;</label> <input id="ispf-command-input" class="ispf-command-input" type="text" autocomplete="off" spellcheck="false" placeholder="HELP | HOME | GO PERSONE | FIND TESTO"> </div> <div id="ispf-message-line" class="msg-line">READY</div> <main class="terminal-content">  <div class="ispf-menu"> <a href="/Genealogia/" class="active"> 01 HOME </a><a href="/Genealogia/gestionale/" class="active"> 02 DASHBOARD </a><a href="/Genealogia/gestionale/search?domain=people" class="active"> 03 PERSONE </a><a href="/Genealogia/gestionale/search?domain=families" class="active"> 04 FAMIGLIE </a><a href="/Genealogia/gestionale/reports" class=""> 05 REPORT </a><a href="/Genealogia/gestionale/batch-monitor" class=""> 06 JOBS </a><a href="/Genealogia/gestionale/admin" class=""> 07 ADMIN </a><a href="/Genealogia/gestionale/monitoring" class=""> 08 MONITOR </a><a href="/Genealogia/gestionale/help" class=""> 09 HELP </a> </div> <div class="msg-line">ENV=PROD | SISTEMA OPERATIVO | DIGITA COMMAND O USA PF</div> <main class="section" style="padding: var(--space-xl);"> <h1>Ricerca Persone</h1> <input id="q" type="search" placeholder="Cerca per nome" style="padding: 0.5rem; width: 100%; max-width: 480px; margin-bottom: 1rem;"> <ul id="results"></ul> </main> <script>(function(){const dataIndexUrl = "/Genealogia/data/current/indexes/search_people.json";
+
+    let data = [];
+    function render(list) {
+      const target = document.getElementById("results");
+      target.innerHTML = list
+        .map((item) => `<li><strong>${item.name}</strong> (${item.id}) - ${item.family ?? ""}</li>`)
+        .join("");
+    }
+    async function init() {
+      try {
+        const res = await fetch(dataIndexUrl, { cache: "no-store" });
+        data = await res.json();
+        render(data);
+      } catch {
+        render([]);
+      }
+    }
+    document.getElementById("q").addEventListener("input", (ev) => {
+      const q = String(ev.target.value || "").toLowerCase().trim();
+      if (!q) return render(data);
+      render(data.filter((item) => String(item.name || "").toLowerCase().includes(q)));
+    });
+    init();
+  })();</script>  </main> <div class="status-line"> <span>STATO PORTALE: OPERATIVO</span> <span>AGG.: 2026-03-02</span> <span>AMBIENTE: PWA ASTRO</span> </div> <footer class="pfbar"> <span>PF1 Help</span> <span>PF3 End</span> <span>PF4 Return</span> <span>PF5 Refresh</span> <span>PF6 Sort</span> <span>PF7 Up</span> <span>PF8 Down</span> <span>PF10 Left</span> <span>PF11 Right</span> <span>PF12 Cancel</span> </footer> <script>
+        window.__ISPF_PANEL__ = { title: {JSON.stringify(title)}, path: {JSON.stringify(Astro.url.pathname)} };
+      </script> <script src="/Genealogia/ispf-keys.js"></script> </div> </body> </html>

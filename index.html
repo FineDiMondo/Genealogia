@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="it"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v4.16.19"><link rel="icon" type="image/png" href="/Genealogia/pwa-192.png"><title>Main Menu | GENEALOGIA</title><link rel="stylesheet" href="/Genealogia/_astro/component-library.CVZZemzP.css"></head> <body class="terminal-body"> <div class="terminal"> <header class="sys-header"> <span class="sys-id">SIG-GN</span> <span class="sys-meta">IBM SYSTEM/370 COMPATIBLE | SESSIONE: ADM-001 | 2026-03-02 10:01:19</span> <span class="screen-id">GN000<br>MAIN MENU</span> </header> <nav class="breadcrumb"> <span class="curr">HOME</span> <span>&gt;</span> <span>GENEALOGIA</span> </nav> <div class="prompt-line"> <label for="ispf-command-input">COMMAND ===&gt;</label> <input id="ispf-command-input" class="ispf-command-input" type="text" autocomplete="off" spellcheck="false" placeholder="HELP | HOME | GO PERSONE | FIND TESTO"> </div> <div id="ispf-message-line" class="msg-line">READY</div> <main class="terminal-content">  <div class="ispf-menu"> <a href="/Genealogia/" class="active"> 01 HOME </a><a href="/Genealogia/gestionale/" class=""> 02 DASHBOARD </a><a href="/Genealogia/gestionale/search?domain=people" class=""> 03 PERSONE </a><a href="/Genealogia/gestionale/search?domain=families" class=""> 04 FAMIGLIE </a><a href="/Genealogia/gestionale/reports" class=""> 05 REPORT </a><a href="/Genealogia/gestionale/batch-monitor" class=""> 06 JOBS </a><a href="/Genealogia/gestionale/admin" class=""> 07 ADMIN </a><a href="/Genealogia/gestionale/monitoring" class=""> 08 MONITOR </a><a href="/Genealogia/gestionale/help" class=""> 09 HELP </a> </div> <div class="msg-line">ENV=PROD | SISTEMA OPERATIVO | DIGITA COMMAND O USA PF</div> <section class="boot-seq"> <div><span class="ok">[OK]</span> MODULO DATI GENEALOGICI....... CARICATO</div> <div><span class="ok">[OK]</span> DATASET GEDCOM................. 5 FILE IMPORTATI</div> <div><span class="ok">[OK]</span> REGISTRO FAMIGLIE.............. 45 RECORD</div> <div><span class="ok">[OK]</span> NOMINATIVI UNIVOCI............. 432 RECORD</div> <div><span class="wrn">[--]</span> QUALITA RILEVAZIONE............ REVISIONE PARZIALE</div> <div><span class="ok">[OK]</span> PORTALE ASTRO.................. PRONTO</div> </section> <section class="kpi-row"> <article class="kpi-box"><span id="count-persone" class="kpi-value">432</span><span class="kpi-label">PERSONE</span></article> <article class="kpi-box"><span id="count-famiglie" class="kpi-value">211</span><span class="kpi-label">FAMIGLIE</span></article> <article class="kpi-box"><span id="count-eventi" class="kpi-value">904</span><span class="kpi-label">EVENTI</span></article> <article class="kpi-box"><span id="count-stemmi" class="kpi-value">4</span><span class="kpi-label">STEMMI</span></article> <article class="kpi-box"><span id="count-titoli" class="kpi-value">2</span><span class="kpi-label">TITOLI</span></article> </section> <section class="menu-panel"> <div class="menu-hdr">SELEZIONARE FUNZIONE</div> <a class="menu-item" href="/Genealogia/gestionale/"> <span class="mn">1.</span> <span class="mc">DASHBOARD 370</span> <span class="md">Pannello operativo con metriche e stato pipeline</span> <span class="mr">GN100</span> </a> <a class="menu-item" href="/Genealogia/gestionale/search?domain=people"> <span class="mn">2.</span> <span class="mc">RICERCA PERSONE</span> <span class="md">Ricerca anagrafica su archivio normalizzato</span> <span class="mr">GN200</span> </a> <a class="menu-item" href="/Genealogia/gestionale/search?domain=families"> <span class="mn">3.</span> <span class="mc">RICERCA FAMIGLIE</span> <span class="md">Consultazione nuclei e collegamenti genealogici</span> <span class="mr">GN300</span> </a> <a class="menu-item" href="/Genealogia/gestionale/reports"> <span class="mn">4.</span> <span class="mc">REPORT E ANALISI</span> <span class="md">Output quality check, delta e controllo conflitti</span> <span class="mr">GN400</span> </a> <a class="menu-item" href="/Genealogia/gestionale/batch-monitor"> <span class="mn">5.</span> <span class="mc">JOBS E BATCH</span> <span class="md">Monitor validazione, build e ingest GIARDINA</span> <span class="mr">GN500</span> </a> <a class="menu-item" href="/Genealogia/search"> <span class="mn">6.</span> <span class="mc">PWA SEARCH</span> <span class="md">Interfaccia pubblica Astro su dataset corrente</span> <span class="mr">GN600</span> </a> <a class="menu-item" href="/Genealogia/data/current/manifest.json"> <span class="mn">7.</span> <span class="mc">MANIFEST DATI</span> <span class="md">Verifica file pubblicati in app/public/data/current</span> <span class="mr">GN700</span> </a> <a class="menu-item" href="/Genealogia/PORTALE_GN/index.html" data-unavailable="true"> <span class="mn">8.</span> <span class="mc">PORTALE HTML</span> <span class="md">Accesso al portale statico storico in stile GN</span> <span class="mr">GN800</span> </a> <a class="menu-item" href="/Genealogia/gestionale/help"> <span class="mn">9.</span> <span class="mc">HELP</span> <span class="md">Guida operativa e mappa tasti funzione</span> <span class="mr">GN900</span> </a> <a class="menu-item" href="/Genealogia/gestionale/deploy-cache"> <span class="mn">10.</span> <span class="mc">DEPLOY CACHE</span> <span class="md">Checklist rapida per aggiornare cache PWA e verificare il deploy</span> <span class="mr">GN910</span> </a> </section> <section class="prompt-box"> <div class="prompt-title">PROMPT AGENTICO</div> <textarea id="agent-prompt" class="prompt-text" aria-label="Prompt agentico">Sei l'agente tecnico del progetto Genealogia. Produci un report operativo sintetico.
+
+Contesto:
+- Data files: PERSONE=432, FAMIGLIE=211, EVENTI=904, STEMMI=4, TITOLI=2
+- Pipeline: jobs/run_job.sh, jobs/90_publish_to_pwa.sh, proc/validate_data.sh, proc/build_portale.sh
+- Batch: GIARDINA/03_PROG/batch.py
+- Frontend: PORTALE_GN (white + 370) e app Astro/PWA
+
+Task:
+1) Verifica coerenza dati e anomalie.
+2) Verifica coerenza nobilta/araldica su periodi e appartenenze.
+3) Valuta stato build/deploy (out/current e app/public/data/current).
+4) Riassumi avanzamento: Dati, Portale, GIARDINA, PWA, DevOps.
+5) Proponi backlog P1/P2/P3 con comandi locali di validazione.
+    </textarea> <button id="copy-agent-prompt" class="copy-btn">COPY PROMPT</button> </section> <script>(function(){const baseUrl = "/Genealogia/";
+
+    document.getElementById("copy-agent-prompt")?.addEventListener("click", async () => {
+      const prompt = document.getElementById("agent-prompt");
+      const copyBtn = document.getElementById("copy-agent-prompt");
+      if (!prompt) return;
+      try {
+        await navigator.clipboard.writeText(prompt.value);
+        if (copyBtn) {
+          const original = copyBtn.textContent;
+          copyBtn.textContent = "COPIATO OK";
+          setTimeout(() => {
+            copyBtn.textContent = original || "COPY PROMPT";
+          }, 2000);
+        }
+      } catch {
+        alert("Copia non disponibile in questo browser.");
+      }
+    });
+
+    fetch(`${baseUrl}data/current/manifest.json`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (!data?.counts) return;
+        const map = [
+          ["count-persone", data.counts.people_count],
+          ["count-famiglie", data.counts.families_count],
+          ["count-eventi", data.counts.events_count],
+          ["count-stemmi", data.counts.stemmi_count],
+          ["count-titoli", data.counts.titoli_count],
+        ];
+        map.forEach(([id, value]) => {
+          const el = document.getElementById(id);
+          if (el && value !== undefined) el.textContent = String(value);
+        });
+      })
+      .catch(() => {});
+  })();</script>  </main> <div class="status-line"> <span>STATO PORTALE: OPERATIVO</span> <span>AGG.: 2026-03-02</span> <span>AMBIENTE: PWA ASTRO</span> </div> <footer class="pfbar"> <span>PF1 Help</span> <span>PF3 End</span> <span>PF4 Return</span> <span>PF5 Refresh</span> <span>PF6 Sort</span> <span>PF7 Up</span> <span>PF8 Down</span> <span>PF10 Left</span> <span>PF11 Right</span> <span>PF12 Cancel</span> </footer> <script>
+        window.__ISPF_PANEL__ = { title: {JSON.stringify(title)}, path: {JSON.stringify(Astro.url.pathname)} };
+      </script> <script src="/Genealogia/ispf-keys.js"></script> </div> </body> </html>
