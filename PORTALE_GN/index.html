@@ -241,10 +241,19 @@ Contesto attuale:
 
 Task richiesti:
 1) Verifica coerenza dati e segnala anomalie (ID mancanti, riferimenti rotti, date non ISO).
-2) Valuta stato build/deploy (job, workflow CI, output out/current e app/public/data/current).
+2) Verifica coerenza Nobiltà/Araldica:
+   - titoli attivi fuori range casato
+   - appartenenze senza casato/ramo valido
+   - stemmi senza asset o con periodo non compatibile con la persona.
+3) Valuta stato build/deploy (job, workflow CI, output out/current e app/public/data/current).
 3) Riassumi avanzamento sviluppo per aree: Dati, Portale, GIARDINA, PWA, DevOps.
-4) Proponi backlog prioritizzato (max 10 azioni) con priorità P1/P2/P3 e impatto.
-5) Fornisci i comandi esatti da eseguire in locale per validare tutto.
+4) Controlla stato workflow GitHub:
+   - pages-astro.yml
+   - build-test.yml
+   - validate-build.yml
+   e indica ultimo esito noto (success/failure) e azione consigliata.
+5) Proponi backlog prioritizzato (max 10 azioni) con priorità P1/P2/P3 e impatto.
+6) Fornisci i comandi esatti da eseguire in locale per validare tutto.
 
 Output richiesto:
 - Executive summary (5 righe)

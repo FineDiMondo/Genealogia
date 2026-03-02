@@ -48,10 +48,14 @@ Contesto attuale:
 
 Task:
 1) Verifica coerenza dati e anomalie.
-2) Valuta stato build/deploy (out/current e app/public/data/current).
-3) Riassumi avanzamento per Dati, Portale, GIARDINA, PWA, DevOps.
-4) Proponi backlog prioritizzato P1/P2/P3.
-5) Fornisci comandi locali per validazione completa.
+2) Verifica coerenza Nobiltà/Araldica:
+   - titoli attivi fuori range casato
+   - appartenenze senza casato/ramo valido
+   - stemmi senza asset o con periodo non compatibile con la persona.
+3) Valuta stato build/deploy (out/current e app/public/data/current).
+4) Controlla stato workflow GitHub (pages-astro.yml, build-test.yml, validate-build.yml) con ultimo esito noto.
+5) Riassumi avanzamento per Dati, Portale, GIARDINA, PWA, DevOps.
+6) Proponi backlog prioritizzato P1/P2/P3 e comandi locali di validazione completa.
       </textarea>
       <div style="display:flex; gap: var(--space-sm); margin-top: var(--space-sm); flex-wrap: wrap;">
         <button id="copy-agent-prompt" class="btn btn-secondary">Copia Prompt</button>
