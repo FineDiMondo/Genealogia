@@ -10,13 +10,18 @@
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
   function getBasePath(pathname) {
-    const p = pathname || window.location.pathname || '/';
-    return p.includes('/Genealogia/') ? '/Genealogia' : '';
+    const _p = pathname || window.location.pathname || '/';
+    return '';
+  }
+
+  function buildUrl(path) {
+    return new URL(path, window.location.href).toString();
   }
 
   function withBase(basePath, path) {
+    const _basePath = basePath;
     const clean = String(path || '').replace(/^\/+/, '');
-    return basePath ? `${basePath}/${clean}` : `/${clean}`;
+    return clean;
   }
 
   function tokenize(input) {
@@ -341,13 +346,16 @@
   };
 
   function liveUrl(path) {
-    return withBase(state.basePath, `${path}${String(path).includes('?') ? '&' : '?'}v=${encodeURIComponent(state.version.sha7 || 'dev')}`);
+    const clean = String(path || '').replace(/^\/+/, '');
+    const queryPath = `${clean}${String(clean).includes('?') ? '&' : '?'}v=${encodeURIComponent(state.version.sha7 || 'dev')}`;
+    return buildUrl(queryPath);
   }
 
   async function fetchText(path, opts) {
     const noStore = opts && opts.noStore;
     const live = opts && opts.liveData;
-    const url = live ? liveUrl(path) : withBase(state.basePath, path);
+    const clean = String(path || '').replace(/^\/+/, '');
+    const url = live ? liveUrl(clean) : buildUrl(clean);
     const res = await fetch(url, noStore ? { cache: 'no-store' } : undefined);
     if (!res.ok) throw new Error(`${res.status} ${url}`);
     return await res.text();
@@ -356,7 +364,7 @@
   const fetchJson = async (path, opts) => JSON.parse(await fetchText(path, opts));
 
   async function loadVersion() {
-    const url = withBase(state.basePath, `version.json?t=${Date.now()}`);
+    const url = buildUrl(`version.json?t=${Date.now()}`);
     const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) throw new Error(`version.json ${res.status}`);
     const v = await res.json();
@@ -534,7 +542,7 @@
   async function swRegistration() {
     if (!('serviceWorker' in navigator)) return null;
     try {
-      return await navigator.serviceWorker.getRegistration(withBase(state.basePath, '/'));
+      return await navigator.serviceWorker.getRegistration('./');
     } catch (_e) {
       return null;
     }
@@ -1052,8 +1060,8 @@
 
   async function registerServiceWorkerSafe() {
     if (!canUseSW() || !('serviceWorker' in navigator)) return;
-    const swPath = withBase(state.basePath, 'service-worker.js');
-    await navigator.serviceWorker.register(swPath, { scope: withBase(state.basePath, '/') });
+    const swPath = buildUrl('service-worker.js');
+    await navigator.serviceWorker.register(swPath, { scope: './' });
   }
 
   function bindUi() {
@@ -1129,6 +1137,7 @@
 
   window.GN370 = {
     getBasePath,
+    buildUrl,
     withBase,
     tokenize,
     parseOptions,

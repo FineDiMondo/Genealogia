@@ -11,7 +11,8 @@ function DefaultDatasetPath {
 }
 
 function DefaultPagesUrl {
-    return "https://finedimondo.github.io/Genealogia/"
+    $repoName = Split-Path -Leaf (Get-RepoRoot)
+    return "https://finedimondo.github.io/$repoName/"
 }
 
 function Get-PathConventions {

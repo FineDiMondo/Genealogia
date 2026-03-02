@@ -29,9 +29,10 @@
     T.assert(out[0].id === 'P2', 'latest retained');
   });
 
-  T.test('getBasePath detects /Genealogia/', function () {
-    T.assert(G.getBasePath('/Genealogia/index.html') === '/Genealogia', 'pages base');
-    T.assert(G.getBasePath('/index.html') === '', 'local base');
+  T.test('buildUrl resolves relative resources', function () {
+    const u = G.buildUrl('data/current/events.ndjson');
+    T.assert(typeof u === 'string', 'url string');
+    T.assert(u.indexOf('data/current/events.ndjson') !== -1, 'relative data path');
   });
 
   T.test('parseStoryScenes segments by # title', function () {

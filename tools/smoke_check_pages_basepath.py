@@ -3,8 +3,8 @@
 Smoke check for GitHub Pages base path usage.
 
 Flags links/scripts/actions that:
-- start with "/" but not "/Genealogia/"
-- start with "https://finedimondo.github.io/" but not ".../Genealogia/"
+- start with "/" (absolute-root)
+- start with "https://finedimondo.github.io/" but not repository-relative prefix
 """
 
 from __future__ import annotations
@@ -20,21 +20,20 @@ RE_JS = re.compile(
 )
 
 BAD_PREFIX = "https://finedimondo.github.io/"
-GOOD_PREFIX = "https://finedimondo.github.io/Genealogia/"
 
 
-def is_bad_url(url: str) -> bool:
+def is_bad_url(url: str, good_prefix: str) -> bool:
     u = url.strip()
     if not u or u.startswith("#"):
         return False
-    if u.startswith(BAD_PREFIX) and not u.startswith(GOOD_PREFIX):
+    if u.startswith(BAD_PREFIX) and not u.startswith(good_prefix):
         return True
-    if u.startswith("/") and not u.startswith("/Genealogia/"):
+    if u.startswith("/"):
         return True
     return False
 
 
-def scan_file(path: Path) -> list[tuple[int, str]]:
+def scan_file(path: Path, good_prefix: str) -> list[tuple[int, str]]:
     issues: list[tuple[int, str]] = []
     text = path.read_text(encoding="utf-8", errors="replace")
     lines = text.splitlines()
@@ -42,11 +41,11 @@ def scan_file(path: Path) -> list[tuple[int, str]]:
     for idx, line in enumerate(lines, start=1):
         for m in RE_ATTR.finditer(line):
             url = m.group(1)
-            if is_bad_url(url):
+            if is_bad_url(url, good_prefix):
                 issues.append((idx, url))
         for m in RE_JS.finditer(line):
             url = m.group(1) or m.group(2)
-            if url and is_bad_url(url):
+            if url and is_bad_url(url, good_prefix):
                 issues.append((idx, url))
     return issues
 
@@ -64,6 +63,8 @@ def discover_files(root: Path) -> list[Path]:
 
 def main() -> int:
     root = Path(__file__).resolve().parents[1]
+    repo_name = root.name
+    good_prefix = f"https://finedimondo.github.io/{repo_name}/"
     files = discover_files(root)
     if not files:
         print("WARN: no html/js files found in mvs/, PORTALE_GN/ or out/current/site/")
@@ -71,7 +72,7 @@ def main() -> int:
 
     bad = []
     for f in files:
-        issues = scan_file(f)
+        issues = scan_file(f, good_prefix)
         for line_no, url in issues:
             bad.append((f, line_no, url))
 
@@ -82,7 +83,7 @@ def main() -> int:
             print(f"- {rel}:{line_no} -> {url}")
         return 1
 
-    print("OK: no bad absolute links detected outside /Genealogia/")
+    print("OK: no bad absolute links detected (use relative paths)")
     return 0
 
 

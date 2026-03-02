@@ -57,9 +57,9 @@ Shell 370 unica per consultazione genealogica su GitHub Pages.
 - `PF12`: quit (in browser mostra warning)
 
 ## Base path GitHub Pages
-Tutti i fetch/path usano `getBasePath()` + `withBase()`.
-- in Pages: `/Genealogia/...`
-- in locale: `/...`
+Tutti i fetch/path usano URL relativi risolti in runtime con `new URL(path, window.location.href)`.
+- in Pages: `./data/current/...`, `./copybooks/...`, `./assets/...`
+- in locale: stessi path relativi
 
 ## Aggiungere un evento e verificare feed
 1. Aprire `data/current/events.ndjson`.

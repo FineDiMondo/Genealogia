@@ -48,6 +48,15 @@ jobs:
             echo "DEPLOY_SOURCE=out/current/site (generated fallback)" >> $GITHUB_ENV
           fi
 
+          # Ensure GN370 runtime data/copybooks are always available on Pages.
+          if [ -d "data/current" ]; then
+            mkdir -p _pages_root/data
+            cp -R data/current _pages_root/data/current
+          fi
+          if [ -d "copybooks" ]; then
+            cp -R copybooks _pages_root/copybooks
+          fi
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

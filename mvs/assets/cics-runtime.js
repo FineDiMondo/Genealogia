@@ -18,24 +18,23 @@ const COMMAREA = {
   msgText: ''
 };
 
-/* -- BASE PATH per GitHub Pages ---------------------------------- */
-const BASE_PATH = (() => {
-  const host = window.location.hostname;
-  if (host === 'localhost' || host === '127.0.0.1') return '';
-  return '/Genealogia';
-})();
+/* -- URL builder relativo ---------------------------------------- */
+const BASE_PATH = '';
+const BASE_URL = './';
 
-const BASE_URL = BASE_PATH ? `${BASE_PATH}/` : '/';
+function buildUrl(path) {
+  return new URL(path, window.location.href).toString();
+}
 
 function withBase(path) {
   const clean = String(path || '').replace(/^\/+/, '');
-  return BASE_PATH ? `${BASE_PATH}/${clean}` : `/${clean}`;
+  return clean;
 }
 
 /* -- DATASET LOADER ------------------------------------------------ */
 async function loadDataset(name) {
   try {
-    const url = withBase(`mvs/out/current/${name}.json`);
+    const url = buildUrl(`mvs/out/current/${name}.json`);
     const res = await fetch(url);
     if (!res.ok) throw new Error(`RC=${res.status}`);
     return await res.json();
@@ -115,7 +114,7 @@ document.addEventListener('keydown', (e) => {
       return;
     }
     if (n === 3) {
-      window.location.href = withBase('mvs/intro.html');
+      window.location.href = buildUrl('mvs/intro.html');
       return;
     }
     if (n === 12) {
@@ -134,7 +133,7 @@ document.addEventListener('keydown', (e) => {
 /* -- NAVIGATION HELPERS ------------------------------------------- */
 function goScreen(screenId) {
   COMMAREA.screenId = screenId;
-  window.location.href = withBase(`mvs/${screenId}.html`);
+  window.location.href = buildUrl(`mvs/${screenId}.html`);
 }
 
 /* -- PAGINAZIONE --------------------------------------------------- */
@@ -169,6 +168,7 @@ window.GEN = {
   COMMAREA,
   BASE_PATH,
   BASE_URL,
+  buildUrl,
   withBase,
   loadDataset,
   setMsg,

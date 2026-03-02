@@ -15,7 +15,7 @@ Comandi principali:
 ```powershell
 pwsh ./tools/ops/gn370.ps1 -Help
 pwsh ./tools/ops/gn370.ps1 -Test all
-pwsh ./tools/ops/gn370.ps1 -Test pages -PagesUrl "https://finedimondo.github.io/Genealogia/"
+pwsh ./tools/ops/gn370.ps1 -Test pages
 pwsh ./tools/ops/gn370.ps1 -Module feed
 pwsh ./tools/ops/gn370.ps1 -Module person -Id "P#d26813cde2e7f17f"
 ```
@@ -24,7 +24,7 @@ pwsh ./tools/ops/gn370.ps1 -Module person -Id "P#d26813cde2e7f17f"
 - `-Module <main|feed|person|rel|job|explain|system>`
 - `-Test <all|smoke|cli|pipeline|journal|db|pages>`
 - `-DatasetPath <path>` default `./data/current`
-- `-PagesUrl <url>` default `https://finedimondo.github.io/Genealogia/`
+- `-PagesUrl <url>` default `https://finedimondo.github.io/<repo-name>/`
 - `-Id <id>` usato dai moduli che aprono entita specifiche
 
 ## Exit codes
@@ -44,4 +44,3 @@ pwsh ./tools/ops/gn370.ps1 -Module person -Id "P#d26813cde2e7f17f"
 - Output in stile retro con marker `(OK)`, `(WRN)`, `(ERR)`.
 - Nessuna dipendenza da UI/browser per la suite.
 - Nessuna dipendenza da Astro/PWA.
-

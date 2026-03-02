@@ -22,6 +22,7 @@ Assert-True ($homeContent -notmatch "(?i)app/public/data/current") "home has no 
 [void](Assert-Http200 -Url ($PagesUrl + "index.html") -Message "index.html reachable")
 [void](Assert-Http200 -Url ($PagesUrl + "assets/gn370.js") -Message "gn370.js reachable")
 [void](Assert-Http200 -Url ($PagesUrl + "assets/gn370.css") -Message "gn370.css reachable")
+[void](Assert-Http200 -Url ($PagesUrl + "data/current/events.ndjson") -Message "events.ndjson reachable")
 
 try {
     [void](Assert-Http200 -Url ($PagesUrl + "version.json") -Message "version.json reachable")

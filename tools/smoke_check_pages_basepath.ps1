@@ -1,6 +1,8 @@
 $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
+$repoName = Split-Path -Leaf $repoRoot
+$goodPrefix = "https://finedimondo.github.io/$repoName/"
 $targets = @(
   (Join-Path $repoRoot "mvs"),
   (Join-Path $repoRoot "PORTALE_GN"),
@@ -24,8 +26,8 @@ function Test-BadUrl([string]$url) {
   if ([string]::IsNullOrWhiteSpace($url)) { return $false }
   $u = $url.Trim()
   if ($u.StartsWith("#")) { return $false }
-  if ($u.StartsWith("https://finedimondo.github.io/") -and -not $u.StartsWith("https://finedimondo.github.io/Genealogia/")) { return $true }
-  if ($u.StartsWith("/") -and -not $u.StartsWith("/Genealogia/")) { return $true }
+  if ($u.StartsWith("https://finedimondo.github.io/") -and -not $u.StartsWith($goodPrefix)) { return $true }
+  if ($u.StartsWith("/")) { return $true }
   return $false
 }
 
@@ -65,5 +67,5 @@ if ($bad.Count -gt 0) {
   exit 1
 }
 
-Write-Output "OK: no bad absolute links detected outside /Genealogia/"
+Write-Output "OK: no bad absolute links detected (use relative paths)"
 exit 0
