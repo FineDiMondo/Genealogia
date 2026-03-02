@@ -45,6 +45,8 @@ class ValidAgent:
     def process(self, message: Dict[str, Any]) -> Dict[str, Any]:
         operations = message.get('operations', [])
         source_name = str(message.get('source_name', 'inline'))
+        session_id = str(message.get('session_id', 'sess-default'))
+        user_cmd = str(message.get('user_cmd', 'IMPORT'))
 
         births: Dict[str, int] = {}
         families: Dict[str, Dict[str, str]] = {}
@@ -174,6 +176,8 @@ class ValidAgent:
             'event_id': self._event_id('valid-result'),
             'agent_id': self.contract.agent_id,
             'source_name': source_name,
+            'session_id': session_id,
+            'user_cmd': user_cmd,
             'violations': violations,
             'summary': {
                 'errors': sum(1 for v in violations if v['severity'] == 'ERROR'),

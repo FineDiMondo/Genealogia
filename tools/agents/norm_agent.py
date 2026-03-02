@@ -129,6 +129,8 @@ class NormAgent:
         records = message.get('records', [])
         source_name = str(message.get('source_name', 'inline'))
         source_id = str(message.get('source_id', 'S-IMPORT-AUTO'))
+        session_id = str(message.get('session_id', 'sess-default'))
+        user_cmd = str(message.get('user_cmd', 'IMPORT'))
 
         operations: List[Dict[str, Any]] = []
         persons: List[PersonNorm] = []
@@ -215,6 +217,9 @@ class NormAgent:
             'event_id': self._event_id('norm-completed'),
             'agent_id': self.contract.agent_id,
             'source_name': source_name,
+            'source_id': source_id,
+            'session_id': session_id,
+            'user_cmd': user_cmd,
             'operations': operations,
             'metrics': {
                 'persons': len(persons),
@@ -229,6 +234,9 @@ class NormAgent:
             'event_id': self._event_id('norm-conflict'),
             'agent_id': self.contract.agent_id,
             'source_name': source_name,
+            'source_id': source_id,
+            'session_id': session_id,
+            'user_cmd': user_cmd,
             'conflicts': conflicts,
         }
 

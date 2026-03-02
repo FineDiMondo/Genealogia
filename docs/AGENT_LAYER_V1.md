@@ -73,3 +73,25 @@ Test:
   - rilevazione ciclo genealogico
   - rilevazione anomalia biologica
   - explain last con dependency trace
+
+## Fase 4 finale (pipeline orchestrata)
+Modulo:
+- `tools/agents/pipeline_runner.py`
+
+Pipeline:
+- `user.request.parse` -> `PARSE_AGT` -> `parse.completed`
+- `NORM_AGT` su `parse.completed` -> `norm.completed` / `norm.conflict`
+- `VALID_AGT` su `norm.completed` -> `valid.violation` / `valid.clear`
+- Persistenza su `event_journal` e `conflict_log` via `TransactionManager` (no write dirette agent)
+
+Caratteristiche:
+- Source bootstrap (`INSERT OR IGNORE INTO source`) prima dell'import.
+- Journal entry per agent coinvolti (PARSE, NORM, VALID).
+- Replay per sessione con validazione hash chain.
+
+Test:
+- `tests/agents/test_agent_pipeline_integration.py`
+  - import GEDCOM end-to-end
+  - verifica agent_id su journal
+  - verifica persistenza person e conflict_log
+  - explain trace disponibile

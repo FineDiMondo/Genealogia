@@ -59,6 +59,9 @@ class ParseAgent:
     def process(self, message: Dict[str, Any]) -> Dict[str, Any]:
         raw_text = message.get('raw_text')
         source_name = str(message.get('source_name', 'inline'))
+        source_id = str(message.get('source_id', 'S-IMPORT-AUTO'))
+        session_id = str(message.get('session_id', 'sess-default'))
+        user_cmd = str(message.get('user_cmd', 'IMPORT'))
         if not isinstance(raw_text, str) or not raw_text.strip():
             return {
                 'topic': 'parse.error',
@@ -66,6 +69,9 @@ class ParseAgent:
                     'event_id': self._event_id('parse-error'),
                     'agent_id': self.contract.agent_id,
                     'source_name': source_name,
+                    'source_id': source_id,
+                    'session_id': session_id,
+                    'user_cmd': user_cmd,
                     'errors': [{'line': 0, 'message': 'raw_text is required'}],
                 },
             }
@@ -107,6 +113,9 @@ class ParseAgent:
                     'event_id': self._event_id('parse-error'),
                     'agent_id': self.contract.agent_id,
                     'source_name': source_name,
+                    'source_id': source_id,
+                    'session_id': session_id,
+                    'user_cmd': user_cmd,
                     'errors': errors,
                 },
             }
@@ -125,6 +134,9 @@ class ParseAgent:
                 'event_id': self._event_id('parse-completed'),
                 'agent_id': self.contract.agent_id,
                 'source_name': source_name,
+                'source_id': source_id,
+                'session_id': session_id,
+                'user_cmd': user_cmd,
                 'records': records,
                 'counts': counts,
             },
