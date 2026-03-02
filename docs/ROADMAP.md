@@ -45,6 +45,7 @@ P2
 - Ottimizzazione indici query frequenti.
 - Metriche estese quality report (trend warning/error).
 - Hardening UX su casi limite history/autocomplete.
+- Ridondanza dichiarativa tabelle `source`/`schema_version`/`lexicon` tra 001 e 002: consolidare in migrazione 003+ con home unica per create e `ALTER TABLE` per evoluzioni.
 
 ## Rischi principali e mitigazioni
 - Rischio: mismatch tra LEXICON e seed DB.
