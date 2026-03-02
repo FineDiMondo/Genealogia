@@ -4,12 +4,15 @@ import "../styles/global.css";
 import "../styles/crt.css";
 import "../styles/components.css";
 import "../styles/animations.css";
+import "../styles/ispf.css";
 
 interface Props {
   title: string;
 }
 
 const { title } = Astro.props;
+const now = new Date();
+const dateLabel = now.toISOString().slice(0, 10);
 ---
 
 <!doctype html>
@@ -20,8 +23,51 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title} | GENEALOGIA</title>
   </head>
-  <body class="crt-container">
-    <slot />
+  <body class="crt-container ispf-body">
+    <div class="ispf-shell">
+      <header class="ispf-header">
+        <div class="ispf-title-row">
+          <span>=== PORTALE GENEALOGIA ISPF ===</span>
+          <span>PANEL: {title.toUpperCase()}</span>
+          <span>DATE: {dateLabel}</span>
+        </div>
+        <div class="ispf-command-row">
+          <label for="ispf-command-input">COMMAND ===&gt;</label>
+          <input
+            id="ispf-command-input"
+            class="ispf-command-input"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="HELP | HOME | GO PERSONE | FIND testo"
+          />
+        </div>
+        <div id="ispf-message-line" class="ispf-message-line">READY</div>
+      </header>
+
+      <main class="ispf-main">
+        <slot />
+      </main>
+
+      <footer class="ispf-footer">
+        <span>PF1 HELP</span>
+        <span>PF2 SPLIT</span>
+        <span>PF3 END</span>
+        <span>PF4 RETURN</span>
+        <span>PF5 REFRESH</span>
+        <span>PF6 SORT</span>
+        <span>PF7 UP</span>
+        <span>PF8 DOWN</span>
+        <span>PF9 SWAP</span>
+        <span>PF10 LEFT</span>
+        <span>PF11 RIGHT</span>
+        <span>PF12 CANCEL</span>
+      </footer>
+    </div>
+    <script is:inline>
+      window.__ISPF_PANEL__ = { title: {JSON.stringify(title)}, path: {JSON.stringify(Astro.url.pathname)} };
+    </script>
+    <script is:inline src="/ispf-keys.js"></script>
   </body>
 </html>
 

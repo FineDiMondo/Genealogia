@@ -4,130 +4,27 @@ interface Props {
 }
 
 const { currentEnv = "PROD" } = Astro.props;
+const path = Astro.url.pathname;
 const menuItems = [
-  { label: "DASHBOARD", href: "/gestionale/" },
-  { label: "DATA ENTRY", href: "/gestionale/data-entry" },
-  { label: "BATCH JOBS", href: "/gestionale/batch-monitor" },
-  { label: "REPORTS", href: "/gestionale/reports" },
-  { label: "SEARCH", href: "/gestionale/search" },
-  { label: "ADMIN", href: "/gestionale/admin" },
-  { label: "MONITOR", href: "/gestionale/monitoring" }
+  { label: "HOME", href: "/" },
+  { label: "PERSONE", href: "/gestionale/search?domain=people" },
+  { label: "FAMIGLIE", href: "/gestionale/search?domain=families" },
+  { label: "EVENTI", href: "/gestionale/reports?domain=events" },
+  { label: "FONTI", href: "/gestionale/reports?domain=sources" },
+  { label: "ARALDICA", href: "/gestionale/reports?domain=arms" },
+  { label: "NOBILTA", href: "/gestionale/reports?domain=titles" },
+  { label: "JOBS", href: "/gestionale/batch-monitor" },
+  { label: "HELP", href: "/gestionale/help" }
 ];
 ---
 
-<nav class="main-nav">
-  <div class="nav-logo">
-    <span class="nav-logo-text">GENEALOGIA</span>
-    <span class="nav-logo-version">v2.0</span>
-  </div>
-  <ul class="nav-menu">
-    {
-      menuItems.map((item) => (
-        <li>
-          <a href={item.href} class="nav-link">
-            {item.label}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-  <div class="nav-status">
-    <span class="status-indicator blink">●</span>
-    <span class="env-badge">{currentEnv}</span>
-  </div>
-</nav>
-
-<style>
-  .main-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--space-md) var(--space-lg);
-    background: var(--crt-black);
-    border-bottom: 2px solid var(--crt-green);
-    gap: var(--space-xl);
+<div class="ispf-menu">
+  {
+    menuItems.map((item) => (
+      <a href={item.href} class={path === item.href ? "active" : ""}>
+        {item.label}
+      </a>
+    ))
   }
-
-  .nav-logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-  }
-
-  .nav-logo-text {
-    font-family: var(--font-display);
-    font-size: var(--fs-h2);
-    color: var(--crt-green);
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  .nav-logo-version {
-    font-family: var(--font-body);
-    font-size: var(--fs-small);
-    color: var(--crt-white);
-    opacity: 0.6;
-  }
-
-  .nav-menu {
-    display: flex;
-    list-style: none;
-    gap: var(--space-lg);
-    margin: 0;
-    padding: 0;
-    flex: 1;
-  }
-
-  .nav-link {
-    font-family: var(--font-display);
-    font-size: var(--fs-small);
-    color: var(--crt-white);
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: var(--space-sm) var(--space-md);
-    border: 1px solid transparent;
-    transition: all var(--transition-fast);
-  }
-
-  .nav-link:hover {
-    color: var(--crt-green);
-    border-bottom: 1px solid var(--crt-green);
-  }
-
-  .nav-status {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-  }
-
-  .status-indicator {
-    font-size: 1.2em;
-    color: var(--crt-green);
-  }
-
-  .env-badge {
-    font-family: var(--font-display);
-    font-size: var(--fs-small);
-    color: var(--crt-black);
-    background: var(--crt-amber);
-    padding: 2px 8px;
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-  }
-
-  @media (max-width: 768px) {
-    .nav-menu {
-      flex-wrap: wrap;
-      gap: var(--space-md);
-    }
-
-    .main-nav {
-      flex-wrap: wrap;
-    }
-  }
-</style>
-
+</div>
+<div class="ispf-message-line">ENV={currentEnv} | TYPE COMMAND OR PRESS PF KEYS</div>
