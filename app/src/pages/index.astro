@@ -1,6 +1,8 @@
 ---
 import GestionalLayout from "../layouts/GestionalLayout.astro";
 import Navigation from "../components/Navigation.astro";
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <GestionalLayout title="Main Menu">
@@ -68,7 +70,7 @@ import Navigation from "../components/Navigation.astro";
       <span class="mr">GN600</span>
     </a>
 
-    <a class="menu-item" href="/data/current/manifest.json">
+    <a class="menu-item" href={`${baseUrl}data/current/manifest.json`}>
       <span class="mn">7.</span>
       <span class="mc">MANIFEST DATI</span>
       <span class="md">Verifica file pubblicati in app/public/data/current</span>

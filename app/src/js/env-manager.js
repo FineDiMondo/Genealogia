@@ -1,8 +1,11 @@
+const BASE_URL = import.meta.env.BASE_URL || "/";
+const DATA_BASE_PATH = `${BASE_URL}data/current`.replace(/\/+$/, "");
+
 export const ENV_CONFIG = {
-  DEV: { dataBasePath: "/data/current" },
-  TEST: { dataBasePath: "/data/current" },
-  STAGING: { dataBasePath: "/data/current" },
-  PROD: { dataBasePath: "/data/current" }
+  DEV: { dataBasePath: DATA_BASE_PATH },
+  TEST: { dataBasePath: DATA_BASE_PATH },
+  STAGING: { dataBasePath: DATA_BASE_PATH },
+  PROD: { dataBasePath: DATA_BASE_PATH }
 };
 
 export function getCurrentEnv() {
@@ -14,6 +17,6 @@ export function getCurrentEnv() {
 
 export function getDataBasePath() {
   const env = getCurrentEnv();
-  return ENV_CONFIG[env]?.dataBasePath ?? "/data/current";
+  return ENV_CONFIG[env]?.dataBasePath ?? DATA_BASE_PATH;
 }
 
