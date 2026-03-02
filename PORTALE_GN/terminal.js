@@ -23,15 +23,34 @@
 
   const state = {
     cmdBuffer: "",
-    bufferTimer: null
+    bufferTimer: null,
+    mode: "370"
   };
+
+  function getModeFromPath() {
+    const p = (window.location.pathname || "").toLowerCase();
+    if (p.endsWith("/portale-chiaro.html")) return "clear";
+    if (p.endsWith("/portale-370.html")) return "370";
+    return "";
+  }
+
+  function resolveMode() {
+    const url = new URL(window.location.href);
+    const q = (url.searchParams.get("view") || "").toLowerCase();
+    if (q === "clear" || q === "370") return q;
+    const byPath = getModeFromPath();
+    if (byPath) return byPath;
+    const saved = (localStorage.getItem("portal_view") || "").toLowerCase();
+    if (saved === "clear" || saved === "370") return saved;
+    return "370";
+  }
 
   function portalRootPrefix() {
     const p = (window.location.pathname || "").replace(/\\/g, "/");
     const parts = p.split("/").filter(Boolean);
     if (parts.length < 2) return "";
     const parent = parts[parts.length - 2].toLowerCase();
-    if (["people", "families", "sources", "heraldry", "reports"].includes(parent)) {
+    if (["people", "families", "sources", "heraldry", "reports", "nobilta"].includes(parent)) {
       return "../";
     }
     return "";
@@ -47,6 +66,13 @@
 
   function normalizePath(path) {
     return (path || "").replace(/\\/g, "/").split("/").pop().toLowerCase();
+  }
+
+  function withMode(path, mode) {
+    if (!path || path.startsWith("http://") || path.startsWith("https://") || path.startsWith("#")) return path;
+    const abs = new URL(path, window.location.href);
+    abs.searchParams.set("view", mode);
+    return abs.pathname + abs.search + abs.hash;
   }
 
   function showMsg(text) {
@@ -68,7 +94,7 @@
 
   function goTo(path, reason) {
     if (!path) return;
-    const resolved = resolvePortalPath(path);
+    const resolved = withMode(resolvePortalPath(path), state.mode);
     showMsg(reason ? reason + ": " + resolved : "OPEN " + resolved);
     setTimeout(function() {
       window.location.href = resolved;
@@ -112,6 +138,37 @@
       link.dataset.pf = String(pfNum);
       link.title = "Tasto rapido F" + pfNum;
     });
+  }
+
+  function isExternalHref(href) {
+    return /^(https?:|mailto:|tel:|javascript:|#)/i.test(href || "");
+  }
+
+  function rewriteAllLinksForMode() {
+    document.querySelectorAll("a[href]").forEach(function(a) {
+      const href = a.getAttribute("href");
+      if (!href || isExternalHref(href)) return;
+
+      if (href === "index.html" || href === "../index.html") {
+        const home = state.mode === "clear" ? "portale-chiaro.html" : "portale-370.html";
+        a.setAttribute("href", href.replace("index.html", home));
+        return;
+      }
+
+      if (href.indexOf(".html") !== -1) {
+        a.setAttribute("href", withMode(href, state.mode));
+      }
+    });
+  }
+
+  function enableClearTheme() {
+    const id = "clear-archive-css";
+    if (document.getElementById(id)) return;
+    const link = document.createElement("link");
+    link.id = id;
+    link.rel = "stylesheet";
+    link.href = portalRootPrefix() + "clear-archive.css";
+    document.head.appendChild(link);
   }
 
   function handlePFKey(e) {
@@ -160,6 +217,7 @@
   }
 
   function initKeyboardTerminal() {
+    if (state.mode === "clear") return;
     document.addEventListener("keydown", function(e) {
       if (isTypingTarget(e.target)) return;
       if (handlePFKey(e)) return;
@@ -168,6 +226,18 @@
   }
 
   function init() {
+    state.mode = resolveMode();
+    try {
+      localStorage.setItem("portal_view", state.mode);
+    } catch (err) {
+      // Ignore localStorage errors.
+    }
+    document.documentElement.setAttribute("data-portal-view", state.mode);
+    if (state.mode === "clear") {
+      enableClearTheme();
+    }
+
+    rewriteAllLinksForMode();
     bindPFHints();
     highlightCurrentPF();
     initKeyboardTerminal();
@@ -179,3 +249,4 @@
     init();
   }
 })();
+

@@ -1,0 +1,56 @@
+html[data-portal-view="clear"] body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #eef4fb 0%, #f8fbff 100%);
+  color: #16222c;
+}
+
+html[data-portal-view="clear"] .terminal {
+  max-width: 1160px;
+  margin: 24px auto;
+  border: 1px solid #d4deea;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #16222c;
+  box-shadow: 0 10px 24px rgba(18, 39, 60, 0.08);
+}
+
+html[data-portal-view="clear"] .sys-header,
+html[data-portal-view="clear"] .section-hdr {
+  background: #f2f7fd;
+  color: #17324a;
+  border-color: #d4deea;
+}
+
+html[data-portal-view="clear"] .section-body {
+  background: #ffffff;
+  color: #16222c;
+}
+
+html[data-portal-view="clear"] .breadcrumb {
+  background: #ffffff;
+  border-bottom: 1px solid #dfe6ef;
+  color: #3a4f64;
+}
+
+html[data-portal-view="clear"] a {
+  color: #13499a;
+}
+
+html[data-portal-view="clear"] .tbl th,
+html[data-portal-view="clear"] .tbl td {
+  border-color: #dfe6ef;
+}
+
+html[data-portal-view="clear"] .tbl th {
+  background: #f4f8fc;
+  color: #1f3952;
+}
+
+html[data-portal-view="clear"] .pf-bar,
+html[data-portal-view="clear"] .prompt-line,
+html[data-portal-view="clear"] .cur-a,
+html[data-portal-view="clear"] .cur-b {
+  display: none;
+}
+

@@ -15,35 +15,38 @@
   </header>
 
   <section class="cards">
-    <a class="card" href="people/index.html">
+    <a class="card" href="people/index.html?view=clear">
       <h2>Persone</h2>
       <p>Schede individuali con dati anagrafici e collegamenti a famiglie/fonti.</p>
     </a>
-    <a class="card" href="families/index.html">
+    <a class="card" href="families/index.html?view=clear">
       <h2>Famiglie</h2>
       <p>Composizione nuclei familiari e legami con i membri.</p>
     </a>
-    <a class="card" href="sources/index.html">
+    <a class="card" href="sources/index.html?view=clear">
       <h2>Fonti</h2>
       <p>Archivio fonti e persone citate in ciascun riferimento.</p>
     </a>
-    <a class="card" href="heraldry/index.html">
+    <a class="card" href="heraldry/index.html?view=clear">
       <h2>Araldica</h2>
       <p>Stemmi per casato/ramo con validita temporale.</p>
     </a>
-    <a class="card" href="reports/index.html">
+    <a class="card" href="reports/index.html?view=clear">
       <h2>Report Build</h2>
       <p>Stato di validazione e riepilogo generazione portale.</p>
     </a>
-    <a class="card" href="portale-370.html">
+    <a class="card" href="portale-370.html?view=370">
       <h2>Versione 370</h2>
       <p>Passa all'interfaccia terminale IBM style.</p>
     </a>
   </section>
 
   <footer>
-    <a href="index.html">Torna alla selezione portali</a>
+    <a href="index.html?view=clear">Torna alla selezione portali</a>
   </footer>
 </main>
+<script>
+try { localStorage.setItem("portal_view", "clear"); } catch (e) {}
+</script>
 </body>
 </html>
