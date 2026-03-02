@@ -1,0 +1,60 @@
+﻿<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GN370 UI Smoke</title>
+  <style>
+    body { background:#000; color:#4cff4c; font-family:"Courier New", monospace; margin:0; padding:16px; }
+    #log { white-space:pre-wrap; border:1px solid #0a4d0a; padding:12px; min-height:180px; }
+    .ok { color:#4cff4c; }
+    .err { color:#ff6666; }
+    iframe { width:1px; height:1px; border:0; position:absolute; left:-9999px; }
+  </style>
+</head>
+<body>
+  <h1>GN370 UI Smoke</h1>
+  <div id="log">Running...</div>
+  <iframe id="ui-frame" src="../index.html"></iframe>
+  <script>
+    (function () {
+      const log = document.getElementById('log');
+      const frame = document.getElementById('ui-frame');
+      const lines = [];
+      function write(msg, cls) {
+        lines.push((cls ? `[${cls.toUpperCase()}] ` : '') + msg);
+        log.textContent = lines.join('\n');
+      }
+      function assert(cond, okMsg, errMsg) {
+        if (!cond) {
+          write(errMsg, 'err');
+          throw new Error(errMsg);
+        }
+        write(okMsg, 'ok');
+      }
+      async function run() {
+        const win = frame.contentWindow;
+        await new Promise((r) => setTimeout(r, 800));
+        assert(Boolean(win && win.GN370 && typeof win.GN370.execute === 'function'), 'GN370 API loaded', 'GN370 API missing');
+
+        await win.GN370.execute('help');
+        await win.GN370.execute('feed last 5');
+
+        const st = win.GN370._state;
+        const tech = frame.contentDocument.getElementById('tech-banner');
+
+        assert(Array.isArray(st.outputLines) && st.outputLines.length > 0, 'output not empty after commands', 'output is empty');
+        assert(Boolean(tech && tech.textContent && tech.textContent.includes('TECH:')), 'tech banner visible', 'tech banner missing');
+
+        write('UI smoke test completed', 'ok');
+      }
+
+      frame.addEventListener('load', function () {
+        run().catch(function (e) {
+          write(String(e && e.message ? e.message : e), 'err');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

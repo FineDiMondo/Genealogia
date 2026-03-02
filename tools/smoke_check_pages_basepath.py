@@ -53,7 +53,7 @@ def scan_file(path: Path) -> list[tuple[int, str]]:
 
 def discover_files(root: Path) -> list[Path]:
     files: list[Path] = []
-    for base in [root / "mvs", root / "engine_scummlike_web" / "dist"]:
+    for base in [root / "mvs", root / "PORTALE_GN", root / "out" / "current" / "site"]:
         if not base.exists():
             continue
         for p in base.rglob("*"):
@@ -66,7 +66,7 @@ def main() -> int:
     root = Path(__file__).resolve().parents[1]
     files = discover_files(root)
     if not files:
-        print("WARN: no html/js files found in mvs/ or engine_scummlike_web/dist/")
+        print("WARN: no html/js files found in mvs/, PORTALE_GN/ or out/current/site/")
         return 1
 
     bad = []
@@ -88,4 +88,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -2,6 +2,8 @@
   'use strict';
 
   const PF = { HELP: 'F1', BACK: 'F3', REFRESH: 'F5', UP: 'F7', DOWN: 'F8', MENU: 'F9', FIND: 'F10', QUIT: 'F12' };
+  const ALIAS = { h: 'help', b: 'back', m: 'menu', r: 'refresh', q: 'quit' };
+  const SESSION_KEY = 'gn370_session_state_v1';
   const nowStr = () => new Date().toISOString();
   const upper = (v) => String(v || '').trim().toUpperCase();
   const lower = (v) => String(v || '').toLowerCase();
@@ -131,6 +133,13 @@
     history: JSON.parse(localStorage.getItem('gn370_history') || '[]'),
     historyPos: -1,
     lastCommand: '',
+    suggestions: [],
+    techBanner: {
+      ontology: '3NF NORMALIZATION',
+      algorithm: 'Referential Integrity',
+      agent: 'VALID_AGT',
+      source: 'JOURNAL NDJSON'
+    },
     stack: [],
     job: {
       running: false,
@@ -151,9 +160,11 @@
   const dom = {
     hdr1: document.getElementById('hdr-line-1'),
     hdr2: document.getElementById('hdr-line-2'),
+    tech: document.getElementById('tech-banner'),
     out: document.getElementById('output-panel'),
     ctx: document.getElementById('ctx-line'),
     last: document.getElementById('last-cmd'),
+    suggest: document.getElementById('suggest-panel'),
     cmd: document.getElementById('cmd-input'),
     run: document.getElementById('run-btn'),
     jobLine: document.getElementById('job-status-line')
@@ -179,6 +190,106 @@
     dom.hdr2.textContent = `TS:${nowStr()} BUILD:${state.version.sha7} TIME:${state.version.buildTimeUtc} DATA:${String(state.version.dataHash || 'dev').slice(0, 7)}`;
   }
 
+  function renderTechBanner() {
+    if (!dom.tech) return;
+    dom.tech.textContent = `TECH: ${state.techBanner.ontology} | ALGO: ${state.techBanner.algorithm} | AGENT: ${state.techBanner.agent} | SOURCE: ${state.techBanner.source}`;
+  }
+
+  function setTechBanner(ontology, algorithm, agent, source) {
+    state.techBanner = {
+      ontology: ontology || state.techBanner.ontology,
+      algorithm: algorithm || state.techBanner.algorithm,
+      agent: agent || state.techBanner.agent,
+      source: source || state.techBanner.source
+    };
+    renderTechBanner();
+  }
+
+  function buildSuggestions(pc, lastErrorCode) {
+    const out = [];
+    const curId = state.current && state.current.id ? state.current.id : 'GN-...';
+    if (lastErrorCode) {
+      out.push(`help :: syntax guide (${lastErrorCode})`);
+      ['feed', 'open', 'show', 'job', 'explain', 'menu'].forEach((v) => out.push(`${v} :: command suggestion`));
+      return out.slice(0, 8);
+    }
+    if (!pc || !pc.cmd) {
+      return ['help :: command list', 'menu :: quick menu', 'feed /last 10 :: latest journal events'];
+    }
+    if (pc.cmd === 'open' && lower(pc.args[0]) === 'person') {
+      out.push('show card :: persona corrente');
+      out.push('show timeline :: timeline eventi');
+      out.push(`feed /entity person /id ${curId} :: feed filtrato`);
+    }
+    if (pc.cmd === 'feed') {
+      out.push('feed /last 10 :: ultimi 10 eventi');
+      out.push('feed /type person.updated :: filtro tipo');
+    }
+    if (pc.cmd === 'show') {
+      out.push('show card :: dettagli contesto');
+      out.push('explain :: traccia algoritmo');
+    }
+    if (pc.cmd === 'job') {
+      out.push('feed /last 10 :: verifica output job');
+      out.push('explain :: traccia ultimo step');
+    }
+    if (pc.cmd === 'help' || pc.cmd === 'menu') {
+      out.push('job run IMPORT_RECORDS :: run pipeline web');
+      out.push('feed /last 10 :: activity log');
+    }
+    if (out.length === 0) {
+      ['help', 'feed /last 10', 'open person GN-I1', 'show card', 'explain'].forEach((s) => out.push(`${s} :: suggested`));
+    }
+    return out.slice(0, 8);
+  }
+
+  function renderSuggestions() {
+    if (!dom.suggest) return;
+    dom.suggest.textContent = state.suggestions.length ? state.suggestions.map((s, i) => `${i + 1}. ${s}`).join('\n') : '1. help :: command list';
+  }
+
+  function exportSessionState() {
+    return {
+      context: {
+        entityType: state.current ? state.current.kind : '',
+        entityId: state.current ? state.current.id || '' : ''
+      },
+      lastCommand: state.lastCommand || '',
+      outputLines: state.outputLines.slice(),
+      suggestions: state.suggestions.slice(),
+      techBanner: {
+        ontology: state.techBanner.ontology,
+        algorithm: state.techBanner.algorithm,
+        tech: 'GN370 WEB SHELL',
+        agent: state.techBanner.agent,
+        source: state.techBanner.source
+      }
+    };
+  }
+
+  function persistSessionState() {
+    try {
+      localStorage.setItem(SESSION_KEY, JSON.stringify(exportSessionState()));
+    } catch (_e) {}
+  }
+
+  function applySessionState(s) {
+    if (!s || typeof s !== 'object') return;
+    if (Array.isArray(s.outputLines)) state.outputLines = s.outputLines.slice(-500);
+    if (s.lastCommand) state.lastCommand = String(s.lastCommand);
+    if (s.context && typeof s.context === 'object') {
+      const k = String(s.context.entityType || '');
+      const id = String(s.context.entityId || '');
+      if (k || id) state.current = { kind: k, id: id, title: id, data: null };
+    }
+    if (Array.isArray(s.suggestions)) state.suggestions = s.suggestions.slice(0, 8).map(String);
+    if (s.techBanner && typeof s.techBanner === 'object') {
+      setTechBanner(s.techBanner.ontology, s.techBanner.algorithm, s.techBanner.agent, s.techBanner.source);
+    }
+    renderAll();
+    renderSuggestions();
+  }
+
   function updateJobLine() {
     if (!dom.jobLine) return;
     if (!state.job.running) {
@@ -201,7 +312,9 @@
 
   function renderAll() {
     renderContext();
+    renderTechBanner();
     renderOutput();
+    renderSuggestions();
   }
 
   function pushState() {
@@ -523,6 +636,7 @@
   }
 
   function printHelp() {
+    setTechBanner('COMMAND LEXICON', 'Verb Lookup', 'PARSE_AGT', 'INLINE HELP');
     writeSEP('================ GN370 HELP ================');
     [
       'help|h',
@@ -539,8 +653,12 @@
       'show copy <TYPE>',
       'validate rec <TYPE> <ID>',
       'job run IMPORT_RECORDS',
+      'job run pipeline',
       'job status',
       'job log --tail 50',
+      'explain [last|context]',
+      'state show',
+      'state load [runtime/session_state.json]',
       'db status',
       'db backup [tag]',
       'db reset [--keep-backup]',
@@ -558,6 +676,7 @@
   }
 
   function printMenu() {
+    setTechBanner('MAIN NAVIGATION', 'Menu Projection', 'EXPL_AGT', 'STATIC SHELL');
     writeSEP('=============== MAIN MENU ==================');
     [
       '1) feed last 10',
@@ -575,6 +694,7 @@
   }
 
   async function cmdFeed(pc) {
+    setTechBanner('JOURNAL EVENT STREAM', 'Filter + Window', 'EXPL_AGT', 'JOURNAL NDJSON');
     const p = { last: 20, type: pc.opts.type || null, since: pc.opts.since || null, entity: pc.opts.entity || null, id: pc.opts.id || null };
     if (pc.args[0] && lower(pc.args[0]) === 'last' && pc.args[1]) p.last = Number(pc.args[1]);
     if (pc.opts.last) p.last = Number(pc.opts.last);
@@ -588,6 +708,7 @@
   }
 
   async function cmdStoryList() {
+    setTechBanner('NARRATIVE INDEX', 'Index Scan', 'STORY_AGT', 'STORIES INDEX');
     const stories = (await ensureStoriesIndex()).stories || [];
     writeSEP('=============== STORY LIST ==================');
     stories.forEach((s) => appendLine(`${s.id} | ${s.title} | ${s.period} | tags:${(s.tags || []).join(',')}`));
@@ -598,6 +719,7 @@
   }
 
   async function cmdStoryOpen(id) {
+    setTechBanner('STORY CONTEXT', 'Entity Lookup', 'STORY_AGT', 'STORIES INDEX');
     if (!id) {
       writeERR('story open <storyId> MISSING');
       renderOutput();
@@ -619,6 +741,7 @@
   }
 
   async function cmdStoryPlay(id) {
+    setTechBanner('NARRATIVE RENDER', 'Scene Sequencing', 'STORY_AGT', 'STORY FILE');
     if (!id) {
       writeERR('story play <storyId> MISSING');
       renderOutput();
@@ -641,6 +764,7 @@
   }
 
   async function cmdOpenPerson(id) {
+    setTechBanner('ENTITY LOOKUP', 'ID Match + Fallback', 'NORM_AGT', 'PERSON NDJSON');
     if (!id) {
       writeERR('open person <id> MISSING');
       renderOutput();
@@ -658,6 +782,7 @@
   }
 
   async function cmdOpenXref(xref) {
+    setTechBanner('ENTITY LOOKUP', 'XREF Resolution', 'NORM_AGT', 'PERSON NDJSON');
     if (!xref) {
       writeERR('open xref <@I123@> MISSING');
       renderOutput();
@@ -677,6 +802,7 @@
   }
 
   async function cmdShowCopy(type) {
+    setTechBanner('COPYBOOK SCHEMA', 'Copybook Parse', 'PARSE_AGT', 'CPY FILE');
     requireModules();
     const t = upper(type);
     if (!t) {
@@ -694,6 +820,7 @@
   }
 
   async function cmdOpenRec(type, id) {
+    setTechBanner('RECORD RENDER', 'Fixed-Length Parse', 'PARSE_AGT', 'RECORD FILE');
     requireModules();
     const t = upper(type);
     if (!t || !id) {
@@ -713,6 +840,7 @@
   }
 
   async function cmdValidateRec(type, id) {
+    setTechBanner('DATA VALIDATION', 'Constraint Check', 'VALID_AGT', 'RECORD FILE');
     requireModules();
     const t = upper(type);
     if (!t || !id) {
@@ -732,6 +860,7 @@
   }
 
   function cmdShowCard() {
+    setTechBanner('ENTITY CARD', 'Field Projection', 'EXPL_AGT', 'CURRENT CONTEXT');
     if (!state.current) {
       writeWRN('NO CURRENT CONTEXT');
       renderOutput();
@@ -757,11 +886,12 @@
     const sub = lower(pc.args[0]);
     if (sub === 'run') {
       const name = upper(pc.args[1] || '');
-      if (name !== 'IMPORT_RECORDS') {
-        writeERR('JOB RUN supports only IMPORT_RECORDS');
+      if (name !== 'IMPORT_RECORDS' && name !== 'PIPELINE' && name !== 'IMPORT_NORM_VALIDATE_JOURNAL') {
+        writeERR('JOB RUN supports: IMPORT_RECORDS | PIPELINE | IMPORT_NORM_VALIDATE_JOURNAL');
         renderOutput();
         return;
       }
+      setTechBanner('3NF NORMALIZATION', 'Pipeline Orchestration', 'PIPELINE_RUNNER', 'JOURNAL + RECORDS');
       await runLoaderJob('IMPORT_RECORDS');
       return;
     }
@@ -798,6 +928,46 @@
     renderOutput();
   }
 
+  function cmdExplain(pc) {
+    setTechBanner('TRANSPARENCY LAYER', 'Derivation Trace', 'EXPL_AGT', 'SESSION STATE');
+    const target = lower(pc.args[0] || 'last');
+    writeSEP('================ EXPLAIN =================');
+    appendLine(`target        : ${target.toUpperCase()}`);
+    appendLine(`last command  : ${state.lastCommand || '-'}`);
+    appendLine(`context       : ${state.current ? `${state.current.kind}:${state.current.id || '-'}` : 'NONE'}`);
+    appendLine(`tech ontology : ${state.techBanner.ontology}`);
+    appendLine(`algorithm     : ${state.techBanner.algorithm}`);
+    appendLine(`agent         : ${state.techBanner.agent}`);
+    appendLine(`source        : ${state.techBanner.source}`);
+    appendLine('note          : web shell uses read-only projection over static data');
+    writeSEP('==========================================');
+    scrollToBottom();
+    renderOutput();
+  }
+
+  async function cmdState(pc) {
+    const sub = lower(pc.args[0] || 'show');
+    if (sub === 'show') {
+      writeSEP('============== SESSION STATE =============');
+      appendLine(JSON.stringify(exportSessionState(), null, 2));
+      writeSEP('==========================================');
+      scrollToBottom();
+      renderOutput();
+      return;
+    }
+    if (sub === 'load') {
+      const path = pc.args[1] || 'runtime/session_state.json';
+      const payload = await fetchJson(path, { noStore: true, liveData: true });
+      applySessionState(payload);
+      writeOK(`SESSION LOADED ${path}`);
+      scrollToBottom();
+      renderOutput();
+      return;
+    }
+    writeERR('STATE command: SHOW|LOAD [path]');
+    renderOutput();
+  }
+
   async function cmdCache(pc) {
     const sub = lower(pc.args[0]);
     if (sub === 'status') return await cmdCacheStatus();
@@ -810,7 +980,8 @@
   async function execute(raw) {
     const pc = parseCommand(raw);
     if (!pc.cmd) return;
-    const cmd = ({ h: 'help', m: 'menu', b: 'back', r: 'refresh' }[pc.cmd] || pc.cmd);
+    const cmd = ALIAS[pc.cmd] || pc.cmd;
+    let errCode = '';
 
     state.lastCommand = raw;
     if (dom.last) dom.last.textContent = `LAST: ${state.lastCommand}`;
@@ -825,6 +996,10 @@
       if (cmd === 'help') printHelp();
       else if (cmd === 'menu') printMenu();
       else if (cmd === 'back') popState();
+      else if (cmd === 'quit') {
+        writeWRN('QUIT DISABLED IN BROWSER');
+        renderOutput();
+      }
       else if (cmd === 'refresh') {
         state.events = null;
         state.storiesIndex = null;
@@ -846,14 +1021,22 @@
       else if (cmd === 'job') await cmdJob(pc);
       else if (cmd === 'db') await cmdDb(pc);
       else if (cmd === 'cache') await cmdCache(pc);
+      else if (cmd === 'explain') cmdExplain(pc);
+      else if (cmd === 'state') await cmdState(pc);
       else if (cmd === 'clear') cmdClear();
       else {
+        errCode = 'ERR_UNKNOWN_COMMAND';
         writeERR(`UNKNOWN COMMAND: ${raw}`);
         renderOutput();
       }
     } catch (e) {
+      errCode = 'ERR_RUNTIME';
       writeERR(e.message || String(e));
       renderOutput();
+    } finally {
+      state.suggestions = buildSuggestions({ cmd: cmd, args: pc.args, opts: pc.opts }, errCode);
+      persistSessionState();
+      renderAll();
     }
   }
 
@@ -885,6 +1068,10 @@
       if (ev.key === 'Enter') {
         ev.preventDefault();
         dom.run.click();
+      } else if (ev.key === 'Tab') {
+        ev.preventDefault();
+        const src = state.suggestions[0] || 'help';
+        dom.cmd.value = String(src).split('::')[0].trim();
       } else if (ev.key === 'ArrowUp') {
         ev.preventDefault();
         if (!state.history.length) return;
@@ -921,8 +1108,14 @@
     } catch (err) {
       writeWRN(`version.json unavailable: ${err.message || String(err)}`);
     }
+    try {
+      const cached = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+      if (cached) applySessionState(cached);
+    } catch (_e) {}
     renderHeader();
     renderContext();
+    state.suggestions = buildSuggestions(parseCommand(''), '');
+    renderSuggestions();
     printMenu();
     writeOK('GN370 SHELL READY');
     scrollToBottom();
@@ -942,6 +1135,8 @@
     parseCommand,
     filterFeed,
     parseStoryScenes,
+    exportSessionState,
+    applySessionState,
     progressLine: (c, t, s, d) => (window.GNRender370 ? window.GNRender370.makeBar(c, t, s, d) : ''),
     _state: state,
     execute

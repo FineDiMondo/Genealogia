@@ -1,0 +1,23 @@
+[GEN-TEST] Avvio test COBOL CLI...
+== TEST 1: HELP ==
+GENCLI - COMANDI DISPONIBILI:
+  HELP
+  COUNT PERSONE|FAMIGLIE|EVENTI
+  FIND  <testo>
+  REPORT
+== TEST 2: COUNT PERSONE ==
+PERSONE = 000000432
+== TEST 3: COUNT FAMIGLIE ==
+FAMIGLIE = 000000211
+== TEST 4: FIND ROSSI ==
+P000055|8DDFCF7125274C7482F0E429AB384D71D889|ROSSI|bianca|F|||1995|Toronto, Ontario, Canada||F000016|S000001|IMPORT_RMTREE                                                                                                                                                                                                                                                                                                                                                                                                      
+MATCH TROVATI: 000000001
+== TEST 5: REPORT ==
+==============================
+REPORT GENEALOGIA - COBOL CLI
+==============================
+PERSONE = 000000432
+FAMIGLIE = 000000211
+EVENTI = 000000904
+RC test massimo: 0
+[GEN-TEST] Test OK.

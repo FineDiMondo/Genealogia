@@ -1,0 +1,10 @@
+{
+  "name": "Genealogia GN370",
+  "short_name": "GN370",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#001100",
+  "description": "Retro 370 shell for genealogy monitoring"
+}

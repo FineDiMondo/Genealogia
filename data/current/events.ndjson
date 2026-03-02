@@ -44,3 +44,6 @@
 {"ts":"2026-03-02T12:00:00Z","type":"person.added","entity":"person","id":"P#6f6d0b6ab9f1fcb2","title":"Rosalia /Alberti/ (1795-?)","refs":["@I2@"],"by":"rm_import","importance":"major"}
 {"ts":"2026-03-02T12:00:00Z","type":"family.added","entity":"family","id":"F#a9f5a2fe0f32f301","title":"Family @F1@ added","refs":["@F1@"],"by":"rm_import","importance":"major"}
 {"ts":"2026-03-02T12:00:00Z","type":"person.linked_fs","entity":"person","id":"P#d26813cde2e7f17f","title":"FamilySearch link detected KJ4R-2LM","refs":["@I1@"],"by":"rm_import","importance":"minor"}
+{"ts":"2026-03-02T13:53:55.2646602Z","type":"db.restore","entity":"db","id":"current","title":"Database restore complete","by":"db_ops.ps1","importance":"major"}
+{"ts":"2026-03-02T13:55:11.9982813Z","type":"db.rebuild","entity":"db","id":"current","title":"DB rebuild complete","by":"db_ops.ps1","importance":"major"}
+{"ts":"2026-03-02T14:02:01.7868182Z","type":"db.backup","entity":"db","id":"current","title":"Database backup complete","by":"db_ops.ps1","importance":"major"}

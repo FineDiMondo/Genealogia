@@ -1,0 +1,6 @@
+SESSION OPEN
+DIR=../runtime/tmp/session_20260302_122926
+DB=../runtime/tmp/session_20260302_122926/session.sqlite
+DB READY
+SNAPSHOT rc=0 -> ../runtime/snapshots/snapshot_20260302_122926.sqlite
+SESSION CLOSE

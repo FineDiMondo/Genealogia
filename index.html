@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GN370 SHELL</title>
-  <link rel="stylesheet" href="assets/gn370.css" />
-</head>
+  <link rel="stylesheet" href="assets/gn370.css" /></head>
 <body>
   <div class="gn370-screen">
     <header class="gn370-header">
       <div id="hdr-line-1">DATASET: GENEALOGIA.CURRENT  BRANCH: main  CONTEXT: NONE</div>
       <div id="hdr-line-2">TS: --</div>
+      <div id="tech-banner">TECH: 3NF NORMALIZATION | ALGO: Referential Integrity | AGENT: VALID_AGT | SOURCE: JOURNAL NDJSON</div>
     </header>
 
     <main class="gn370-main">
@@ -19,6 +19,9 @@
         <div id="ctx-line">CTX: NONE</div>
         <div id="hint-line">HINT: help | feed last 10 | story list | story play SAMPLE</div>
         <div id="last-cmd">LAST: -</div>
+        <div id="job-status-line">JOB: IDLE</div>
+        <div id="suggest-title">SUGGESTIONS</div>
+        <div id="suggest-panel" class="gn370-suggest"></div>
       </aside>
     </main>
 
@@ -40,6 +43,9 @@
     </footer>
   </div>
 
+  <script src="src/copybook/copybook_parser.js"></script>
+  <script src="src/copybook/record_parser.js"></script>
+  <script src="src/copybook/record_renderer_370.js"></script>
   <script src="assets/gn370.js"></script>
 </body>
 </html>

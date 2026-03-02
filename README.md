@@ -1,271 +1,61 @@
-# Genealogia Giardina Negrini
+# Genealogia
 
-Repository in stile COBOL su UNIX:
+Repository GN370 orientato a output statico 370.
 
-- base dati in file sequenziali `.DAT`
-- tracciati in `copy/*.CPY`
-- job in `proc/`
-- output statico in `PORTALE_GN/`
+Pipeline attiva:
+`GEDCOM -> Batch -> out/current -> static 370 -> GitHub Pages`
 
-## Unified Pipeline Architecture
+## Deploy GitHub Pages
 
-Pipeline target:
+Workflow attivo:
+- `.github/workflows/pages-static.yml`
 
-1. `genealogy/gedcom/merged/*.ged`
-2. `GIARDINA/02_DATA/RECORDS/current.ged`
-3. `GIARDINA/03_PROG/batch.py` (`validate`, `build`)
-4. `out/current/`
-5. `jobs/90_publish_to_pwa.sh`
-6. `app/public/data/current/`
-7. Astro PWA (`app/`) -> `app/dist/`
+Root statica pubblicata (in ordine di priorita):
+1. `PORTALE_GN/`
+2. `out/current/site/`
 
-## Branch Strategy
+Se nessuna root esiste, il deploy fallisce intenzionalmente.
 
-- `main`: production release + deploy Pages (`pages-astro.yml`)
-- `develop`: integrazione/test (`build-test.yml`)
-- `feature/*`: sviluppo con PR verso `develop`
+## Componenti fuori deploy
 
-## Quick Start (Unified)
+- launcher nativo SDL2 (`launcher/`)
+- tool locali (`tools/db`, `tools/rootsmagic`, ecc.)
+- contenuti legacy congelati in `legacy/`
 
-```bash
-bash jobs/run_job.sh
-cd app
-npm ci || npm install
-npm run build
-```
+## Verifica deploy
 
-Documenti correlati:
+Script:
+- `verify_deployment.sh`
 
-- `MIGRATION.md`
-- `CONTRIBUTING.md`
+Controlli principali:
+- homepage statica 370 presente
+- `version.json` presente
+- assenza di riferimenti a runtime web legacy nella pipeline attiva
 
-## Monorepo Pattern 1 (jobs + out + app)
+## Build & Test locali
 
-Struttura operativa introdotta:
-
-- `jobs/` batch shell COBOL-like (filesystem only)
-- `data/raw`, `data/inbox`, `data/work`
-- `out/staging`, `out/releases`, `out/current`
-- `control/lock` lock run concorrenti
-- `logs/<build_id>/*.log` log step-by-step
-- `app/` Astro static + PWA (nessun backend, nessuna logica agentica)
-
-Pipeline atomica:
-
-1. build in `out/staging/<build_id>`
-2. validate staging
-3. promote in `out/releases/<version>`
-4. update `out/current` (copy)
-5. publish in `app/public/data/current`
-
-La PWA legge solo file statici da `/data/current/**`.
-
-### Comandi locali (nuovo flusso)
-
-```bash
-bash jobs/run_job.sh
-cd app
-npm install
-npm run dev
-```
-
-Build produzione:
-
-```bash
-bash jobs/run_job.sh
-cd app
-npm install
-npm run build
-npm run preview
-```
-
-## Portale Giardina (pipeline YAML)
-
-Il repository mantiene il flusso COBOL/DAT esistente e aggiunge una pipeline parallela idempotente per il nuovo Portale Giardina:
-
-- `01_raw/` ingestione file grezzi (upload mobile/desktop)
-- `02_curated/` media rinominati in naming canonico
-- `03_records/` record YAML versionabili
-- `04_site/` sito statico generato (timeline + indici)
-- `src/portale_giardina/` validate/build/ingest
-
-Scelta architetturale: separare pipeline nuova e storica evita regressioni su `PORTALE_GN/` e consente migrazione incrementale.
-
-## Link Portali
-
-- Portale Chiaro: `PORTALE_GN/portale-chiaro.html`
-- Portale 370: `PORTALE_GN/portale-370.html`
-- Selettore rapido (home): `PORTALE_GN/index.html`
-
-## Struttura Progetto
-
-```text
-.github/          workflow GitHub Pages
-copy/             specifiche tracciati record (CPY)
-data/             file sequenziali DAT e import
-docs/             documentazione operativa
-logs/             log run (runtime, non versionati)
-out/              report build/validate (runtime, non versionati)
-PORTALE_GN/       sito statico e entrypoint portali
-proc/             script job (sh + ps1)
-src/              utility e supporto
-```
-
-## Comandi Principali
-
-### Portale Giardina (nuovo flusso)
-
-Prerequisiti:
-
-```bash
-python -m pip install -r requirements-dev.txt
-```
-
-Comandi:
-
-```bash
-make validate
-make build
-```
-
-Coda acquisizione media:
-
-```bash
-python -m src.portale_giardina.pipeline ingest --record-id "YYYY-MM-DD__tipo__soggetti__luogo__slug" --with-hash
-```
-
-### Setup Bash su Windows
-
+Build COBOL:
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\proc\setup_bash_windows.ps1
+.\cobol\build.ps1
 ```
 
-Se il setup va a buon fine:
-
-- `bash` viene aggiunto al `PATH` utente (persistente)
-- la sessione corrente viene aggiornata
-- conviene riaprire il terminale per persistenza completa
-
-### Tabella rapida
-
-| Ambiente | Comandi consigliati |
-|---|---|
-| Linux/macOS | `./proc/validate_data.sh` / `./proc/build_portale.sh` |
-| Windows PowerShell | `.\proc\run_validate.ps1` / `.\proc\run_build.ps1` |
-| Windows CMD | `.\proc\run_validate.cmd` / `.\proc\run_build.cmd` |
-
-Linux/macOS (bash):
-
-```bash
-./proc/validate_data.sh
-./proc/build_portale.sh
-```
-
-Windows (PowerShell):
-
+Test Python core:
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\proc\import_rmtree.ps1 .\data\GEDCOM-FT-20260301.rmtree
-powershell -ExecutionPolicy Bypass -File .\proc\validate_data.ps1
-powershell -ExecutionPolicy Bypass -File .\proc\build_portale.ps1
+python tests/schema/test_migration_002.py
+python tests/schema/test_integrity_triggers.py
+python tests/schema/test_transaction_manager.py
+python tests/agents/test_message_bus_contracts.py
+python tests/agents/test_parse_norm_agents.py
+python tests/agents/test_valid_expl_agents.py
+python tests/agents/test_agent_pipeline_integration.py
+python tests/agents/test_cli_parser.py
+python tests/agents/test_suggest.py
+python tests/agents/test_shell_runner_smoke.py
 ```
 
-Windows (launcher cross-platform):
+## Governance
 
-```powershell
-.\proc\run_import_gedcom.ps1
-.\proc\run_validate.ps1
-.\proc\run_build.ps1
-.\proc\run_download_heraldry_vectors.ps1
-```
-
-## Naming Canonico
-
-- ID record: `YYYY-MM-DD__tipo__soggetti__luogo__slug`
-- Media: stesso prefisso del record + `__scanNNN.ext`
-- Esempio:
-  - record: `1738-04-11__stemma__giardina__palermo__documentato`
-  - media: `1738-04-11__stemma__giardina__palermo__documentato__scan001.svg`
-
-## Metodo Attendibilità
-
-- `DOCUMENTATO`: atto o fonte primaria verificata
-- `STAMPA`: fonte a stampa storica
-- `ATTRIBUITO`: tradizione o attribuzione secondaria
-- `RICOSTRUITO`: elaborazione grafica/metodologica
-- `TRADIZIONE`: menzione non verificata
-
-Dettagli operativi: `docs/METODO_PORTALE_GIARDINA.md`.
-
-## Data Normalization Agent
-
-## Launcher
-
-Il progetto include un launcher nativo in ANSI C basato su SDL2 + SDL_ttf + SQLite:
-
-- sorgenti: `launcher/`
-- configurazione: `launcher/launcher.ini`
-- tool stub orchestrati: `tools/*.cmd`
-- runtime sessione: `runtime/`
-
-Build consigliata su Windows con vcpkg:
-
-- installare dipendenze: `sdl2`, `sdl2-ttf`, `sqlite3`
-- configurare:
-  - `cmake -S launcher -B launcher/build -DCMAKE_TOOLCHAIN_FILE=[vcpkg]/scripts/buildsystems/vcpkg.cmake`
-- compilare:
-  - `cmake --build launcher/build --config Release`
-
-Esecuzione:
-
-- `launcher/build/Release/GNLauncher.exe`
-
-Il launcher deve trovare `launcher.ini` e `assets/DejaVuSansMono.ttf` accanto al binario.
-Se `audio.enabled=0` in `launcher.ini`, l'audio retro viene disabilitato.
-
-Materiale e implementazione base del modulo di normalizzazione dati:
-
-- Prompt operativo: `COWORK_DATA_NORMALIZATION_PROMPT.md`
-- Masterplan: `data_normalization_masterplan.md`
-- Script base: `data_normalization_agent.py`
-- Modulo esteso: `genealogy-normalization-agent/`
-
-Esecuzione rapida:
-
-```bash
-cd genealogy-normalization-agent
-python -m src.cli.cli run-demo
-```
-
-## MIGRAZIONE
-
-1. Continuare a usare pipeline COBOL (`proc/*.sh|ps1`) per `PORTALE_GN`.
-2. Inserire nuovi contenuti nel flusso YAML (`03_records/*.yml`).
-3. Validare con `make validate` e correggere errori link/schema.
-4. Generare `04_site/` con `make build`.
-5. Quando stabile, valutare switch deploy verso `04_site` o integrazione in `PORTALE_GN/generated`.
-
-## Perimetro GIARDINA (COBOL COPY rigoroso)
-
-E' stato aggiunto un perimetro dedicato `GIARDINA/` con separazione `COPY/DATA/PROG/JCL/OUT/TEST`.
-
-Comandi rapidi:
-
-```bash
-python GIARDINA/03_PROG/batch.py validate
-python GIARDINA/03_PROG/batch.py build
-python GIARDINA/03_PROG/batch.py all
-```
-
-Documentazione:
-
-- `GIARDINA/00_DOCS/ASSESSMENT_REPORT.md`
-- `GIARDINA/00_DOCS/TARGET_ARCHITECTURE_AND_MIGRATION.md`
-- `GIARDINA/00_DOCS/STANDARD_COPY.md`
-
-## GEDCOM Sync Orchestrator
-
-Per sincronizzazione GEDCOM giornaliera con commit Git e notifiche email:
-
-- guida operativa: `README_GEDCOM_SYNC.md`
-- script principale: `gedcom_sync_orchestrator.py`
-- setup rapido: `setup.sh`
+- Roadmap: [docs/ROADMAP.md](docs/ROADMAP.md)
+- Definition of Done: [docs/DEFINITION_OF_DONE.md](docs/DEFINITION_OF_DONE.md)
+- Lexicon: [docs/LEXICON.md](docs/LEXICON.md)
+- Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
