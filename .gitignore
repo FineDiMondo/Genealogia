@@ -22,3 +22,20 @@ tools/sqlite/*.zip
 # Local secrets and environments
 .env
 venv/
+app/node_modules/
+app/dist/
+app/.vercel/
+.env.local
+.env.*.local
+
+# Runtime pipeline
+genealogy/gedcom/archive/
+out/staging/
+control/*.lock
+
+# DEPRECATED (remove after migration complete)
+src/portale_giardina.DEPRECATED/
+03_records.DEPRECATED/
+04_site.DEPRECATED/
+01_raw.DEPRECATED/
+02_curated.DEPRECATED/

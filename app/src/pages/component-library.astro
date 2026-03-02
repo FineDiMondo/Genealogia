@@ -1,0 +1,45 @@
+---
+import GestionalLayout from "../layouts/GestionalLayout.astro";
+import Navigation from "../components/Navigation.astro";
+import Button from "../components/ui/Button.astro";
+import Input from "../components/ui/Input.astro";
+import Panel from "../components/ui/Panel.astro";
+import Table from "../components/ui/Table.astro";
+import Card from "../components/ui/Card.astro";
+
+const headers = ["ID", "Nome", "Famiglia"];
+const rows = [
+  ["P000001", "Persona Esempio", "Famiglia Esempio"],
+  ["P000002", "Seconda Persona", "Famiglia B"]
+];
+---
+
+<GestionalLayout title="Component Library">
+  <Navigation currentEnv="DEV" />
+  <main class="section fade-in" style="padding: var(--space-xl);">
+    <h1 class="glow">Component Library</h1>
+
+    <Panel title="Buttons" status="READY">
+      <div style="display:flex; gap: var(--space-md); flex-wrap: wrap;">
+        <Button variant="primary">Execute</Button>
+        <Button variant="secondary">Cancel</Button>
+        <Button variant="danger">Delete</Button>
+        <Button disabled={true}>Locked</Button>
+      </div>
+    </Panel>
+
+    <Panel title="Inputs" status="READY">
+      <Input label="Nome" placeholder="Inserisci nome persona" hint="Campo obbligatorio" />
+      <Input label="Data nascita" type="date" />
+    </Panel>
+
+    <Panel title="Table" status="READY">
+      <Table headers={headers} rows={rows} activeRow={0} />
+    </Panel>
+
+    <Card title="Card Example">
+      <p>Componente base per blocchi informativi rapidi in stile 370.</p>
+    </Card>
+  </main>
+</GestionalLayout>
+

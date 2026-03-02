@@ -1,0 +1,148 @@
+:root {
+  --crt-black: #041004;
+  --crt-green: #7cff7c;
+  --crt-amber: #ffcc66;
+  --crt-orange: #ff9955;
+  --crt-white: #d6ffd6;
+  --font-body: "Consolas", "Courier New", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0a200a 0%, #041004 55%, #020802 100%);
+  color: var(--crt-green);
+  font-family: var(--font-body);
+}
+
+.dashboard-container {
+  width: min(1200px, 96vw);
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.header {
+  border: 1px solid var(--crt-green);
+  padding: 1rem;
+  background: rgba(0, 30, 0, 0.5);
+  margin-bottom: 1rem;
+}
+
+.header h1 {
+  margin: 0 0 0.25rem;
+}
+
+.panel {
+  border: 1px solid var(--crt-green);
+  background: rgba(0, 35, 0, 0.28);
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.8rem;
+}
+
+.counter-card {
+  border: 1px solid rgba(124, 255, 124, 0.7);
+  padding: 0.75rem;
+  background: rgba(0, 51, 0, 0.2);
+}
+
+.counter-card h3 {
+  margin: 0 0 0.5rem;
+}
+
+.progress-bar,
+.bar {
+  width: 100%;
+  height: 18px;
+  border: 1px solid var(--crt-green);
+  background: #021002;
+  margin: 0.4rem 0;
+}
+
+.progress-fill,
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--crt-green), var(--crt-amber));
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.2rem 0;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.7rem;
+}
+
+.status-item {
+  border: 1px solid rgba(124, 255, 124, 0.6);
+  padding: 0.6rem;
+}
+
+.value {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.approved {
+  color: var(--crt-green);
+}
+
+.flagged {
+  color: var(--crt-amber);
+}
+
+.pending {
+  color: var(--crt-orange);
+}
+
+.sources-list .source-item,
+.timeline-item,
+.quality-item,
+.cache-domain {
+  margin: 0.55rem 0;
+}
+
+.source-stats,
+.period-stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.trend.increasing {
+  color: var(--crt-green);
+}
+
+.trend.decreasing {
+  color: var(--crt-orange);
+}
+
+.trend.stable {
+  color: var(--crt-amber);
+}
+
+.updating {
+  animation: pulse 0.7s linear infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 0.8rem;
+  }
+}

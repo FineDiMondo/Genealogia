@@ -1,0 +1,24 @@
+id: 1734-06-20__EVENT__antonio-maria__palermo__matrimonio
+type: EVENT
+title: Matrimonio Antonio Giardina e Maria Negrini
+event_kind: MATRIMONIO
+date:
+  sort: "1734-06-20"
+  display: "20 giugno 1734"
+place_id: 1600-01-01__PLACE__palermo__sicilia__citta
+reliability: DOCUMENTATO
+source_ids:
+  - 1750-01-01__SOURCE__registro-parrocchiale__palermo__matrimoni-santa-maria
+family_ids:
+  - 1680-01-01__FAMILY__giardina__palermo__linea-principale
+  - 1690-01-01__FAMILY__negrini__bergamo__linea-storica
+person_ids:
+  - 1710-04-12__PERSON__antonio-giardina__palermo__profilo
+  - 1715-09-03__PERSON__maria-negrini__bergamo__profilo
+arms_ids:
+  - 1734-06-20__ARMS__negrini-giardina__palermo__attribuito
+media_ids: []
+tags:
+  - matrimonio
+notes: Evento di raccordo genealogico.
+

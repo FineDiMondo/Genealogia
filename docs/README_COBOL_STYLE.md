@@ -2,100 +2,123 @@
 
 ## Filosofia
 
-Struttura "COBOL su UNIX":
+- Base dati: file sequenziali `.DAT` pipe-delimited (`|`)
+- Tracciati: `copy/*.CPY`
+- Job batch: `proc/*.sh` (Unix) e `proc/*.ps1` (Windows)
+- Output: HTML statico in `PORTALE_GN/`
+- Niente JSON come base dati
 
-- base dati in file sequenziali `.DAT` (pipe-delimited)
-- tracciati documentati in `copy/*.CPY`
-- job batch in `proc/*.sh`
-- output HTML statico in `PORTALE_GN/`
+## Portali
 
-Niente JSON come base dati.
+- Portale Chiaro: `PORTALE_GN/portale-chiaro.html`
+- Portale 370: `PORTALE_GN/portale-370.html`
+- Home selezione: `PORTALE_GN/index.html`
 
-## Input GEDCOM
+## Input e Import
 
-File di input:
+Input principale:
 
-- `data/import/raw/latest.ged`
+- `data/GEDCOM-FT-20260301.rmtree`
 
-Import:
+Import Windows:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\proc\import_rmtree.ps1 .\data\GEDCOM-FT-20260301.rmtree
+```
+
+Setup Bash su Windows (consigliato):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\proc\setup_bash_windows.ps1
+```
+
+Launcher cross-platform Windows:
+
+```powershell
+.\proc\run_import_gedcom.ps1
+.\proc\run_validate.ps1
+.\proc\run_build.ps1
+.\proc\run_download_heraldry_vectors.ps1
+```
+
+Import Unix (se disponibile GED testuale):
 
 ```bash
 ./proc/import_gedcom.sh
 ```
 
-Output import:
+## Validate e Build
 
-- `data/PERSONE.DAT`
-- `data/FAMIGLIE.DAT`
-- `data/FONTI.DAT`
-- `data/EVENTI.DAT`
-- `data/import/GEDMAP.DAT` (mapping GEDID -> ID sequenziale stabile)
-- `logs/duplicates.log` (potenziali duplicati per nome+nascita)
-
-## Araldica avanzata
-
-File:
-
-- `data/araldica/CASATI.DAT`
-- `data/araldica/RAMI.DAT`
-- `data/araldica/STEMMI.DAT`
-- `data/araldica/APPARTENENZE.DAT`
-- `data/araldica/ALLIANZE.DAT`
-
-Asset immagini:
-
-- `PORTALE_GN/assets/heraldry/`
-
-### Regole risoluzione stemma (deterministica)
-
-Per ogni persona:
-
-1. Data riferimento:
-   - se nascita+morte: midpoint
-   - altrimenti nascita
-   - altrimenti morte
-   - altrimenti vuoto
-2. In `APPARTENENZE.DAT`: seleziona appartenenza valida nel range `DAL..AL`.
-   - se multiple: scegli `DAL` più recente
-3. In `STEMMI.DAT`: filtra per `CASATO+RAMO` e range data.
-   - scegli `PRIORITA` più alta
-4. Fallback:
-   - stemma di casato senza ramo
-   - poi `TIPO=ARMIGERIA_BASE`
-
-## Validate + Build
+Unix:
 
 ```bash
+./proc/download_heraldry_vectors.sh
 ./proc/validate_data.sh
 ./proc/build_portale.sh
 ```
 
-Genera:
-
-- `PORTALE_GN/people/*.html`
-- `PORTALE_GN/families/*.html`
-- `PORTALE_GN/sources/*.html`
-- `PORTALE_GN/heraldry/*.html`
-- `PORTALE_GN/reports/index.html`
-
-Log/report:
-
-- `out/VALIDATION_REPORT.txt`
-- `out/BUILD_INDEX.DAT`
-- `logs/missing_heraldry_assets.log`
-
-## Inserimento manuale record
+Per forzare il download vettoriale durante il build:
 
 ```bash
-./proc/new_person.sh I999 COGNOME NOME M F000001 S000001 "NOTA"
-./proc/new_family.sh F999 COGNOME-FAMIGLIA P000001 P000002 P000003 2000-01-01 PALERMO S000001 "NOTA"
-./proc/new_source.sh ARCHIVIO "Titolo fonte" 2026-03-01 ARCH RIF "" "NOTE"
+DOWNLOAD_HERALDRY_VECTORS=1 ./proc/build_portale.sh
 ```
 
-## Regole file
+Windows:
+
+```powershell
+.\proc\run_validate.ps1
+.\proc\run_build.ps1
+```
+
+Tabella rapida:
+
+| Ambiente | Esecuzione |
+|---|---|
+| Linux/macOS | `./proc/*.sh` |
+| Windows PowerShell | `.\proc\run_*.ps1` |
+| Windows CMD | `.\proc\run_*.cmd` |
+
+## Regole File
 
 - UTF-8 senza BOM
 - 1 record = 1 riga
 - delimitatore `|`
-- no spazi attorno al delimitatore
-- date: `YYYY` o `YYYY-MM` o `YYYY-MM-DD` o vuoto
+- nessuno spazio attorno al delimitatore
+- date: `YYYY`, `YYYY-MM`, `YYYY-MM-DD`, oppure vuoto
+
+## Modulo Nobilta
+
+File:
+
+- `data/nobilta/TITOLI.DAT`
+- `data/nobilta/CASATI_TITOLI.DAT`
+- `data/nobilta/PERSONE_TITOLI.DAT`
+- `data/nobilta/MATRIMONI_TITOLI.DAT`
+
+Output:
+
+- `PORTALE_GN/nobilta/index.html`
+- `PORTALE_GN/nobilta/Txxxxxx.html`
+
+Dettagli regole:
+
+- `docs/NOBILTA_SYSTEM.md`
+
+## Integrazione Portale Giardina YAML
+
+Per un flusso editoriale più rapido (mobile-first) è disponibile una pipeline parallela:
+
+- `01_raw/` (upload grezzi)
+- `02_curated/` (media rinominati)
+- `03_records/` (record YAML)
+- `04_site/` (HTML generato)
+
+Comandi:
+
+```bash
+make validate
+make build
+python -m src.portale_giardina.pipeline ingest --record-id "YYYY-MM-DD__tipo__soggetti__luogo__slug" --with-hash
+```
+
+Questa integrazione non sostituisce il modello DAT/CPY esistente; lo affianca per una migrazione incrementale.

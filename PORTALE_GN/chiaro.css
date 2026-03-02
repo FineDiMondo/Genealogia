@@ -1,0 +1,64 @@
+﻿:root {
+  --bg: #f2f6fb;
+  --surface: #ffffff;
+  --ink: #102030;
+  --muted: #556575;
+  --line: #d6e0ea;
+  --accent: #0a5bd7;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: radial-gradient(circle at top right, #eaf1ff 0%, #f7fafc 45%, #eef3f8 100%);
+  color: var(--ink);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.container {
+  max-width: 980px;
+  margin: 28px auto;
+  padding: 0 16px 24px;
+}
+.kicker {
+  margin: 0;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 13px;
+}
+h1 {
+  margin: 6px 0 8px;
+  font-size: 32px;
+}
+.lead {
+  margin: 0 0 16px;
+  color: var(--muted);
+}
+.cards {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 10px 20px rgba(20, 35, 50, 0.06);
+}
+.card h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+.card p {
+  margin: 0;
+  color: var(--muted);
+}
+footer {
+  margin-top: 16px;
+}
+footer a {
+  color: #194a9a;
+  text-decoration: none;
+}

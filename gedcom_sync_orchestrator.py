@@ -200,6 +200,60 @@ def run_git_ops(stats: SyncStats, config: dict[str, Any], logger: logging.Logger
         raise
 
 
+def trigger_giardina_ingest(gedcom_file: Path, logger: logging.Logger) -> None:
+    records_dir = ROOT / "GIARDINA" / "02_DATA" / "RECORDS"
+    records_dir.mkdir(parents=True, exist_ok=True)
+    dest_file = records_dir / "current.ged"
+    shutil.copy2(gedcom_file, dest_file)
+    logger.info("GEDCOM ingest trigger: %s", dest_file)
+
+
+def run_batch_pipeline(logger: logging.Logger) -> None:
+    batch_script = ROOT / "GIARDINA" / "03_PROG" / "batch.py"
+    if not batch_script.exists():
+        raise FileNotFoundError(f"Batch script non trovato: {batch_script}")
+
+    for step in ["validate", "build"]:
+        logger.info("Eseguo batch step: %s", step)
+        result = subprocess.run(
+            [sys.executable, str(batch_script), step],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        if result.stdout.strip():
+            logger.info(result.stdout.strip())
+
+    ingest_record = os.getenv("GIARDINA_INGEST_RECORD_ID", "").strip()
+    if ingest_record:
+        logger.info("Eseguo batch step opzionale ingest con record-id=%s", ingest_record)
+        subprocess.run(
+            [sys.executable, str(batch_script), "ingest", "--record-id", ingest_record],
+            cwd=ROOT,
+            check=True,
+        )
+    else:
+        logger.info("Step ingest batch saltato (GIARDINA_INGEST_RECORD_ID non impostata)")
+
+
+def publish_to_pwa(logger: logging.Logger) -> None:
+    script = ROOT / "jobs" / "90_publish_to_pwa.sh"
+    if not script.exists():
+        raise FileNotFoundError(f"Script publish non trovato: {script}")
+
+    bash_bin = shutil.which("bash") or "/bin/bash"
+    result = subprocess.run(
+        [bash_bin, str(script)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    if result.stdout.strip():
+        logger.info(result.stdout.strip())
+
+
 def send_email(stats: SyncStats, config: dict[str, Any], logger: logging.Logger) -> None:
     notify = config.get("notifications", {})
     if not bool(notify.get("enabled", True)):
@@ -252,6 +306,9 @@ def run_once(config: dict[str, Any]) -> int:
         strategy = str(config.get("merge", {}).get("strategy", "ancestry_priority"))
         stats = merge_gedcom(strategy, ancestry_file, familysearch_file, logger)
         run_git_ops(stats, config, logger)
+        trigger_giardina_ingest(stats.merged_file, logger)
+        run_batch_pipeline(logger)
+        publish_to_pwa(logger)
         send_email(stats, config, logger)
         logger.info("Run completato con successo")
         return 0
@@ -302,4 +359,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

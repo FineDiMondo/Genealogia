@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "genealogy-normalization-agent"
+version = "0.1.0"
+description = "Genealogical data normalization toolkit (CLI/API/Web/Daemon)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "anthropic>=0.34.0",
+  "fastapi>=0.112.0",
+  "uvicorn>=0.30.0",
+  "flask>=3.0.0",
+  "click>=8.1.0",
+  "pydantic>=2.8.0",
+  "python-dotenv>=1.0.1",
+  "pyyaml>=6.0.2",
+  "watchdog>=4.0.0",
+  "apscheduler>=3.10.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.2.0",
+]
+
+[project.scripts]
+gna-cli = "src.cli.cli:cli"
+gna-api = "src.api.server:main"
+gna-web = "src.web.app:main"
+gna-daemon = "src.daemon.monitor:main"
+

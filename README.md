@@ -7,6 +7,38 @@ Repository in stile COBOL su UNIX:
 - job in `proc/`
 - output statico in `PORTALE_GN/`
 
+## Unified Pipeline Architecture
+
+Pipeline target:
+
+1. `genealogy/gedcom/merged/*.ged`
+2. `GIARDINA/02_DATA/RECORDS/current.ged`
+3. `GIARDINA/03_PROG/batch.py` (`validate`, `build`)
+4. `out/current/`
+5. `jobs/90_publish_to_pwa.sh`
+6. `app/public/data/current/`
+7. Astro PWA (`app/`) -> `app/dist/`
+
+## Branch Strategy
+
+- `main`: production release + deploy Pages (`pages-astro.yml`)
+- `develop`: integrazione/test (`build-test.yml`)
+- `feature/*`: sviluppo con PR verso `develop`
+
+## Quick Start (Unified)
+
+```bash
+bash jobs/run_job.sh
+cd app
+npm ci || npm install
+npm run build
+```
+
+Documenti correlati:
+
+- `MIGRATION.md`
+- `CONTRIBUTING.md`
+
 ## Monorepo Pattern 1 (jobs + out + app)
 
 Struttura operativa introdotta:
@@ -163,6 +195,22 @@ Windows (launcher cross-platform):
 - `TRADIZIONE`: menzione non verificata
 
 Dettagli operativi: `docs/METODO_PORTALE_GIARDINA.md`.
+
+## Data Normalization Agent
+
+Materiale e implementazione base del modulo di normalizzazione dati:
+
+- Prompt operativo: `COWORK_DATA_NORMALIZATION_PROMPT.md`
+- Masterplan: `data_normalization_masterplan.md`
+- Script base: `data_normalization_agent.py`
+- Modulo esteso: `genealogy-normalization-agent/`
+
+Esecuzione rapida:
+
+```bash
+cd genealogy-normalization-agent
+python -m src.cli.cli run-demo
+```
 
 ## MIGRAZIONE
 

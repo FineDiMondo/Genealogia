@@ -1,0 +1,43 @@
+---
+import GestionalLayout from "../../layouts/GestionalLayout.astro";
+import Navigation from "../../components/Navigation.astro";
+---
+
+<GestionalLayout title="Search">
+  <Navigation currentEnv="PROD" />
+  <main class="section" style="padding: var(--space-xl);">
+    <h1>Ricerca Persone</h1>
+    <input
+      id="q"
+      type="search"
+      placeholder="Cerca per nome"
+      style="padding: 0.5rem; width: 100%; max-width: 480px; margin-bottom: 1rem;"
+    />
+    <ul id="results"></ul>
+  </main>
+  <script>
+    let data = [];
+    function render(list) {
+      const target = document.getElementById("results");
+      target.innerHTML = list
+        .map((item) => `<li><strong>${item.name}</strong> (${item.id}) - ${item.family ?? ""}</li>`)
+        .join("");
+    }
+    async function init() {
+      try {
+        const res = await fetch("/data/current/indexes/search_people.json", { cache: "no-store" });
+        data = await res.json();
+        render(data);
+      } catch {
+        render([]);
+      }
+    }
+    document.getElementById("q").addEventListener("input", (ev) => {
+      const q = String(ev.target.value || "").toLowerCase().trim();
+      if (!q) return render(data);
+      render(data.filter((item) => String(item.name || "").toLowerCase().includes(q)));
+    });
+    init();
+  </script>
+</GestionalLayout>
+

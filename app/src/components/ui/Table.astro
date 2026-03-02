@@ -1,0 +1,86 @@
+---
+interface Props {
+  headers: string[];
+  rows: (string | number)[][];
+  activeRow?: number;
+}
+
+const { headers, rows, activeRow = -1 } = Astro.props;
+---
+
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        {headers.map((header) => <th>{header}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row, idx) => (
+        <tr class={activeRow === idx ? "active" : ""}>
+          {row.map((cell) => <td>{cell}</td>)}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .table-container {
+    overflow-x: auto;
+    border: 1px solid var(--crt-green);
+    background: var(--crt-dark-green);
+    margin: var(--space-lg) 0;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+  }
+
+  .data-table thead {
+    background: rgba(0, 255, 0, 0.1);
+    border-bottom: 2px solid var(--crt-green);
+  }
+
+  .data-table th {
+    padding: var(--space-md);
+    text-align: left;
+    color: var(--crt-green);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-right: 1px solid var(--crt-green);
+  }
+
+  .data-table th:last-child {
+    border-right: none;
+  }
+
+  .data-table td {
+    padding: var(--space-md);
+    color: var(--crt-white);
+    border-right: 1px solid rgba(0, 255, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 255, 0, 0.1);
+  }
+
+  .data-table td:last-child {
+    border-right: none;
+  }
+
+  .data-table tbody tr {
+    transition: all var(--transition-fast);
+  }
+
+  .data-table tbody tr:hover {
+    background: rgba(0, 255, 0, 0.05);
+  }
+
+  .data-table tbody tr.active {
+    background: rgba(255, 170, 0, 0.05);
+    border-left: 3px solid var(--crt-amber);
+  }
+</style>
+

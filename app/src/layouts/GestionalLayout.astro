@@ -1,0 +1,27 @@
+---
+import "../styles/variables.css";
+import "../styles/global.css";
+import "../styles/crt.css";
+import "../styles/components.css";
+import "../styles/animations.css";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} | GENEALOGIA</title>
+  </head>
+  <body class="crt-container">
+    <slot />
+  </body>
+</html>
+
