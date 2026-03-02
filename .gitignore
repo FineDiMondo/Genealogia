@@ -39,3 +39,9 @@ src/portale_giardina.DEPRECATED/
 04_site.DEPRECATED/
 01_raw.DEPRECATED/
 02_curated.DEPRECATED/
+/runtime/tmp/
+/runtime/logs/
+/runtime/snapshots/
+/launcher/build/
+/launcher/.vs/
+/launcher/.vscode/

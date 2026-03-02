@@ -198,6 +198,29 @@ Dettagli operativi: `docs/METODO_PORTALE_GIARDINA.md`.
 
 ## Data Normalization Agent
 
+## Launcher
+
+Il progetto include un launcher nativo in ANSI C basato su SDL2 + SDL_ttf + SQLite:
+
+- sorgenti: `launcher/`
+- configurazione: `launcher/launcher.ini`
+- tool stub orchestrati: `tools/*.cmd`
+- runtime sessione: `runtime/`
+
+Build consigliata su Windows con vcpkg:
+
+- installare dipendenze: `sdl2`, `sdl2-ttf`, `sqlite3`
+- configurare:
+  - `cmake -S launcher -B launcher/build -DCMAKE_TOOLCHAIN_FILE=[vcpkg]/scripts/buildsystems/vcpkg.cmake`
+- compilare:
+  - `cmake --build launcher/build --config Release`
+
+Esecuzione:
+
+- `launcher/build/Release/GNLauncher.exe`
+
+Il launcher deve trovare `launcher.ini` e `assets/DejaVuSansMono.ttf` accanto al binario.
+
 Materiale e implementazione base del modulo di normalizzazione dati:
 
 - Prompt operativo: `COWORK_DATA_NORMALIZATION_PROMPT.md`
