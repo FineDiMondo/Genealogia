@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Genealogy Normalization Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}" />
+  </head>
+  <body>
+    <main class="dashboard-container">
+      <header class="header">
+        <h1>Genealogy Normalization Dashboard</h1>
+        <p>Real-time monitoring of normalization progress and quality metrics</p>
+      </header>
+
+      <section id="domain-counters" class="panel"></section>
+      <section id="normalization-status" class="panel"></section>
+      <section id="data-sources" class="panel"></section>
+      <section id="processing-timeline" class="panel"></section>
+      <section id="reuse-optimization" class="panel"></section>
+      <section id="quality-analytics" class="panel"></section>
+    </main>
+
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+  </body>
+</html>

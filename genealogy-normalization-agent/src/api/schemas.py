@@ -21,3 +21,8 @@ class BatchIn(BaseModel):
     source: str = "api"
     records: list[PersonIn]
 
+
+class DashboardHistoryIn(BaseModel):
+    start_date: str
+    end_date: str
+    export_format: str = "json"

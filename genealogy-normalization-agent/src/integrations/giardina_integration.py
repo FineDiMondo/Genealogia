@@ -11,6 +11,7 @@ from uuid import uuid4
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
+from ..dashboard.service import DashboardService
 from ..agent.normalization_engine import DataNormalizationEngine
 
 
@@ -34,6 +35,7 @@ class GiardinaIntegration:
         self.audit_dir.mkdir(parents=True, exist_ok=True)
         self.status_dir.mkdir(parents=True, exist_ok=True)
         self.engine = DataNormalizationEngine(auto_approve_threshold=float(cfg.get("auto_approve_threshold", 0.85)))
+        self.dashboard = DashboardService()
 
     def process_incoming_gedcom(self, filename: str) -> dict:
         src_path = self.input_dir / filename
@@ -42,6 +44,7 @@ class GiardinaIntegration:
 
         records = self.read_gedcom(str(src_path))
         normalized, flagged = asyncio.run(self.engine.normalize_batch(records, source="giardina"))
+        self.dashboard.record_normalization_batch(normalized, source_system="giardina", domain="individuals")
 
         stem = src_path.stem
         output_file = self.output_dir / f"{stem}.ged"
@@ -196,4 +199,3 @@ class GiardinaIntegration:
         observer.schedule(_GedcomHandler(), str(self.input_dir), recursive=False)
         observer.start()
         return observer
-

@@ -13,6 +13,12 @@ This file mirrors the runtime OpenAPI surface from `src/api/server.py`.
 - `POST /duplicates`
 - `POST /integrations/giardina/process`
 - `POST /integrations/gestionale/export`
+- `GET /api/v1/dashboard/metrics`
+- `GET /api/v1/dashboard/sources`
+- `GET /api/v1/dashboard/timeline`
+- `GET /api/v1/dashboard/reuse`
+- `GET /api/v1/dashboard/quality`
+- `POST /api/v1/dashboard/history`
 
 ## Export static OpenAPI
 ```bash

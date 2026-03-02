@@ -9,6 +9,12 @@ Base app: `src/api/server.py` (FastAPI).
 - `POST /duplicates`
 - `POST /integrations/giardina/process?filename=<file.ged>`
 - `POST /integrations/gestionale/export?job_id=<JOB-ID>`
+- `GET /api/v1/dashboard/metrics`
+- `GET /api/v1/dashboard/sources`
+- `GET /api/v1/dashboard/timeline`
+- `GET /api/v1/dashboard/reuse`
+- `GET /api/v1/dashboard/quality`
+- `POST /api/v1/dashboard/history`
 
 ## Example normalize
 ```bash

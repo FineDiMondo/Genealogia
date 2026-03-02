@@ -55,6 +55,13 @@ Web UI:
 python -m src.web.app
 ```
 
+Dashboard UI (Flask):
+
+```bash
+# after starting web app
+# open http://127.0.0.1:5000/dashboard
+```
+
 Daemon:
 
 ```bash
@@ -90,6 +97,8 @@ docker compose up --build
 - `src/api`: endpoint FastAPI
 - `src/cli`: comandi CLI
 - `src/web`: mini interfaccia Flask
+- `src/web/static/dashboard.*`: dashboard frontend CRT
+- `src/dashboard`: persistence + metrics aggregation service (SQLite)
 - `src/daemon`: monitor cartelle
 - `src/exporters`: export JSON/GEDCOM
 - `tests`: test automatici base
