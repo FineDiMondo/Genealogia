@@ -67,3 +67,11 @@ I seguenti file erano presenti prima della Fase 0 e verranno riconciliati col LE
 - `GEDCOM_MAPPING.md` - mapping GEDCOM->schema (da verificare in Fase 1).
 - `DB_LIFECYCLE.md` - lifecycle backup/restore (da allineare a Fase 3).
 - `ROOTSMAGIC_ADAPTER.md` - adapter esterno (in scope fase futura).
+
+## Indici rinviati a migrazione 003
+- `idx_journal_entity` su `event_journal(entity_type, entity_id)`.
+- `idx_journal_agent` su `event_journal(agent_id, occurred_at)`.
+- `idx_journal_sess` su `event_journal(session_id)`.
+- `idx_conflict_open` su `conflict_log(status)` con filtro `status='OPEN'`.
+
+Nota implementativa G1-A: e' stata adottata l'Opzione A, con `001_gn370_next_core.sql` tracciato nel repository come prerequisito esplicito della 002.

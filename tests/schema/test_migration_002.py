@@ -3,6 +3,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 MIGRATIONS = [
+    # Opzione A (Gate 1 fix): 001 e' prerequisito tracciato nel repo.
     ROOT / 'tools' / 'db' / 'migrations' / '001_gn370_next_core.sql',
     ROOT / 'tools' / 'db' / 'migrations' / '002_domain_schema.sql',
     ROOT / 'tools' / 'db' / 'migrations' / '002_seed_lexicon.sql',
@@ -74,10 +75,6 @@ for idx in [
     'idx_pname_person',
     'idx_event_type',
     'idx_event_date',
-    'idx_journal_entity',
-    'idx_journal_agent',
-    'idx_journal_sess',
-    'idx_conflict_open',
 ]:
     assert_index_exists(conn, idx)
 
