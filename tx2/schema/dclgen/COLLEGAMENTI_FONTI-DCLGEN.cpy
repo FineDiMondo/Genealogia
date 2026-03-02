@@ -1,7 +1,0 @@
-      * DCLGEN GENERATO DA DDL - NON MODIFICARE
-       01 REC-COLLEGAMENTI_FONTI.
-           05 DB-ID-COLLEGAMENTO           PIC X(32).
-           05 DB-ID-FONTE                  PIC X(32).
-           05 DB-ENTITA-DESTINAZIONE       PIC X(32).
-           05 DB-ID-RECORD-DESTINAZIONE    PIC X(32).
-           05 DB-NOTE-COLLEGAMENTO         PIC X(512).

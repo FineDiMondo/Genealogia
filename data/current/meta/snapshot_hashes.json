@@ -1,9 +1,0 @@
-{
-  "version":"1.0",
-  "items":[
-    {"entity":"person","id":"P#d26813cde2e7f17f","hash":"d26813cde2e7f17f"},
-    {"entity":"person","id":"P#6f6d0b6ab9f1fcb2","hash":"6f6d0b6ab9f1fcb2"},
-    {"entity":"family","id":"F#a9f5a2fe0f32f301","hash":"a9f5a2fe0f32f301"},
-    {"entity":"source","id":"S#f31dd0cb7a151f0a","hash":"f31dd0cb7a151f0a"}
-  ]
-}

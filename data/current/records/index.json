@@ -1,7 +1,0 @@
-﻿{
-  "types": {
-    "PERSON": ["P#SAMPLE001", "P#SAMPLE002"],
-    "FAMILY": ["F#SAMPLE001"],
-    "EVENT": ["E#SAMPLE001", "E#SAMPLE002"]
-  }
-}
