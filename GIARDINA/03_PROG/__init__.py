@@ -1,2 +1,0 @@
-"""GIARDINA batch programs."""
-

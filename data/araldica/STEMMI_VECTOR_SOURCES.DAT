@@ -1,7 +1,0 @@
-# STEMMI_VECTOR_SOURCES.DAT
-# STEMMA_ID|SVG_URL|FILE_NAME|ENABLED|NOTE
-# SVG_URL puo essere diretto .svg oppure URL Wikimedia "https://commons.wikimedia.org/wiki/File:..."
-H000001||giardina_base.svg|N|SET_URL_AND_ENABLE_Y
-H000002||giardina_ramo_principale.svg|N|SET_URL_AND_ENABLE_Y
-H000003||negrini_base.svg|N|SET_URL_AND_ENABLE_Y
-H000004||negrini_palermo.svg|N|SET_URL_AND_ENABLE_Y

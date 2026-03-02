@@ -1,2 +1,0 @@
-"""Genealogy normalization agent package."""
-
