@@ -196,6 +196,22 @@ Windows (launcher cross-platform):
 
 Dettagli operativi: `docs/METODO_PORTALE_GIARDINA.md`.
 
+## Data Normalization Agent
+
+Materiale e implementazione base del modulo di normalizzazione dati:
+
+- Prompt operativo: `COWORK_DATA_NORMALIZATION_PROMPT.md`
+- Masterplan: `data_normalization_masterplan.md`
+- Script base: `data_normalization_agent.py`
+- Modulo esteso: `genealogy-normalization-agent/`
+
+Esecuzione rapida:
+
+```bash
+cd genealogy-normalization-agent
+python -m src.cli.cli run-demo
+```
+
 ## MIGRAZIONE
 
 1. Continuare a usare pipeline COBOL (`proc/*.sh|ps1`) per `PORTALE_GN`.
