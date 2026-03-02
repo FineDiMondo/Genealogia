@@ -7,16 +7,67 @@ import Button from "../components/ui/Button.astro";
 
 <GestionalLayout title="Portale Giardina">
   <Navigation currentEnv="PROD" />
-  <main class="section" style="padding: var(--space-xl);">
-    <h1 class="glow">Portale Giardina - 370 Style</h1>
-    <Panel title="Accesso Gestionale" status="READY">
-      <p>Interfaccia operativa collegata ai file statici in <code>/data/current</code>.</p>
-      <div style="display:flex; gap: var(--space-md); margin-top: var(--space-md); flex-wrap: wrap;">
-        <Button href="/gestionale/">Dashboard</Button>
+  <main class="section" style="padding: var(--space-xl); display:grid; gap: var(--space-lg);">
+    <h1 class="glow">Genealogia Control Center</h1>
+
+    <Panel title="Dashboard Dati" status="LIVE">
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-md);">
+        <div><strong>Persone</strong><div>432</div></div>
+        <div><strong>Famiglie</strong><div>211</div></div>
+        <div><strong>Eventi</strong><div>904</div></div>
+        <div><strong>Stemmi</strong><div>4</div></div>
+        <div><strong>Titoli</strong><div>2</div></div>
+      </div>
+    </Panel>
+
+    <Panel title="Tool del Progetto" status="READY">
+      <div style="display:flex; gap: var(--space-sm); flex-wrap: wrap;">
+        <Button href="/gestionale/">Dashboard 370</Button>
         <Button href="/gestionale/search" variant="secondary">Ricerca</Button>
-        <Button href="/component-library" variant="secondary">Component Library</Button>
+        <Button href="/gestionale/reports" variant="secondary">Report</Button>
+        <Button href="/search" variant="secondary">Search PWA</Button>
+        <Button href="/data/current/manifest.json" variant="secondary">Manifest Dati</Button>
+        <Button href="/PORTALE_GN/index.html" variant="secondary">Portale HTML Hub</Button>
+      </div>
+      <p style="margin-top: var(--space-md);">
+        Pipeline operative: <code>jobs/run_job.sh</code>, <code>jobs/90_publish_to_pwa.sh</code>,
+        <code>proc/validate_data.sh</code>, <code>proc/build_portale.sh</code>,
+        <code>GIARDINA/03_PROG/batch.py</code>.
+      </p>
+    </Panel>
+
+    <Panel title="Prompt Agentico" status="OPS">
+      <textarea id="agent-prompt" style="width:100%; min-height:220px; background:#0f1720; color:#d8f1df; border:1px solid #2b3a4a; border-radius:8px; padding:10px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem;">
+Sei l'agente tecnico del progetto Genealogia (COBOL-style su UNIX). Analizza lo stato corrente e produci un report operativo sintetico.
+
+Contesto attuale:
+- Data files: PERSONE=432, FAMIGLIE=211, FONTI=1, EVENTI=904, STEMMI=4, TITOLI=2
+- Pipeline principali: jobs/run_job.sh, proc/validate_data.sh, proc/build_portale.sh, GIARDINA/03_PROG/batch.py
+- Frontend: PORTALE_GN (chiaro + 370) e app Astro/PWA
+- Branch attivo: feature/unify-ci
+
+Task:
+1) Verifica coerenza dati e anomalie.
+2) Valuta stato build/deploy (out/current e app/public/data/current).
+3) Riassumi avanzamento per Dati, Portale, GIARDINA, PWA, DevOps.
+4) Proponi backlog prioritizzato P1/P2/P3.
+5) Fornisci comandi locali per validazione completa.
+      </textarea>
+      <div style="display:flex; gap: var(--space-sm); margin-top: var(--space-sm); flex-wrap: wrap;">
+        <button id="copy-agent-prompt" class="btn btn-secondary">Copia Prompt</button>
       </div>
     </Panel>
   </main>
-</GestionalLayout>
 
+  <script>
+    document.getElementById("copy-agent-prompt")?.addEventListener("click", async () => {
+      const prompt = document.getElementById("agent-prompt");
+      if (!prompt) return;
+      try {
+        await navigator.clipboard.writeText(prompt.value);
+      } catch {
+        alert("Copia non disponibile in questo browser.");
+      }
+    });
+  </script>
+</GestionalLayout>
