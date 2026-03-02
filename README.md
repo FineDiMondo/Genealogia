@@ -1,84 +1,199 @@
-# Genealogia Famiglia Giardina Negrini
+# Genealogia Giardina Negrini
 
-## 📋 Descrizione Progetto
+Repository in stile COBOL su UNIX:
 
-Questo repository contiene la documentazione genealogica completa della famiglia Giardina Negrini, incluse fonti storiche, metodologia di ricerca, dati genealogici organizzati e istruzioni per l'aggiornamento continuativo della base dati.
+- base dati in file sequenziali `.DAT`
+- tracciati in `copy/*.CPY`
+- job in `proc/`
+- output statico in `PORTALE_GN/`
 
-## 📁 Struttura del Progetto
+## Monorepo Pattern 1 (jobs + out + app)
 
+Struttura operativa introdotta:
+
+- `jobs/` batch shell COBOL-like (filesystem only)
+- `data/raw`, `data/inbox`, `data/work`
+- `out/staging`, `out/releases`, `out/current`
+- `control/lock` lock run concorrenti
+- `logs/<build_id>/*.log` log step-by-step
+- `app/` Astro static + PWA (nessun backend, nessuna logica agentica)
+
+Pipeline atomica:
+
+1. build in `out/staging/<build_id>`
+2. validate staging
+3. promote in `out/releases/<version>`
+4. update `out/current` (copy)
+5. publish in `app/public/data/current`
+
+La PWA legge solo file statici da `/data/current/**`.
+
+### Comandi locali (nuovo flusso)
+
+```bash
+bash jobs/run_job.sh
+cd app
+npm install
+npm run dev
 ```
-Genealogia/
-├── README.md                    # Questo file
-├── documentation/               # Documentazione metodologica e procedurale
-│   ├── METODOLOGIA.md          # Metodo di ricerca genealogico utilizzato
-│   ├── FONTI.md                # Elenco e descrizione delle fonti utilizzate
-│   ├── STRUTTURA_DATI.md       # Descrizione della struttura dei file dati
-│   └── GUIDA_AGGIORNAMENTO.md  # Come aggiornare il progetto
-├── sources/                     # Documentazione delle fonti primarie
-│   ├── archivi/                # Riferimenti agli archivi utilizzati
-│   ├── certificati/            # Scansioni e note su certificati
-│   └── registri/               # Registri genealogici consultati
-├── data/                        # Dati genealogici strutturati
-│   ├── family_tree.csv         # Albero genealogico in formato tabellare
-│   ├── individuals.csv         # Dettagli dei singoli individui
-│   ├── marriages.csv           # Registri matrimoniali
-│   └── residences.csv          # Luogo di residenza e trasferimenti
-├── templates/                   # Template per l'aggiunta di nuovi dati
-│   ├── template_persona.md     # Template scheda persona
-│   └── template_evento.md      # Template evento genealogico
-└── archive/                     # Versioni precedenti e backup
+
+Build produzione:
+
+```bash
+bash jobs/run_job.sh
+cd app
+npm install
+npm run build
+npm run preview
 ```
 
-## 🔍 Metodologia di Ricerca
+## Portale Giardina (pipeline YAML)
 
-La ricerca genealogica è stata condotta seguendo il metodo scientifico, tracciando ogni persona da una generazione all'altra verificando le fonti primarie (certificati di nascita, matrimonio, morte, registri parrocchiali e civili).
+Il repository mantiene il flusso COBOL/DAT esistente e aggiunge una pipeline parallela idempotente per il nuovo Portale Giardina:
 
-**Vedi: [`documentation/METODOLOGIA.md`](documentation/METODOLOGIA.md)**
+- `01_raw/` ingestione file grezzi (upload mobile/desktop)
+- `02_curated/` media rinominati in naming canonico
+- `03_records/` record YAML versionabili
+- `04_site/` sito statico generato (timeline + indici)
+- `src/portale_giardina/` validate/build/ingest
 
-## 📚 Fonti Utilizzate
+Scelta architetturale: separare pipeline nuova e storica evita regressioni su `PORTALE_GN/` e consente migrazione incrementale.
 
-Le fonti consultate includono:
-- Archivi parrocchiali
-- Registri civili (nascite, matrimoni, morti)
-- Certificati originali
-- Documenti storici
-- Testimonianze familiari
+## Link Portali
 
-**Vedi: [`documentation/FONTI.md`](documentation/FONTI.md)**
+- Portale Chiaro: `PORTALE_GN/portale-chiaro.html`
+- Portale 370: `PORTALE_GN/portale-370.html`
+- Selettore rapido (home): `PORTALE_GN/index.html`
 
-## 📊 Struttura dei Dati
+## Struttura Progetto
 
-I dati genealogici sono organizzati in file CSV per facilitare l'analisi e l'aggiornamento, con campi standardizzati per garantire coerenza.
+```text
+.github/          workflow GitHub Pages
+copy/             specifiche tracciati record (CPY)
+data/             file sequenziali DAT e import
+docs/             documentazione operativa
+logs/             log run (runtime, non versionati)
+out/              report build/validate (runtime, non versionati)
+PORTALE_GN/       sito statico e entrypoint portali
+proc/             script job (sh + ps1)
+src/              utility e supporto
+```
 
-**Vedi: [`documentation/STRUTTURA_DATI.md`](documentation/STRUTTURA_DATI.md)**
+## Comandi Principali
 
-## 🔄 Come Aggiornare il Progetto
+### Portale Giardina (nuovo flusso)
 
-Per aggiungere nuove informazioni, seguire i template forniti e le istruzioni dettagliate nella guida di aggiornamento.
+Prerequisiti:
 
-**Vedi: [`documentation/GUIDA_AGGIORNAMENTO.md`](documentation/GUIDA_AGGIORNAMENTO.md)**
+```bash
+python -m pip install -r requirements-dev.txt
+```
 
-## 📝 Convenzioni di Nomenclatura
+Comandi:
 
-- **File CSV**: Utilizzo di UTF-8 encoding
-- **Date**: Formato AAAA-MM-DD (ISO 8601)
-- **Nomi**: Maiuscolo per cognomi, minuscolo per nomi comuni
-- **Campi**: Snake_case per gli header CSV
+```bash
+make validate
+make build
+```
 
-## 🔐 Privacy e Note Importanti
+Coda acquisizione media:
 
-Questo progetto contiene informazioni familiari sensibili. Consultare sempre le persone coinvolte prima di condividere i dati.
+```bash
+python -m src.portale_giardina.pipeline ingest --record-id "YYYY-MM-DD__tipo__soggetti__luogo__slug" --with-hash
+```
 
-## 📅 Cronologia degli Aggiornamenti
+### Setup Bash su Windows
 
-| Data | Autore | Descrizione |
-|------|--------|------------|
-| 2026-03-01 | Daniel Giardina | Creazione struttura e documentazione iniziale |
+```powershell
+powershell -ExecutionPolicy Bypass -File .\proc\setup_bash_windows.ps1
+```
 
-## 📧 Contatti
+Se il setup va a buon fine:
 
-**Curatore del progetto:** Daniel Giardina (daniel.giardina@gmail.com)
+- `bash` viene aggiunto al `PATH` utente (persistente)
+- la sessione corrente viene aggiornata
+- conviene riaprire il terminale per persistenza completa
 
----
+### Tabella rapida
 
-**Ultimo aggiornamento:** 2026-03-01
+| Ambiente | Comandi consigliati |
+|---|---|
+| Linux/macOS | `./proc/validate_data.sh` / `./proc/build_portale.sh` |
+| Windows PowerShell | `.\proc\run_validate.ps1` / `.\proc\run_build.ps1` |
+| Windows CMD | `.\proc\run_validate.cmd` / `.\proc\run_build.cmd` |
+
+Linux/macOS (bash):
+
+```bash
+./proc/validate_data.sh
+./proc/build_portale.sh
+```
+
+Windows (PowerShell):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\proc\import_rmtree.ps1 .\data\GEDCOM-FT-20260301.rmtree
+powershell -ExecutionPolicy Bypass -File .\proc\validate_data.ps1
+powershell -ExecutionPolicy Bypass -File .\proc\build_portale.ps1
+```
+
+Windows (launcher cross-platform):
+
+```powershell
+.\proc\run_import_gedcom.ps1
+.\proc\run_validate.ps1
+.\proc\run_build.ps1
+.\proc\run_download_heraldry_vectors.ps1
+```
+
+## Naming Canonico
+
+- ID record: `YYYY-MM-DD__tipo__soggetti__luogo__slug`
+- Media: stesso prefisso del record + `__scanNNN.ext`
+- Esempio:
+  - record: `1738-04-11__stemma__giardina__palermo__documentato`
+  - media: `1738-04-11__stemma__giardina__palermo__documentato__scan001.svg`
+
+## Metodo Attendibilità
+
+- `DOCUMENTATO`: atto o fonte primaria verificata
+- `STAMPA`: fonte a stampa storica
+- `ATTRIBUITO`: tradizione o attribuzione secondaria
+- `RICOSTRUITO`: elaborazione grafica/metodologica
+- `TRADIZIONE`: menzione non verificata
+
+Dettagli operativi: `docs/METODO_PORTALE_GIARDINA.md`.
+
+## MIGRAZIONE
+
+1. Continuare a usare pipeline COBOL (`proc/*.sh|ps1`) per `PORTALE_GN`.
+2. Inserire nuovi contenuti nel flusso YAML (`03_records/*.yml`).
+3. Validare con `make validate` e correggere errori link/schema.
+4. Generare `04_site/` con `make build`.
+5. Quando stabile, valutare switch deploy verso `04_site` o integrazione in `PORTALE_GN/generated`.
+
+## Perimetro GIARDINA (COBOL COPY rigoroso)
+
+E' stato aggiunto un perimetro dedicato `GIARDINA/` con separazione `COPY/DATA/PROG/JCL/OUT/TEST`.
+
+Comandi rapidi:
+
+```bash
+python GIARDINA/03_PROG/batch.py validate
+python GIARDINA/03_PROG/batch.py build
+python GIARDINA/03_PROG/batch.py all
+```
+
+Documentazione:
+
+- `GIARDINA/00_DOCS/ASSESSMENT_REPORT.md`
+- `GIARDINA/00_DOCS/TARGET_ARCHITECTURE_AND_MIGRATION.md`
+- `GIARDINA/00_DOCS/STANDARD_COPY.md`
+
+## GEDCOM Sync Orchestrator
+
+Per sincronizzazione GEDCOM giornaliera con commit Git e notifiche email:
+
+- guida operativa: `README_GEDCOM_SYNC.md`
+- script principale: `gedcom_sync_orchestrator.py`
+- setup rapido: `setup.sh`

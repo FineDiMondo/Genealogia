@@ -1,0 +1,24 @@
+# Local raw imports
+data/GEDCOM-*.rmtree
+data/import/raw/latest.ged
+
+# Generated portal pages
+PORTALE_GN/people/*.html
+PORTALE_GN/families/*.html
+PORTALE_GN/sources/*.html
+PORTALE_GN/heraldry/*.html
+PORTALE_GN/reports/*.html
+
+# Runtime outputs
+logs/*.log
+!logs/.gitkeep
+out/BUILD_INDEX.DAT
+out/VALIDATION_REPORT.txt
+
+# Local tool binaries
+tools/sqlite/*.exe
+tools/sqlite/*.zip
+
+# Local secrets and environments
+.env
+venv/
