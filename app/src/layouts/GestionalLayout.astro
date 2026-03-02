@@ -4,7 +4,7 @@ import "../styles/global.css";
 import "../styles/crt.css";
 import "../styles/components.css";
 import "../styles/animations.css";
-import "../styles/ispf.css";
+import "../styles/terminal-web.css";
 
 interface Props {
   title: string;
@@ -13,6 +13,9 @@ interface Props {
 const { title } = Astro.props;
 const now = new Date();
 const dateLabel = now.toISOString().slice(0, 10);
+const timeLabel = now.toTimeString().slice(0, 8);
+const pathParts = Astro.url.pathname.split("/").filter(Boolean);
+const currentNode = pathParts.length ? pathParts[pathParts.length - 1].toUpperCase() : "HOME";
 ---
 
 <!doctype html>
@@ -23,51 +26,60 @@ const dateLabel = now.toISOString().slice(0, 10);
     <meta name="generator" content={Astro.generator} />
     <title>{title} | GENEALOGIA</title>
   </head>
-  <body class="crt-container ispf-body">
-    <div class="ispf-shell">
-      <header class="ispf-header">
-        <div class="ispf-title-row">
-          <span>=== PORTALE GENEALOGIA ISPF ===</span>
-          <span>PANEL: {title.toUpperCase()}</span>
-          <span>DATE: {dateLabel}</span>
-        </div>
-        <div class="ispf-command-row">
-          <label for="ispf-command-input">COMMAND ===&gt;</label>
-          <input
-            id="ispf-command-input"
-            class="ispf-command-input"
-            type="text"
-            autocomplete="off"
-            spellcheck="false"
-            placeholder="HELP | HOME | GO PERSONE | FIND testo"
-          />
-        </div>
-        <div id="ispf-message-line" class="ispf-message-line">READY</div>
+  <body class="terminal-body">
+    <div class="terminal">
+      <header class="sys-header">
+        <span class="sys-id">SIG-GN</span>
+        <span class="sys-meta">IBM SYSTEM/370 COMPATIBLE | SESSIONE: ADM-001 | {dateLabel} {timeLabel}</span>
+        <span class="screen-id">GN000<br />{title.toUpperCase()}</span>
       </header>
 
-      <main class="ispf-main">
+      <nav class="breadcrumb">
+        <span class="curr">HOME</span>
+        <span>&gt;</span>
+        <span>{currentNode}</span>
+      </nav>
+
+      <div class="prompt-line">
+        <label for="ispf-command-input">COMMAND ===&gt;</label>
+        <input
+          id="ispf-command-input"
+          class="ispf-command-input"
+          type="text"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="HELP | HOME | GO PERSONE | FIND TESTO"
+        />
+      </div>
+      <div id="ispf-message-line" class="msg-line">READY</div>
+
+      <main class="terminal-content">
         <slot />
       </main>
 
-      <footer class="ispf-footer">
-        <span>PF1 HELP</span>
-        <span>PF2 SPLIT</span>
-        <span>PF3 END</span>
-        <span>PF4 RETURN</span>
-        <span>PF5 REFRESH</span>
-        <span>PF6 SORT</span>
-        <span>PF7 UP</span>
-        <span>PF8 DOWN</span>
-        <span>PF9 SWAP</span>
-        <span>PF10 LEFT</span>
-        <span>PF11 RIGHT</span>
-        <span>PF12 CANCEL</span>
+      <div class="status-line">
+        <span>STATO PORTALE: OPERATIVO</span>
+        <span>AGG.: {dateLabel}</span>
+        <span>AMBIENTE: PWA ASTRO</span>
+      </div>
+
+      <footer class="pfbar">
+        <span>PF1 Help</span>
+        <span>PF3 End</span>
+        <span>PF4 Return</span>
+        <span>PF5 Refresh</span>
+        <span>PF6 Sort</span>
+        <span>PF7 Up</span>
+        <span>PF8 Down</span>
+        <span>PF10 Left</span>
+        <span>PF11 Right</span>
+        <span>PF12 Cancel</span>
       </footer>
+
+      <script is:inline>
+        window.__ISPF_PANEL__ = { title: {JSON.stringify(title)}, path: {JSON.stringify(Astro.url.pathname)} };
+      </script>
+      <script is:inline src="/ispf-keys.js"></script>
     </div>
-    <script is:inline>
-      window.__ISPF_PANEL__ = { title: {JSON.stringify(title)}, path: {JSON.stringify(Astro.url.pathname)} };
-    </script>
-    <script is:inline src="/ispf-keys.js"></script>
   </body>
 </html>
-

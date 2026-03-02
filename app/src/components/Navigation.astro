@@ -6,25 +6,25 @@ interface Props {
 const { currentEnv = "PROD" } = Astro.props;
 const path = Astro.url.pathname;
 const menuItems = [
-  { label: "HOME", href: "/" },
-  { label: "PERSONE", href: "/gestionale/search?domain=people" },
-  { label: "FAMIGLIE", href: "/gestionale/search?domain=families" },
-  { label: "EVENTI", href: "/gestionale/reports?domain=events" },
-  { label: "FONTI", href: "/gestionale/reports?domain=sources" },
-  { label: "ARALDICA", href: "/gestionale/reports?domain=arms" },
-  { label: "NOBILTA", href: "/gestionale/reports?domain=titles" },
-  { label: "JOBS", href: "/gestionale/batch-monitor" },
-  { label: "HELP", href: "/gestionale/help" }
+  { label: "01 HOME", href: "/" },
+  { label: "02 DASHBOARD", href: "/gestionale/" },
+  { label: "03 PERSONE", href: "/gestionale/search?domain=people" },
+  { label: "04 FAMIGLIE", href: "/gestionale/search?domain=families" },
+  { label: "05 REPORT", href: "/gestionale/reports" },
+  { label: "06 JOBS", href: "/gestionale/batch-monitor" },
+  { label: "07 ADMIN", href: "/gestionale/admin" },
+  { label: "08 MONITOR", href: "/gestionale/monitoring" },
+  { label: "09 HELP", href: "/gestionale/help" }
 ];
 ---
 
 <div class="ispf-menu">
   {
     menuItems.map((item) => (
-      <a href={item.href} class={path === item.href ? "active" : ""}>
+      <a href={item.href} class={path === item.href || (item.href !== "/" && path.startsWith(item.href.split("?")[0])) ? "active" : ""}>
         {item.label}
       </a>
     ))
   }
 </div>
-<div class="ispf-message-line">ENV={currentEnv} | TYPE COMMAND OR PRESS PF KEYS</div>
+<div class="msg-line">ENV={currentEnv} | SISTEMA OPERATIVO | DIGITA COMMAND O USA PF</div>
