@@ -41,3 +41,19 @@ Semantica:
 - subscriber in attesa finche non arriva publish
 - payload malformato con errore controllato
 - validazione contract registry
+
+## Fase 4b (implementazione iniziale agent)
+Moduli:
+- `tools/agents/parse_agent.py`
+- `tools/agents/norm_agent.py`
+
+Scope 4b:
+- `PARSE_AGT`: parsing GEDCOM deterministico con errori posizionali.
+- `NORM_AGT`: mapping in operazioni normalizzate + dedup/conflict detection.
+- Nessuna write DB diretta: output su topic bus (`norm.completed`, `norm.conflict`).
+
+Test:
+- `tests/agents/test_parse_norm_agents.py`
+  - pipeline parse->norm su GEDCOM valido
+  - errore sintattico parse con linea
+  - conflitto dedup su nomi ambigui
