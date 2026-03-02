@@ -12,6 +12,9 @@ Shell 370 unica per consultazione genealogica su GitHub Pages.
 - `story open <storyId>`: apre contesto storia.
 - `story play <storyId>`: riproduce transcript .story.
 - `open person <id>`: apre scheda persona (JSON).
+- `open xref <@I123@>`: apre persona tramite xref GEDCOM.
+- `rm help`: guida operativa RootsMagic bridge.
+- `rm import`: istruzioni batch offline (in browser non esegue processi).
 - `show card`: stampa dettagli oggetto corrente.
 - `clear`: svuota output.
 
@@ -22,6 +25,8 @@ Shell 370 unica per consultazione genealogica su GitHub Pages.
 - `story list`
 - `story play SAMPLE`
 - `open person P0000001`
+- `open xref @I1@`
+- `rm help`
 
 ## PF Keys
 - `PF1`: help

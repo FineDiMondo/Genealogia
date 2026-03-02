@@ -40,3 +40,7 @@
 {"ts":"2026-03-13T17:44:00Z","type":"person.merged","entity":"family","id":"F0000540","title":"Event #40 person.merged on family F0000540"}
 {"ts":"2026-03-14T18:51:00Z","type":"family.linked","entity":"story","id":"SAMPLE","title":"Event #41 family.linked on story SAMPLE"}
 {"ts":"2026-03-15T19:58:00Z","type":"source.added","entity":"person","id":"P0001042","title":"Event #42 source.added on person P0001042"}
+{"ts":"2026-03-02T12:00:00Z","type":"person.added","entity":"person","id":"P#d26813cde2e7f17f","title":"Paolo /Giardina-Naselli/ (1791-1837)","refs":["@I1@"],"by":"rm_import","importance":"major"}
+{"ts":"2026-03-02T12:00:00Z","type":"person.added","entity":"person","id":"P#6f6d0b6ab9f1fcb2","title":"Rosalia /Alberti/ (1795-?)","refs":["@I2@"],"by":"rm_import","importance":"major"}
+{"ts":"2026-03-02T12:00:00Z","type":"family.added","entity":"family","id":"F#a9f5a2fe0f32f301","title":"Family @F1@ added","refs":["@F1@"],"by":"rm_import","importance":"major"}
+{"ts":"2026-03-02T12:00:00Z","type":"person.linked_fs","entity":"person","id":"P#d26813cde2e7f17f","title":"FamilySearch link detected KJ4R-2LM","refs":["@I1@"],"by":"rm_import","importance":"minor"}

@@ -120,6 +120,8 @@
   const state = {
     basePath: getBasePath(),
     events: null,
+    persons: null,
+    families: null,
     storiesIndex: null,
     current: null,
     outputLines: [],
@@ -242,6 +244,28 @@
     return state.storiesIndex;
   }
 
+  async function ensurePersons() {
+    if (state.persons) return state.persons;
+    const text = await fetchText('data/current/entities/persons.ndjson');
+    state.persons = text
+      .split(/\r?\n/)
+      .map((l) => l.trim())
+      .filter(Boolean)
+      .map((l) => JSON.parse(l));
+    return state.persons;
+  }
+
+  async function ensureFamilies() {
+    if (state.families) return state.families;
+    const text = await fetchText('data/current/entities/families.ndjson');
+    state.families = text
+      .split(/\r?\n/)
+      .map((l) => l.trim())
+      .filter(Boolean)
+      .map((l) => JSON.parse(l));
+    return state.families;
+  }
+
   function printHelp() {
     writeSEP('================ GN370 HELP ================' );
     [
@@ -254,6 +278,7 @@
       'story open <storyId>',
       'story play <storyId>',
       'open person <id>',
+      'open xref <@I123@>',
       'show card',
       'clear'
     ].forEach((x) => appendLine(`  ${x}`));
@@ -269,7 +294,9 @@
       '2) story list',
       '3) story play SAMPLE',
       '4) open person P0000001',
-      '5) show card'
+      '5) open xref @I123@',
+      '6) rm help',
+      '7) show card'
     ].forEach((x) => appendLine(`  ${x}`));
     writeSEP('============================================');
     scrollToBottom();
@@ -364,21 +391,60 @@
       renderOutput();
       return;
     }
-    const path = `data/current/entities/${id}.json`;
-    const fallback = 'data/current/entities/sample_person.json';
-    let data;
-    let used = path;
-    try {
-      data = await fetchJson(path);
-    } catch (_e) {
-      data = await fetchJson(fallback);
-      used = fallback;
-      writeWRN(`PERSON FILE NOT FOUND, USING SAMPLE (${fallback})`);
+    const persons = await ensurePersons();
+    const fallback = await fetchJson('data/current/entities/sample_person.json');
+    const needle = String(id).toLowerCase();
+    let data = persons.find((p) => String(p.id || '').toLowerCase() === needle);
+    let used = 'data/current/entities/persons.ndjson';
+    if (!data) {
+      data = fallback;
+      used = 'data/current/entities/sample_person.json';
+      writeWRN(`PERSON NOT FOUND, USING SAMPLE (${used})`);
     }
     pushState();
-    setContext('person', data.id || id, `${data.family_name || ''} ${data.given_names || ''}`.trim(), data);
+    setContext('person', data.id || id, `${data.name || `${data.family_name || ''} ${data.given_names || ''}`}`.trim(), data);
     writeOK(`PERSON OPENED ${data.id || id}`);
     appendLine(`SOURCE: ${used}`);
+    scrollToBottom();
+    renderOutput();
+  }
+
+  async function cmdOpenXref(xref) {
+    if (!xref) {
+      writeERR('open xref <@I123@> MISSING');
+      renderOutput();
+      return;
+    }
+    const persons = await ensurePersons();
+    const needle = String(xref).toUpperCase();
+    const p = persons.find((r) => String(r.xref || '').toUpperCase() === needle);
+    if (!p) {
+      writeERR(`XREF NOT FOUND ${xref}`);
+      renderOutput();
+      return;
+    }
+    pushState();
+    setContext('person', p.id || '-', p.name || '-', p);
+    writeOK(`OPEN XREF ${xref} -> ${p.id}`);
+    scrollToBottom();
+    renderOutput();
+  }
+
+  function cmdRmHelp() {
+    writeSEP('=============== ROOTSMAGIC BRIDGE ===============');
+    appendLine('(OK) Export GEDCOM from RootsMagic after TreeShare sync');
+    appendLine('(OK) Copy file to data/in/rootsmagic.ged');
+    appendLine('(OK) Run batch: tools\\\\rootsmagic\\\\rm_import.cmd');
+    appendLine('(OK) Back in shell: refresh -> feed last 20');
+    writeSEP('=================================================');
+    scrollToBottom();
+    renderOutput();
+  }
+
+  function cmdRmImport() {
+    writeWRN('RM IMPORT cannot execute in browser static mode.');
+    appendLine('Run offline: tools\\\\rootsmagic\\\\rm_import.cmd \"data\\\\in\\\\rootsmagic.ged\"');
+    appendLine('Then execute: refresh | feed last 20');
     scrollToBottom();
     renderOutput();
   }
@@ -452,6 +518,12 @@
         await cmdStoryPlay(pc.args[1]);
       } else if (cmd === 'open' && (pc.args[0] || '').toLowerCase() === 'person') {
         await cmdOpenPerson(pc.args[1]);
+      } else if (cmd === 'open' && (pc.args[0] || '').toLowerCase() === 'xref') {
+        await cmdOpenXref(pc.args[1]);
+      } else if (cmd === 'rm' && (pc.args[0] || '').toLowerCase() === 'help') {
+        cmdRmHelp();
+      } else if (cmd === 'rm' && (pc.args[0] || '').toLowerCase() === 'import') {
+        cmdRmImport();
       } else if (cmd === 'show' && (pc.args[0] || '').toLowerCase() === 'card') {
         cmdShowCard();
       } else if (cmd === 'clear') {
