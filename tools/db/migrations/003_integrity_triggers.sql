@@ -115,3 +115,6 @@ BEGIN
       THEN RAISE(ABORT, 'event_journal entry_hash mismatch')
   END;
 END;
+
+INSERT OR IGNORE INTO schema_version (version_code, description, migration_hash, applied_by)
+VALUES ('2026.03.3', 'GN370 integrity triggers', 'sha256:pending', 'migration-003');
