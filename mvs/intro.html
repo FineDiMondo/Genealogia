@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GENMNU00 - MVS Genealogia</title>
+  <link rel="stylesheet" href="assets/cics-370.css" />
+</head>
+<body>
+  <div class="cics-screen">
+    <div class="cics-header">
+      <span>GENMNU00</span>
+      <span>SISTEMA MVS GENEALOGIA GIARDINA</span>
+      <span id="sys-date">--/--/----</span>
+    </div>
+
+    <div class="cics-panel">
+      <pre class="cics-text">
+SELEZIONARE FUNZIONE
+
+ 1. INQUIRY INDIVIDUO ............ GENIND01
+ 2. INQUIRY FAMIGLIA ............. GENFAM01 (WORK IN PROGRESS)
+ 3. ALBERO GENEALOGICO ........... GENTRE01
+ 4. TITOLI NOBILIARI ............. GENTIT01 (WORK IN PROGRESS)
+ 5. EVENTI E DOCUMENTI ........... GENEVE01 (WORK IN PROGRESS)
+ 6. FONTI DOCUMENTALI ............ GENFON01 (WORK IN PROGRESS)
+ 7. IMPORT/EXPORT GEDCOM ......... GENGED01 (WORK IN PROGRESS)
+      </pre>
+
+      <div class="cics-input-row">
+        <label for="cmd">SCELTA ===&gt;</label>
+        <input id="cmd" class="t-input" maxlength="8" autocomplete="off" />
+      </div>
+
+      <div id="msg-area" class="t-msg">&nbsp;</div>
+    </div>
+
+    <div class="cics-footer">
+      <span>PF1=AIUTO</span>
+      <span>PF3=FINE</span>
+      <span>PF5=AGGIORNA</span>
+      <span>PF12=CANCELLA</span>
+      <span>ENTER=CONFERMA</span>
+    </div>
+  </div>
+
+  <script src="assets/cics-runtime.js"></script>
+  <script>
+    function setDate() {
+      const now = new Date();
+      document.getElementById("sys-date").textContent = now.toLocaleDateString("it-IT");
+    }
+    setDate();
+
+    function go(to) {
+      window.location.href = to;
+    }
+
+    function handleMvsCommand(cmd) {
+      switch (cmd) {
+        case "1":
+        case "GENIND01":
+          go("GENIND01.html");
+          break;
+        case "3":
+        case "GENTRE01":
+          go("GENTRE01.html");
+          break;
+        case "2":
+        case "4":
+        case "5":
+        case "6":
+        case "7":
+          GEN.setMsg("FUNZIONE WORK IN PROGRESS", "warn", 2500);
+          break;
+        default:
+          GEN.setMsg("OPZIONE NON VALIDA", "err", 2500);
+      }
+    }
+
+    const cmd = document.getElementById("cmd");
+    cmd.focus();
+    cmd.addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter") {
+        handleMvsCommand((cmd.value || "").trim().toUpperCase());
+        cmd.value = "";
+      }
+    });
+  </script>
+</body>
+</html>

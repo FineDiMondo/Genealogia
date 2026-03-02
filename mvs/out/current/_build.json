@@ -1,0 +1,13 @@
+{
+  "program": "GENRPT00",
+  "version": "1.0.0",
+  "return_code": "0004",
+  "datasets": [
+    "GENIND00.DAT",
+    "GENFAM00.DAT",
+    "GENEVE00.DAT",
+    "GENLUO00.DAT",
+    "GENFON00.DAT",
+    "GENTIT00.DAT"
+  ]
+}

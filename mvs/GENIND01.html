@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GENIND01 - Inquiry Individuo</title>
+  <link rel="stylesheet" href="assets/cics-370.css" />
+  <style>
+    .list-row { cursor: pointer; }
+    .list-row:hover { color: #fff; }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .box { border: 1px solid #00ff41; padding: 0.5rem; min-height: 12rem; }
+    @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="cics-screen">
+    <div class="cics-header">
+      <span>GENIND01</span>
+      <span>INQUIRY INDIVIDUO</span>
+      <span id="sys-date">--/--/----</span>
+    </div>
+
+    <div class="cics-panel">
+      <div class="cics-input-row">
+        <label for="search">RICERCA (ID/COGNOME/*) ===&gt;</label>
+        <input id="search" class="t-input" maxlength="30" autocomplete="off" />
+      </div>
+      <div id="msg-area" class="t-msg">&nbsp;</div>
+
+      <div class="split">
+        <div class="box">
+          <pre id="list"></pre>
+          <div id="pager" class="t-normal"></div>
+        </div>
+        <div class="box">
+          <pre id="detail">SELEZIONARE UN RECORD...</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="cics-footer">
+      <span>PF1=AIUTO</span>
+      <span>PF3=MENU</span>
+      <span>PF7=UP</span>
+      <span>PF8=DOWN</span>
+      <span>ENTER=CERCA</span>
+    </div>
+  </div>
+
+  <script src="assets/cics-runtime.js"></script>
+  <script>
+    const PAGE_SIZE = 12;
+    let allRecords = [];
+    let filtered = [];
+    let page = 1;
+
+    function setDate() {
+      const now = new Date();
+      document.getElementById("sys-date").textContent = now.toLocaleDateString("it-IT");
+    }
+    setDate();
+
+    function rowLabel(item, idx) {
+      const n = String((page - 1) * PAGE_SIZE + idx + 1).padStart(2, "0");
+      const id = (item.id || "").padEnd(8, " ");
+      const c = (item.cognome || "").slice(0, 20).padEnd(20, " ");
+      const nm = (item.nome || "").slice(0, 16).padEnd(16, " ");
+      return `${n} ${id} ${c} ${nm} GEN:${item.gen_num || "00"}`;
+    }
+
+    function renderList() {
+      const p = GEN.paginate(filtered, page, PAGE_SIZE);
+      page = p.page;
+      const lines = [];
+      p.items.forEach((item, idx) => {
+        lines.push(`<div class="list-row" data-id="${item.id}">${rowLabel(item, idx)}</div>`);
+      });
+      if (!p.items.length) lines.push("NESSUN RECORD TROVATO");
+      document.getElementById("list").innerHTML = lines.join("\n");
+      document.getElementById("pager").textContent = `PAGINA ${p.page}/${p.total} RECORDS=${filtered.length}`;
+      document.querySelectorAll(".list-row").forEach((el) => {
+        el.addEventListener("click", () => showDetail(el.dataset.id));
+      });
+    }
+
+    function showDetail(id) {
+      const item = filtered.find((r) => r.id === id) || allRecords.find((r) => r.id === id);
+      if (!item) return;
+      const txt = [
+        `ID          : ${item.id || ""}`,
+        `COGNOME     : ${item.cognome || ""}`,
+        `NOME        : ${item.nome || ""}`,
+        `SESSO       : ${item.sesso || ""}`,
+        `NASCITA     : ${GEN.fmtData8(item.nasc_data || "00000000")}`,
+        `MORTE       : ${GEN.fmtData8(item.mort_data || "00000000")}`,
+        `PADRE-ID    : ${item.padre_id || ""}`,
+        `MADRE-ID    : ${item.madre_id || ""}`,
+        `FAM-ID      : ${item.fam_id || ""}`,
+        `TITOLO-ID   : ${item.titolo_id || ""}`,
+        `ATTENDIB    : ${item.attendib || ""}`,
+        `NOTE        : ${(item.note || "").slice(0, 40)}`,
+      ];
+      document.getElementById("detail").textContent = txt.join("\n");
+    }
+
+    function applySearch() {
+      const key = (document.getElementById("search").value || "").trim().toUpperCase();
+      if (!key || key === "*") {
+        filtered = [...allRecords];
+      } else if (/^I\d{7}$/.test(key)) {
+        filtered = allRecords.filter((r) => (r.id || "").toUpperCase() === key);
+      } else {
+        filtered = allRecords.filter((r) => (r.cognome || "").toUpperCase().includes(key));
+      }
+      page = 1;
+      renderList();
+      GEN.setMsg(`TROVATI ${filtered.length} RECORD`, "ok", 1500);
+    }
+
+    async function init() {
+      const payload = await GEN.loadDataset("individui");
+      allRecords = payload?.records || [];
+      filtered = [...allRecords];
+      renderList();
+      if (filtered[0]) showDetail(filtered[0].id);
+      GEN.setPfHandler(1, () => GEN.setMsg("PF1: CERCA PER ID, COGNOME O *", "warn", 2500));
+      GEN.setPfHandler(3, () => { window.location.href = "intro.html"; });
+      GEN.setPfHandler(7, () => { page = Math.max(1, page - 1); renderList(); });
+      GEN.setPfHandler(8, () => { page = page + 1; renderList(); });
+      GEN.setPfHandler(0, applySearch);
+    }
+
+    document.getElementById("search").addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter") applySearch();
+    });
+
+    init();
+  </script>
+</body>
+</html>

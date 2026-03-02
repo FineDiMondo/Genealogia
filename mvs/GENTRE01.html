@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GENTRE01 - Albero Genealogico</title>
+  <link rel="stylesheet" href="assets/cics-370.css" />
+  <style>
+    .split { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; }
+    .box { border: 1px solid #00ff41; padding: 0.6rem; min-height: 22rem; }
+    #tree-pre { white-space: pre; font-family: "IBM Plex Mono", monospace; line-height: 1.2; }
+    .node-link { cursor: pointer; color: #7cff7c; text-decoration: underline; }
+    .node-link:hover { color: #fff; }
+    @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="cics-screen">
+    <div class="cics-header">
+      <span>GENTRE01</span>
+      <span>ALBERO GENEALOGICO ASCII</span>
+      <span id="sys-date">--/--/----</span>
+    </div>
+
+    <div class="cics-panel">
+      <div id="msg-area" class="t-msg">&nbsp;</div>
+      <div class="split">
+        <div class="box">
+          <div class="t-normal">GENERATION VIEW (PF7/PF8)</div>
+          <pre id="tree-pre"></pre>
+          <div id="gen-info" class="t-normal"></div>
+        </div>
+        <div class="box">
+          <div class="t-normal">DETTAGLIO NODO</div>
+          <pre id="detail-pre">SELEZIONARE UN NODO...</pre>
+          <div id="node-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cics-footer">
+      <span>PF3=MENU</span>
+      <span>PF7=GEN PREV</span>
+      <span>PF8=GEN NEXT</span>
+      <span>CLICK=NODO</span>
+    </div>
+  </div>
+
+  <script src="assets/cics-runtime.js"></script>
+  <script>
+    let root = null;
+    let nodesByGen = [];
+    let currentGen = 0;
+
+    function setDate() {
+      const now = new Date();
+      document.getElementById("sys-date").textContent = now.toLocaleDateString("it-IT");
+    }
+
+    function walk(node, depth, acc) {
+      if (!node || !node.id) return;
+      if (!acc[depth]) acc[depth] = [];
+      acc[depth].push(node);
+      (node.children || []).forEach((c) => walk(c, depth + 1, acc));
+    }
+
+    function boxLines(node) {
+      const n = `${node.cognome || ""} ${node.nome || ""}`.trim() || node.id;
+      const g = `gen.${node.gen_num || "00"}`;
+      const l1 = `+-------------------------+`;
+      const l2 = `| ${n.slice(0, 23).padEnd(23)} |`;
+      const l3 = `| ${g.padEnd(23)} |`;
+      const l4 = `+-------------------------+`;
+      return [l1, l2, l3, l4];
+    }
+
+    function renderGeneration() {
+      const list = nodesByGen[currentGen] || [];
+      const lines = [];
+      lines.push(`GENERATION ${currentGen + 1} - NODES ${list.length}`);
+      lines.push("");
+      if (!list.length) {
+        lines.push("NO NODES");
+      } else {
+        list.forEach((n, i) => {
+          lines.push(`NODE ${i + 1}`);
+          boxLines(n).forEach((l) => lines.push(l));
+          if (i < list.length - 1) {
+            lines.push("           |");
+            lines.push("           v");
+          }
+        });
+      }
+      document.getElementById("tree-pre").textContent = lines.join("\n");
+      document.getElementById("gen-info").textContent = `PF7/PF8 PER CAMBIARE GENERAZIONE (${currentGen + 1}/${nodesByGen.length || 1})`;
+
+      const links = list
+        .map((n) => `<div><a class="node-link" data-id="${n.id}">${n.id} - ${(n.cognome || "")} ${(n.nome || "")}</a></div>`)
+        .join("");
+      document.getElementById("node-list").innerHTML = links || "<div>Nessun nodo</div>";
+      document.querySelectorAll(".node-link").forEach((a) => {
+        a.addEventListener("click", () => showDetail(a.dataset.id));
+      });
+    }
+
+    function findNodeById(node, id) {
+      if (!node) return null;
+      if (node.id === id) return node;
+      for (const child of node.children || []) {
+        const found = findNodeById(child, id);
+        if (found) return found;
+      }
+      return null;
+    }
+
+    function showDetail(id) {
+      const n = findNodeById(root, id);
+      if (!n) return;
+      const txt = [
+        `ID       : ${n.id}`,
+        `COGNOME  : ${n.cognome || ""}`,
+        `NOME     : ${n.nome || ""}`,
+        `GEN-NUM  : ${n.gen_num || "00"}`,
+        `PADRE-ID : ${n.padre_id || ""}`,
+        `MADRE-ID : ${n.madre_id || ""}`,
+        `FIGLI    : ${(n.children || []).length}`,
+      ];
+      document.getElementById("detail-pre").textContent = txt.join("\n");
+    }
+
+    async function init() {
+      setDate();
+      const payload = await GEN.loadDataset("albero");
+      root = payload && payload.id ? payload : null;
+      if (!root) {
+        GEN.setMsg("ALBERO NON DISPONIBILE", "err");
+        return;
+      }
+      nodesByGen = [];
+      walk(root, 0, nodesByGen);
+      currentGen = 0;
+      renderGeneration();
+      showDetail(root.id);
+      GEN.setPfHandler(3, () => { window.location.href = "intro.html"; });
+      GEN.setPfHandler(7, () => {
+        currentGen = Math.max(0, currentGen - 1);
+        renderGeneration();
+      });
+      GEN.setPfHandler(8, () => {
+        currentGen = Math.min((nodesByGen.length - 1), currentGen + 1);
+        renderGeneration();
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
