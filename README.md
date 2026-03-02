@@ -7,6 +7,38 @@ Repository in stile COBOL su UNIX:
 - job in `proc/`
 - output statico in `PORTALE_GN/`
 
+## Unified Pipeline Architecture
+
+Pipeline target:
+
+1. `genealogy/gedcom/merged/*.ged`
+2. `GIARDINA/02_DATA/RECORDS/current.ged`
+3. `GIARDINA/03_PROG/batch.py` (`validate`, `build`)
+4. `out/current/`
+5. `jobs/90_publish_to_pwa.sh`
+6. `app/public/data/current/`
+7. Astro PWA (`app/`) -> `app/dist/`
+
+## Branch Strategy
+
+- `main`: production release + deploy Pages (`pages-astro.yml`)
+- `develop`: integrazione/test (`build-test.yml`)
+- `feature/*`: sviluppo con PR verso `develop`
+
+## Quick Start (Unified)
+
+```bash
+bash jobs/run_job.sh
+cd app
+npm ci || npm install
+npm run build
+```
+
+Documenti correlati:
+
+- `MIGRATION.md`
+- `CONTRIBUTING.md`
+
 ## Monorepo Pattern 1 (jobs + out + app)
 
 Struttura operativa introdotta:

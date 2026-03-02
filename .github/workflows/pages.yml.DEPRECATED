@@ -1,3 +1,4 @@
+# DEPRECATED 2026-03-02: replaced by pages-astro.yml unified deployment workflow.
 name: Deploy GitHub Pages
 
 on:
@@ -28,9 +29,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-
-      - name: Import GEDCOM
-        run: bash ./proc/import_gedcom.sh
 
       - name: Validate sequential data
         run: bash ./proc/validate_data.sh
