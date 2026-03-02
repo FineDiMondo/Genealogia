@@ -53,7 +53,8 @@ SELEZIONARE FUNZIONE
     setDate();
 
     function go(to) {
-      window.location.href = to;
+      const clean = String(to || "").replace(/^\.?\//, "");
+      window.location.href = GEN.withBase(`mvs/${clean}`);
     }
 
     function handleMvsCommand(cmd) {

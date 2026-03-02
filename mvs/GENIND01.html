@@ -125,7 +125,7 @@
       renderList();
       if (filtered[0]) showDetail(filtered[0].id);
       GEN.setPfHandler(1, () => GEN.setMsg("PF1: CERCA PER ID, COGNOME O *", "warn", 2500));
-      GEN.setPfHandler(3, () => { window.location.href = "intro.html"; });
+      GEN.setPfHandler(3, () => { window.location.href = GEN.withBase("mvs/intro.html"); });
       GEN.setPfHandler(7, () => { page = Math.max(1, page - 1); renderList(); });
       GEN.setPfHandler(8, () => { page = page + 1; renderList(); });
       GEN.setPfHandler(0, applySearch);

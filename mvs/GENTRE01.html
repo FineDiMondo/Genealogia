@@ -141,7 +141,7 @@
       currentGen = 0;
       renderGeneration();
       showDetail(root.id);
-      GEN.setPfHandler(3, () => { window.location.href = "intro.html"; });
+      GEN.setPfHandler(3, () => { window.location.href = GEN.withBase("mvs/intro.html"); });
       GEN.setPfHandler(7, () => {
         currentGen = Math.max(0, currentGen - 1);
         renderGeneration();
