@@ -1,7 +1,7 @@
 ﻿# GN370 UI Shell
 
 ## Scope
-Single 370-style web shell for GitHub Pages static deployment. No Astro runtime and no PWA-specific flow are required.
+Single 370-style web shell for GitHub Pages static deployment.
 
 ## Layout
 The active UI has four fixed zones:

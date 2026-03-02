@@ -5,6 +5,16 @@
 Le modifiche tecniche e funzionali devono rimanere **semplici e tracciabili** come quello standard COBOL/CICS del mainframe.
 Ogni tipo di modifica ha un **workflow guidato** e una **checklist**.
 
+## Stack Attivo (unico)
+
+Pipeline ufficiale e supportata:
+`GEDCOM -> Batch -> out/current -> static 370 -> GitHub Pages`
+
+Linee vincolanti:
+- Nessun runtime alternativo in produzione.
+- Nessuna dipendenza obbligatoria da build Node per il deploy statico.
+- La shell web 370 e il layer agent sono il riferimento operativo corrente.
+
 ---
 
 ## 1. Aggiungere un nuovo comando COBOL CLI

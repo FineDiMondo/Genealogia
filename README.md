@@ -30,7 +30,7 @@ Script:
 Controlli principali:
 - homepage statica 370 presente
 - `version.json` presente
-- assenza riferimenti attivi a `app/`, `pages-astro`, `manifest.webmanifest`, `dist/`
+- assenza di riferimenti a runtime web legacy nella pipeline attiva
 
 ## Build & Test locali
 

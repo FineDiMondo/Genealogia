@@ -50,11 +50,11 @@ else
   ko "version.json mancante"
 fi
 
-section "No Astro/PWA active refs"
-if grep -RIn --exclude-dir=.git --exclude-dir=legacy --exclude-dir=node_modules "app/\|pages-astro\|manifest.webmanifest\|dist/" "$ROOT_DIR" >/tmp/genealogia_deploy_refs.log 2>/dev/null; then
-  warn "Riferimenti legacy trovati fuori da legacy/ (vedi /tmp/genealogia_deploy_refs.log)"
+section "No legacy web-runtime refs"
+if grep -RIn --exclude-dir=.git --exclude-dir=legacy --exclude-dir=node_modules "legacy/app_\|legacy/web_manifest_\|/dist/" "$ROOT_DIR" >/tmp/genealogia_deploy_refs.log 2>/dev/null; then
+  warn "Riferimenti a runtime web legacy trovati fuori da legacy/ (vedi /tmp/genealogia_deploy_refs.log)"
 else
-  ok "Nessun riferimento attivo a app/, pages-astro, manifest.webmanifest, dist/"
+  ok "Nessun riferimento attivo a runtime web legacy"
 fi
 
 section "Report finale"
