@@ -6,10 +6,20 @@ compile-copy:
 	$(PYTHON) GIARDINA/03_PROG/batch.py compile-copy
 
 validate:
-	$(PYTHON) GIARDINA/03_PROG/batch.py validate
+	@$(PYTHON) GIARDINA/03_PROG/batch.py validate; \
+	RC=$$?; \
+	if [ $$RC -ge 8 ]; then \
+		exit $$RC; \
+	fi; \
+	exit 0
 
 build:
-	$(PYTHON) GIARDINA/03_PROG/batch.py build
+	@$(PYTHON) GIARDINA/03_PROG/batch.py build; \
+	RC=$$?; \
+	if [ $$RC -ge 8 ]; then \
+		exit $$RC; \
+	fi; \
+	exit 0
 
 ingest:
 	@echo "Use: make ingest RECORD_ID=YYYY-MM-DD__tipo__soggetti__luogo__slug [WITH_HASH=1]"

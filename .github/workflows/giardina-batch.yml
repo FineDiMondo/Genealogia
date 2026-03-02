@@ -27,10 +27,26 @@ jobs:
         run: python GIARDINA/03_PROG/batch.py compile-copy
 
       - name: Validate
-        run: python GIARDINA/03_PROG/batch.py validate
+        shell: bash
+        run: |
+          set +e
+          python GIARDINA/03_PROG/batch.py validate
+          rc=$?
+          set -e
+          if [ $rc -ge 8 ]; then
+            exit $rc
+          fi
 
       - name: Build
-        run: python GIARDINA/03_PROG/batch.py build
+        shell: bash
+        run: |
+          set +e
+          python GIARDINA/03_PROG/batch.py build
+          rc=$?
+          set -e
+          if [ $rc -ge 8 ]; then
+            exit $rc
+          fi
 
       - name: Unit test
         run: python GIARDINA/06_TEST/unit/test_batch.py

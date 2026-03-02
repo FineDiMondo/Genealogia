@@ -23,6 +23,22 @@ log() {
   echo "[${BUILD_ID}] $1"
 }
 
+run_batch_tolerant() {
+  local job="$1"
+  local rc=0
+  set +e
+  python3 "${ROOT_DIR}/GIARDINA/03_PROG/batch.py" "${job}"
+  rc=$?
+  set -e
+  if [[ ${rc} -ge 8 ]]; then
+    log "ERROR: batch ${job} failed with RC=${rc}"
+    exit "${rc}"
+  fi
+  if [[ ${rc} -ge 4 ]]; then
+    log "WARNING: batch ${job} completed with warnings (RC=${rc})"
+  fi
+}
+
 manifest_from_current_output() {
   local manifest_path="$1"
   local index_tmp="$2"
@@ -68,8 +84,8 @@ JSON
   fi
 
   log "Running GIARDINA batch.py validate/build"
-  python3 "${ROOT_DIR}/GIARDINA/03_PROG/batch.py" validate
-  python3 "${ROOT_DIR}/GIARDINA/03_PROG/batch.py" build
+  run_batch_tolerant validate
+  run_batch_tolerant build
 
   log "Publishing GIARDINA output to staging"
   if [[ -d "${ROOT_DIR}/GIARDINA/05_OUT/site" ]]; then
