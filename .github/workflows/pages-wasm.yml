@@ -20,23 +20,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build WASM with emscripten docker
+      - name: Prepare GN370 shell artifact
         run: |
-          docker run --rm \
-            -v "${{ github.workspace }}:/src" -w /src \
-            emscripten/emsdk:latest \
-            bash -lc '
-              mkdir -p engine_scummlike_web/dist
-              test -f engine_scummlike_web/assets/dummy.txt || (mkdir -p engine_scummlike_web/assets && echo ok > engine_scummlike_web/assets/dummy.txt)
-              emcc engine_scummlike_web/src/main.c \
-                -O3 \
-                -sUSE_SDL=2 \
-                -sALLOW_MEMORY_GROWTH=1 \
-                -sMAX_WEBGL_VERSION=2 \
-                -sMIN_WEBGL_VERSION=2 \
-                --preload-file engine_scummlike_web/assets@/assets \
-                -o engine_scummlike_web/dist/index.html
-            '
+          mkdir -p engine_scummlike_web/dist
+          cp index.html engine_scummlike_web/dist/index.html
+          cp -r assets engine_scummlike_web/dist/assets
+          cp -r data engine_scummlike_web/dist/data
+          cp -r tests engine_scummlike_web/dist/tests
+          cp -r docs engine_scummlike_web/dist/docs
+          cp -r mvs engine_scummlike_web/dist/mvs
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

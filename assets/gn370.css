@@ -1,0 +1,100 @@
+:root {
+  --bg: #000000;
+  --fg: #4cff4c;
+  --fg-dim: #31b531;
+  --warn: #ffcc33;
+  --err: #ff6666;
+  --panel: #001100;
+  --line: #0a4d0a;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: "Courier New", "Lucida Console", monospace; }
+
+.gn370-screen {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  gap: 0;
+}
+
+.gn370-header,
+.gn370-footer,
+.gn370-command-row,
+.gn370-context,
+.gn370-output {
+  border: 1px solid var(--line);
+}
+
+.gn370-header,
+.gn370-footer,
+.gn370-command-row,
+.gn370-context {
+  padding: 0.45rem 0.65rem;
+}
+
+.gn370-main {
+  display: grid;
+  grid-template-columns: 3fr 1.4fr;
+  min-height: 0;
+}
+
+.gn370-output {
+  white-space: pre-wrap;
+  overflow: auto;
+  padding: 0.65rem;
+  background: #000700;
+  line-height: 1.25;
+  min-height: 0;
+}
+
+.gn370-context {
+  background: var(--panel);
+  color: var(--fg-dim);
+}
+
+.gn370-command-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+  background: #000900;
+}
+
+#cmd-input {
+  width: 100%;
+  background: #001900;
+  color: var(--fg);
+  border: 1px solid var(--line);
+  font: inherit;
+  padding: 0.35rem 0.45rem;
+}
+
+#run-btn {
+  background: #003300;
+  color: var(--fg);
+  border: 1px solid var(--line);
+  font: inherit;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+}
+
+.gn370-footer {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.35rem;
+  background: #000900;
+  color: var(--fg-dim);
+  font-size: 0.9rem;
+}
+
+.ok { color: var(--fg); }
+.wrn { color: var(--warn); }
+.err { color: var(--err); }
+.sep { color: var(--fg-dim); }
+
+@media (max-width: 900px) {
+  .gn370-main { grid-template-columns: 1fr; }
+  .gn370-output { min-height: 52vh; }
+  .gn370-footer { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
