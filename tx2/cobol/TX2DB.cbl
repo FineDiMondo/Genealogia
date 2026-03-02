@@ -1,0 +1,24 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TX2DB.
+
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       COPY "TX2-DB-IO.cpy".
+
+       PROCEDURE DIVISION.
+       MAIN.
+           IF IN-TIPO-OPERAZIONE = SPACES
+              MOVE 12 TO OUT-COD-ESITO
+              MOVE "TIPO OPERAZIONE OBBLIGATORIO" TO OUT-MSG-ESITO
+              MOVE 0 TO OUT-NUM-RIGHE
+              GOBACK
+           END-IF
+
+           CALL "SQL_STUB" USING IN-TIPO-OPERAZIONE OUT-NUM-RIGHE OUT-COD-ESITO
+           IF OUT-COD-ESITO = 0
+              MOVE "OK" TO OUT-MSG-ESITO
+           ELSE
+              MOVE "ERRORE SQL STUB" TO OUT-MSG-ESITO
+           END-IF
+           GOBACK.
+       END PROGRAM TX2DB.

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>__TITOLO__</title>
+  <link rel="stylesheet" href="../ui/terminale.css" />
+</head>
+<body>
+  <!-- MAPPA COMPILATA TX2 - NON MODIFICARE A MANO -->
+  <div class="screen">
+    <header class="header">
+      <div class="titolo">__TITOLO__</div>
+      <div class="ident">__TXSTEP__</div>
+    </header>
+
+    <section class="messaggi">
+      <pre class="messaggi-pre">__MESSAGGIO__</pre>
+    </section>
+
+    <section class="campi">
+      <pre class="griglia">
+__GRIGLIA_CAMPI__
+      </pre>
+      <div class="campi-edit">
+__CAMPI_EDITABILI__
+      </div>
+    </section>
+
+    <section class="dettagli">
+      <pre class="lista">
+__AREA_DETTAGLI__
+      </pre>
+    </section>
+
+    <section class="diagnostica">
+      <div class="diag-head">DIAGNOSTICA R21: MAPPA VUOTA 24x80</div>
+      <pre id="area_mappa_vuota" class="diag-pre">
+__MAPPA_VUOTA__
+      </pre>
+      <div class="diag-head">DIAGNOSTICA R22: DIZIONARIO CAMPI</div>
+      <pre id="area_dizionario_campi" class="diag-pre">
+__DIZIONARIO_CAMPI__
+      </pre>
+    </section>
+
+    <footer class="pfbar">
+      <button type="button" data-pf="PF3">PF3 Indietro</button>
+      <button type="button" data-pf="PF4">PF4 Reset TX</button>
+      <button type="button" data-pf="PF5">PF5 Avanti</button>
+      <button type="button" data-pf="PF6" __PF6_DISABLED__>PF6 Conferma</button>
+      <button type="button" data-pf="PF12" data-href="__PF12_HREF__">PF12 Fine</button>
+    </footer>
+  </div>
+  <script src="../ui/terminale.js"></script>
+  <script>
+    window.TX2 = window.TX2 || {};
+    window.TX2.next = function () { __NEXT_ACTION__; };
+    window.TX2.confirm = function () { __CONFIRM_ACTION__; };
+  </script>
+</body>
+</html>

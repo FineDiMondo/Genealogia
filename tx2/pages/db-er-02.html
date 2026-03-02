@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MODULO DATABASE</title>
+  <link rel="stylesheet" href="../ui/terminale.css" />
+</head>
+<body>
+  <!-- MAPPA COMPILATA TX2 - NON MODIFICARE A MANO -->
+  <div class="screen">
+    <header class="header">
+      <div class="titolo">MODULO DATABASE</div>
+      <div class="ident">TX2-DB-ER-02</div>
+    </header>
+
+    <section class="messaggi">
+Schema E/R auto-generato da DDL
+
+
+    </section>
+
+    <section class="campi">
+      <pre class="griglia">
+FORMATO AREA CAMPI (24x80)
+NOME-CAMPO                      PIC          RIGA COL  LEN ATTR
+------------------------------  -----------  ---- ---- --- -------
+IN-TIPO-OPERAZIONE              X(20)       R06 C24  20 MOD
+OUT-MSG-ESITO                   X(120)      R03 C01  72 OUT
+      </pre>
+      <div class="campi-edit">
+      </div>
+    </section>
+
+    <section class="dettagli">
+      <pre class="lista">
+[PK] DB-ID-TITOLO                 PIC X(32)    
+[FK] DB-ID-PERSONA                PIC X(32)    PERSONE(DB-ID-PERSONA)
+[FK] DB-ID-FAMIGLIA               PIC X(32)    FAMIGLIE(DB-ID-FAMIGLIA)
+[..] DB-NOME-TITOLO               PIC X(80)    
+[..] DB-GRADO-TITOLO              PIC X(40)    
+[..] DB-NOTE-TITOLO               PIC X(512)   
+[PK] DB-ID-PROPRIETA              PIC X(32)    
+[FK] DB-ID-FAMIGLIA               PIC X(32)    FAMIGLIE(DB-ID-FAMIGLIA)
+[..] DB-NOME-PROPRIETA            PIC X(120)   
+[..] DB-LOCALITA                  PIC X(120)   
+[..] DB-TIPOLOGIA                 PIC X(40)    
+[..] DB-NOTE-PROPRIETA            PIC X(512)   
+[PK] DB-ID-ARALDICA               PIC X(32)    
+[FK] DB-ID-FAMIGLIA               PIC X(32)    FAMIGLIE(DB-ID-FAMIGLIA)
+[..] DB-BLASONATURA               PIC X(512)   
+[..] DB-URL-STEMMA                PIC X(256)   
+[..] DB-NOTE-ARALDICA             PIC X(512)   
+[PK] DB-ID-FONTE                  PIC X(32)    
+[..] DB-TIPO-FONTE                PIC X(40)    
+[..] DB-RIFERIMENTO-FONTE         PIC X(256)   
+[..] DB-URL-FONTE                 PIC X(256)   
+[..] DB-NOTE-FONTE                PIC X(512)   
+-- RELAZIONI --
+PERSONE(DB-ID-PERSONA) <- TITOLI(DB-ID-PERSONA)
+FAMIGLIE(DB-ID-FAMIGLIA) <- TITOLI(DB-ID-FAMIGLIA)
+FAMIGLIE(DB-ID-FAMIGLIA) <- PROPRIETA(DB-ID-FAMIGLIA)
+FAMIGLIE(DB-ID-FAMIGLIA) <- ARALDICA(DB-ID-FAMIGLIA)
+FONTI(DB-ID-FONTE) <- COLLEGAMENTI_FONTI(DB-ID-FONTE)
+      </pre>
+    </section>
+
+    <section class="diagnostica">
+      <div class="diag-head">DIAGNOSTICA R21: MAPPA VUOTA 24x80</div>
+      <pre id="area_mappa_vuota" class="diag-pre">
+01|                                                                            |
+02|                                                                            |
+03|                                                                            |
+04|                                                                            |
+05|                                                                            |
+06|R06C01 [P W] ENTITA TITOLI             PK:1 FK:2                            |
+07|R07C01 [P W] ENTITA PROPRIETA          PK:1 FK:1                            |
+08|R08C01 [P W] ENTITA ARALDICA           PK:1 FK:1                            |
+...(TRONCATO)
+      </pre>
+      <div class="diag-head">DIAGNOSTICA R22: DIZIONARIO CAMPI</div>
+      <pre id="area_dizionario_campi" class="diag-pre">
+NOME-CAMPO                 ORI  POS     LEN  PIC        ATTR   COL  PROT
+-------------------------  ---  ------  ---  ---------  -----  ---  ----
+DB-ID-TITOLO               DB   ----     32  X(32)      PROT   W    SI
+DB-ID-PERSONA              DB   ----     32  X(32)      OUT    Y    SI
+DB-ID-FAMIGLIA             DB   ----     32  X(32)      OUT    Y    SI
+DB-NOME-TITOLO             DB   ----     80  X(80)      PROT   W    SI
+...(TRONCATO)
+      </pre>
+    </section>
+
+    <footer class="pfbar">
+      <button type="button" data-pf="PF3">PF3 Indietro</button>
+      <button type="button" data-pf="PF4">PF4 Reset TX</button>
+      <button type="button" data-pf="PF5">PF5 Avanti</button>
+      <button type="button" data-pf="PF6" disabled>PF6 Conferma</button>
+      <button type="button" data-pf="PF12" data-href="./console.html">PF12 Fine</button>
+    </footer>
+  </div>
+  <script src="../ui/terminale.js"></script>
+  <script>
+    window.TX2 = window.TX2 || {};
+    window.TX2.next = function () { window.location.href='./db-er-03.html';; };
+    window.TX2.confirm = function () { return;; };
+  </script>
+</body>
+</html>

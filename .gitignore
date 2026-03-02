@@ -48,3 +48,12 @@ src/portale_giardina.DEPRECATED/
 /engine_scummlike_web/dist/
 /web/*
 !/web/.gitkeep
+
+# tx2 runtime/artifacts
+/tx2/tmp/*
+!/tx2/tmp/.gitkeep
+/tx2/logs/*
+!/tx2/logs/.gitkeep
+/tx2/**/*.o
+/tx2/**/*.obj
+/tx2/**/*.exe

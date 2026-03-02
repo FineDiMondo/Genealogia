@@ -1,0 +1,38 @@
+modulo: TOOLS
+pagina_menu: tools-menu.html
+titolo: MODULO TOOLS
+txid: TX2-TOOLS-STEP1
+messaggio: Strumenti tecnici TX2.
+next: tools-review.html
+review: N
+fields:
+  - nome: IN-TIPO-OPERAZIONE
+    etichetta: "TIPO OPERAZIONE"
+    pic: "X(20)"
+    riga: 6
+    colonna: 24
+    lunghezza: 20
+    attributo: MODIFICABILE
+    colore: G
+    origine: IN
+  - nome: IN-ENTITA-DATI
+    etichetta: "ENTITA DATI"
+    pic: "X(16)"
+    riga: 7
+    colonna: 24
+    lunghezza: 16
+    attributo: MODIFICABILE
+    colore: G
+    origine: IN
+  - nome: OUT-MSG-ESITO
+    etichetta: "MESSAGGIO"
+    pic: "X(120)"
+    riga: 3
+    colonna: 1
+    lunghezza: 72
+    attributo: OUTPUT
+    colore: Y
+    origine: OUT
+details:
+  - "VERIFICA COERENZA -> tools-review.html"
+  - "RIGENERA MAPPE -> tools-review.html"

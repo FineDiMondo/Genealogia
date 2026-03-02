@@ -1,0 +1,18 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TX2FAM.
+
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       COPY "TX2-FAM-IO.cpy".
+
+       PROCEDURE DIVISION.
+       MAIN.
+           IF IN-ID-FAMIGLIA = SPACES
+              MOVE 12 TO OUT-COD-ESITO
+              MOVE "ID FAMIGLIA OBBLIGATORIO" TO OUT-MSG-ESITO
+              GOBACK
+           END-IF
+           MOVE 0 TO OUT-COD-ESITO
+           MOVE "OK" TO OUT-MSG-ESITO
+           GOBACK.
+       END PROGRAM TX2FAM.

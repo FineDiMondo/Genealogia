@@ -1,0 +1,31 @@
+modulo: AVVIO
+pagina_boot: avvio-boot.html
+pagina_scelta: avvio-scelta.html
+titolo: AVVIO SOTTOSISTEMA TX2
+txid_boot: TX2-AVVIO-BOOT
+txid_scelta: TX2-AVVIO-SCELTA
+messaggio_boot: Inizializzazione ambiente TX2 in corso...
+messaggio_scelta: Scegli transazione: 1=TX2, 2=AS-IS.
+fields:
+  - nome: IN-SCELTA-TRANSAZIONE
+    etichetta: "SCELTA"
+    pic: "X(1)"
+    riga: 6
+    colonna: 24
+    lunghezza: 1
+    attributo: MODIFICABILE
+    colore: G
+    origine: IN
+  - nome: OUT-MSG-ESITO
+    etichetta: "MESSAGGIO"
+    pic: "X(120)"
+    riga: 3
+    colonna: 1
+    lunghezza: 72
+    attributo: OUTPUT
+    colore: Y
+    origine: OUT
+details:
+  - "1 = AVVIA TX2"
+  - "2 = AVVIA AS-IS"
+  - "PF5 = ESEGUI SCELTA"

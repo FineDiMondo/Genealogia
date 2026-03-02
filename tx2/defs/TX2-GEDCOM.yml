@@ -1,0 +1,38 @@
+modulo: GEDCOM
+pagina_menu: gedcom-menu.html
+titolo: MODULO GEDCOM
+txid: TX2-GEDCOM-STEP1
+messaggio: Gestione import/export GEDCOM.
+next: gedcom-review.html
+review: N
+fields:
+  - nome: IN-AZIONE-GEDCOM
+    etichetta: "AZIONE GEDCOM"
+    pic: "X(16)"
+    riga: 6
+    colonna: 24
+    lunghezza: 16
+    attributo: MODIFICABILE
+    colore: G
+    origine: IN
+  - nome: IN-NOME-FILE-SORGENTE
+    etichetta: "FILE SORGENTE"
+    pic: "X(128)"
+    riga: 7
+    colonna: 24
+    lunghezza: 40
+    attributo: MODIFICABILE
+    colore: G
+    origine: IN
+  - nome: OUT-MSG-ESITO
+    etichetta: "MESSAGGIO"
+    pic: "X(120)"
+    riga: 3
+    colonna: 1
+    lunghezza: 72
+    attributo: OUTPUT
+    colore: Y
+    origine: OUT
+details:
+  - "IMPORT GEDCOM -> gedcom-review.html"
+  - "EXPORT GEDCOM -> gedcom-review.html"

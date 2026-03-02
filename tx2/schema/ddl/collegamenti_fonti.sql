@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS collegamenti_fonti (
+  id_collegamento TEXT PRIMARY KEY, -- COBOL=DB-ID-COLLEGAMENTO PIC X(32) PK
+  id_fonte TEXT, -- COBOL=DB-ID-FONTE PIC X(32) FK=FONTI(DB-ID-FONTE)
+  entita_destinazione TEXT, -- COBOL=DB-ENTITA-DESTINAZIONE PIC X(32)
+  id_record_destinazione TEXT, -- COBOL=DB-ID-RECORD-DESTINAZIONE PIC X(32)
+  note_collegamento TEXT -- COBOL=DB-NOTE-COLLEGAMENTO PIC X(512)
+);

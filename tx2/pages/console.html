@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CONSOLE TX2 CICS-LIKE</title>
+  <link rel="stylesheet" href="../ui/terminale.css" />
+</head>
+<body>
+  <!-- MAPPA COMPILATA TX2 - NON MODIFICARE A MANO -->
+  <div class="screen">
+    <header class="header">
+      <div class="titolo">CONSOLE TX2 CICS-LIKE</div>
+      <div class="ident">TX2-CONSOLE</div>
+    </header>
+
+    <section class="messaggi">
+Console TX2: selezionare modulo
+
+
+    </section>
+
+    <section class="campi">
+      <pre class="griglia">
+FORMATO AREA CAMPI (24x80)
+NOME-CAMPO                      PIC          RIGA COL  LEN ATTR
+------------------------------  -----------  ---- ---- --- -------
+IN-SELEZIONE-MODULO             X(16)        R06 C24  16 MOD    
+OUT-MSG-ESITO                   X(120)       R03 C01  72 OUT    
+      </pre>
+      <div class="campi-edit">
+<label class="tx2-field-wrap">SELEZIONE MODULO <input class="tx2-field" data-key="CONSOLE.IN-SELEZIONE-MODULO" maxlength="16" /></label>
+<label class="tx2-field-wrap">MESSAGGIO <input class="tx2-field" data-key="CONSOLE.OUT-MSG-ESITO" maxlength="72" disabled /></label>
+      </div>
+    </section>
+
+    <section class="dettagli">
+      <pre class="lista">
+[1] DB           -> db-menu.html
+[2] FAM          -> fam-menu.html
+[3] GEDCOM       -> gedcom-menu.html
+[4] LLM          -> llm-menu.html
+[5] PER          -> per-menu.html
+[6] TOOLS        -> tools-menu.html
+      </pre>
+    </section>
+
+    <section class="diagnostica">
+      <div class="diag-head">DIAGNOSTICA R21: MAPPA VUOTA 24x80</div>
+      <pre id="area_mappa_vuota" class="diag-pre">
+01|                                                                            |
+02|                                                                            |
+03|R03C01 MESSAGGIO         : [O Y] ________________________                   |
+04|                                                                            |
+05|                                                                            |
+06|R06C24 SELEZIONE MODULO  : [I G] ________________                           |
+07|                                                                            |
+08|                                                                            |
+...(TRONCATO)
+      </pre>
+      <div class="diag-head">DIAGNOSTICA R22: DIZIONARIO CAMPI</div>
+      <pre id="area_dizionario_campi" class="diag-pre">
+NOME-CAMPO                 ORI  POS     LEN  PIC        ATTR   COL  PROT
+-------------------------  ---  ------  ---  ---------  -----  ---  ----
+IN-SELEZIONE-MODULO        IN   R06C24   16  X(16)      MOD    G    NO
+OUT-MSG-ESITO              OUT  R03C01   72  X(120)     OUT    Y    SI
+      </pre>
+    </section>
+
+    <footer class="pfbar">
+      <button type="button" data-pf="PF3">PF3 Indietro</button>
+      <button type="button" data-pf="PF4">PF4 Reset TX</button>
+      <button type="button" data-pf="PF5">PF5 Avanti</button>
+      <button type="button" data-pf="PF6" disabled>PF6 Conferma</button>
+      <button type="button" data-pf="PF12" data-href="./console.html">PF12 Fine</button>
+    </footer>
+  </div>
+  <script src="../ui/terminale.js"></script>
+  <script>
+    window.TX2 = window.TX2 || {};
+    window.TX2.next = function () { window.location.href='./db-menu.html';; };
+    window.TX2.confirm = function () { return;; };
+  </script>
+</body>
+</html>

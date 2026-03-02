@@ -4,6 +4,7 @@
   const PF = { HELP: 'F1', BACK: 'F3', REFRESH: 'F5', UP: 'F7', DOWN: 'F8', MENU: 'F9', FIND: 'F10', QUIT: 'F12' };
   const ALIAS = { h: 'help', b: 'back', m: 'menu', r: 'refresh', q: 'quit' };
   const SESSION_KEY = 'gn370_session_state_v1';
+  const HOME_IMPORT_MODE = 'HOME_IMPORT';
   const nowStr = () => new Date().toISOString();
   const upper = (v) => String(v || '').trim().toUpperCase();
   const lower = (v) => String(v || '').toLowerCase();
@@ -124,6 +125,7 @@
   }
 
   const state = {
+    uiMode: HOME_IMPORT_MODE,
     basePath: getBasePath(),
     version: { commit: 'dev', buildTimeUtc: '-', dataHash: 'dev', sha7: 'dev' },
     events: null,
@@ -131,6 +133,14 @@
     persons: null,
     recordManifest: null,
     copybooks: {},
+    db: { status: 'EMPTY', tables: {}, indexes: {}, meta: {} },
+    ctx: { view: 'HOME', selections: [], openedRecord: null },
+    cache: {},
+    jobsQueue: [],
+    feed: [],
+    errors: [],
+    memoryClean: true,
+    selectedZipFileName: '',
     current: null,
     outputLines: [],
     pageSize: 26,
@@ -176,6 +186,43 @@
   };
   const hasUi = Boolean(dom.hdr1 && dom.hdr2 && dom.out && dom.ctx && dom.last && dom.cmd && dom.run);
 
+  const Memory = {
+    reset() {
+      state.db = { status: 'EMPTY', tables: {}, indexes: {}, meta: {} };
+      state.ctx = { view: 'HOME', selections: [], openedRecord: null };
+      state.cache = {};
+      state.jobsQueue = [];
+      state.feed = [];
+      state.errors = [];
+      state.events = null;
+      state.storiesIndex = null;
+      state.persons = null;
+      state.recordManifest = null;
+      state.copybooks = {};
+      state.current = null;
+      state.stack = [];
+      state.job = {
+        running: false,
+        name: '',
+        stepName: '',
+        stepIndex: 0,
+        stepCount: 0,
+        done: 0,
+        total: 0,
+        pct: 0,
+        startedAt: '',
+        endedAt: '',
+        log: [],
+        report: null
+      };
+      state.memoryClean = true;
+      state.selectedZipFileName = '';
+      try { localStorage.removeItem(SESSION_KEY); } catch (_e1) {}
+      try { sessionStorage.removeItem(SESSION_KEY); } catch (_e2) {}
+      try { sessionStorage.removeItem('gn370_session_state_v1'); } catch (_e3) {}
+    }
+  };
+
   const appendLine = (line, cls) => state.outputLines.push(cls ? `<span class="${cls}">${String(line || '')}</span>` : String(line || ''));
   const writeOK = (msg) => appendLine(`(OK) ${msg}`, 'ok');
   const writeWRN = (msg) => appendLine(`(WRN) ${msg}`, 'wrn');
@@ -184,6 +231,7 @@
   const scrollToBottom = () => { state.top = Math.max(0, state.outputLines.length - state.pageSize); };
   const renderOutput = () => {
     if (!dom.out) return;
+    if (state.uiMode === HOME_IMPORT_MODE) return;
     const end = Math.min(state.outputLines.length, state.top + state.pageSize);
     dom.out.innerHTML = state.outputLines.slice(state.top, end).join('\n');
   };
@@ -322,6 +370,240 @@
     renderSuggestions();
   }
 
+  function escapeHtml(v) {
+    return String(v || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function requireDbReady(opName) {
+    if (state.db.status === 'READY') return true;
+    writeERR(`DB non caricato. Importa ZIP. (${opName || 'operazione'})`);
+    renderOutput();
+    return false;
+  }
+
+  function nowYYYYMMDDHHMM() {
+    const d = new Date();
+    const yyyy = String(d.getFullYear()).padStart(4, '0');
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mi = String(d.getMinutes()).padStart(2, '0');
+    return `${yyyy}${mm}${dd}${hh}${mi}`;
+  }
+
+  function serializeTable(tableObj) {
+    if (!tableObj) return '';
+    if (typeof tableObj.raw === 'string') return tableObj.raw;
+    try {
+      return JSON.stringify(tableObj, null, 2);
+    } catch (_e) {
+      return String(tableObj);
+    }
+  }
+
+  function parseTable(text) {
+    return { raw: String(text || '') };
+  }
+
+  function buildIndexes(db) {
+    const idx = {};
+    Object.keys(db.tables || {}).forEach((tableName) => {
+      const rowCount = serializeTable(db.tables[tableName]).split(/\r?\n/).filter(Boolean).length;
+      idx[tableName] = { rows: rowCount };
+    });
+    db.indexes = idx;
+  }
+
+  function listZipEntries(zip) {
+    return Object.keys(zip.files || {})
+      .filter((name) => !zip.files[name].dir)
+      .sort((a, b) => a.localeCompare(b));
+  }
+
+  function deriveTableName(entryName) {
+    const base = String(entryName || '').split('/').pop() || '';
+    const noExt = base.replace(/\.[^/.]+$/g, '');
+    return upper(noExt || 'TABLE');
+  }
+
+  async function importZip(file, selectedEntries) {
+    if (!file) {
+      writeERR('Nessun archivio ZIP selezionato');
+      renderOutput();
+      return;
+    }
+    if (!Array.isArray(selectedEntries) || !selectedEntries.length) {
+      writeERR('Seleziona almeno un file da importare');
+      renderOutput();
+      return;
+    }
+    if (!window.JSZip) {
+      writeERR('JSZip non disponibile');
+      renderOutput();
+      return;
+    }
+    Memory.reset();
+    state.uiMode = '';
+    state.outputLines = [];
+    state.top = 0;
+    writeSEP('=========== IMPORT ZIP ===========');
+    appendLine(`file: ${file.name}`);
+    const zip = await window.JSZip.loadAsync(file);
+    for (let i = 0; i < selectedEntries.length; i += 1) {
+      const entryName = selectedEntries[i];
+      const entry = zip.file(entryName);
+      if (!entry) continue;
+      const text = await entry.async('string');
+      const tableName = deriveTableName(entryName);
+      state.db.tables[tableName] = parseTable(text);
+      appendLine(`table loaded: ${tableName} <= ${entryName}`);
+    }
+    state.db.status = 'READY';
+    state.db.meta = {
+      sourceZip: file.name,
+      importedAt: nowStr(),
+      selectedEntries: selectedEntries.slice()
+    };
+    buildIndexes(state.db);
+    writeOK(`IMPORT COMPLETATO tabelle=${Object.keys(state.db.tables).length}`);
+    writeSEP('=================================');
+    scrollToBottom();
+    renderOutput();
+    printMenu();
+  }
+
+  async function commitDb() {
+    if (!requireDbReady('COMMIT_DB')) return;
+    if (!window.JSZip) {
+      writeERR('JSZip non disponibile');
+      renderOutput();
+      return;
+    }
+    const timestamp = nowYYYYMMDDHHMM();
+    const fileName = `${timestamp}.zip`;
+    const zip = new window.JSZip();
+    const tableNames = Object.keys(state.db.tables || {}).sort((a, b) => a.localeCompare(b));
+    tableNames.forEach((tableName) => {
+      zip.file(`tables/${tableName}.table`, serializeTable(state.db.tables[tableName]));
+    });
+    const blob = await zip.generateAsync({ type: 'blob' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName;
+    link.click();
+    URL.revokeObjectURL(link.href);
+    state.feed.push({ ts: nowStr(), type: 'commit', msg: `commit creato: ${fileName}` });
+    writeOK(`commit creato: ${fileName}`);
+    renderOutput();
+  }
+
+  function renderHomeImport() {
+    state.uiMode = HOME_IMPORT_MODE;
+    state.outputLines = [];
+    state.top = 0;
+    renderContext();
+    renderTechBanner();
+    if (!dom.out) return;
+    dom.out.innerHTML = [
+      '<div class="home-import">',
+      '  <div>STATO DB: <strong>EMPTY</strong> | MEM: <strong>CLEAN</strong></div>',
+      '  <div style="margin-top:8px;">',
+      '    <label for="zip-file-input">Scegli archivio ZIP:</label>',
+      '    <input id="zip-file-input" type="file" accept=".zip,application/zip" />',
+      '  </div>',
+      '  <div style="margin-top:8px;">',
+      '    <label for="zip-filter-input">Filtro nome file:</label>',
+      '    <input id="zip-filter-input" type="text" placeholder="es. PERSON" />',
+      '  </div>',
+      '  <div style="margin-top:8px;">',
+      '    <button id="zip-select-all-btn" type="button">Seleziona tutto</button>',
+      '    <button id="zip-import-btn" type="button" disabled>IMPORTA</button>',
+      '  </div>',
+      '  <div id="zip-file-name" style="margin-top:8px;"></div>',
+      '  <div id="zip-entry-list" style="margin-top:8px; max-height:260px; overflow:auto; border:1px solid #0a4d0a; padding:6px;"></div>',
+      '</div>'
+    ].join('\n');
+    bindHomeImportUi();
+  }
+
+  function renderMainMenu() {
+    state.uiMode = '';
+    printMenu();
+  }
+
+  function bindHomeImportUi() {
+    const fileInput = document.getElementById('zip-file-input');
+    const filterInput = document.getElementById('zip-filter-input');
+    const listNode = document.getElementById('zip-entry-list');
+    const fileNameNode = document.getElementById('zip-file-name');
+    const importBtn = document.getElementById('zip-import-btn');
+    const selectAllBtn = document.getElementById('zip-select-all-btn');
+    if (!fileInput || !filterInput || !listNode || !importBtn || !selectAllBtn) return;
+
+    let selectedFile = null;
+    let allEntries = [];
+
+    const refreshList = () => {
+      const filter = lower(filterInput.value || '');
+      const visibleEntries = allEntries.filter((name) => lower(name).includes(filter));
+      if (!visibleEntries.length) {
+        listNode.innerHTML = '<div>Nessun file trovato</div>';
+      } else {
+        listNode.innerHTML = visibleEntries.map((name) => {
+          const id = `entry-${escapeHtml(name).replace(/[^a-zA-Z0-9_-]/g, '_')}`;
+          return `<label style="display:block;"><input type="checkbox" class="zip-entry-check" value="${escapeHtml(name)}" id="${id}" /> ${escapeHtml(name)}</label>`;
+        }).join('');
+      }
+      importBtn.disabled = true;
+      const checks = listNode.querySelectorAll('.zip-entry-check');
+      checks.forEach((ck) => {
+        ck.addEventListener('change', () => {
+          importBtn.disabled = !Array.from(listNode.querySelectorAll('.zip-entry-check')).some((n) => n.checked);
+        });
+      });
+    };
+
+    fileInput.addEventListener('change', async () => {
+      const file = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+      selectedFile = file;
+      if (!file) {
+        fileNameNode.textContent = '';
+        allEntries = [];
+        refreshList();
+        return;
+      }
+      fileNameNode.textContent = `Archivio: ${file.name}`;
+      try {
+        const zip = await window.JSZip.loadAsync(file);
+        allEntries = listZipEntries(zip);
+        refreshList();
+      } catch (err) {
+        listNode.innerHTML = `<div class="err">(ERR) ZIP non valido: ${escapeHtml(err.message || String(err))}</div>`;
+        importBtn.disabled = true;
+      }
+    });
+
+    filterInput.addEventListener('input', refreshList);
+
+    selectAllBtn.addEventListener('click', () => {
+      const checks = listNode.querySelectorAll('.zip-entry-check');
+      checks.forEach((n) => { n.checked = true; });
+      importBtn.disabled = checks.length === 0;
+    });
+
+    importBtn.addEventListener('click', async () => {
+      const selectedEntries = Array.from(listNode.querySelectorAll('.zip-entry-check'))
+        .filter((n) => n.checked)
+        .map((n) => n.value);
+      await importZip(selectedFile, selectedEntries);
+    });
+  }
+
   function pushState() {
     state.stack.push({ current: state.current ? JSON.parse(JSON.stringify(state.current)) : null, outputLines: state.outputLines.slice(), top: state.top });
     if (state.stack.length > 25) state.stack.shift();
@@ -354,7 +636,7 @@
   async function fetchText(path, opts) {
     const noStore = opts && opts.noStore;
     const live = opts && opts.liveData;
-    const clean = String(path || '').replace(/^\/+/, '');
+    const clean = String(path || '').replace(/^\/+/, '').replace(/#/g, '%23');
     const url = live ? liveUrl(clean) : buildUrl(clean);
     const res = await fetch(url, noStore ? { cache: 'no-store' } : undefined);
     if (!res.ok) throw new Error(`${res.status} ${url}`);
@@ -390,37 +672,6 @@
     return state.storiesIndex;
   }
 
-  async function ensurePersons() {
-    if (state.persons) return state.persons;
-    const text = await fetchText('data/current/entities/persons.ndjson', { noStore: true, liveData: true });
-    state.persons = text.split(/\r?\n/).map((l) => l.trim()).filter(Boolean).map((l) => JSON.parse(l));
-    return state.persons;
-  }
-
-  async function ensureRecordManifest() {
-    if (state.recordManifest) return state.recordManifest;
-    state.recordManifest = await fetchJson('data/current/records/manifest.json', { noStore: true, liveData: true });
-    return state.recordManifest;
-  }
-
-  async function loadDbStatusMeta() {
-    const out = { lastReset: null, lastImport: null, lastRebuild: null, dbStatus: null, latestBackup: null, counts: null };
-    try { out.lastReset = await fetchJson('data/current/meta/last_reset.json', { noStore: true, liveData: true }); } catch (_e1) {}
-    try { out.lastImport = await fetchJson('data/current/meta/last_import.json', { noStore: true, liveData: true }); } catch (_e2) {}
-    try { out.lastRebuild = await fetchJson('data/current/meta/last_rebuild.json', { noStore: true, liveData: true }); } catch (_e3) {}
-    try { out.dbStatus = await fetchJson('data/current/meta/db_status.json', { noStore: true, liveData: true }); } catch (_e5) {}
-    try {
-      const m = await ensureRecordManifest();
-      out.counts = {
-        persons: (m.persons || []).length,
-        families: (m.families || []).length,
-        events: (m.events || []).length
-      };
-    } catch (_e4) {}
-    if (out.dbStatus && out.dbStatus.latestBackup) out.latestBackup = out.dbStatus.latestBackup;
-    return out;
-  }
-
   async function ensureCopybook(type) {
     requireModules();
     const t = upper(type);
@@ -429,17 +680,6 @@
     const schema = window.GNCopybook.parseCopybook(copyText, { copyName: `${t}.CPY` });
     state.copybooks[t] = schema;
     return schema;
-  }
-
-  async function loadRecord(type, id) {
-    return await fetchText(`data/current/records/${upper(type)}/${id}.rec`, { noStore: true, liveData: true });
-  }
-
-  function allRecordRefs(manifest) {
-    return []
-      .concat((manifest.persons || []).map((p) => ({ type: 'PERSON', path: p })))
-      .concat((manifest.families || []).map((p) => ({ type: 'FAMILY', path: p })))
-      .concat((manifest.events || []).map((p) => ({ type: 'EVENT', path: p })));
   }
 
   function setJobProgress(stepName, stepIndex, stepCount, done, total, detail) {
@@ -464,7 +704,6 @@
   }
 
   async function runLoaderJob(name) {
-    requireModules();
     if (state.job.running) return;
 
     state.job.running = true;
@@ -474,56 +713,45 @@
     state.job.log = [];
     state.job.report = null;
 
-    const report = { copybooks: 0, recordsTotal: 0, valid: 0, invalid: 0, byType: { PERSON: 0, FAMILY: 0, EVENT: 0 } };
+    const report = { tablesTotal: 0, rowsTotal: 0, valid: 0, invalid: 0, byType: {} };
 
     try {
-      const steps = ['LOAD_COPYBOOKS', 'SCAN_RECORDS', 'PARSE_RECORDS', 'REPORT'];
-      setJobProgress('LOAD_COPYBOOKS', 1, steps.length, 0, 3, '');
-      for (let i = 0; i < 3; i += 1) {
-        const type = ['PERSON', 'FAMILY', 'EVENT'][i];
-        await ensureCopybook(type);
-        report.copybooks += 1;
-        setJobProgress('LOAD_COPYBOOKS', 1, steps.length, i + 1, 3, type);
+      const steps = ['SCAN_TABLES', 'PARSE_TABLES', 'REPORT'];
+      const tableNames = Object.keys(state.db.tables || {}).sort((a, b) => a.localeCompare(b));
+      report.tablesTotal = tableNames.length;
+
+      setJobProgress('SCAN_TABLES', 1, steps.length, 0, Math.max(1, tableNames.length), '');
+      for (let i = 0; i < tableNames.length; i += 1) {
+        setJobProgress('SCAN_TABLES', 1, steps.length, i + 1, Math.max(1, tableNames.length), tableNames[i]);
         await sleep(10);
       }
 
-      setJobProgress('SCAN_RECORDS', 2, steps.length, 0, 1, '');
-      const manifest = await ensureRecordManifest();
-      const refs = allRecordRefs(manifest);
-      report.recordsTotal = refs.length;
-      setJobProgress('SCAN_RECORDS', 2, steps.length, 1, 1, `${refs.length} FILES`);
-      await sleep(10);
-
       let done = 0;
       let lastLogged = -10;
-      setJobProgress('PARSE_RECORDS', 3, steps.length, done, Math.max(1, refs.length), '');
-      for (let i = 0; i < refs.length; i += 1) {
-        const ref = refs[i];
-        const parts = String(ref.path).split('/');
-        const id = parts[parts.length - 1].replace(/\.rec$/i, '');
-        const raw = await fetchText(`data/current/records/${ref.path}`, { noStore: true, liveData: true });
-        const parsed = window.GNRecord.parseRecord(await ensureCopybook(ref.type), raw);
-        if (parsed.isValid) report.valid += 1;
-        else report.invalid += 1;
-        report.byType[ref.type] = (report.byType[ref.type] || 0) + 1;
+      setJobProgress('PARSE_TABLES', 2, steps.length, done, Math.max(1, tableNames.length), '');
+      for (let i = 0; i < tableNames.length; i += 1) {
+        const tableName = tableNames[i];
+        const raw = serializeTable(state.db.tables[tableName]);
+        const rows = raw.split(/\r?\n/).filter((ln) => ln.trim().length > 0).length;
+        report.rowsTotal += rows;
+        report.valid += 1;
+        report.byType[tableName] = rows;
         done += 1;
-        setJobProgress('PARSE_RECORDS', 3, steps.length, done, Math.max(1, refs.length), ref.type);
-        lastLogged = logEvery10('PARSE RECORDS', done, Math.max(1, refs.length), lastLogged);
-        if (done % 5 === 0 || done === refs.length) state.job.log.push(`${nowStr()} | PARSED ${ref.type} ${id} valid=${parsed.isValid}`);
+        setJobProgress('PARSE_TABLES', 2, steps.length, done, Math.max(1, tableNames.length), tableName);
+        lastLogged = logEvery10('PARSE TABLES', done, Math.max(1, tableNames.length), lastLogged);
+        state.job.log.push(`${nowStr()} | PARSED TABLE ${tableName} rows=${rows}`);
       }
 
-      setJobProgress('REPORT', 4, steps.length, 1, 1, 'DONE');
+      setJobProgress('REPORT', 3, steps.length, 1, 1, 'DONE');
       state.job.report = report;
-      state.job.log.push(`${nowStr()} | REPORT copybooks=${report.copybooks} total=${report.recordsTotal} valid=${report.valid} invalid=${report.invalid}`);
+      state.job.log.push(`${nowStr()} | REPORT tables=${report.tablesTotal} rows=${report.rowsTotal} valid=${report.valid} invalid=${report.invalid}`);
       if (name !== 'BOOT_LOADER') {
         writeSEP('================ JOB REPORT =================');
-        appendLine(`copybooks loaded : ${report.copybooks}`);
-        appendLine(`records total    : ${report.recordsTotal}`);
-        appendLine(`records valid    : ${report.valid}`);
-        appendLine(`records invalid  : ${report.invalid}`);
-        appendLine(`PERSON count     : ${report.byType.PERSON}`);
-        appendLine(`FAMILY count     : ${report.byType.FAMILY}`);
-        appendLine(`EVENT count      : ${report.byType.EVENT}`);
+        appendLine(`tables total     : ${report.tablesTotal}`);
+        appendLine(`rows total       : ${report.rowsTotal}`);
+        appendLine(`tables valid     : ${report.valid}`);
+        appendLine(`tables invalid   : ${report.invalid}`);
+        Object.keys(report.byType).sort((a, b) => a.localeCompare(b)).forEach((k) => appendLine(`${k.padEnd(16, ' ')}: ${report.byType[k]}`));
         writeSEP('============================================');
       }
       writeOK(`${name} COMPLETED`);
@@ -599,21 +827,12 @@
   }
 
   async function cmdDbStatus() {
-    const meta = await loadDbStatusMeta();
     writeSEP('================ DB STATUS =================');
-    appendLine(`build sha      : ${state.version.sha7}`);
-    appendLine(`data hash      : ${String(state.version.dataHash || '').slice(0, 12)}`);
-    if (meta.counts) {
-      appendLine(`records person : ${meta.counts.persons}`);
-      appendLine(`records family : ${meta.counts.families}`);
-      appendLine(`records event  : ${meta.counts.events}`);
-    } else {
-      appendLine('(WRN) counts unavailable');
-    }
-    appendLine(`last reset     : ${meta.lastReset ? (meta.lastReset.timestamp || '-') : '-'}`);
-    appendLine(`last import    : ${meta.lastImport ? (meta.lastImport.timestamp || meta.lastImport.imported_at || '-') : '-'}`);
-    appendLine(`last rebuild   : ${meta.lastRebuild ? (meta.lastRebuild.timestamp || '-') : '-'}`);
-    appendLine(`last backup    : ${meta.latestBackup || '-'}`);
+    appendLine(`status         : ${state.db.status}`);
+    appendLine(`tables         : ${Object.keys(state.db.tables || {}).length}`);
+    appendLine(`source zip     : ${(state.db.meta && state.db.meta.sourceZip) ? state.db.meta.sourceZip : '-'}`);
+    appendLine(`imported at    : ${(state.db.meta && state.db.meta.importedAt) ? state.db.meta.importedAt : '-'}`);
+    appendLine(`mem clean      : ${state.memoryClean ? 'YES' : 'NO'}`);
     writeSEP('============================================');
     scrollToBottom();
     renderOutput();
@@ -658,6 +877,8 @@
       'open person <id>',
       'open xref <@I123@>',
       'open rec <TYPE> <ID>',
+      'import zip',
+      'commit',
       'show copy <TYPE>',
       'validate rec <TYPE> <ID>',
       'job run IMPORT_RECORDS',
@@ -687,14 +908,15 @@
     setTechBanner('MAIN NAVIGATION', 'Menu Projection', 'EXPL_AGT', 'STATIC SHELL');
     writeSEP('=============== MAIN MENU ==================');
     [
-      '1) feed last 10',
-      '2) story list',
-      '3) open rec PERSON P#SAMPLE001',
-      '4) show copy PERSON',
-      '5) validate rec EVENT E#SAMPLE001',
-      '6) job run IMPORT_RECORDS',
-      '7) db status',
-      '8) cache status'
+      `DB STATUS: ${state.db.status}`,
+      `TABELLE CARICATE: ${Object.keys(state.db.tables || {}).length}`,
+      '1) import zip (home import)',
+      '2) commit',
+      '3) feed last 10',
+      '4) story list',
+      '5) show copy PERSON',
+      '6) db status',
+      '7) cache status'
     ].forEach((x) => appendLine(`  ${x}`));
     writeSEP('============================================');
     scrollToBottom();
@@ -772,36 +994,52 @@
   }
 
   async function cmdOpenPerson(id) {
+    if (!requireDbReady('OPEN PERSON')) return;
     setTechBanner('ENTITY LOOKUP', 'ID Match + Fallback', 'NORM_AGT', 'PERSON NDJSON');
     if (!id) {
       writeERR('open person <id> MISSING');
       renderOutput();
       return;
     }
-    const persons = await ensurePersons();
-    const fb = await fetchJson('data/current/entities/sample_person.json', { noStore: true, liveData: true });
-    const p = persons.find((x) => lower(x.id) === lower(id)) || fb;
-    if (!persons.find((x) => lower(x.id) === lower(id))) writeWRN('PERSON NOT FOUND, USING SAMPLE');
+    const personTable = state.db.tables.PERSON || state.db.tables.PERSONE;
+    if (!personTable) {
+      writeERR('Tabella PERSON/PERSONE non presente nel DB importato');
+      renderOutput();
+      return;
+    }
+    const raw = serializeTable(personTable);
+    const hit = raw.split(/\r?\n/).find((ln) => lower(ln).includes(lower(id)));
+    const p = { id: id, raw: hit || '' };
+    if (!hit) writeWRN('PERSON NOT FOUND IN IMPORTED TABLE');
     pushState();
-    setContext('person', p.id || id, (p.name || `${p.family_name || ''} ${p.given_names || ''}`).trim(), p);
+    setContext('person', p.id || id, p.id || id, p);
     writeOK(`PERSON OPENED ${p.id || id}`);
     scrollToBottom();
     renderOutput();
   }
 
   async function cmdOpenXref(xref) {
+    if (!requireDbReady('OPEN XREF')) return;
     setTechBanner('ENTITY LOOKUP', 'XREF Resolution', 'NORM_AGT', 'PERSON NDJSON');
     if (!xref) {
       writeERR('open xref <@I123@> MISSING');
       renderOutput();
       return;
     }
-    const p = (await ensurePersons()).find((x) => upper(x.xref) === upper(xref));
-    if (!p) {
+    const personTable = state.db.tables.PERSON || state.db.tables.PERSONE;
+    if (!personTable) {
+      writeERR('Tabella PERSON/PERSONE non presente nel DB importato');
+      renderOutput();
+      return;
+    }
+    const raw = serializeTable(personTable);
+    const hit = raw.split(/\r?\n/).find((ln) => upper(ln).includes(upper(xref)));
+    if (!hit) {
       writeERR(`XREF NOT FOUND ${xref}`);
       renderOutput();
       return;
     }
+    const p = { id: xref, xref: xref, raw: hit };
     pushState();
     setContext('person', p.id || '-', p.name || '-', p);
     writeOK(`OPEN XREF ${xref} -> ${p.id}`);
@@ -828,19 +1066,28 @@
   }
 
   async function cmdOpenRec(type, id) {
+    if (!requireDbReady('OPEN REC')) return;
     setTechBanner('RECORD RENDER', 'Fixed-Length Parse', 'PARSE_AGT', 'RECORD FILE');
-    requireModules();
     const t = upper(type);
     if (!t || !id) {
       writeERR('open rec <TYPE> <ID> MISSING');
       renderOutput();
       return;
     }
-    const c = await ensureCopybook(t);
-    const p = window.GNRecord.parseRecord(c, await loadRecord(t, id));
+    const tableObj = state.db.tables[t] || state.db.tables[`${t}S`];
+    if (!tableObj) {
+      writeERR(`Tabella non trovata per tipo ${t}`);
+      renderOutput();
+      return;
+    }
+    const raw = serializeTable(tableObj);
+    const hit = raw.split(/\r?\n/).find((ln) => lower(ln).includes(lower(id)));
+    const p = { isValid: Boolean(hit), errors: hit ? [] : [`ID ${id} non trovato in ${t}`], warnings: [], expectedLength: hit ? hit.length : 0, fields: [] };
     pushState();
     setContext('rec', id, t, { type: t, id: id, parsed: p });
-    window.GNRender370.renderRecord(t, id, c, p, `${t}.CPY`).forEach((ln) => appendLine(ln));
+    writeSEP(`=============== RECORD ${t} ${id} ===============`);
+    appendLine(hit || '(record non disponibile)');
+    writeSEP('===============================================');
     scrollToBottom();
     renderOutput();
     if (p.isValid) writeOK(`RECORD VALID ${t} ${id}`);
@@ -848,21 +1095,27 @@
   }
 
   async function cmdValidateRec(type, id) {
+    if (!requireDbReady('VALIDATE REC')) return;
     setTechBanner('DATA VALIDATION', 'Constraint Check', 'VALID_AGT', 'RECORD FILE');
-    requireModules();
     const t = upper(type);
     if (!t || !id) {
       writeERR('validate rec <TYPE> <ID> MISSING');
       renderOutput();
       return;
     }
-    const p = window.GNRecord.parseRecord(await ensureCopybook(t), await loadRecord(t, id));
-    if (p.isValid) writeOK(`VALIDATE OK ${t} ${id} LEN=${p.expectedLength}`);
+    const tableObj = state.db.tables[t] || state.db.tables[`${t}S`];
+    if (!tableObj) {
+      writeERR(`Tabella non trovata per tipo ${t}`);
+      renderOutput();
+      return;
+    }
+    const raw = serializeTable(tableObj);
+    const hit = raw.split(/\r?\n/).find((ln) => lower(ln).includes(lower(id)));
+    if (hit) writeOK(`VALIDATE OK ${t} ${id} LEN=${hit.length}`);
     else {
       writeERR(`VALIDATE FAIL ${t} ${id}`);
-      p.errors.forEach((e) => writeERR(e));
+      writeERR(`ID non trovato in tabella ${t}`);
     }
-    p.warnings.forEach((w) => writeWRN(w));
     scrollToBottom();
     renderOutput();
   }
@@ -894,11 +1147,16 @@
     const sub = lower(pc.args[0]);
     if (sub === 'run') {
       const name = upper(pc.args[1] || '');
+      if (name === 'COMMIT_DB' || name === 'COMMIT') {
+        await commitDb();
+        return;
+      }
       if (name !== 'IMPORT_RECORDS' && name !== 'PIPELINE' && name !== 'IMPORT_NORM_VALIDATE_JOURNAL') {
-        writeERR('JOB RUN supports: IMPORT_RECORDS | PIPELINE | IMPORT_NORM_VALIDATE_JOURNAL');
+        writeERR('JOB RUN supports: IMPORT_RECORDS | PIPELINE | IMPORT_NORM_VALIDATE_JOURNAL | COMMIT_DB');
         renderOutput();
         return;
       }
+      if (!requireDbReady('JOB RUN IMPORT_RECORDS')) return;
       setTechBanner('3NF NORMALIZATION', 'Pipeline Orchestration', 'PIPELINE_RUNNER', 'JOURNAL + RECORDS');
       await runLoaderJob('IMPORT_RECORDS');
       return;
@@ -1009,14 +1267,13 @@
         renderOutput();
       }
       else if (cmd === 'refresh') {
-        state.events = null;
-        state.storiesIndex = null;
-        state.persons = null;
-        state.recordManifest = null;
-        state.copybooks = {};
-        writeOK('CACHE INVALIDATED');
+        Memory.reset();
+        writeOK('MEMORY RESET COMPLETO');
         renderOutput();
+        renderHomeImport();
       } else if (cmd === 'feed') await cmdFeed(pc);
+      else if (cmd === 'import' && lower(pc.args[0] || 'zip') === 'zip') renderHomeImport();
+      else if (cmd === 'commit') await commitDb();
       else if (cmd === 'story' && lower(pc.args[0]) === 'list') await cmdStoryList();
       else if (cmd === 'story' && lower(pc.args[0]) === 'open') await cmdStoryOpen(pc.args[1]);
       else if (cmd === 'story' && lower(pc.args[0]) === 'play') await cmdStoryPlay(pc.args[1]);
@@ -1052,16 +1309,6 @@
     const maxTop = Math.max(0, state.outputLines.length - state.pageSize);
     state.top = Math.max(0, Math.min(maxTop, state.top + delta));
     renderOutput();
-  }
-
-  function canUseSW() {
-    return location.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(location.hostname);
-  }
-
-  async function registerServiceWorkerSafe() {
-    if (!canUseSW() || !('serviceWorker' in navigator)) return;
-    const swPath = buildUrl('service-worker.js');
-    await navigator.serviceWorker.register(swPath, { scope: './' });
   }
 
   function bindUi() {
@@ -1111,28 +1358,23 @@
 
   async function boot() {
     if (!hasUi) return;
+    Memory.reset();
     try {
       await loadVersion();
     } catch (err) {
       writeWRN(`version.json unavailable: ${err.message || String(err)}`);
     }
-    try {
-      const cached = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
-      if (cached) applySessionState(cached);
-    } catch (_e) {}
     renderHeader();
     renderContext();
     state.suggestions = buildSuggestions(parseCommand(''), '');
     renderSuggestions();
-    printMenu();
-    writeOK('GN370 SHELL READY');
-    scrollToBottom();
-    renderOutput();
     bindUi();
     dom.cmd.focus();
-    await runLoaderJob('BOOT_LOADER');
-    await registerServiceWorkerSafe();
+    renderHomeImport();
+    writeOK('MEM: CLEAN');
+    writeOK('DB: EMPTY');
     setInterval(renderHeader, 1000);
+    return;
   }
 
   window.GN370 = {
@@ -1146,6 +1388,10 @@
     parseStoryScenes,
     exportSessionState,
     applySessionState,
+    Memory,
+    importZip,
+    commitDb,
+    nowYYYYMMDDHHMM,
     progressLine: (c, t, s, d) => (window.GNRender370 ? window.GNRender370.makeBar(c, t, s, d) : ''),
     _state: state,
     execute

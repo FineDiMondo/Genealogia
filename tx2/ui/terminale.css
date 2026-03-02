@@ -1,0 +1,145 @@
+:root {
+  --bg: #001b2e;
+  --bg2: #06243a;
+  --line: #28506f;
+  --text: #e2f1ff;
+  --muted: #9cc3df;
+  --ok: #22c55e;
+  --warn: #fde047;
+  --err: #ef4444;
+  --font: "Consolas", "Lucida Console", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font);
+  color: var(--text);
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+}
+
+.screen {
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 44px 30px 140px 1fr 130px 56px;
+}
+
+.header,
+.messaggi,
+.campi,
+.dettagli,
+.diagnostica,
+.pfbar { border-bottom: 1px solid var(--line); }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  background: #00243b;
+}
+
+.titolo { font-weight: 700; }
+.ident { color: var(--muted); }
+
+.messaggi {
+  padding: 6px 10px;
+  overflow: hidden;
+}
+
+.messaggi-pre {
+  margin: 0;
+  white-space: pre;
+  overflow: hidden;
+  font-size: 11px;
+  line-height: 1.15;
+}
+
+.campi,
+.dettagli,
+.diagnostica {
+  padding: 6px 10px;
+  overflow: hidden;
+}
+
+.campi-edit {
+  margin-top: 4px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tx2-field-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+}
+
+.tx2-field {
+  width: 140px;
+  background: #001627;
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 2px 4px;
+  font-family: var(--font);
+  font-size: 10px;
+}
+
+.griglia,
+.lista,
+.diag-pre {
+  margin: 0;
+  height: 100%;
+  white-space: pre;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #001627;
+  padding: 6px;
+  font-size: 11px;
+  line-height: 1.15;
+}
+
+.diagnostica {
+  display: grid;
+  grid-template-rows: 16px 1fr 16px 1fr;
+  gap: 4px;
+}
+
+.diag-head {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.pfbar {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  padding: 8px 10px;
+  border-top: 1px solid var(--line);
+  background: #00243b;
+}
+
+.pfbar button {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: #001627;
+  color: var(--text);
+  padding: 6px;
+  font-family: var(--font);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.pfbar button[data-pf="PF6"] { border-color: var(--ok); }
+.pfbar button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+@media (max-width: 1024px) {
+  .screen { grid-template-rows: 44px 30px 128px 1fr 140px 84px; }
+  .pfbar { grid-template-columns: 1fr 1fr; }
+}

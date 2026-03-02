@@ -1,0 +1,40 @@
+modulo: DB
+pagina_menu: db-menu.html
+titolo: MODULO DATABASE
+txid: TX2-DB-STEP1
+messaggio: Selezionare operazione DB.
+next: db-review.html
+review: N
+fields:
+  - nome: IN-TIPO-OPERAZIONE
+    etichetta: "TIPO OPERAZIONE"
+    pic: "X(20)"
+    riga: 6
+    colonna: 24
+    lunghezza: 20
+    attributo: MODIFICABILE
+    colore: G
+    origine: IN
+  - nome: IN-ENTITA-DATI
+    etichetta: "ENTITA DATI"
+    pic: "X(16)"
+    riga: 7
+    colonna: 24
+    lunghezza: 16
+    attributo: MODIFICABILE
+    colore: G
+    origine: IN
+  - nome: OUT-MSG-ESITO
+    etichetta: "MESSAGGIO"
+    pic: "X(120)"
+    riga: 3
+    colonna: 1
+    lunghezza: 72
+    attributo: OUTPUT
+    colore: Y
+    origine: OUT
+details:
+  - "REFRESH COMPLETO -> db-review.html"
+  - "CRUD -> db-review.html"
+  - "STATISTICHE -> db-review.html"
+  - "GRAFICO E/R DEL PROGETTO -> db-er.html"
