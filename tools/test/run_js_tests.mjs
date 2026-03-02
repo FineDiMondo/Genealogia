@@ -1,8 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { JSDOM } from 'jsdom';
+import { fileURLToPath } from 'node:url';
 
-const root = process.cwd();
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const root = path.resolve(scriptDir, '..', '..');
 const srcScripts = [
   'src/copybook/copybook_parser.js',
   'src/copybook/record_parser.js',

@@ -26,7 +26,7 @@
 - [ ] Invalid command returns orienting suggestion
 
 ### Tests & CI
-- [ ] Local `npm run test:all` passes
+- [ ] Local Python test suite passes
 - [ ] CI passes on Linux and Windows
 - [ ] Regression tests added for fixed P0/P1 bugs
 

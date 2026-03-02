@@ -258,7 +258,7 @@ def test_migration_003():
 - [ ] SHA256_HASH della migrazione documentato
 - [ ] Test positivi/negativi su vincoli
 - [ ] schema_version aggiornata
-- [ ] `npm run test:db:migration` passa
+- [ ] `python tools/test/test_db_migration.py` passa
 - [ ] Nessun conflitto di schema con altre PR aperte
 
 ---
@@ -334,7 +334,7 @@ cd Genealogia
 .\cobol\build.ps1
 
 # 4. Test
-npm run test:all
+python tests/agents/test_shell_runner_smoke.py
 ```
 
 ### Development cycle
@@ -347,7 +347,7 @@ git checkout -b feature/NEWCMD
 # 3. Testa localmente
 .\cobol\build.ps1
 .\cobol\test.ps1
-npm run test:all
+python tests/agents/test_shell_runner_smoke.py
 
 # 4. Commit
 git add .
@@ -374,10 +374,12 @@ git push origin feature/NEWCMD
 ### GitHub Pages (frontend)
 
 ```powershell
-# Build WebAssembly
-.\engine_scummlike_web\build_web.cmd
+# Prepare static 370 output (batch pipeline)
+python mvs/proc/GENVAL00.py
+python mvs/proc/GENGED01.py
+python mvs/proc/GENRPT00.py
 
-# ci/workflows/pages.yml esegue automaticamente
+# .github/workflows/pages-static.yml esegue automaticamente
 ```
 
 ### COBOL CLI (Windows batch)
@@ -393,8 +395,6 @@ git push origin feature/NEWCMD
 Eseguire manualmente se necessario:
 ```powershell
 python tools/test/test_db_migration.py
-# Oppure:
-npm run test:db:migration
 ```
 
 ---
@@ -419,7 +419,7 @@ $env:Path = "C:\msys64\ucrt64\bin;$env:Path"
 
 ```powershell
 # Assicura che:
-1. npm run test:all passi localmente
+1. python tests/agents/test_shell_runner_smoke.py passi localmente
 2. Nessun TODO nel codice consegnato
 3. DoD checklist sia 100%
 4. Almeno un reviewer approvi

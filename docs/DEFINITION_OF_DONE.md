@@ -30,7 +30,7 @@ Data: 2026-03-02
 - Navigazione tastiera base (PF keys/frecce history) funzionante.
 
 ## 5) Test e CI
-- `npm run test:all` verde in locale.
+- Suite Python locale verde (schema + agent + shell runner smoke).
 - CI verde su Linux e Windows.
 - Suite include: test schema, trigger, agent integration, comandi shell core.
 - Ogni bug P0/P1 noto ha test di regressione associato.

@@ -3,11 +3,12 @@ $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $targets = @(
   (Join-Path $repoRoot "mvs"),
-  (Join-Path $repoRoot "engine_scummlike_web\\dist")
+  (Join-Path $repoRoot "PORTALE_GN"),
+  (Join-Path $repoRoot "out\\current\\site")
 ) | Where-Object { Test-Path $_ }
 
 if ($targets.Count -eq 0) {
-  Write-Output "WARN: no html/js files found in mvs/ or engine_scummlike_web/dist/"
+  Write-Output "WARN: no html/js files found in mvs/, PORTALE_GN/ or out/current/site/"
   exit 1
 }
 

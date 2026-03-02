@@ -38,8 +38,14 @@ jobs:
             cp -R out/current/site/. _pages_root/
             echo "DEPLOY_SOURCE=out/current/site" >> $GITHUB_ENV
           else
-            echo "Neither PORTALE_GN/ nor out/current/site/ exists"
-            exit 1
+            mkdir -p out/current/site
+            cp index.html out/current/site/index.html
+            if [ -d "assets" ]; then cp -R assets out/current/site/assets; fi
+            if [ -d "src" ]; then cp -R src out/current/site/src; fi
+            if [ -f "version.json" ]; then cp version.json out/current/site/version.json; fi
+            if [ -f "service-worker.js" ]; then cp service-worker.js out/current/site/service-worker.js; fi
+            cp -R out/current/site/. _pages_root/
+            echo "DEPLOY_SOURCE=out/current/site (generated fallback)" >> $GITHUB_ENV
           fi
 
       - name: Setup Pages
