@@ -27,6 +27,14 @@ pip install -r requirements.txt
 pytest -q
 ```
 
+## Directory I/O integrata
+
+- `data/incoming`: GEDCOM in ingresso (`*.ged`)
+- `data/normalized`: GEDCOM normalizzati + `_audit.json` + `_status.json`
+- `data/gestionale/pending`: batch JSON in attesa revisione
+- `data/gestionale/responses`: risposte approvazione/reiezione
+- `data/gestionale/archive`: file processati archiviati
+
 ## Esecuzione
 
 CLI demo:
@@ -50,7 +58,29 @@ python -m src.web.app
 Daemon:
 
 ```bash
-python -m src.daemon.monitor --incoming data/incoming --output data/normalized
+python -m src.daemon.monitor --incoming data/incoming --normalized data/normalized
+```
+
+Pipeline completa (fase 7-8):
+
+```bash
+# 1) avvia daemon dual-monitor
+python -m src.daemon.monitor \
+  --incoming data/incoming \
+  --normalized data/normalized \
+  --gest-pending data/gestionale/pending \
+  --gest-responses data/gestionale/responses \
+  --gest-archive data/gestionale/archive
+
+# 2) in un altro terminale esegui benchmark
+python scripts/benchmark.py
+```
+
+## Docker
+
+```bash
+cp .env.example .env
+docker compose up --build
 ```
 
 ## Struttura
@@ -63,4 +93,5 @@ python -m src.daemon.monitor --incoming data/incoming --output data/normalized
 - `src/daemon`: monitor cartelle
 - `src/exporters`: export JSON/GEDCOM
 - `tests`: test automatici base
-
+- `config/production.yaml`: configurazione produzione
+- `docs/`: guide operative (installazione/API/CLI/daemon/troubleshooting/data flow)

@@ -1,13 +1,19 @@
 from __future__ import annotations
 
+from datetime import datetime
+
 from fastapi import APIRouter
 
 from ..agent.normalization_engine import DataNormalizationEngine
+from ..integrations.gestionale_integration import GestionaleIntegration
+from ..integrations.giardina_integration import GiardinaIntegration
 from ..rules.duplicate_detection import DuplicateDetector
 from .schemas import BatchIn, PersonIn
 
 router = APIRouter()
 engine = DataNormalizationEngine()
+giardina = GiardinaIntegration()
+gestionale = GestionaleIntegration()
 
 
 @router.get("/health")
@@ -33,3 +39,23 @@ async def duplicates(payload: BatchIn) -> dict:
     records = [r.model_dump() for r in payload.records]
     return {"duplicates": DuplicateDetector.detect(records)}
 
+
+@router.post("/integrations/giardina/process")
+async def process_gedcom(filename: str) -> dict:
+    return giardina.process_incoming_gedcom(filename)
+
+
+@router.post("/integrations/gestionale/export")
+async def export_gestionale(payload: BatchIn, job_id: str | None = None) -> dict:
+    records = [await engine.normalize_record(r.model_dump(), source=payload.source) for r in payload.records]
+    auto_approved = [p for p in records if not p.flagged_for_review]
+    flagged = [p for p in records if p.flagged_for_review]
+    resolved_job_id = job_id or f"JOB-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+    gestionale.export_to_gestionale(resolved_job_id, records, auto_approved, flagged)
+    return {
+        "job_id": resolved_job_id,
+        "total_records": len(records),
+        "auto_approved_count": len(auto_approved),
+        "flagged_count": len(flagged),
+        "pending_file": f"{resolved_job_id}.json",
+    }

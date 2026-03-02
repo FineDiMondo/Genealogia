@@ -10,6 +10,7 @@ import click
 from ..agent.normalization_engine import DataNormalizationEngine
 from ..exporters.gedcom_exporter import export_minimal_gedcom
 from ..exporters.json_exporter import export_json
+from ..integrations.giardina_integration import GiardinaIntegration
 from ..rules.duplicate_detection import DuplicateDetector
 
 
@@ -64,6 +65,43 @@ def export_data(input_file: str, fmt: str, output: str) -> None:
     else:
         export_minimal_gedcom(records, output)
     click.echo(f"written: {output}")
+
+
+@cli.command("process-gedcom")
+@click.argument("filename")
+@click.option("--incoming-dir", default="data/incoming")
+@click.option("--output-dir", default="data/normalized")
+def process_gedcom(filename: str, incoming_dir: str, output_dir: str) -> None:
+    integration = GiardinaIntegration({"input_dir": incoming_dir, "output_dir": output_dir, "audit_dir": output_dir, "status_dir": output_dir})
+    status = integration.process_incoming_gedcom(filename)
+    click.echo(json.dumps(status, ensure_ascii=False, indent=2))
+
+
+@cli.command("export-gestionale")
+@click.argument("input_file", type=click.Path(exists=True))
+@click.option("--job-id", required=True)
+@click.option("--pending-dir", default="data/gestionale/pending")
+def export_gestionale(input_file: str, job_id: str, pending_dir: str) -> None:
+    payload = json.loads(Path(input_file).read_text(encoding="utf-8"))
+    records = payload.get("normalized", payload)
+    # Keep this deterministic and file-based.
+    out_path = Path(pending_dir)
+    out_path.mkdir(parents=True, exist_ok=True)
+    file_path = out_path / f"{job_id}.json"
+    file_path.write_text(
+        json.dumps(
+            {
+                "job_id": job_id,
+                "timestamp": __import__("datetime").datetime.now().isoformat(),
+                "total_records": len(records) if isinstance(records, list) else 1,
+                "records": records if isinstance(records, list) else [records],
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    click.echo(f"written: {file_path}")
 
 
 if __name__ == "__main__":
