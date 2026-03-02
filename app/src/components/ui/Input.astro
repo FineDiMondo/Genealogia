@@ -1,0 +1,85 @@
+---
+interface Props {
+  label?: string;
+  type?: string;
+  placeholder?: string;
+  value?: string;
+  disabled?: boolean;
+  required?: boolean;
+  hint?: string;
+  class?: string;
+}
+
+const {
+  label,
+  type = "text",
+  placeholder,
+  disabled = false,
+  hint,
+  class: className = "",
+  ...rest
+} = Astro.props;
+---
+
+<div class="form-group">
+  {label && <label class="form-label">{label}</label>}
+  <input
+    type={type}
+    class={`form-input ${className}`}
+    placeholder={placeholder}
+    disabled={disabled}
+    {...rest}
+  />
+  {hint && <div class="form-hint">{hint}</div>}
+</div>
+
+<style>
+  .form-group {
+    margin-bottom: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .form-label {
+    font-family: var(--font-display);
+    font-size: var(--fs-small);
+    color: var(--crt-green);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  .form-input {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--crt-green);
+    background: var(--crt-black);
+    color: var(--crt-green);
+    transition: all var(--transition-fast);
+  }
+
+  .form-input::placeholder {
+    color: var(--crt-dim-green);
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--crt-amber);
+    box-shadow: 0 0 6px rgba(255, 170, 0, 0.3);
+    color: var(--crt-amber);
+  }
+
+  .form-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .form-hint {
+    font-size: var(--fs-small);
+    color: var(--crt-white);
+    opacity: 0.7;
+  }
+</style>
+

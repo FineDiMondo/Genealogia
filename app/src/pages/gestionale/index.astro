@@ -1,0 +1,26 @@
+---
+import GestionalLayout from "../../layouts/GestionalLayout.astro";
+import Navigation from "../../components/Navigation.astro";
+import DashboardKPI from "../../components/gestionale/DashboardKPI.astro";
+import Panel from "../../components/ui/Panel.astro";
+---
+
+<GestionalLayout title="Gestionale Dashboard">
+  <Navigation currentEnv="PROD" />
+  <main class="section" style="padding: var(--space-xl);">
+    <h1 class="glow">Dashboard Gestionale</h1>
+    <p style="margin: var(--space-sm) 0 var(--space-lg) 0;">
+      Panoramica runtime dati pubblicati in <code>/data/current</code>.
+    </p>
+    <DashboardKPI />
+    <Panel title="Pipeline Stato" status="INFO">
+      <p>Flusso attivo: GEDCOM -> GIARDINA -> out/current -> PWA.</p>
+    </Panel>
+  </main>
+  <script type="module">
+    import "../../js/gestionale.js";
+  </script>
+  <script>
+    document.body.dataset.page = "gestionale-dashboard";
+  </script>
+</GestionalLayout>

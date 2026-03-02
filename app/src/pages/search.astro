@@ -1,0 +1,17 @@
+---
+import GestionalLayout from "../layouts/GestionalLayout.astro";
+import Panel from "../components/ui/Panel.astro";
+import Button from "../components/ui/Button.astro";
+---
+
+<GestionalLayout title="Search Redirect">
+  <main class="section" style="padding: var(--space-xl);">
+    <Panel title="Search Route Updated" status="INFO">
+      <p>La ricerca principale è stata spostata su <code>/gestionale/search</code>.</p>
+      <div style="margin-top: var(--space-md);">
+        <Button href="/gestionale/search">Apri Ricerca Gestionale</Button>
+      </div>
+    </Panel>
+  </main>
+</GestionalLayout>
+

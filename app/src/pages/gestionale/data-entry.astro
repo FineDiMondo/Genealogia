@@ -1,0 +1,25 @@
+---
+import GestionalLayout from "../../layouts/GestionalLayout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Panel from "../../components/ui/Panel.astro";
+import Input from "../../components/ui/Input.astro";
+import Button from "../../components/ui/Button.astro";
+---
+
+<GestionalLayout title="Data Entry">
+  <Navigation currentEnv="PROD" />
+  <main class="section" style="padding: var(--space-xl);">
+    <h1>Data Entry</h1>
+    <Panel title="Nuova Persona" status="SCHEMA">
+      <Input label="ID" placeholder="P000123" />
+      <Input label="Nome Completo" placeholder="Nome Cognome" />
+      <Input label="Data Nascita" type="date" />
+      <Input label="Famiglia" placeholder="F000045" />
+      <div style="display:flex; gap: var(--space-md);">
+        <Button variant="primary">Salva (TODO)</Button>
+        <Button variant="secondary">Reset</Button>
+      </div>
+    </Panel>
+  </main>
+</GestionalLayout>
+

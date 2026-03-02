@@ -1,0 +1,16 @@
+.section {
+  padding: var(--space-lg);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--grid-gap);
+}
+
+.card {
+  border: 1px solid var(--crt-green);
+  background: rgba(0, 51, 0, 0.35);
+  padding: var(--space-md);
+}
+

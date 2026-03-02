@@ -1,0 +1,22 @@
+---
+import GestionalLayout from "../layouts/GestionalLayout.astro";
+import Navigation from "../components/Navigation.astro";
+import Panel from "../components/ui/Panel.astro";
+import Button from "../components/ui/Button.astro";
+---
+
+<GestionalLayout title="Portale Giardina">
+  <Navigation currentEnv="PROD" />
+  <main class="section" style="padding: var(--space-xl);">
+    <h1 class="glow">Portale Giardina - 370 Style</h1>
+    <Panel title="Accesso Gestionale" status="READY">
+      <p>Interfaccia operativa collegata ai file statici in <code>/data/current</code>.</p>
+      <div style="display:flex; gap: var(--space-md); margin-top: var(--space-md); flex-wrap: wrap;">
+        <Button href="/gestionale/">Dashboard</Button>
+        <Button href="/gestionale/search" variant="secondary">Ricerca</Button>
+        <Button href="/component-library" variant="secondary">Component Library</Button>
+      </div>
+    </Panel>
+  </main>
+</GestionalLayout>
+
