@@ -61,3 +61,8 @@ python tests/agents/test_shell_runner_smoke.py
 - Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
 - Runbook operativo: [docs/RUNBOOK.md](docs/RUNBOOK.md)
 - Changelog: [CHANGELOG.md](CHANGELOG.md)
+- Mockup 24x80: [docs/GN370_24x80_MOCKUP.md](docs/GN370_24x80_MOCKUP.md)
+- Analisi funzionale: [docs/ANALISI_FUNZIONALE_GN370.md](docs/ANALISI_FUNZIONALE_GN370.md)
+- Analisi tecnica: [docs/ANALISI_TECNICA_GN370.md](docs/ANALISI_TECNICA_GN370.md)
+- Piano test: [docs/PIANO_TEST_GN370.md](docs/PIANO_TEST_GN370.md)
+- Piano rilascio: [docs/PIANO_RILASCIO_GN370.md](docs/PIANO_RILASCIO_GN370.md)
