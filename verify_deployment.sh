@@ -31,16 +31,12 @@ else
   ko "index.html mancante in root statica"
 fi
 
-if command -v curl >/dev/null 2>&1; then
-  if [[ -f "$STATIC_ROOT/index.html" ]]; then
-    if curl -s "file://$STATIC_ROOT/index.html" | grep -qi "GN370\|COMMAND ===>\|SIG-GN\|IBM SYSTEM/370"; then
-      ok "homepage riconosciuta come shell 370"
-    else
-      ko "homepage non riconosciuta come shell 370"
-    fi
+if [[ -f "$STATIC_ROOT/index.html" ]]; then
+  if grep -qi "GN370\|COMMAND ===\|SIG-GN\|IBM SYSTEM/370" "$STATIC_ROOT/index.html"; then
+    ok "homepage riconosciuta come shell 370"
+  else
+    ko "homepage non riconosciuta come shell 370"
   fi
-else
-  warn "curl non disponibile: check homepage via curl saltato"
 fi
 
 section "Version metadata"
@@ -51,7 +47,7 @@ else
 fi
 
 section "No legacy web-runtime refs"
-if grep -RIn --exclude-dir=.git --exclude-dir=legacy --exclude-dir=node_modules "legacy/app_\|legacy/web_manifest_\|/dist/" "$ROOT_DIR" >/tmp/genealogia_deploy_refs.log 2>/dev/null; then
+if grep -RIn --exclude=verify_deployment.sh --exclude-dir=.git --exclude-dir=legacy --exclude-dir=node_modules "legacy/app_\|legacy/web_manifest_\|app/public/data/current\|manifest.webmanifest\|pages-astro" "$ROOT_DIR" >/tmp/genealogia_deploy_refs.log 2>/dev/null; then
   warn "Riferimenti a runtime web legacy trovati fuori da legacy/ (vedi /tmp/genealogia_deploy_refs.log)"
 else
   ok "Nessun riferimento attivo a runtime web legacy"

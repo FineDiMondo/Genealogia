@@ -15,8 +15,7 @@ self.addEventListener('install', (event) => {
       './src/copybook/copybook_parser.js',
       './src/copybook/record_parser.js',
       './src/copybook/record_renderer_370.js',
-      './version.json',
-      './manifest.webmanifest'
+      './version.json'
     ]);
     self.skipWaiting();
   })());
