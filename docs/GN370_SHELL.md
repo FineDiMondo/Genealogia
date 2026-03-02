@@ -6,13 +6,24 @@ Shell 370 unica per consultazione genealogica su GitHub Pages.
 - `help` / `h`: mostra help comandi.
 - `menu` / `m`: stampa menu operativo.
 - `back` / `b`: ripristina stato precedente da stack.
-- `refresh` / `r`: riesegue ultimo comando.
+- `refresh` / `r`: invalida cache fetch locale e ricarica dati su chiamata successiva.
 - `feed [last N] [/type T] [/since YYYY-MM-DD] [/entity person|family|story] [/id ID]`.
 - `story list`: elenco storie disponibili.
 - `story open <storyId>`: apre contesto storia.
 - `story play <storyId>`: riproduce transcript .story.
 - `open person <id>`: apre scheda persona (JSON).
 - `open xref <@I123@>`: apre persona tramite xref GEDCOM.
+- `open rec <TYPE> <ID>`: apre record fixed-length da `data/current/records`.
+- `show copy <TYPE>`: mostra struttura copybook con offset/lunghezze.
+- `validate rec <TYPE> <ID>`: valida lunghezza e campi numerici.
+- `job run IMPORT_RECORDS`: esegue pipeline browser-side con progress bar retro.
+- `job status`: stato job corrente/ultimo.
+- `job log --tail 50`: coda log operazioni job.
+- `db status`: stato DB locale (meta + counts).
+- `db backup [tag]`: backup sicuro (web: istruzioni offline).
+- `db reset [--keep-backup]`: reset store con backup pre-operazione.
+- `db rebuild`: rebuild con backup pre-operazione.
+- `db restore <backup_file>`: restore da backup zip.
 - `rm help`: guida operativa RootsMagic bridge.
 - `rm import`: istruzioni batch offline (in browser non esegue processi).
 - `show card`: stampa dettagli oggetto corrente.
@@ -26,6 +37,13 @@ Shell 370 unica per consultazione genealogica su GitHub Pages.
 - `story play SAMPLE`
 - `open person P0000001`
 - `open xref @I1@`
+- `open rec PERSON P#SAMPLE001`
+- `show copy PERSON`
+- `validate rec EVENT E#SAMPLE001`
+- `job run IMPORT_RECORDS`
+- `job log --tail 30`
+- `db status`
+- `db backup pre_release`
 - `rm help`
 
 ## PF Keys
