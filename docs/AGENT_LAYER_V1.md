@@ -57,3 +57,19 @@ Test:
   - pipeline parse->norm su GEDCOM valido
   - errore sintattico parse con linea
   - conflitto dedup su nomi ambigui
+
+## Fase 4c (implementazione iniziale agent)
+Moduli:
+- `tools/agents/valid_agent.py`
+- `tools/agents/expl_agent.py`
+
+Scope 4c:
+- `VALID_AGT`: controllo cicli genealogici (DFS), range biologici, spacing fratelli.
+- `EXPL_AGT`: cattura eventi cross-topic e risposta `EXPLAIN` con traccia dipendenze.
+- Nessuna write DB diretta dagli agent.
+
+Test:
+- `tests/agents/test_valid_expl_agents.py`
+  - rilevazione ciclo genealogico
+  - rilevazione anomalia biologica
+  - explain last con dependency trace
