@@ -1,11 +1,11 @@
 import { defineConfig } from "astro/config";
-import { VitePWA } from "@vite-pwa/astro";
+import AstroPWA from "@vite-pwa/astro";
 
 export default defineConfig({
   output: "static",
   outDir: "./dist",
   integrations: [
-    VitePWA({
+    AstroPWA({
       registerType: "autoUpdate",
       includeAssets: ["pwa-192.png", "pwa-512.png"],
       manifest: {
