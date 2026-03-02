@@ -1,0 +1,45 @@
+---
+import GestionalLayout from "../../layouts/GestionalLayout.astro";
+import Navigation from "../../components/Navigation.astro";
+import Panel from "../../components/ui/Panel.astro";
+---
+
+<GestionalLayout title="Deploy and Cache Guide">
+  <Navigation currentEnv="PROD" />
+
+  <main class="section" style="padding: var(--space-xl); display: grid; gap: var(--space-md);">
+    <Panel title="Aggiornamento Cache PWA" status="OPS">
+      <ol style="margin: 0; padding-left: 1.2rem; line-height: 1.7;">
+        <li>Apri <a href="https://finedimondo.github.io/Genealogia/" target="_blank" rel="noreferrer">https://finedimondo.github.io/Genealogia/</a></li>
+        <li>Premi <strong>Ctrl+F5</strong> (hard refresh)</li>
+        <li>DevTools - Application - Service Workers - <strong>Unregister</strong></li>
+        <li>DevTools - Application - Clear storage - <strong>Clear site data</strong></li>
+        <li>Ricarica la pagina</li>
+      </ol>
+    </Panel>
+
+    <Panel title="Controllo Deploy" status="CI">
+      <ul style="margin: 0; padding-left: 1.2rem; line-height: 1.7;">
+        <li>
+          Actions:
+          <a href="https://github.com/FineDiMondo/Genealogia/actions" target="_blank" rel="noreferrer">
+            https://github.com/FineDiMondo/Genealogia/actions
+          </a>
+        </li>
+        <li>
+          Sito live:
+          <a href="https://finedimondo.github.io/Genealogia/" target="_blank" rel="noreferrer">
+            https://finedimondo.github.io/Genealogia/
+          </a>
+        </li>
+      </ul>
+    </Panel>
+
+    <Panel title="Esito Atteso" status="OK">
+      <p style="margin: 0;">
+        Dopo refresh e pulizia cache, la home deve caricare con tema terminale GN:
+        sfondo scuro, testo verde monospace e layout coerente su <code>/</code> e <code>/gestionale/</code>.
+      </p>
+    </Panel>
+  </main>
+</GestionalLayout>
