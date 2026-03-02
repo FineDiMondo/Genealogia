@@ -1,0 +1,6 @@
+﻿# GN370 generated artifacts
+node_modules/
+playwright-report/
+test-results/
+.nyc_output/
+coverage/

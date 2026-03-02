@@ -1,0 +1,58 @@
+﻿:root {
+  --bg: #090909;
+  --fg: #d7d7d7;
+  --accent: #1fa067;
+  --warn: #ffd54f;
+  --error: #ff6b6b;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "IBM Plex Mono", "Cascadia Mono", "Consolas", monospace;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.terminal-screen {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.terminal-header, .terminal-footer {
+  padding: 8px 12px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.terminal-footer { border-top: 1px solid #2a2a2a; border-bottom: 0; display: flex; gap: 8px; }
+
+.terminal-body {
+  overflow: hidden;
+  padding: 12px;
+}
+
+#gn370-output {
+  margin: 0;
+  white-space: pre-wrap;
+  height: 100%;
+  overflow: auto;
+}
+
+#gn370-input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--accent);
+  color: var(--fg);
+  outline: none;
+}
+
+.status { color: var(--accent); }
+.line-error { color: var(--error); }
+.line-warn { color: var(--warn); }
+.line-ok { color: var(--accent); }

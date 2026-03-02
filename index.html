@@ -1,0 +1,80 @@
+﻿<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GN370 Shell</title>
+  <link rel="stylesheet" href="assets/css/terminal.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <link rel="stylesheet" href="assets/css/themes/terminal.css" id="gn370-theme-style">
+  <script>
+    (function () {
+      "use strict";
+      var DATA_REGEX = /(\/tables\/|\.table($|\?)|\/data\/current\/|\/records\/)/i;
+      window.__GN370_DB_STATUS = "EMPTY";
+      window.__GN370_CTX = {
+        openedRecord: null,
+        openedFamily: null,
+        activeStory: null,
+        activeTheme: null
+      };
+      window.__GN370_BOOT_FETCH_COUNT = 0;
+      var nativeFetch = window.fetch.bind(window);
+      window.fetch = function (input, init) {
+        var url = typeof input === "string" ? input : (input && input.url ? input.url : "");
+        if (window.__GN370_DB_STATUS !== "READY" && DATA_REGEX.test(url)) {
+          var err = new Error("GATE_VIOLATION: DB NOT READY for " + url);
+          err.exitCode = 2;
+          return Promise.reject(err);
+        }
+        if (DATA_REGEX.test(url)) {
+          window.__GN370_BOOT_FETCH_COUNT += 1;
+        }
+        return nativeFetch(input, init);
+      };
+    }());
+  </script>
+</head>
+<body>
+  <main id="gn370-app" class="terminal-screen">
+    <header class="terminal-header">
+      <div id="gn370-title">GN370 Genealogy Navigation System</div>
+      <div id="gn370-status" class="status">DB: EMPTY</div>
+    </header>
+    <section id="gn370-terminal" class="terminal-body">
+      <pre id="gn370-output"></pre>
+    </section>
+    <footer class="terminal-footer">
+      <span id="gn370-prompt">GN370$ </span>
+      <input id="gn370-input" autocomplete="off" spellcheck="false" aria-label="command input">
+    </footer>
+  </main>
+
+  <script src="assets/vendor/jszip.min.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/state.js"></script>
+  <script src="assets/js/journal.js"></script>
+  <script src="assets/js/validate.js"></script>
+  <script src="assets/js/db.js"></script>
+  <script src="assets/js/import/gedcom.js"></script>
+  <script src="assets/js/import/csv-herald.js"></script>
+  <script src="assets/js/import/xml-notarial.js"></script>
+  <script src="assets/js/import/json-nobility.js"></script>
+  <script src="assets/js/svg/tree.js"></script>
+  <script src="assets/js/svg/herald.js"></script>
+  <script src="assets/js/svg/map.js"></script>
+  <script src="assets/js/svg/timeline.js"></script>
+  <script src="assets/js/svg/seal.js"></script>
+  <script src="assets/js/herald.js"></script>
+  <script src="assets/js/render.js"></script>
+  <script src="assets/js/monitor.js"></script>
+  <script src="assets/js/man.js"></script>
+  <script src="assets/js/router.js"></script>
+  <script src="assets/js/boot.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js").catch(function () {});
+    }
+  </script>
+</body>
+</html>

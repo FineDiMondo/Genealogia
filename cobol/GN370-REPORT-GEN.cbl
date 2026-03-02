@@ -1,0 +1,9 @@
+﻿       IDENTIFICATION DIVISION.
+       PROGRAM-ID. GN370-REPORT-GEN.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 WS-MSG                   PIC X(80).
+       PROCEDURE DIVISION.
+           MOVE "GN370 REPORT GEN STUB" TO WS-MSG.
+           DISPLAY WS-MSG.
+           GOBACK.
