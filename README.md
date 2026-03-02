@@ -220,6 +220,7 @@ Esecuzione:
 - `launcher/build/Release/GNLauncher.exe`
 
 Il launcher deve trovare `launcher.ini` e `assets/DejaVuSansMono.ttf` accanto al binario.
+Se `audio.enabled=0` in `launcher.ini`, l'audio retro viene disabilitato.
 
 Materiale e implementazione base del modulo di normalizzazione dati:
 

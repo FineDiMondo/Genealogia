@@ -16,6 +16,7 @@ add_executable(GNLauncher
   gn_log.c
   gn_session.c
   gn_menu.c
+  gn_audio.c
   gn_ui.c
 )
 

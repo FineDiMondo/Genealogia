@@ -8,6 +8,7 @@
 #include "gn_log.h"
 #include "gn_session.h"
 #include "gn_menu.h"
+#include "gn_audio.h"
 #include "gn_ui.h"
 
 static int set_env_kv(const char* key, const char* value) {
@@ -48,8 +49,17 @@ int main(int argc, char** argv) {
     const char* runtime_dir = gn_ini_get(&ini, "paths", "runtime_dir", "../runtime");
     const char* font_path = gn_ini_get(&ini, "assets", "font", "assets/DejaVuSansMono.ttf");
     int font_size = gn_ini_get_int(&ini, "assets", "font_size", 18);
+    int audio_enabled = gn_ini_get_int(&ini, "audio", "enabled", 1);
+    int audio_bits = gn_ini_get_int(&ini, "audio", "bits", 16);
+    int audio_rate = gn_ini_get_int(&ini, "audio", "rate", 22050);
+    int audio_channels = gn_ini_get_int(&ini, "audio", "channels", 1);
+    float audio_volume = (float)atof(gn_ini_get(&ini, "audio", "volume", "0.25"));
+    int audio_crunch = gn_ini_get_int(&ini, "audio", "crunch", 1);
+    int audio_levels = gn_ini_get_int(&ini, "audio", "crunch_levels", 16);
+    float audio_noise = (float)atof(gn_ini_get(&ini, "audio", "noise", "0.02"));
+    int audio_jingle = gn_ini_get_int(&ini, "audio", "jingle", 1);
 
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER | SDL_INIT_EVENTS) != 0) {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER | SDL_INIT_EVENTS | SDL_INIT_AUDIO) != 0) {
         printf("SDL_Init failed: %s\n", SDL_GetError());
         gn_ini_free(&ini);
         return 3;
@@ -78,6 +88,13 @@ int main(int argc, char** argv) {
         return 3;
     }
 
+    GNAudio audio;
+    if (!gn_audio_init(&audio, audio_enabled, audio_bits, audio_rate, audio_channels, audio_volume,
+                       audio_crunch, audio_levels, audio_noise, audio_jingle)) {
+        printf("ERROR: audio init failed (enabled=%d bits=%d rate=%d channels=%d)\n",
+               audio_enabled, audio_bits, audio_rate, audio_channels);
+    }
+
     GNMenu menu;
     gn_menu_init(&menu);
     if (!gn_menu_load_from_ini(&menu, &ini)) {
@@ -102,25 +119,48 @@ int main(int argc, char** argv) {
 
             if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
-                    case SDLK_UP: gn_menu_move(&menu, -1); break;
-                    case SDLK_DOWN: gn_menu_move(&menu, +1); break;
-                    case SDLK_RETURN: gn_menu_activate(&menu); break;
-                    case SDLK_ESCAPE: running = 0; break;
+                    case SDLK_UP:
+                        gn_menu_move(&menu, -1);
+                        gn_audio_play_move(&audio);
+                        break;
+                    case SDLK_DOWN:
+                        gn_menu_move(&menu, +1);
+                        gn_audio_play_move(&audio);
+                        break;
+                    case SDLK_RETURN:
+                        gn_menu_activate(&menu);
+                        gn_audio_play_select(&audio);
+                        break;
+                    case SDLK_ESCAPE:
+                        gn_audio_play_cancel(&audio);
+                        running = 0;
+                        break;
                     default: break;
                 }
             }
 
             if (e.type == SDL_CONTROLLERBUTTONDOWN) {
                 switch (e.cbutton.button) {
-                    case SDL_CONTROLLER_BUTTON_DPAD_UP: gn_menu_move(&menu, -1); break;
-                    case SDL_CONTROLLER_BUTTON_DPAD_DOWN: gn_menu_move(&menu, +1); break;
-                    case SDL_CONTROLLER_BUTTON_A: gn_menu_activate(&menu); break;
+                    case SDL_CONTROLLER_BUTTON_DPAD_UP:
+                        gn_menu_move(&menu, -1);
+                        gn_audio_play_move(&audio);
+                        break;
+                    case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
+                        gn_menu_move(&menu, +1);
+                        gn_audio_play_move(&audio);
+                        break;
+                    case SDL_CONTROLLER_BUTTON_A:
+                        gn_menu_activate(&menu);
+                        gn_audio_play_select(&audio);
+                        break;
                     case SDL_CONTROLLER_BUTTON_START:
                         // set action directly by injecting pending_action
                         snprintf(menu.pending_action, sizeof(menu.pending_action), "full_pipeline");
+                        gn_audio_play_start(&audio);
                         break;
                     case SDL_CONTROLLER_BUTTON_B:
                         // optional back behavior; keep as no-op now
+                        gn_audio_play_cancel(&audio);
                         break;
                     default: break;
                 }
@@ -130,6 +170,7 @@ int main(int argc, char** argv) {
         const char* action = gn_menu_consume_action(&menu);
         if (action && action[0]) {
             if (strcmp(action, "exit") == 0) {
+                gn_audio_play_cancel(&audio);
                 running = 0;
             } else if (strcmp(action, "session_open") == 0) {
                 ensure_session(&session, runtime_dir, repo_root);
@@ -153,6 +194,7 @@ int main(int argc, char** argv) {
                 else gn_log_appendf(session.log_path, "WARN missing command: %s\n", key);
             } else {
                 if (gn_session_is_open(&session)) gn_log_appendf(session.log_path, "WARN unknown action: %s\n", action);
+                gn_audio_play_cancel(&audio);
             }
         }
 
@@ -162,6 +204,7 @@ int main(int argc, char** argv) {
 
     gn_session_close(&session);
     gn_menu_free(&menu);
+    gn_audio_shutdown(&audio);
     gn_ui_shutdown(&ui);
 
     if (pad) SDL_GameControllerClose(pad);
