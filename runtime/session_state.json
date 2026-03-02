@@ -1,0 +1,23 @@
+﻿{
+  "context": {
+    "entityType": "person",
+    "entityId": "GN-I1"
+  },
+  "lastCommand": "open person GN-I1",
+  "outputLines": [
+    "(OK) GN370 SHELL READY",
+    "(OK) PERSON OPENED GN-I1"
+  ],
+  "suggestions": [
+    "show card :: persona corrente",
+    "feed /entity person /id GN-I1 :: feed filtrato",
+    "explain :: traccia algoritmo"
+  ],
+  "techBanner": {
+    "ontology": "ENTITY LOOKUP",
+    "algorithm": "ID Match + Fallback",
+    "tech": "GN370 WEB SHELL",
+    "agent": "NORM_AGT",
+    "source": "PERSON NDJSON"
+  }
+}

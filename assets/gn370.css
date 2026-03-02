@@ -33,6 +33,14 @@ html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); fon
   padding: 0.45rem 0.65rem;
 }
 
+#tech-banner {
+  margin-top: 0.3rem;
+  padding-top: 0.3rem;
+  border-top: 1px dashed var(--line);
+  color: #9dff9d;
+  font-size: 0.9rem;
+}
+
 .gn370-main {
   display: grid;
   grid-template-columns: 3fr 1.4fr;
@@ -58,6 +66,22 @@ html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); fon
   padding-top: 0.35rem;
   border-top: 1px dashed var(--line);
   color: var(--fg);
+}
+
+#suggest-title {
+  margin-top: 0.5rem;
+  padding-top: 0.35rem;
+  border-top: 1px dashed var(--line);
+  color: #9dff9d;
+}
+
+.gn370-suggest {
+  margin-top: 0.35rem;
+  white-space: pre-wrap;
+  line-height: 1.25;
+  color: #b5ffb5;
+  max-height: 26vh;
+  overflow: auto;
 }
 
 .gn370-command-row {
