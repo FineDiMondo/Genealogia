@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ARMS",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "maxLength": 180,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}__ARMS__[a-z0-9-]+__[a-z0-9-]+__[a-z0-9-]+$"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "ARMS"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 240
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "DOCUMENTATO",
+        "ATTRIBUITO",
+        "RICOSTRUITO"
+      ]
+    },
+    "family_id": {
+      "type": "string"
+    },
+    "blazon": {
+      "type": "string",
+      "maxLength": 1200
+    },
+    "date.sort": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "date.display": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "place_id": {
+      "type": "string"
+    },
+    "reliability": {
+      "type": "string",
+      "enum": [
+        "DOCUMENTATO",
+        "STAMPA",
+        "ATTRIBUITO",
+        "RICOSTRUITO"
+      ]
+    },
+    "source_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "person_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "media_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string",
+      "maxLength": 4000
+    }
+  },
+  "required": [
+    "blazon",
+    "date.display",
+    "date.sort",
+    "family_id",
+    "id",
+    "place_id",
+    "reliability",
+    "source_ids",
+    "status",
+    "title",
+    "type"
+  ],
+  "additionalProperties": true
+}

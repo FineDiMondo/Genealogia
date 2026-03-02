@@ -1,0 +1,175 @@
+[
+  {
+    "id": "1600-01-01__PLACE__bergamo__lombardia__citta",
+    "type": "PLACE",
+    "title": "Bergamo",
+    "date_sort": "1600-01-01",
+    "place_id": "",
+    "reliability": "DOCUMENTATO",
+    "tags": [
+      "luogo"
+    ],
+    "url": "place/1600-01-01__PLACE__bergamo__lombardia__citta.html"
+  },
+  {
+    "id": "1600-01-01__PLACE__palermo__sicilia__citta",
+    "type": "PLACE",
+    "title": "Palermo",
+    "date_sort": "1600-01-01",
+    "place_id": "",
+    "reliability": "DOCUMENTATO",
+    "tags": [
+      "luogo"
+    ],
+    "url": "place/1600-01-01__PLACE__palermo__sicilia__citta.html"
+  },
+  {
+    "id": "1647-01-01__EVENT__pubblicazione-mugnos__palermo__edizione",
+    "type": "EVENT",
+    "title": "Pubblicazione repertorio nobiliare",
+    "date_sort": "1647-01-01",
+    "place_id": "1600-01-01__PLACE__palermo__sicilia__citta",
+    "reliability": "STAMPA",
+    "tags": [
+      "stampa"
+    ],
+    "url": "event/1647-01-01__EVENT__pubblicazione-mugnos__palermo__edizione.html"
+  },
+  {
+    "id": "1647-01-01__SOURCE__mugnos__palermo__teatro-genealogico",
+    "type": "SOURCE",
+    "title": "Teatro genealogico delle famiglie nobili",
+    "date_sort": "1647-01-01",
+    "place_id": "1600-01-01__PLACE__palermo__sicilia__citta",
+    "reliability": "STAMPA",
+    "tags": [
+      "stampa",
+      "bibliografia"
+    ],
+    "url": "source/1647-01-01__SOURCE__mugnos__palermo__teatro-genealogico.html"
+  },
+  {
+    "id": "1680-01-01__FAMILY__giardina__palermo__linea-principale",
+    "type": "FAMILY",
+    "title": "Famiglia Giardina",
+    "date_sort": "1680-01-01",
+    "place_id": "1600-01-01__PLACE__palermo__sicilia__citta",
+    "reliability": "DOCUMENTATO",
+    "tags": [
+      "famiglia"
+    ],
+    "url": "family/1680-01-01__FAMILY__giardina__palermo__linea-principale.html"
+  },
+  {
+    "id": "1690-01-01__FAMILY__negrini__bergamo__linea-storica",
+    "type": "FAMILY",
+    "title": "Famiglia Negrini",
+    "date_sort": "1690-01-01",
+    "place_id": "1600-01-01__PLACE__bergamo__lombardia__citta",
+    "reliability": "STAMPA",
+    "tags": [
+      "famiglia"
+    ],
+    "url": "family/1690-01-01__FAMILY__negrini__bergamo__linea-storica.html"
+  },
+  {
+    "id": "1702-05-01__EVENT__stampa-genealogica__messina__opuscolo",
+    "type": "EVENT",
+    "title": "Opuscolo genealogico in circolazione privata",
+    "date_sort": "1702-05-01",
+    "place_id": "1600-01-01__PLACE__palermo__sicilia__citta",
+    "reliability": "STAMPA",
+    "tags": [
+      "stampa"
+    ],
+    "url": "event/1702-05-01__EVENT__stampa-genealogica__messina__opuscolo.html"
+  },
+  {
+    "id": "1710-04-12__PERSON__antonio-giardina__palermo__profilo",
+    "type": "PERSON",
+    "title": "Antonio Giardina",
+    "date_sort": "1710-04-12",
+    "place_id": "1600-01-01__PLACE__palermo__sicilia__citta",
+    "reliability": "DOCUMENTATO",
+    "tags": [
+      "persona",
+      "matrimonio"
+    ],
+    "url": "person/1710-04-12__PERSON__antonio-giardina__palermo__profilo.html"
+  },
+  {
+    "id": "1715-09-03__PERSON__maria-negrini__bergamo__profilo",
+    "type": "PERSON",
+    "title": "Maria Negrini",
+    "date_sort": "1715-09-03",
+    "place_id": "1600-01-01__PLACE__bergamo__lombardia__citta",
+    "reliability": "DOCUMENTATO",
+    "tags": [
+      "persona",
+      "matrimonio"
+    ],
+    "url": "person/1715-09-03__PERSON__maria-negrini__bergamo__profilo.html"
+  },
+  {
+    "id": "1734-06-20__ARMS__negrini-giardina__palermo__attribuito",
+    "type": "ARMS",
+    "title": "Stemma Negrini-Giardina attribuito",
+    "date_sort": "1734-06-20",
+    "place_id": "1600-01-01__PLACE__palermo__sicilia__citta",
+    "reliability": "ATTRIBUITO",
+    "tags": [
+      "araldica",
+      "attribuito"
+    ],
+    "url": "arms/1734-06-20__ARMS__negrini-giardina__palermo__attribuito.html"
+  },
+  {
+    "id": "1734-06-20__EVENT__antonio-maria__palermo__matrimonio",
+    "type": "EVENT",
+    "title": "Matrimonio Antonio Giardina e Maria Negrini",
+    "date_sort": "1734-06-20",
+    "place_id": "1600-01-01__PLACE__palermo__sicilia__citta",
+    "reliability": "DOCUMENTATO",
+    "tags": [
+      "matrimonio"
+    ],
+    "url": "event/1734-06-20__EVENT__antonio-maria__palermo__matrimonio.html"
+  },
+  {
+    "id": "1735-02-14__EVENT__ramo-giardina-negrini__bergamo__matrimonio",
+    "type": "EVENT",
+    "title": "Matrimonio ramo collaterale Giardina-Negrini",
+    "date_sort": "1735-02-14",
+    "place_id": "1600-01-01__PLACE__bergamo__lombardia__citta",
+    "reliability": "STAMPA",
+    "tags": [
+      "matrimonio"
+    ],
+    "url": "event/1735-02-14__EVENT__ramo-giardina-negrini__bergamo__matrimonio.html"
+  },
+  {
+    "id": "1738-04-11__ARMS__giardina__palermo__documentato",
+    "type": "ARMS",
+    "title": "Stemma Giardina documentato",
+    "date_sort": "1738-04-11",
+    "place_id": "1600-01-01__PLACE__palermo__sicilia__citta",
+    "reliability": "DOCUMENTATO",
+    "tags": [
+      "araldica"
+    ],
+    "url": "arms/1738-04-11__ARMS__giardina__palermo__documentato.html"
+  },
+  {
+    "id": "1750-01-01__SOURCE__registro-parrocchiale__palermo__matrimoni-santa-maria",
+    "type": "SOURCE",
+    "title": "Registro matrimoni Parrocchia Santa Maria",
+    "date_sort": "1750-01-01",
+    "place_id": "1600-01-01__PLACE__palermo__sicilia__citta",
+    "reliability": "DOCUMENTATO",
+    "tags": [
+      "registro",
+      "matrimonio"
+    ],
+    "url": "source/1750-01-01__SOURCE__registro-parrocchiale__palermo__matrimoni-santa-maria.html"
+  }
+]

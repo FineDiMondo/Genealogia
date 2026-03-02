@@ -1,0 +1,15 @@
+[
+  {
+    "timestamp": "2026-03-02T08:19:05.499432",
+    "record_id": "P000003",
+    "domain": "individuals",
+    "source_system": "test",
+    "confidence_score": 92.0,
+    "completeness_score": 66.67,
+    "auto_approved": 1,
+    "flagged_reasons": "[]",
+    "cache_hit": 0,
+    "time_saved_seconds": 0,
+    "changes_json": "[]"
+  }
+]
