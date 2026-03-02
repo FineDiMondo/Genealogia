@@ -1,0 +1,62 @@
+name: pages-static
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages-static"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Optional static batch build
+        run: |
+          if [ -f "jobs/run_job.sh" ]; then
+            bash jobs/run_job.sh
+          fi
+
+      - name: Prepare static 370 artifact
+        run: |
+          rm -rf _pages_root
+          mkdir -p _pages_root
+
+          if [ -d "PORTALE_GN" ]; then
+            cp -R PORTALE_GN/. _pages_root/
+            echo "DEPLOY_SOURCE=PORTALE_GN" >> $GITHUB_ENV
+          elif [ -d "out/current/site" ]; then
+            cp -R out/current/site/. _pages_root/
+            echo "DEPLOY_SOURCE=out/current/site" >> $GITHUB_ENV
+          else
+            echo "Neither PORTALE_GN/ nor out/current/site/ exists"
+            exit 1
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _pages_root
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
