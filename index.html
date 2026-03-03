@@ -72,6 +72,31 @@
   <script src="assets/js/router.js"></script>
   <script src="assets/js/boot.js"></script>
   <script>
+    (function () {
+      "use strict";
+      window.addEventListener("message", function (ev) {
+        if (ev.origin !== window.location.origin) {
+          return;
+        }
+        var data = ev.data || {};
+        if (data.type !== "GN370_PING") {
+          return;
+        }
+        var response = {
+          type: "GN370_PONG",
+          dbStatus: window.__GN370_DB_STATUS || "UNKNOWN",
+          hasGate: typeof window.fetch === "function",
+          version: window.GN370 && window.GN370.CONFIG && typeof window.GN370.CONFIG.get === "function"
+            ? window.GN370.CONFIG.get("gn370.env")
+            : null
+        };
+        if (ev.source && typeof ev.source.postMessage === "function") {
+          ev.source.postMessage(response, ev.origin);
+        }
+      });
+    }());
+  </script>
+  <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("service-worker.js").catch(function () {});
     }

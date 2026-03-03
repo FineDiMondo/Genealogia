@@ -304,6 +304,150 @@
     node.innerHTML = html;
   }
 
+  function getHomePageUrl() {
+    if (state.targets && Array.isArray(state.targets.pages)) {
+      const home = state.targets.pages.find((p) => /gn370 home/i.test(p.name || ""));
+      if (home && home.path) {
+        return expandTargetPath(home.path);
+      }
+    }
+    return abs("/index.html");
+  }
+
+  async function withProbeFrame(run) {
+    const iframe = document.createElement("iframe");
+    iframe.style.width = "1px";
+    iframe.style.height = "1px";
+    iframe.style.opacity = "0";
+    iframe.style.position = "absolute";
+    iframe.style.left = "-9999px";
+    iframe.src = getHomePageUrl();
+    document.body.appendChild(iframe);
+
+    try {
+      await new Promise((resolve, reject) => {
+        const timer = setTimeout(() => reject(new Error("iframe load timeout")), 8000);
+        iframe.onload = () => {
+          clearTimeout(timer);
+          resolve();
+        };
+        iframe.onerror = () => {
+          clearTimeout(timer);
+          reject(new Error("iframe load error"));
+        };
+      });
+      return await run(iframe);
+    } finally {
+      iframe.remove();
+    }
+  }
+
+  async function smokeTestPing() {
+    return withProbeFrame(async (iframe) => {
+      return new Promise((resolve) => {
+        const timeout = setTimeout(() => {
+          window.removeEventListener("message", onMessage);
+          resolve({ ok: false, details: "No GN370_PONG received" });
+        }, 5000);
+
+        function onMessage(ev) {
+          if (ev.origin !== window.location.origin) {
+            return;
+          }
+          const data = ev.data || {};
+          if (data.type !== "GN370_PONG") {
+            return;
+          }
+          clearTimeout(timeout);
+          window.removeEventListener("message", onMessage);
+          const pass = data.dbStatus === "EMPTY" && data.hasGate === true;
+          resolve({ ok: pass, details: `dbStatus=${data.dbStatus} hasGate=${data.hasGate}` });
+        }
+
+        window.addEventListener("message", onMessage);
+        iframe.contentWindow.postMessage({ type: "GN370_PING" }, window.location.origin);
+      });
+    });
+  }
+
+  async function smokeTestGate() {
+    return withProbeFrame(async (iframe) => {
+      try {
+        await iframe.contentWindow.fetch(expandTargetPath("{{BASE}}/tables/PERSON.table?control_probe=1"), { cache: "no-store" });
+        return { ok: false, details: "Fetch not blocked by gate" };
+      } catch (err) {
+        const msg = err && err.message ? err.message : String(err);
+        const pass = msg.indexOf("GATE_VIOLATION") >= 0;
+        return { ok: pass, details: msg };
+      }
+    });
+  }
+
+  async function smokeTestSwDataPolicy() {
+    if (!("caches" in window)) {
+      return { ok: false, details: "Cache API unavailable" };
+    }
+    const probePath = state.targets && state.targets.checks && state.targets.checks.dataPaths && state.targets.checks.dataPaths[0]
+      ? expandTargetPath(state.targets.checks.dataPaths[0])
+      : abs("/tables/PERSON.table");
+    const directMatch = await caches.match(probePath);
+    const keys = await caches.keys();
+    let cachedData = false;
+    for (const key of keys) {
+      const cache = await caches.open(key);
+      const reqs = await cache.keys();
+      if (reqs.some((r) => /(\/tables\/|\.table(\?|$)|\/data\/current\/)/i.test(r.url))) {
+        cachedData = true;
+        break;
+      }
+    }
+    const pass = !directMatch && !cachedData;
+    return { ok: pass, details: `directMatch=${!!directMatch} cachedDataEntries=${cachedData}` };
+  }
+
+  async function smokeTestControlCached() {
+    const sw = await getSWInfo();
+    if (!sw.supported || !sw.controller) {
+      return { ok: false, skip: true, details: "No active service worker controller" };
+    }
+    const candidates = [window.location.href, abs("/control/index.html")];
+    for (const candidate of candidates) {
+      const m = await caches.match(candidate);
+      if (m) {
+        return { ok: true, details: `Found in cache: ${candidate}` };
+      }
+    }
+    return { ok: false, details: "control/index.html not found in cache" };
+  }
+
+  async function runSmokeTests() {
+    const tests = [
+      { id: "SMK-001", name: "Boot invariant handshake", fn: smokeTestPing },
+      { id: "SMK-002", name: "Gate blocks fetch before READY", fn: smokeTestGate },
+      { id: "SMK-003", name: "SW data policy (no data cache)", fn: smokeTestSwDataPolicy },
+      { id: "SMK-004", name: "Control page cached when SW active", fn: smokeTestControlCached }
+    ];
+    const node = el("smoke-tests");
+    node.innerHTML = "<p class='muted'>Running smoke tests...</p>";
+    const rows = [];
+    for (const t of tests) {
+      try {
+        const out = await t.fn();
+        rows.push({ id: t.id, name: t.name, ...out });
+      } catch (err) {
+        rows.push({ id: t.id, name: t.name, ok: false, details: err.message || String(err) });
+      }
+    }
+    let html = "<table><thead><tr><th>ID</th><th>Test</th><th>Result</th><th>Details</th></tr></thead><tbody>";
+    rows.forEach((r) => {
+      const result = r.skip ? "SKIP" : (r.ok ? "PASS" : "FAIL");
+      const cls = r.skip ? "warn" : (r.ok ? "ok" : "err");
+      html += `<tr class="${cls}"><td>${r.id}</td><td>${r.name}</td><td>${result}</td><td>${r.details || "-"}</td></tr>`;
+    });
+    html += "</tbody></table>";
+    node.innerHTML = html;
+  }
+
   async function handleAction(action) {
     if (action === "refresh-status") {
       await resourceStatus();
@@ -358,6 +502,10 @@
       case "run-dataset-checks":
         await runDatasetChecks();
         log("Dataset presence checks completed.", "ok");
+        return;
+      case "run-smoke-tests":
+        await runSmokeTests();
+        log("Smoke tests completed.", "ok");
         return;
       default:
         log(`Unknown action: ${action}`, "warn");
