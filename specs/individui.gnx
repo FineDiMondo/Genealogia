@@ -1,0 +1,7 @@
+# GNX DSL sample for persons domain
+record GNINPERS
+field PERSON-ID 9(10)
+field GIVEN-NAME X(50)
+field SURNAME X(50)
+field SEX X(1)
+field BIRTH-DATE 9(8)
