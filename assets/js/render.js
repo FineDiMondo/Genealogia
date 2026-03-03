@@ -48,6 +48,7 @@
     var html = "";
     html += "<div><strong>HOME IMPORT</strong></div>";
     html += "<div>DB: " + dbStatus + " | MEM: " + memStatus + "</div>";
+    html += "<div><a href=\"player/\" id=\"gn370-open-player\">Apri modulo PLAYER FLAC</a></div>";
     html += "<button id=\"gn370-btn-pick-zip\">Scegli archivio ZIP</button>";
     html += "<div id=\"gn370-zip-stage\"></div>";
     refs.panel.innerHTML = html;

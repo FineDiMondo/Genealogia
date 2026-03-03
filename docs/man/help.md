@@ -1,3 +1,10 @@
-﻿# man help
+﻿# man help (V0)
 
-Mostra elenco comandi o dettaglio singolo comando.
+## Uso
+
+- `help`
+- `man <comando>`
+
+## Descrizione
+
+Mostra elenco comandi disponibili oppure dettaglio sintetico del comando richiesto.

@@ -4,6 +4,20 @@
   --accent: #1fa067;
   --warn: #ffd54f;
   --error: #ff6b6b;
+  --label-world-1: "ORIGINI";
+  --label-world-2: "CICLI";
+  --label-world-3: "DONI";
+  --label-world-4: "OMBRE";
+  --label-world-5: "CONTESTO";
+  --label-world-6: "STRUTTURA";
+  --label-world-7: "EREDITA";
+  --label-world-8: "NEBBIA";
+  --label-world-9: "RADICI";
+  --sym-self: "@";
+  --sym-root: "#";
+  --sym-gap: "~";
+  --sym-link: "─";
+  --sym-active: ">";
 }
 
 * { box-sizing: border-box; }
@@ -56,3 +70,21 @@ html, body {
 .line-error { color: var(--error); }
 .line-warn { color: var(--warn); }
 .line-ok { color: var(--accent); }
+
+.gn-world-grid { display: grid; gap: 8px; }
+.gn-world-card { border: 1px solid #2a2a2a; padding: 6px; }
+.gn-world-card.gn-active { border-color: var(--accent); }
+.gn-seq-step { border-left: 2px solid #3a3a3a; padding-left: 8px; }
+.gn-seq-step.gn-active { border-left-color: var(--accent); }
+.gn-seq-step.gn-complete { border-left-color: #5ea97a; }
+.gn-node.gn-self { color: var(--accent); }
+.gn-node.gn-root { color: #9fd2ff; }
+.gn-gap { color: var(--warn); }
+.gn-hint { color: #b8a8ff; font-style: italic; }
+.gn-asset { color: #85d7a2; }
+.gn-title { font-weight: 700; }
+.gn-era { text-decoration: underline; text-decoration-style: dotted; }
+.gn-path { color: #9cd8ff; }
+.gn-progress { letter-spacing: 1px; }
+.gn-statusbar { border-top: 1px solid #2a2a2a; }
+.gn-transaction-complete { color: var(--accent); font-weight: 700; }

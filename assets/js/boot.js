@@ -30,6 +30,21 @@
     }
   }
 
+  function initSqlRuntime() {
+    if (!GN370.SQL_RUNTIME || typeof GN370.SQL_RUNTIME.init !== "function") {
+      global.__GN370_SQL_MODE = "DISABLED";
+      return Promise.resolve();
+    }
+    return Promise.resolve(GN370.SQL_RUNTIME.init({
+      schemaPath: "db/schema.sql"
+    })).then(function (mode) {
+      global.__GN370_SQL_MODE = mode || "UNKNOWN";
+    }).catch(function (e) {
+      global.__GN370_SQL_MODE = "ERROR";
+      global.__GN370_SQL_ERROR = e && e.message ? e.message : String(e);
+    });
+  }
+
   function boot() {
     if (!didBoot) {
       GN370.RENDER.init();
@@ -37,6 +52,12 @@
     }
     GN370.CONFIG.applyTheme(GN370.CONFIG.get("gn370.theme.default") || "terminal");
     GN370.RENDER.line("GN370 BOOT", "line-ok");
+    if (global.__GN370_SQL_MODE) {
+      GN370.RENDER.line("SQL MODE: " + global.__GN370_SQL_MODE, global.__GN370_SQL_MODE === "ERROR" ? "line-warn" : "line-ok");
+      if (global.__GN370_SQL_ERROR) {
+        GN370.RENDER.line("SQL ERR: " + global.__GN370_SQL_ERROR, "line-warn");
+      }
+    }
     hardRefreshMemory("BOOT");
     GN370.RENDER.focusInput();
 
@@ -48,7 +69,9 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     bindInput();
-    boot();
+    Promise.resolve(initSqlRuntime()).finally(function () {
+      boot();
+    });
   });
 
   global.addEventListener("pageshow", function (ev) {

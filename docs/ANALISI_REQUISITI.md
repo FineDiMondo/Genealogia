@@ -1,10 +1,31 @@
-﻿# ANALISI REQUISITI GN370 v2.0
+﻿# ANALISI REQUISITI GN370 - Versione 0
 
-## Requisiti chiave
-- Boot deterministico: DB.status=EMPTY, CTX nullo, zero fetch dati.
-- Import da user gesture: ZIP, GEDCOM, CSV araldico, XML notarile, JSON nobiltà.
-- Gate obbligatorio: query/fetch dati bloccati se DB non READY.
-- Copybook COBOL come fonte di verità schema.
-- Export commit in formato AAAAGGMMHHMM.zip.
-- Multi-env DEV/TEST/PROD con switch script.
-- Runtime client-side, deploy static GitHub Pages.
+## Requisiti funzionali
+
+1. Avvio shell deterministico con stato iniziale noto.
+2. Import dati su azione esplicita utente (no auto-load).
+3. Supporto pipeline GEDCOM con gestione conflitti.
+4. Supporto import specialistici: araldica, notarile, nobiltario.
+5. Comandi shell uniformi per consultazione e diagnostica.
+6. Esportazione DB in formato ZIP.
+
+## Requisiti non funzionali
+
+- Runtime client-side senza dipendenze backend applicative.
+- Gate su accesso dati per impedire letture premature.
+- Tracciabilita operazioni import e sessione.
+- Documentazione minima operativa allineata al codice.
+
+## Invarianti V0
+
+- `DB.status=EMPTY` al boot/reset.
+- `ctx.openedRecord=null` al boot.
+- Nessun fetch dati automatico in fase boot.
+- Batch agent GEDCOM eseguiti solo post-write.
+- Ogni record importato produce entry in `IMPORT_LOG`.
+
+## Fuori scope V0
+
+- Orchestrazione backend multiutente.
+- Workflow autorizzativi avanzati.
+- Packaging nativo definitivo per tutti i target.

@@ -1,3 +1,9 @@
-﻿# man validate
+﻿# man validate (V0)
 
-Esegue IC e warning in modalità read-only.
+## Uso
+
+- `validate`
+
+## Descrizione
+
+Esegue controlli di consistenza su tabelle runtime e stampa errori/warning in modalita read-only.
