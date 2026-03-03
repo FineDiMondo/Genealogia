@@ -14,7 +14,10 @@ try {
   mustInclude("assets/js/sql-runtime.js", "assets/vendor/sqlite/");
   mustInclude("assets/js/sql-runtime.js", "index.mjs");
   mustInclude("assets/js/sql-runtime.js", "OpfsDb");
+  mustInclude("assets/js/sql-runtime.js", "CORE_TYPED_MIRROR");
+  mustInclude("assets/js/sql-runtime.js", "GN370_PERSON");
   mustInclude("db/schema.sql", "CREATE TABLE IF NOT EXISTS GN370_ROW_STORE");
+  mustInclude("db/schema.sql", "CREATE TABLE IF NOT EXISTS GN370_PERSON");
   const vendorDir = path.resolve("assets/vendor/sqlite");
   if (!fs.existsSync(path.join(vendorDir, "index.mjs"))) {
     throw new Error("[FAIL] missing vendor file assets/vendor/sqlite/index.mjs");

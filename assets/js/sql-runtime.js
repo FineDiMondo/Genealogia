@@ -10,8 +10,47 @@
   var FALLBACK_SCHEMA = [
     "CREATE TABLE IF NOT EXISTS GN370_TABLE_META (table_name TEXT PRIMARY KEY, row_count INTEGER NOT NULL DEFAULT 0, updated_at TEXT NOT NULL);",
     "CREATE TABLE IF NOT EXISTS GN370_ROW_STORE (table_name TEXT NOT NULL, row_seq INTEGER NOT NULL, row_id TEXT, payload_json TEXT NOT NULL, PRIMARY KEY (table_name, row_seq));",
+    "CREATE TABLE IF NOT EXISTS GN370_PERSON (person_id TEXT PRIMARY KEY, gedcom_id TEXT, surname TEXT, given_name TEXT, gender TEXT, birth_date TEXT, birth_qual TEXT, birth_cal TEXT, birth_place TEXT, death_date TEXT, death_qual TEXT, death_cal TEXT, death_place TEXT, notes TEXT);",
+    "CREATE TABLE IF NOT EXISTS GN370_FAMILY (family_id TEXT PRIMARY KEY, father_id TEXT, mother_id TEXT, union_date TEXT, union_date_qual TEXT, notes TEXT);",
+    "CREATE TABLE IF NOT EXISTS GN370_PLACE (place_id TEXT PRIMARY KEY, place_name TEXT, parent_id TEXT, notes TEXT);",
+    "CREATE TABLE IF NOT EXISTS GN370_SOURCE (source_id TEXT PRIMARY KEY, title TEXT, author TEXT, source_type TEXT, notes TEXT);",
+    "CREATE TABLE IF NOT EXISTS GN370_EVENT (event_id TEXT PRIMARY KEY, person_id TEXT, family_id TEXT, event_type TEXT, event_date TEXT, event_date_qual TEXT, place_id TEXT, source_id TEXT, note TEXT);",
+    "CREATE TABLE IF NOT EXISTS GN370_CITATION (citation_id TEXT PRIMARY KEY, source_id TEXT, person_id TEXT, family_id TEXT, event_id TEXT, page TEXT, note TEXT);",
     "CREATE TABLE IF NOT EXISTS GN370_IMPORT_AUDIT (import_id TEXT PRIMARY KEY, source_label TEXT NOT NULL, imported_at TEXT NOT NULL, records_total INTEGER NOT NULL DEFAULT 0);"
   ].join("\n");
+
+  var CORE_TYPED_MIRROR = [
+    {
+      source_table: "PERSON",
+      target_table: "GN370_PERSON",
+      columns: ["person_id", "gedcom_id", "surname", "given_name", "gender", "birth_date", "birth_qual", "birth_cal", "birth_place", "death_date", "death_qual", "death_cal", "death_place", "notes"]
+    },
+    {
+      source_table: "FAMILY",
+      target_table: "GN370_FAMILY",
+      columns: ["family_id", "father_id", "mother_id", "union_date", "union_date_qual", "notes"]
+    },
+    {
+      source_table: "PLACE",
+      target_table: "GN370_PLACE",
+      columns: ["place_id", "place_name", "parent_id", "notes"]
+    },
+    {
+      source_table: "SOURCE",
+      target_table: "GN370_SOURCE",
+      columns: ["source_id", "title", "author", "source_type", "notes"]
+    },
+    {
+      source_table: "EVENT",
+      target_table: "GN370_EVENT",
+      columns: ["event_id", "person_id", "family_id", "event_type", "event_date", "event_date_qual", "place_id", "source_id", "note"]
+    },
+    {
+      source_table: "CITATION",
+      target_table: "GN370_CITATION",
+      columns: ["citation_id", "source_id", "person_id", "family_id", "event_id", "page", "note"]
+    }
+  ];
 
   function clone(v) {
     return JSON.parse(JSON.stringify(v));
@@ -45,6 +84,61 @@
     }, 0);
   }
 
+  function normalizeSqlValue(v) {
+    if (v == null || v === undefined) {
+      return null;
+    }
+    if (typeof v === "object") {
+      return JSON.stringify(v);
+    }
+    if (typeof v === "number" || typeof v === "boolean") {
+      return String(v);
+    }
+    return v;
+  }
+
+  function getTypedRows(tables, sourceTable) {
+    var rows = tables && tables[sourceTable];
+    return Array.isArray(rows) ? rows : [];
+  }
+
+  function buildTypedInsertSql(def, placeholders) {
+    return "INSERT OR REPLACE INTO " + qid(def.target_table) + "(" + def.columns.map(qid).join(",") + ") VALUES(" + placeholders.join(",") + ")";
+  }
+
+  function buildWasmPlaceholders(count) {
+    var out = [];
+    for (var i = 0; i < count; i += 1) {
+      out.push("?");
+    }
+    return out;
+  }
+
+  function buildWorkerPlaceholders(count) {
+    var out = [];
+    for (var i = 1; i <= count; i += 1) {
+      out.push("?" + String(i));
+    }
+    return out;
+  }
+
+  function typedBindRow(def, row) {
+    return def.columns.map(function (col) {
+      return normalizeSqlValue(row && Object.prototype.hasOwnProperty.call(row, col) ? row[col] : null);
+    });
+  }
+
+  function typedMirrorMeta(tables, updatedAt) {
+    return CORE_TYPED_MIRROR.map(function (def) {
+      return {
+        table_name: def.target_table,
+        source_table: def.source_table,
+        row_count: getTypedRows(tables, def.source_table).length,
+        updated_at: updatedAt || null
+      };
+    });
+  }
+
   var state = {
     initialized: false,
     mode: "UNINITIALIZED",
@@ -67,7 +161,8 @@
     var shadow = {
       tables: {},
       meta: {},
-      audit: []
+      audit: [],
+      typed_meta: []
     };
 
     return {
@@ -79,15 +174,18 @@
           reset_at: nowIso()
         };
         shadow.audit = [];
+        shadow.typed_meta = [];
       },
       syncTables: function (tables, opts) {
         var src = tables || {};
+        var now = nowIso();
         shadow.tables = clone(src);
         shadow.meta = {
           reason: opts && opts.reason ? opts.reason : "SYNC",
-          synced_at: nowIso(),
+          synced_at: now,
           table_count: Object.keys(src).length
         };
+        shadow.typed_meta = typedMirrorMeta(src, now);
       },
       dump: function () {
         return clone(shadow);
@@ -191,6 +289,7 @@
       var dbId = open.dbId;
       var tableMeta = [];
       var importAudit = [];
+      var typedMeta = [];
 
       async function exec(sql, bind) {
         var msg = { dbId: dbId, sql: sql };
@@ -240,6 +339,7 @@
         await dropWorkerSchema();
         await exec(nextSchema || schemaText || FALLBACK_SCHEMA);
         tableMeta = [];
+        typedMeta = [];
       }
 
       await recreateSchema(schemaText);
@@ -261,6 +361,9 @@
 
           await exec("DELETE FROM GN370_ROW_STORE");
           await exec("DELETE FROM GN370_TABLE_META");
+          for (var t = 0; t < CORE_TYPED_MIRROR.length; t += 1) {
+            await exec("DELETE FROM " + qid(CORE_TYPED_MIRROR[t].target_table));
+          }
 
           for (var i = 0; i < tableNames.length; i += 1) {
             var tableName = tableNames[i];
@@ -275,6 +378,18 @@
               "INSERT INTO GN370_TABLE_META(table_name,row_count,updated_at) VALUES(?1,?2,?3)",
               [tableName, rows.length, now]
             );
+          }
+
+          for (var m = 0; m < CORE_TYPED_MIRROR.length; m += 1) {
+            var def = CORE_TYPED_MIRROR[m];
+            var sourceRows = getTypedRows(src, def.source_table);
+            if (!sourceRows.length) {
+              continue;
+            }
+            var insertSql = buildTypedInsertSql(def, buildWorkerPlaceholders(def.columns.length));
+            for (var r = 0; r < sourceRows.length; r += 1) {
+              await exec(insertSql, typedBindRow(def, sourceRows[r]));
+            }
           }
 
           if (opts && opts.importId) {
@@ -300,6 +415,7 @@
               updated_at: now
             };
           });
+          typedMeta = typedMirrorMeta(src, now);
         },
         dump: function () {
           return {
@@ -308,7 +424,8 @@
             opfs_used: true,
             opfs_error: null,
             table_meta: clone(tableMeta),
-            import_audit: clone(importAudit)
+            import_audit: clone(importAudit),
+            typed_meta: clone(typedMeta)
           };
         }
       };
@@ -341,6 +458,7 @@
       var db = null;
       var opfsEnabled = false;
       var opfsInitError = null;
+      var typedMeta = [];
 
       function openDb() {
         if (db) {
@@ -367,6 +485,7 @@
 
         dropAllUserSchema(db);
         db.exec(schemaText || FALLBACK_SCHEMA);
+        typedMeta = [];
       }
 
       function execBind(sql, bind) {
@@ -395,9 +514,13 @@
           var src = tables || {};
           var tableNames = Object.keys(src).sort();
           var importedRows = rowTotal(src);
+          var now = nowIso();
 
           db.exec("DELETE FROM GN370_ROW_STORE");
           db.exec("DELETE FROM GN370_TABLE_META");
+          for (var td = 0; td < CORE_TYPED_MIRROR.length; td += 1) {
+            db.exec("DELETE FROM " + qid(CORE_TYPED_MIRROR[td].target_table));
+          }
 
           db.exec("BEGIN");
           try {
@@ -412,16 +535,28 @@
               }
               execBind(
                 "INSERT INTO GN370_TABLE_META(table_name,row_count,updated_at) VALUES(?,?,?)",
-                [tableName, rows.length, nowIso()]
+                [tableName, rows.length, now]
               );
+            }
+            for (var m = 0; m < CORE_TYPED_MIRROR.length; m += 1) {
+              var def = CORE_TYPED_MIRROR[m];
+              var sourceRows = getTypedRows(src, def.source_table);
+              if (!sourceRows.length) {
+                continue;
+              }
+              var insertSql = buildTypedInsertSql(def, buildWasmPlaceholders(def.columns.length));
+              for (var r = 0; r < sourceRows.length; r += 1) {
+                execBind(insertSql, typedBindRow(def, sourceRows[r]));
+              }
             }
             if (opts && opts.importId) {
               execBind(
                 "INSERT OR REPLACE INTO GN370_IMPORT_AUDIT(import_id,source_label,imported_at,records_total) VALUES(?,?,?,?)",
-                [String(opts.importId), String(opts.source || "GN370"), nowIso(), importedRows]
+                [String(opts.importId), String(opts.source || "GN370"), now, importedRows]
               );
             }
             db.exec("COMMIT");
+            typedMeta = typedMirrorMeta(src, now);
           } catch (e) {
             db.exec("ROLLBACK");
             throw e;
@@ -446,7 +581,8 @@
             opfs_used: opfsEnabled,
             opfs_error: opfsInitError,
             table_meta: rows,
-            import_audit: audits
+            import_audit: audits,
+            typed_meta: clone(typedMeta)
           };
         }
       };

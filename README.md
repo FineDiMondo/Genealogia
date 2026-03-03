@@ -42,7 +42,7 @@ Questa documentazione descrive la **Versione 0**: base funzionante, perimetro ch
 ## Test minimi V0
 
 - `node tests/gate_tests.js`
-- `bash tests/multienv_tests.sh`
+- `node tests/multienv_tests.js`
 - `node tests/sql_runtime.test.js`
 
 ## Note importanti

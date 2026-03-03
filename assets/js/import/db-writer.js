@@ -59,6 +59,7 @@
         death_date: norm.death_date_iso,
         death_qual: norm.death_date_qual,
         death_cal: "G",
+        death_place: norm.death_place_norm,
         notes: ""
       };
     }
@@ -76,6 +77,7 @@
         source_id: "",
         title: norm.title_norm || norm.surname_norm || norm.given_norm,
         author: "",
+        source_type: "",
         notes: ""
       };
     }

@@ -3,7 +3,7 @@
   "version": "2.1.0",
   "private": true,
   "scripts": {
-    "test": "node tests/gate_tests.js && bash tests/multienv_tests.sh",
+    "test": "node tests/gate_tests.js && node tests/multienv_tests.js",
     "test:playwright": "npx playwright test",
     "test:sql": "node tests/sql_runtime.test.js",
     "test:player": "node tests/player_commands.test.js",
