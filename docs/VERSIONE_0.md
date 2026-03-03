@@ -17,6 +17,7 @@ Versione 0 e la baseline operativa del progetto GN370:
 - Ogni import passa da gesture utente.
 - Gate attivo: accesso dati consentito solo quando DB e READY.
 - Tracciamento import su `IMPORT_LOG`.
+- Tracciamento per famiglia su `IMPORT_LOG_FAMILY` (`family_key`, `log_ts`) con riuso nelle importazioni successive.
 
 ## 3) Stato moduli V0
 
@@ -44,8 +45,7 @@ Versione 0 e la baseline operativa del progetto GN370:
 ### Import
 - `import gedcom [--dry-run] [--auto-skip-low] [--strict]`
 - `import status`
-- `import log [--n N]`
-- `import log --record <id>`
+- `import log [--n N] [--record <id>] [--family <family_key>]`
 - `import conflicts`
 - `import review <corr_id>`
 - `import accept <corr_id>`
@@ -79,6 +79,7 @@ Versione 0 e la baseline operativa del progetto GN370:
 - UI terminale stabile su desktop browser moderni.
 - Import GEDCOM con conflitti gestibili via comandi.
 - Tracciamento step pipeline e log consultabili.
+- Log familiari persistenti inclusi nel backup ZIP export.
 - Esportazione DB in ZIP con naming coerente.
 
 ## 6) Limiti noti V0

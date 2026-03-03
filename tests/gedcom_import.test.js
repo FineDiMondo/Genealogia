@@ -170,6 +170,67 @@ test.describe("WRT-001..008 / BAT-001..010", () => {
     expect(out.allClosed).toBe(true);
     expect(out.hasBatchResults).toBe(true);
   });
+
+  test("WRT-009: family log mirrors IMPORT_LOG per record", async ({ page }) => {
+    await load(page);
+    const out = await page.evaluate((txt) => {
+      GN370.DB_ENGINE.reset();
+      GN370.GEDCOM.startFromText(txt, { strict: false, dryRun: false });
+      const logs = GN370.DB_ENGINE.query("IMPORT_LOG");
+      const familyLogs = GN370.DB_ENGINE.query("IMPORT_LOG_FAMILY");
+      return {
+        logs: logs.length,
+        familyLogs: familyLogs.length,
+        allImportHaveFamilyKey: logs.every((l) => !!l.family_key),
+        allFamilyRowsHaveKeyTs: familyLogs.every((r) => !!r.family_key && !!r.log_ts)
+      };
+    }, FIXTURES.implicit);
+    expect(out.logs).toBeGreaterThan(0);
+    expect(out.familyLogs).toBe(out.logs);
+    expect(out.allImportHaveFamilyKey).toBe(true);
+    expect(out.allFamilyRowsHaveKeyTs).toBe(true);
+  });
+
+  test("WRT-010: family AI uses previous family logs as normalization base", async ({ page }) => {
+    await load(page);
+    const out = await page.evaluate(() => {
+      GN370.DB_ENGINE.reset();
+      const seedGed = [
+        "0 HEAD",
+        "1 SOUR TEST",
+        "0 @I1@ INDI",
+        "1 NAME Pietro /GIARDINA/",
+        "1 BIRT",
+        "2 DATE 1500",
+        "0 @F1@ FAM",
+        "1 HUSB @I1@",
+        "0 TRLR"
+      ].join("\n");
+      const secondGed = [
+        "0 HEAD",
+        "1 SOUR TEST",
+        "0 @I2@ INDI",
+        "1 NAME Paolo //",
+        "1 BIRT",
+        "2 DATE 1601",
+        "0 @F1@ FAM",
+        "1 CHIL @I2@",
+        "0 TRLR"
+      ].join("\n");
+
+      GN370.GEDCOM.startFromText(seedGed, { dryRun: false, strict: false });
+      const second = GN370.GEDCOM.startFromText(secondGed, { dryRun: false, strict: false });
+      const logs = GN370.DB_ENGINE.query("IMPORT_LOG").filter((l) => l.import_session === second.session_id);
+      return {
+        aiAppliedOnSecond: logs.some((l) => l.ai_norm && l.ai_norm.applied === true),
+        familyKeyPresent: logs.some((l) => l.family_key === "FAM:F1"),
+        aiRuleApplied: logs.some((l) => Array.isArray(l.norm_details) && l.norm_details.some((d) => d.rule === "AI-FAM-001"))
+      };
+    });
+    expect(out.aiAppliedOnSecond).toBe(true);
+    expect(out.familyKeyPresent).toBe(true);
+    expect(out.aiRuleApplied).toBe(true);
+  });
 });
 
 test.describe("E2E-001..005", () => {

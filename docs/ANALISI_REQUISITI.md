@@ -23,6 +23,7 @@
 - Nessun fetch dati automatico in fase boot.
 - Batch agent GEDCOM eseguiti solo post-write.
 - Ogni record importato produce entry in `IMPORT_LOG`.
+- Ogni record importato produce anche entry in `IMPORT_LOG_FAMILY` con `family_key` e `log_ts`.
 
 ## Fuori scope V0
 

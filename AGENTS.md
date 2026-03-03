@@ -19,7 +19,7 @@ Pipeline attiva in `assets/js/import/`:
 Nuovi comandi shell:
 - `import gedcom [--dry-run] [--auto-skip-low] [--strict]`
 - `import status`
-- `import log [--n N]`
+- `import log [--n N] [--record <id>] [--family <family_key>]`
 - `import log --record <id>`
 - `import conflicts`
 - `import review <corr_id>`

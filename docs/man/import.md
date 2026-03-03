@@ -4,8 +4,7 @@
 
 - `import gedcom [--dry-run] [--auto-skip-low] [--strict]`
 - `import status`
-- `import log [--n N]`
-- `import log --record <id>`
+- `import log [--n N] [--record <id>] [--family <family_key>]`
 - `import conflicts`
 - `import review <corr_id>`
 - `import accept <corr_id>`
@@ -20,3 +19,4 @@
 ## Nota pipeline
 
 L'import GEDCOM usa pipeline S1..S7 e produce entry su `IMPORT_LOG`.
+Ogni record viene scritto anche su `IMPORT_LOG_FAMILY` con chiave `family_key` e timestamp `log_ts`.

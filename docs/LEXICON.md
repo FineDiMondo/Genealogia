@@ -1,9 +1,10 @@
 ﻿# LEXICON GN370 - Versione 0
 
-- **DB.status**: stato runtime (`EMPTY`, `READY`, `ERROR`).
+- **DB.status**: stato runtime (`EMPTY`, `LOADING`, `READY`, `ERROR`).
 - **Gate**: blocco operazioni dati quando DB non e pronto.
 - **CTX**: contesto sessione runtime (`openedRecord`, `activeStory`, ecc.).
 - **IMPORT_LOG**: log per-record della pipeline GEDCOM.
+- **IMPORT_LOG_FAMILY**: log per-record partizionato per famiglia (`family_key`) usato come base di normalizzazione AI-assisted.
 - **JOURNAL**: registro append-only eventi shell/sessione.
 - **Batch agents**: controlli post-write (IC/NORM2/CORR).
 - **Prototipo**: modalita `proto` per schermate e sequenze mondo.

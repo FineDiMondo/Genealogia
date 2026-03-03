@@ -14,6 +14,13 @@
     return JSON.parse(JSON.stringify(v));
   }
 
+  function setStatusLabelFromState() {
+    if (!GN370.STATE || !GN370.RENDER || typeof GN370.RENDER.setStatus !== "function") {
+      return;
+    }
+    GN370.RENDER.setStatus("DB: " + GN370.STATE.getStatus());
+  }
+
   function mkSessionId() {
     return "GED" + new Date().toISOString().replace(/[-:TZ.]/g, "").slice(0, 14);
   }
@@ -75,25 +82,56 @@
     return { ic: ic, norm2: norm2, corr: corr };
   }
 
+  function runFamilyAi(normalizedRecords, rawRecords, existingTables) {
+    if (!GN370.IMPORT.familyLogAgent || typeof GN370.IMPORT.familyLogAgent.apply !== "function") {
+      return {
+        records: normalizedRecords || [],
+        familyKeys: {},
+        profiles: {},
+        stats: { profiles: 0, applied: 0 }
+      };
+    }
+    return GN370.IMPORT.familyLogAgent.apply({
+      normRecords: normalizedRecords || [],
+      rawRecords: rawRecords || [],
+      familyLogs: (existingTables && existingTables.IMPORT_LOG_FAMILY) || []
+    });
+  }
+
   function startFromText(text, options) {
     var opts = options || {};
     var sessionId = mkSessionId();
+    var statusBefore = GN370.STATE && typeof GN370.STATE.getStatus === "function"
+      ? GN370.STATE.getStatus()
+      : "EMPTY";
+    var enteredLoading = false;
+
+    if (GN370.STATE && typeof GN370.STATE.transition === "function" && statusBefore !== "LOADING") {
+      GN370.STATE.transition("LOADING", "gedcom-import-start");
+      enteredLoading = true;
+      setStatusLabelFromState();
+    }
+
+    try {
     var tokenized = GN370.IMPORT.gedcomTokenizer.tokenize(text);
     var mapped = GN370.IMPORT.gedcomMapper.map(tokenized, { sessionId: sessionId });
     var normalized = GN370.IMPORT.normAgent.normalize(mapped.records);
 
-    var existingTables = GN370.STATE.getStatus() === "READY"
+    var existingTables = statusBefore === "READY"
       ? clone(GN370.DB_ENGINE.dump().tables)
       : {};
 
-    var detected = GN370.IMPORT.conflictDetect.detectAll(normalized.records, existingTables);
+    var familyAi = runFamilyAi(normalized.records, mapped.records, existingTables);
+    var detected = GN370.IMPORT.conflictDetect.detectAll(familyAi.records, existingTables);
     var resolved = GN370.IMPORT.conflictUI.resolve(detected.reports, {
       autoSkipLow: !!opts.autoSkipLow,
       forceAccept: !!opts.dryRun
     });
     var written = GN370.IMPORT.dbWriter.write({
       sessionId: sessionId,
-      normRecords: normalized.records,
+      normRecords: familyAi.records,
+      rawRecords: mapped.records,
+      familyKeys: familyAi.familyKeys,
       conflicts: detected.reports,
       decisions: resolved.decisions,
       tables: existingTables,
@@ -127,6 +165,7 @@
         s1_tokens: tokenized.stats.total,
         s2_records: mapped.stats.count,
         s3_norm_count: normalized.stats.norm_count,
+        s3_ai_applied: familyAi.stats.applied,
         s4_conflicts: detected.reports.filter(function (r) { return r.severity !== "NONE"; }).length,
         s5_pending: resolved.pending.length,
         s6_written: written.stats.written,
@@ -137,6 +176,7 @@
       tokenized: tokenized.stats,
       mapped: mapped.stats,
       normalized: normalized.stats,
+      family_ai_stats: familyAi.stats,
       conflict_stats: detected.stats,
       writer_stats: written.stats,
       batch: batch,
@@ -148,6 +188,26 @@
     }
 
     return SESSION_STATE.lastSession;
+    } catch (e) {
+      if (GN370.STATE && typeof GN370.STATE.getStatus === "function" && GN370.STATE.getStatus() === "LOADING") {
+        try {
+          GN370.STATE.transition("ERROR", "gedcom-import-failed");
+        } catch (_transitionErr) {
+          // Keep original pipeline error as the main failure signal.
+        }
+        setStatusLabelFromState();
+      }
+      throw e;
+    } finally {
+      if (opts.dryRun && enteredLoading && GN370.STATE && typeof GN370.STATE.getStatus === "function" && GN370.STATE.getStatus() === "LOADING") {
+        try {
+          GN370.STATE.transition(statusBefore, "gedcom-import-dryrun-end");
+        } catch (_transitionErr) {
+          // Keep dry-run completion path resilient even on transition edge cases.
+        }
+        setStatusLabelFromState();
+      }
+    }
   }
 
   function start(file, options) {
@@ -166,6 +226,9 @@
       return [];
     }
     var logs = GN370.DB_ENGINE.query("IMPORT_LOG");
+    if (options.familyKey) {
+      logs = logs.filter(function (l) { return l.family_key === options.familyKey; });
+    }
     if (options.recordId) {
       return logs.filter(function (l) { return l.pipeline_id === options.recordId || l.gedcom_xref === options.recordId; });
     }
@@ -173,6 +236,24 @@
       return logs.slice(-Number(options.n));
     }
     return logs;
+  }
+
+  function listFamilyLogs(opts) {
+    var options = opts || {};
+    if (GN370.STATE.getStatus() !== "READY") {
+      return [];
+    }
+    var rows = GN370.DB_ENGINE.query("IMPORT_LOG_FAMILY");
+    if (options.familyKey) {
+      rows = rows.filter(function (r) { return r.family_key === options.familyKey; });
+    }
+    if (options.recordId) {
+      rows = rows.filter(function (r) { return r.pipeline_id === options.recordId || r.gedcom_xref === options.recordId; });
+    }
+    if (options.n) {
+      return rows.slice(-Number(options.n));
+    }
+    return rows;
   }
 
   function listConflicts() {
@@ -227,6 +308,7 @@
     startFromText: startFromText,
     status: status,
     importLog: listLogs,
+    importFamilyLog: listFamilyLogs,
     conflicts: listConflicts,
     correlations: listCorrelations,
     reviewCorrelation: reviewCorrelation,

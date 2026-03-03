@@ -21,6 +21,14 @@
 ╚══════════════════════════════════════════════════════════════════════════════════════════════╝
 ```
 
+## Addendum ER - 2026-03-04
+
+- Nuova entita SQL: `GN370_IMPORT_FAMILY_LOG`.
+- Chiave primaria composta: `family_key`, `log_ts`, `pipeline_id`.
+- Mapping runtime: tabella memoria `IMPORT_LOG_FAMILY` -> mirror SQL `GN370_IMPORT_FAMILY_LOG`.
+- I log familiari alimentano la normalizzazione AI-assisted delle sessioni GEDCOM successive.
+- In `db export` i record di `IMPORT_LOG_FAMILY` entrano automaticamente nel backup ZIP finale.
+
 ## Pagina 1 di 14
 
 ```text

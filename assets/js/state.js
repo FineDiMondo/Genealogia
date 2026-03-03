@@ -5,14 +5,16 @@
 
   var STATES = {
     EMPTY: "EMPTY",
+    LOADING: "LOADING",
     READY: "READY",
     ERROR: "ERROR"
   };
 
   var allowed = {
-    EMPTY: { READY: true, ERROR: true, EMPTY: true },
-    READY: { EMPTY: true, ERROR: true, READY: true },
-    ERROR: { EMPTY: true, ERROR: true }
+    EMPTY: { EMPTY: true, LOADING: true, READY: true, ERROR: true },
+    LOADING: { LOADING: true, READY: true, ERROR: true, EMPTY: true },
+    READY: { READY: true, LOADING: true, EMPTY: true, ERROR: true },
+    ERROR: { ERROR: true, LOADING: true, EMPTY: true }
   };
 
   var state = {

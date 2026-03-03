@@ -112,3 +112,25 @@ CREATE TABLE IF NOT EXISTS GN370_IMPORT_AUDIT (
   imported_at TEXT NOT NULL,
   records_total INTEGER NOT NULL DEFAULT 0
 );
+
+CREATE TABLE IF NOT EXISTS GN370_IMPORT_FAMILY_LOG (
+  family_key TEXT NOT NULL,
+  log_ts TEXT NOT NULL,
+  import_session TEXT NOT NULL,
+  pipeline_id TEXT NOT NULL,
+  record_type TEXT NOT NULL,
+  gedcom_xref TEXT,
+  final_db_id TEXT,
+  decision TEXT,
+  ai_applied TEXT,
+  ai_conf INTEGER,
+  ai_reason TEXT,
+  norm_payload_json TEXT,
+  PRIMARY KEY (family_key, log_ts, pipeline_id)
+);
+
+CREATE INDEX IF NOT EXISTS IDX_GN370_IMPORT_FAMILY_LOG_FAMILY
+  ON GN370_IMPORT_FAMILY_LOG (family_key, log_ts);
+
+CREATE INDEX IF NOT EXISTS IDX_GN370_IMPORT_FAMILY_LOG_SESSION
+  ON GN370_IMPORT_FAMILY_LOG (import_session);

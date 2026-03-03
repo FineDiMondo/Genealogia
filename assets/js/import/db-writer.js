@@ -12,6 +12,14 @@
     return new Date().toISOString().replace(/[-:TZ.]/g, "").slice(0, 14);
   }
 
+  function upper(v) {
+    return String(v || "").trim().toUpperCase();
+  }
+
+  function sanitizeFamilyKey(v) {
+    return upper(v).replace(/[^A-Z0-9:_-]+/g, "_");
+  }
+
   function tableFromType(recordType) {
     if (recordType === "INDI") { return "PERSON"; }
     if (recordType === "FAM") { return "FAMILY"; }
@@ -107,13 +115,29 @@
     return target;
   }
 
-  function createImportLogEntry(sessionId, norm, conflict, decision, stageStats) {
+  function fallbackFamilyKey(norm) {
+    var surname = upper(norm && norm.surname_norm);
+    if (surname) {
+      return "SUR:" + surname.replace(/[^A-Z0-9]+/g, "_");
+    }
+    return "FAM:UNASSIGNED";
+  }
+
+  function resolveFamilyKey(norm, familyKeys) {
+    var explicit = familyKeys && norm ? familyKeys[norm.pipeline_id] : "";
+    var fromNorm = norm && norm.family_key ? norm.family_key : "";
+    var key = explicit || fromNorm || fallbackFamilyKey(norm);
+    return sanitizeFamilyKey(key || "FAM:UNASSIGNED");
+  }
+
+  function createImportLogEntry(sessionId, norm, conflict, decision, stageStats, familyKey) {
     return {
       log_id: "GIL" + now14() + "-" + norm.pipeline_id.slice(-5),
       import_session: sessionId,
       pipeline_id: norm.pipeline_id,
       gedcom_xref: norm.gedcom_xref,
       record_type: norm.record_type,
+      family_key: familyKey,
       final_db_id: "",
       stages: {
         s1_status: "K",
@@ -134,9 +158,38 @@
       tag_count: 0,
       tags_unmapped: [],
       unmapped_count: 0,
+      ai_norm: norm.ai_norm || {
+        source: "",
+        applied: false,
+        confidence: 0,
+        reason: ""
+      },
       batch_results: [],
       log_ts: now14(),
       log_closed: false
+    };
+  }
+
+  function createFamilyLogEntry(sessionId, log, norm, decision, familyKey) {
+    return {
+      family_key: familyKey,
+      log_ts: now14(),
+      import_session: sessionId,
+      pipeline_id: norm.pipeline_id,
+      record_type: norm.record_type,
+      gedcom_xref: norm.gedcom_xref,
+      final_db_id: log.final_db_id || "",
+      decision: decision,
+      ai_applied: log.ai_norm && log.ai_norm.applied ? "Y" : "N",
+      ai_conf: log.ai_norm && log.ai_norm.confidence ? Number(log.ai_norm.confidence) : 0,
+      ai_reason: log.ai_norm && log.ai_norm.reason ? log.ai_norm.reason : "",
+      norm_payload_json: JSON.stringify({
+        surname_norm: norm.surname_norm || "",
+        given_norm: norm.given_norm || "",
+        birth_place_norm: norm.birth_place_norm || "",
+        birth_date_iso: norm.birth_date_iso || "",
+        title_norm: norm.title_norm || ""
+      })
     };
   }
 
@@ -150,6 +203,7 @@
 
     var tables = clone(payload.tables || {});
     tables.IMPORT_LOG = tables.IMPORT_LOG || [];
+    tables.IMPORT_LOG_FAMILY = tables.IMPORT_LOG_FAMILY || [];
     tables.IMPORT_PENDING = tables.IMPORT_PENDING || [];
     tables.IMPORT_ARCHIVE = tables.IMPORT_ARCHIVE || [];
 
@@ -166,11 +220,13 @@
       if (decision === "PENDING") {
         decision = "SKIP";
       }
-      var log = createImportLogEntry(sessionId, norm, c, decision, payload.stageStats);
+      var familyKey = resolveFamilyKey(norm, payload.familyKeys || {});
+      var log = createImportLogEntry(sessionId, norm, c, decision, payload.stageStats, familyKey);
 
       if (dryRun) {
         log.stages.s6_written = "N";
         tables.IMPORT_LOG.push(log);
+        tables.IMPORT_LOG_FAMILY.push(createFamilyLogEntry(sessionId, log, norm, decision, familyKey));
         skipped += 1;
         return;
       }
@@ -219,6 +275,7 @@
       }
 
       tables.IMPORT_LOG.push(log);
+      tables.IMPORT_LOG_FAMILY.push(createFamilyLogEntry(sessionId, log, norm, decision, familyKey));
     });
 
     if (!dryRun) {
@@ -241,6 +298,7 @@
     return {
       tables: tables,
       logs: tables.IMPORT_LOG,
+      familyLogs: tables.IMPORT_LOG_FAMILY,
       stats: {
         written: written,
         merged: merged,

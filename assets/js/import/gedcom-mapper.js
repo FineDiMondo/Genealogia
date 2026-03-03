@@ -23,6 +23,12 @@
       raw_occu: "",
       raw_reli: "",
       raw_note: "",
+      raw_husb: "",
+      raw_wife: "",
+      raw_chil: "",
+      raw_chil_refs: [],
+      raw_fams_refs: [],
+      raw_famc_refs: [],
       sour_refs: [],
       mapped_ts: "",
       map_status: "K",
@@ -97,8 +103,21 @@
         current.sour_refs.push(tok.value);
         return;
       }
-      if (["HUSB", "WIFE", "CHIL", "FILE"].indexOf(tok.tag) >= 0) {
+      if (tok.tag === "HUSB" || tok.tag === "WIFE" || tok.tag === "FILE") {
         current["raw_" + tok.tag.toLowerCase()] = tok.value;
+        return;
+      }
+      if (tok.tag === "CHIL") {
+        current.raw_chil = tok.value;
+        current.raw_chil_refs.push(tok.value);
+        return;
+      }
+      if (tok.tag === "FAMS") {
+        current.raw_fams_refs.push(tok.value);
+        return;
+      }
+      if (tok.tag === "FAMC") {
+        current.raw_famc_refs.push(tok.value);
         return;
       }
       current.tags_unmapped.push(tok.tag);

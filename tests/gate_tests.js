@@ -9,6 +9,7 @@ function mustInclude(path, text) {
 
 try {
   mustInclude("assets/js/db.js", "err.exitCode = 2");
+  mustInclude("assets/js/state.js", "LOADING");
   mustInclude("index.html", "GATE_VIOLATION");
   mustInclude("index.html", "window.__GN370_DB_STATUS = \"EMPTY\"");
   console.log("[OK] gate tests passed");

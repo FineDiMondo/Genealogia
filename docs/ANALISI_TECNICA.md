@@ -25,11 +25,18 @@
 - S1 `gedcom-tokenizer.js`
 - S2 `gedcom-mapper.js`
 - S3 `norm-agent.js`
+- S3.5 `family-log-agent.js` (profilazione famiglia + normalizzazione AI-assisted da storico)
 - S4 `conflict-detect.js`
 - S5 `conflict-ui.js`
 - S6 `db-writer.js`
 - S7 `batch-agt-ic.js`, `batch-agt-norm2.js`, `batch-agt-corr.js`
 - orchestratore: `gedcom.js`
+
+## Persistenza log import
+
+- `IMPORT_LOG`: log per-record pipeline.
+- `IMPORT_LOG_FAMILY`: log per-record partizionato per `family_key`, riusato come base di normalizzazione nei successivi import.
+- mirror SQL dedicato: `GN370_IMPORT_FAMILY_LOG` (PK composta `family_key + log_ts + pipeline_id`).
 
 ## Regole di integrita V0
 

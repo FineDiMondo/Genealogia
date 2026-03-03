@@ -16,7 +16,10 @@
     "CREATE TABLE IF NOT EXISTS GN370_SOURCE (source_id TEXT PRIMARY KEY, title TEXT, author TEXT, source_type TEXT, notes TEXT);",
     "CREATE TABLE IF NOT EXISTS GN370_EVENT (event_id TEXT PRIMARY KEY, person_id TEXT, family_id TEXT, event_type TEXT, event_date TEXT, event_date_qual TEXT, place_id TEXT, source_id TEXT, note TEXT);",
     "CREATE TABLE IF NOT EXISTS GN370_CITATION (citation_id TEXT PRIMARY KEY, source_id TEXT, person_id TEXT, family_id TEXT, event_id TEXT, page TEXT, note TEXT);",
-    "CREATE TABLE IF NOT EXISTS GN370_IMPORT_AUDIT (import_id TEXT PRIMARY KEY, source_label TEXT NOT NULL, imported_at TEXT NOT NULL, records_total INTEGER NOT NULL DEFAULT 0);"
+    "CREATE TABLE IF NOT EXISTS GN370_IMPORT_AUDIT (import_id TEXT PRIMARY KEY, source_label TEXT NOT NULL, imported_at TEXT NOT NULL, records_total INTEGER NOT NULL DEFAULT 0);",
+    "CREATE TABLE IF NOT EXISTS GN370_IMPORT_FAMILY_LOG (family_key TEXT NOT NULL, log_ts TEXT NOT NULL, import_session TEXT NOT NULL, pipeline_id TEXT NOT NULL, record_type TEXT NOT NULL, gedcom_xref TEXT, final_db_id TEXT, decision TEXT, ai_applied TEXT, ai_conf INTEGER, ai_reason TEXT, norm_payload_json TEXT, PRIMARY KEY (family_key, log_ts, pipeline_id));",
+    "CREATE INDEX IF NOT EXISTS IDX_GN370_IMPORT_FAMILY_LOG_FAMILY ON GN370_IMPORT_FAMILY_LOG (family_key, log_ts);",
+    "CREATE INDEX IF NOT EXISTS IDX_GN370_IMPORT_FAMILY_LOG_SESSION ON GN370_IMPORT_FAMILY_LOG (import_session);"
   ].join("\n");
 
   var CORE_TYPED_MIRROR = [
@@ -49,6 +52,11 @@
       source_table: "CITATION",
       target_table: "GN370_CITATION",
       columns: ["citation_id", "source_id", "person_id", "family_id", "event_id", "page", "note"]
+    },
+    {
+      source_table: "IMPORT_LOG_FAMILY",
+      target_table: "GN370_IMPORT_FAMILY_LOG",
+      columns: ["family_key", "log_ts", "import_session", "pipeline_id", "record_type", "gedcom_xref", "final_db_id", "decision", "ai_applied", "ai_conf", "ai_reason", "norm_payload_json"]
     }
   ];
 

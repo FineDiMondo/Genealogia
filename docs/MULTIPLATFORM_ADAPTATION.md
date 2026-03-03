@@ -45,5 +45,6 @@ Consolidare una base multipiattaforma orientata a build ripetibili e DB embedded
     - `GN370_SOURCE`
     - `GN370_EVENT`
     - `GN370_CITATION`
+    - `GN370_IMPORT_FAMILY_LOG`
   - `assets/js/sql-runtime.js` ora sincronizza sia `GN370_ROW_STORE` sia mirror typed.
   - mantenuto invariato il comportamento deterministico di reset/boot e il row-store come fallback canonico.

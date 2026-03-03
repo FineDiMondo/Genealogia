@@ -24,11 +24,13 @@
 1. Tokenizzazione record GEDCOM
 2. Mapping in record interni
 3. Normalizzazione
-4. Rilevamento conflitti
-5. Revisione/accettazione
-6. Write in DB
-7. Batch post-write
+4. Normalizzazione AI-assisted per `family_key` usando storico `IMPORT_LOG_FAMILY`
+5. Rilevamento conflitti
+6. Revisione/accettazione
+7. Write in DB
+8. Batch post-write
 
 ## Vincolo V0
 
 Ogni record processato deve essere tracciato in `IMPORT_LOG`.
+Ogni record processato deve essere tracciato anche in `IMPORT_LOG_FAMILY` con `family_key` e `log_ts`.

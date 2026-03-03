@@ -25,8 +25,8 @@
 
 ### Flusso C - Import GEDCOM
 1. `import gedcom [opzioni]`
-2. Esecuzione S1..S7
-3. Consultazione `import status/log/conflicts`
+2. Esecuzione S1..S7 con normalizzazione assistita da profili famiglia (`IMPORT_LOG_FAMILY`)
+3. Consultazione `import status/log/conflicts` (supporto filtro `import log --family <family_key>`)
 4. Eventuale `import review/accept`
 
 ### Flusso D - Analisi e controllo

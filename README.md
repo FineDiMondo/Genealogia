@@ -17,13 +17,14 @@ Questa documentazione descrive la **Versione 0**: base funzionante, perimetro ch
 2. `npm run vendor:sqlite`
 3. `python scripts/serve_with_isolation.py --port 8080`
 4. Aprire `http://localhost:8080`
+   - se la porta `8080` e occupata, `npm run serve` usa automaticamente la successiva disponibile (es. `8081`)
 
 ## Comandi principali shell
 
 - `help`, `man <cmd>`, `status`, `clear`, `quit`
 - `db import`, `db list`, `db show <table>`, `db reset`, `db export`
 - `import gedcom [--dry-run --auto-skip-low --strict]`
-- `import status`, `import log`, `import conflicts`, `import review`, `import accept`, `import batch rerun`
+- `import status`, `import log [--n N --record <id> --family <family_key>]`, `import conflicts`, `import review`, `import accept`, `import batch rerun`
 - `import herald`, `import notarial`, `import nobility`
 - `validate`, `monitor <db|system|herald|env|perf>`
 - `maps`, `mappa <n|n[a-d]>`, `proto ...`, `map --period <era>`, `timeline`, `tree`

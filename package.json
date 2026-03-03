@@ -7,7 +7,7 @@
     "test:playwright": "npx playwright test",
     "test:sql": "node tests/sql_runtime.test.js",
     "test:player": "node tests/player_commands.test.js",
-    "build": "bash scripts/verify_deployment.sh",
+    "build": "node scripts/verify_deployment.js",
     "db:recreate": "python scripts/recreate_sqlite.py --schema db/schema.sql --db out/runtime/gn370.sqlite",
     "build:all": "python scripts/build-all.py --target all",
     "vendor:sqlite": "node scripts/vendorize-sqlite-wasm.js",
@@ -15,7 +15,7 @@
     "lint:fix": "eslint --fix assets/js/**/*.js tests/**/*.js scripts/**/*.js",
     "format": "prettier --write \"assets/js/**/*.js\" \"tests/**/*.js\" \"scripts/**/*.js\"",
     "format:check": "prettier --check \"assets/js/**/*.js\" \"tests/**/*.js\" \"scripts/**/*.js\"",
-    "serve": "python scripts/serve_with_isolation.py --port 8080",
+    "serve": "python scripts/serve_with_isolation.py --port 8080 --auto-port",
     "dev": "nodemon --watch assets/js --watch index.html --ext js,html --exec \"echo [GN370] file changed\""
   },
   "devDependencies": {

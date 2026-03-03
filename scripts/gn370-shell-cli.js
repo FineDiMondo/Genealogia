@@ -274,7 +274,7 @@ function cliHelp() {
     "  import nobility --file <path.json>",
     "",
     "Comandi runtime passthrough:",
-    "  help, status, db list, db show <TAB>, import status, import log ...",
+    "  help, status, db list, db show <TAB>, import status, import log [--n N --record <id> --family <family_key>], ...",
     "  import conflicts, import review <id>, import accept <id>, import batch rerun, ...",
     "",
     "Meta:",

@@ -61,7 +61,7 @@
           GN370.RENDER.line("PLAYER FLAC: " + GN370.PLAYER_COMMANDS.helpText);
           return;
         }
-        GN370.RENDER.line("Comandi: help man status clear mem refresh db import db list db show db reset db export import gedcom [--dry-run --auto-skip-low --strict] import status import log import conflicts import review <corr_id> import accept <corr_id> import batch rerun import herald import notarial import nobility player pls load play pause stop seek next prev stat add tx statico <testo> open find tree maps mappa proto map timeline validate story journal monitor config theme quit");
+        GN370.RENDER.line("Comandi: help man status clear mem refresh db import db list db show db reset db export import gedcom [--dry-run --auto-skip-low --strict] import status import log [--n N --record <id> --family <family_key>] import conflicts import review <corr_id> import accept <corr_id> import batch rerun import herald import notarial import nobility player pls load play pause stop seek next prev stat add tx statico <testo> open find tree maps mappa proto map timeline validate story journal monitor config theme quit");
         return;
       }
 
@@ -196,7 +196,12 @@
       if (cmd2 === "import log") {
         var rid = parseOption(tokens, "--record", "");
         var nlogs = parseOption(tokens, "--n", "");
-        var logs = GN370.GEDCOM.importLog({ recordId: rid || "", n: nlogs ? Number(nlogs) : null });
+        var familyKey = parseOption(tokens, "--family", "");
+        var logs = GN370.GEDCOM.importLog({
+          recordId: rid || "",
+          familyKey: familyKey || "",
+          n: nlogs ? Number(nlogs) : null
+        });
         if (!logs.length) {
           GN370.RENDER.line("IMPORT_LOG vuoto o DB non READY.", "line-warn");
           return;
