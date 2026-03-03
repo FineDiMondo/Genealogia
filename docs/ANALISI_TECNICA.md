@@ -1,20 +1,39 @@
-﻿# ANALISI TECNICA GN370 v2.0
+﻿# ANALISI TECNICA GN370 - Versione 0
 
 ## Stack
-- HTML/CSS/JS vanilla IIFE
-- JSZip locale
-- Copybook COBOL + DDL SQL
-- Shell script per CI e setup env
 
-## Invarianti runtime
-- I1: boot senza fetch dati.
-- I2: status iniziale EMPTY.
-- I3: ctx.openedRecord null.
-- I5: gate query/fetch con exitCode=2.
-- I6: filename commit regex ^\\d{12}\\.zip$.
+- Frontend: HTML/CSS/JavaScript (IIFE, no framework)
+- Runtime shell: router + renderer terminale
+- Storage: motore DB in memoria + runtime SQL browser-side
+- Import: parser GEDCOM + import adapter (CSV/XML/JSON)
+- Utility: JSZip, script Python/Bash per build e verifica
 
-## Moduli JS
-- state.js: state machine.
-- db.js: gate/query/import/export.
-- outer.js: dispatch comandi shell.
-- ender.js: terminale + UI import.
+## Architettura moduli (assets/js)
+
+- `boot.js`: bootstrap e reset deterministico
+- `state.js`: stato globale runtime
+- `db.js`: gate, query, import/export, reset
+- `router.js`: dispatch comandi shell
+- `render.js`: output terminale e UI picker
+- `validate.js`: controlli consistenza
+- `journal.js`: log append-only
+- `sql-runtime.js`: adattatore SQLite WASM/OPFS/fallback
+- `maps.js`: mappe ASCII legacy + prototipo 9 mondi + guard warning
+
+## Pipeline GEDCOM
+
+- S1 `gedcom-tokenizer.js`
+- S2 `gedcom-mapper.js`
+- S3 `norm-agent.js`
+- S4 `conflict-detect.js`
+- S5 `conflict-ui.js`
+- S6 `db-writer.js`
+- S7 `batch-agt-ic.js`, `batch-agt-norm2.js`, `batch-agt-corr.js`
+- orchestratore: `gedcom.js`
+
+## Regole di integrita V0
+
+- gate bloccante su query/fetch quando DB non READY
+- reset idempotente
+- naming export conforme al timestamp previsto
+- routing comandi senza side-effect impliciti in boot

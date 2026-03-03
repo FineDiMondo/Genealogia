@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-const STATIC_CACHE = "gn370-static-v3";
+const STATIC_CACHE = "gn370-static-v4";
 const UI_ASSETS = [
   "./",
   "./index.html",
@@ -12,6 +12,13 @@ const UI_ASSETS = [
   "./assets/js/config.js",
   "./assets/js/db.js",
   "./assets/js/router.js",
+  "./player/index.html",
+  "./player/styles.css",
+  "./player/commands-core.js",
+  "./player/state.js",
+  "./player/engine_web.js",
+  "./player/commands.js",
+  "./player/player.js",
   "./control/index.html",
   "./control/control.css",
   "./control/control.js",
@@ -19,6 +26,7 @@ const UI_ASSETS = [
 ];
 
 const DATA_REGEX = /(\/tables\/|\.table($|\?)|\/data\/current\/|\/records\/)/i;
+const AUDIO_REGEX = /\.flac($|\?)/i;
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(STATIC_CACHE).then((cache) => cache.addAll(UI_ASSETS)));
@@ -38,6 +46,12 @@ self.addEventListener("fetch", (event) => {
 
   if (DATA_REGEX.test(url.pathname)) {
     event.respondWith(fetch(req));
+    return;
+  }
+
+  // Policy FLAC: never cache audio payloads (deterministic no-audio-cache).
+  if (req.destination === "audio" || AUDIO_REGEX.test(url.pathname)) {
+    event.respondWith(fetch(req, { cache: "no-store" }));
     return;
   }
 

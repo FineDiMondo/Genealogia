@@ -1,0 +1,41 @@
+name: GN370 - Multi Platform Build Matrix
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-matrix:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: linux
+          - os: ubuntu-latest
+            target: android
+          - os: windows-latest
+            target: windows
+          - os: macos-latest
+            target: macos
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install Node dependencies
+        run: npm install
+      - name: Run multi-platform build orchestrator
+        run: python scripts/build-all.py --target ${{ matrix.target }}
+      - name: Upload target artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: gn370-${{ matrix.target }}
+          path: out/build/${{ matrix.target }}

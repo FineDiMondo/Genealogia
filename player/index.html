@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GN370 PLAYER FLAC</title>
+  <link rel="stylesheet" href="../assets/css/terminal.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="player-wrap">
+    <header class="player-head">
+      <div>GN370 PLAYER FLAC / MODALITA MAINFRAME</div>
+      <nav>
+        <a href="../index.html">&lt; RITORNO SHELL</a>
+      </nav>
+    </header>
+
+    <section id="pl-screen" class="screen" aria-live="polite">
+      <div class="field-row"><div class="field-k">FILE</div><div class="field-v" id="pl-file">-</div></div>
+      <div class="field-row"><div class="field-k">STATE</div><div class="field-v" id="pl-state">IDLE</div></div>
+      <div class="field-row"><div class="field-k">TIME</div><div class="field-v" id="pl-time">00:00</div></div>
+      <div class="field-row"><div class="field-k">DURATION</div><div class="field-v" id="pl-duration">00:00</div></div>
+      <div class="field-row"><div class="field-k">SR/BIT/CH</div><div class="field-v"><span id="pl-sr">0</span>/<span id="pl-bit">0</span>/<span id="pl-ch">0</span></div></div>
+      <div class="field-row"><div class="field-k">VOL</div><div class="field-v" id="pl-vol">100</div></div>
+    </section>
+
+    <div class="controls">
+      <button id="pf-prev" type="button">PF7 PREV</button>
+      <button id="pf-play" type="button">PF8 PLAY</button>
+      <button id="pf-next" type="button">PF9 NEXT</button>
+      <button id="pf-stop" type="button">PF10 STOP</button>
+      <input id="pl-file-input" type="file" accept=".flac,audio/flac">
+    </div>
+
+    <div class="controls">
+      <input id="pl-cmd" type="text" placeholder="LOAD <path|url|uri> | PLAY [index] | SEEK <sec>">
+      <button id="pl-run" type="button">RUN</button>
+    </div>
+
+    <pre id="pl-log" class="log"></pre>
+
+    <div class="legend">RC: 0 OK, 4 WARN, 8 ERROR, 12 FATAL | RSN: 1001..1008</div>
+  </main>
+
+  <script src="commands-core.js"></script>
+  <script src="state.js"></script>
+  <script src="engine_web.js"></script>
+  <script src="commands.js"></script>
+  <script src="player.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("../service-worker.js").catch(function () {});
+    }
+  </script>
+</body>
+</html>

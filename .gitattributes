@@ -1,0 +1,21 @@
+# Normalize line endings for all text files
+* text=auto
+
+# Force LF for scripts and source files
+*.js text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.sql text eol=lf
+*.cpy text eol=lf
+
+# Binary files - no conversion
+*.wasm binary
+*.pdf binary
+*.ged text eol=lf

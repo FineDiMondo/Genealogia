@@ -29,6 +29,40 @@
     }
   }
 
+  function recreateSqlRuntime(reason) {
+    if (!GN370.SQL_RUNTIME || typeof GN370.SQL_RUNTIME.recreate !== "function") {
+      return;
+    }
+    Promise.resolve(GN370.SQL_RUNTIME.recreate()).then(function () {
+      if (GN370.JOURNAL) {
+        GN370.JOURNAL.entry("SQL_RESET", "DB", "-", "SQL runtime recreated (" + (reason || "n/a") + ")");
+      }
+    }).catch(function (e) {
+      if (GN370.JOURNAL) {
+        GN370.JOURNAL.entry("SQL_RESET_ERR", "DB", "-", String(e && e.message ? e.message : e));
+      }
+    });
+  }
+
+  function syncSqlRuntime(reason, source) {
+    if (!GN370.SQL_RUNTIME || typeof GN370.SQL_RUNTIME.syncTables !== "function") {
+      return;
+    }
+    Promise.resolve(GN370.SQL_RUNTIME.syncTables(memory.tables, {
+      reason: reason || "SYNC",
+      source: source || "GN370.DB_ENGINE",
+      importId: memory.meta && memory.meta.import_session ? memory.meta.import_session : null
+    })).then(function () {
+      if (GN370.JOURNAL) {
+        GN370.JOURNAL.entry("SQL_SYNC", "DB", "-", "SQL sync ok (" + (reason || "n/a") + ")");
+      }
+    }).catch(function (e) {
+      if (GN370.JOURNAL) {
+        GN370.JOURNAL.entry("SQL_SYNC_ERR", "DB", "-", String(e && e.message ? e.message : e));
+      }
+    });
+  }
+
   function clearStorageForPrefixes(storage, prefixes) {
     if (!storage || !storage.length) {
       return;
@@ -68,7 +102,8 @@
     try {
       clearStorageForPrefixes(global.localStorage, STORAGE_PREFIXES);
       clearStorageForPrefixes(global.sessionStorage, STORAGE_PREFIXES);
-    } catch (_) {}
+    } catch (_) { /* storage not available, ignore */ }
+    recreateSqlRuntime("RESET_MEMORY");
     global.__GN370_MEM_STATUS = "CLEAN";
     global.__GN370_LAST_RESET_TS = new Date().toISOString();
     syncStatusLabel();
@@ -101,6 +136,7 @@
     memory.tables = clone(tables || {});
     memory.meta = clone(meta || {});
     buildIndexes();
+    syncSqlRuntime("POPULATE", memory.meta && memory.meta.source ? memory.meta.source : "populate");
     if (GN370.STATE) {
       GN370.STATE.transition("READY", "populate");
     }
@@ -119,6 +155,7 @@
       memory.tables[t] = (memory.tables[t] || []).concat(newTables[name] || []);
     });
     buildIndexes();
+    syncSqlRuntime("MERGE", "mergeTables");
     if (GN370.JOURNAL) {
       GN370.JOURNAL.entry("MERGE", "DB", "-", "Tables merged");
     }
@@ -154,7 +191,7 @@
     return payload.map(function (line) {
       try {
         return JSON.parse(line);
-      } catch (e) {
+      } catch (_) {
         return { raw: line };
       }
     });

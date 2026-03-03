@@ -1,38 +1,51 @@
-# GN370 v2.0
+﻿# GN370 - Versione 0 (baseline)
 
-Shell genealogica statica COBOL-first, CICS-like, conforme a `GN370_Blueprint_v2.0`.
+GN370 e una shell genealogica web "static-first" con boot deterministico e pipeline GEDCOM guidata da utente.
+
+Questa documentazione descrive la **Versione 0**: base funzionante, perimetro chiaro, invarianti tecniche, limiti noti.
+
+## Obiettivo V0
+
+- Rendere ripetibile l'avvio: stato iniziale sempre `DB: EMPTY`.
+- Consentire import manuale di dataset genealogici e fonti collegate.
+- Fornire shell comandi uniforme per consultazione, controllo e validazione.
+- Mantenere deployment statico e runtime client-side.
 
 ## Avvio locale
 
 1. `npm install`
-2. `python -m http.server 8080`
-3. Apri `http://localhost:8080`
+2. `npm run vendor:sqlite`
+3. `python scripts/serve_with_isolation.py --port 8080`
+4. Aprire `http://localhost:8080`
 
 ## Comandi principali shell
 
-- `help`
-- `status`
-- `db import`
-- `db list`
-- `db export`
-- `import gedcom`
-- `import herald`
-- `validate`
-- `monitor db`
-- `theme normanno`
+- `help`, `man <cmd>`, `status`, `clear`, `quit`
+- `db import`, `db list`, `db show <table>`, `db reset`, `db export`
+- `import gedcom [--dry-run --auto-skip-low --strict]`
+- `import status`, `import log`, `import conflicts`, `import review`, `import accept`, `import batch rerun`
+- `import herald`, `import notarial`, `import nobility`
+- `validate`, `monitor <db|system|herald|env|perf>`
+- `maps`, `mappa <n|n[a-d]>`, `proto ...`, `map --period <era>`, `timeline`, `tree`
 
-## Test e verifiche
+## Documentazione V0
 
-- `bash scripts/verify_deployment.sh`
-- `bash scripts/verify_boot.sh`
-- `bash scripts/static_analysis.sh`
-- `bash scripts/check_copybooks.sh`
+- [Versione 0 - indice](docs/VERSIONE_0.md)
+- [Analisi requisiti](docs/ANALISI_REQUISITI.md)
+- [Analisi tecnica](docs/ANALISI_TECNICA.md)
+- [Analisi funzionale](docs/ANALISI_FUNZIONALE.md)
+- [GEDCOM mapping](docs/GEDCOM_MAPPING.md)
+- [Herald format](docs/HERALD_FORMAT.md)
+- [Lessico](docs/LEXICON.md)
+- [Piano multipiattaforma](docs/MULTIPLATFORM_ADAPTATION.md)
+
+## Test minimi V0
+
 - `node tests/gate_tests.js`
 - `bash tests/multienv_tests.sh`
-- `npx playwright test`
+- `node tests/sql_runtime.test.js`
 
-## Multi-environment
+## Note importanti
 
-- `bash environments/setup-env.sh dev`
-- `bash environments/setup-env.sh test`
-- `bash environments/setup-env.sh prod`
+- Il materiale in `docs/progetto_riferimento/` e trattato come snapshot di riferimento, non come documentazione operativa V0.
+- V0 privilegia stabilita operativa e tracciabilita; non e una release feature-complete.

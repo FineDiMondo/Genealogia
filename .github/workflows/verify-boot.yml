@@ -39,6 +39,8 @@ jobs:
           GN370_TEST_URL: http://localhost:8080
       - name: Gate tests
         run: node tests/gate_tests.js
+      - name: SQL runtime wiring tests
+        run: node tests/sql_runtime.test.js
       - name: GEDCOM import tests
         run: npx playwright test tests/gedcom_import.test.js
       - name: Herald import tests

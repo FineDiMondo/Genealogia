@@ -1,0 +1,29 @@
+-- GN370 embedded SQL schema (deterministic reset at boot)
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS GN370_TABLE_META (
+  table_name TEXT PRIMARY KEY,
+  row_count INTEGER NOT NULL DEFAULT 0,
+  updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS GN370_ROW_STORE (
+  table_name TEXT NOT NULL,
+  row_seq INTEGER NOT NULL,
+  row_id TEXT,
+  payload_json TEXT NOT NULL,
+  PRIMARY KEY (table_name, row_seq)
+);
+
+CREATE INDEX IF NOT EXISTS IDX_GN370_ROW_STORE_TABLE
+  ON GN370_ROW_STORE (table_name);
+
+CREATE INDEX IF NOT EXISTS IDX_GN370_ROW_STORE_ROWID
+  ON GN370_ROW_STORE (row_id);
+
+CREATE TABLE IF NOT EXISTS GN370_IMPORT_AUDIT (
+  import_id TEXT PRIMARY KEY,
+  source_label TEXT NOT NULL,
+  imported_at TEXT NOT NULL,
+  records_total INTEGER NOT NULL DEFAULT 0
+);

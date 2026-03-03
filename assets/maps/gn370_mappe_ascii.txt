@@ -1,0 +1,989 @@
+﻿
+### MAPPA 1
+#### 1A
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  MAPPA 1 · ALBERO GENEALOGICO                                                ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌── 1A · ORIZZONTALE (80 col) ─────────────────────────────────────────────────┐
+
+  [HEL] RADICI          [MIDGARD] LINEA PRINCIPALE          [ASGARD] PRESENTE
+
+  +Pietro──+Giovanni──+Salvatore──+Francesco──+Gaetano──+Ignazio──+Paolo
+  1500     1530       1580        1610         1650       1695      1720
+    │                                                                 │
+    └─[R1b-L21]                                          +Girolamo───*UTENTE
+      NORMANDIA                                          1750   ╲    oggi
+      ~1000 d.C.                                                 ╲
+                                          +Concetta Naselli───────╯
+                                          1756 ♛DUCHESSA DI GELA
+
+  LEGENDA:  * = utente/io   + = antenato   ─ = linea diretta
+            │ = ramo        ╲ = matrimonio  [ ] = contesto storico
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 1B
+┌── 1B · VERTICALE (top→bottom) ───────────────────────────────────────────────┐
+                        *UTENTE (oggi)
+                            │
+              ┌─────────────┴─────────────┐
+          +Padre                      +Madre
+              │
+     ┌────────┴────────┐
+  +Nonno            +Nonna
+     │
+  ┌──┴──┐
+ +GN-IV  +GN-IV
+   1610    │
+           ╰── +GN-III ── +GN-II ── +GN-I
+               1580        1530      │
+                                  +Pietro
+                                  1500 ← CAPOSTIPITE
+                                     │
+                               [R1b-L21]
+                               NORMANDIA ~1000
+                                     │
+                              [YAMNAYA 3000 a.C.]
+
+  LEGENDA:  * = io   + = antenato   │ = discendenza
+            ┌┘ = biforcazione   ← = origine documentata
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 1C
+┌── 1C · WIREFRAME 120×40 ─────────────────────────────────────────────────────┐
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+│  GN370 · MAPPA 1 · ALBERO GENEALOGICO                                                              [x:0,y:0 120×3]  │
++──────────────────+──────────────────────────────────────────────────────────────────+──────────────────────────────+
+│ FILTRI           │  CANVAS PRINCIPALE                                               │  DETTAGLIO NODO              │
+│ [x:0,y:3 18×37] │  [x:18,y:3 84×37]                                               │  [x:102,y:3 18×37]           │
+│                  │                                                                  │                              │
+│ Era:             │     +Pietro─────+Giov─────+Salv─────+Franc─────+Gaet            │  ID: GNP001                  │
+│ [N]ormanno       │     1500         1530      1580      1610       1650             │  Nome: Pietro Giardina       │
+│ [A]ragonese      │        │                                           │              │  Nato: ~1500 Palermo         │
+│ [C]astigliano    │        │                               +Ign───────+Paolo         │  Fonte: ARCHIVIO PA          │
+│ [R]isorgimento   │        │                               1695       1720           │  DNA: R1b-L21                │
+│                  │        │                                           │              │                              │
+│ Gen:             │   [R1b-L21]                              +Girolamo*UTENTE        │  NOTE:                       │
+│ [ ] I–XIV        │   NORM.                                  1750      oggi          │  Primo antenato              │
+│                  │                                    +Concetta─────╯               │  documentato.                │
+│ Casato:          │                                    1756                          │  *GARD proto-germ.           │
+│ [G]iardina       │                                    NASELLI                       │                              │
+│ [N]aselli        │                                                                  │  XREF: @I0001@               │
+│ [G]rimaldi       │                                                                  │                              │
+│                  │                                                                  │  [APRI RECORD]               │
++──────────────────+──────────────────────────────────────────────────────────────────+──────────────────────────────+
+│ TIMELINE [x:0,y:37 120×3]   1500────────1600────────1700────────1800────────1900──oggi                           │
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 1D
+┌── 1D · ASCII-370 80×24 ──────────────────────────────────────────────────────┐
+################################################################################
+#  GN370 · ALBERO GENEALOGICO                         PF1=LINEA PF9=TEMI      #
+#==============================================================================#
+# FILTRI        #  CANVAS ALBERO GENEALOGICO                  # DETTAGLIO     #
+# [16×18]       #  [44×18]                                    # [16×18]       #
+#               #                                              #               #
+# Era:          #   +P──+G──+S──+F──+G──+I──+Pa               # ID: GNP001   #
+# >Normanno     #   │500 530 580 610 650 695 720              # Pietro       #
+# Aragonese     #   │                        │                 # ~1500 PA     #
+# Castigliano   #  [N]                  +Giro*IO               #              #
+# Risorgimento  #                       1750 OGG               # Fonte:       #
+#               #                   +Conce─╯                   # ARCHIVIO PA  #
+# Casato:       #                   NASELLI                    #              #
+# >Giardina     #                   1756                       # DNA:         #
+# Naselli       #                                              # R1b-L21      #
+# Grimaldi      #                                              #              #
+#               #                                              # [APRI]       #
+#==============================================================================#
+# CMD: GN370$_                                     JOB:IDLE  ⬡ NORRENO       #
+#==============================================================================#
+# TL: 1500─────────────1700─────────────1900─────────────────────────oggi     #
+################################################################################
+  COLS=80 ROWS=24  * = utente  + = antenato  # = bordo pannello  > = selezione
+└───────────────────────────────────────────────────────────────────────────────
+### MAPPA 2
+#### 2A
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  MAPPA 2 · RETE DELLE FAMIGLIE                                               ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌── 2A · ORIZZONTALE ──────────────────────────────────────────────────────────┐
+
+  [ALTAVILLA]────────────[GIARDINA]────────────[NASELLI]
+  Normanni XII-XIII      Principi               Duchi di Gela
+       │                 Ficarazzi                   │
+       │                     │                       │
+       │              ┌──────┴──────┐                │
+       │         GIROLAMO       altri            CONCETTA
+       │              └──────────────────────────────┘
+       │                    MATRIMONIO 1775
+       │                         │
+  [DNA R1b-L21]             CARLO 1776─────────── ... ────── UTENTE
+  CONNESSIONE               (figlio)                         oggi
+       │
+  [GRIMALDI]──────────────[NASELLI]
+  Principi S.Caterina     (via Concetta)
+
+  LEGENDA: [ ] = casato   ─ = legame   │ = discendenza   X = evento fondante
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 2B
+┌── 2B · VERTICALE ────────────────────────────────────────────────────────────┐
+         [ALTAVILLA]    [GRIMALDI]
+         Norm. XII          │
+              │         Principi
+              │         S.Caterina
+              │             │
+         [DNA-R1b]      ────┘
+         connessione        │
+              │         [NASELLI]
+              │         Duchi Gela
+              │             │
+         [GIARDINA]─────────┘
+         Principi           │
+         Ficarazzi      MATRIMONIO
+              │         1775 ♛
+              │             │
+              └─────────────┘
+                     │
+                 CARLO 1776
+                     │
+                  ... IX gen ...
+                     │
+                  *UTENTE
+
+  LEGENDA: [ ] = casato  ♛ = evento chiave
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 2C
+┌── 2C · WIREFRAME 120×40 ─────────────────────────────────────────────────────┐
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+│  GN370 · MAPPA 2 · RETE FAMIGLIE                                                            [x:0,y:0 120×2]         │
++────────────────────+────────────────────────────────────────────────────────────────────────+──────────────────────+
+│ CASATI             │  CANVAS RETE                                                            │  CASATO SELEZIONATO  │
+│ [x:0,y:2 20×32]    │  [x:20,y:2 80×32]                                                      │  [x:100,y:2 20×32]   │
+│                    │                                                                          │                      │
+│ +[ALTAVILLA]       │    [ALTAVILLA]─────────────[GIARDINA]───────[NASELLI]                  │  GIARDINA            │
+│  Norm. XII-XIII    │         │                       │                │                       │  Principi            │
+│                    │    [DNA R1b]              ┌────┴────┐      [GRIMALDI]                  │  Ficarazzi           │
+│ +[GIARDINA]        │                         GIROL.  altri          │                        │                      │
+│  Princ. Ficar.     │                            └────────────────────┘                        │  Titolo: XVII sec.   │
+│                    │                                  MATR.1775                               │  Fonte: ARCHIVIO PA  │
+│ +[NASELLI]         │                                      │                                   │                      │
+│  Duchi Gela        │                                  CARLO 1776                              │  Membri:             │
+│                    │                                      │                                   │  Pietro 1500         │
+│ +[GRIMALDI]        │                               ... XIV gen ...                            │  Giovanni 1530       │
+│  Pr. S.Caterina    │                                      │                                   │  ...                 │
+│                    │                                  *UTENTE                                 │  Girolamo 1750       │
+│ [CERCA CASATO]     │                                                                          │                      │
++────────────────────+────────────────────────────────────────────────────────────────────────+──────────────────────+
+│ INFO [x:0,y:34 120×6]   MATRIMONI FONDANTI: 1775 Giardina×Naselli                                                  │
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 2D
+┌── 2D · ASCII-370 80×24 ──────────────────────────────────────────────────────┐
+################################################################################
+#  GN370 · RETE FAMIGLIE                              PF2=CASATI PF9=TEMI     #
+#==============================================================================#
+# CASATI [16×18] #  RETE COLLEGAMENTI [44×18]         # INFO CASATO [16×18]  #
+#                #                                     #                      #
+# >[GIARDINA]    #   [ALTAVILLA]──[GIARDINA]──[NAS]   # GIARDINA             #
+#  [NASELLI]     #        │            │          │    # Principi             #
+#  [GRIMALDI]    #   [DNA-R1b]    ┌───┴───┐   [GRIM]  # Ficarazzi            #
+#  [ALTAVILLA]   #              GIROL.  altri    │     #                      #
+#                #                └───────────────┘    # Titolo: XVII sec.   #
+#                #                    MATR.1775         # Fonte: ARCH.PA      #
+#                #                        │             #                      #
+#                #                    CARLO 1776        # Membri: 11           #
+#                #                        │             # Gen:    I–XI         #
+#                #                    *UTENTE           #                      #
+#                #                                     # [APRI CASATO]        #
+#                #                                     #                      #
+#==============================================================================#
+# CMD: GN370$_                                    JOB:IDLE  ⬡ PERGAMENA      #
+#==============================================================================#
+# MATRIMONI FONDANTI: 1775 Giardina×Naselli  |  Grimaldi×Naselli (XII sec.)   #
+################################################################################
+  [ ]=casato  ─=legame  │=discendenza  >=selezionato  #=pannello
+└───────────────────────────────────────────────────────────────────────────────
+### MAPPA 3
+#### 3A
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  MAPPA 3 · CRONOLOGIA DEGLI EVENTI                                           ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌── 3A · ORIZZONTALE ──────────────────────────────────────────────────────────┐
+  1500    1550    1600    1650    1700    1750    1800    1850    1900  oggi
+  =====|========|========|========|========|========|========|========|=======
+  B    :        :        :   B    :   B    :   M    :   B    :   B    :
+  Pietro        :   ?    :Ignazio :Girolamo:1775!   :Carlo   :Giuseppe:
+        B:      :lacuna  : 1695   : 1720   :Naselli : 1776   : 1810   :*
+        Giovanni: 1600?  :        :        :Grimaldi:        :        :UTENTE
+        1530    :        :        :        :        :        :  D     :
+                :        :        :        :        :        :Giuseppe:
+  ─────NORMANNO─────────────ARAGONESE───────────CASTIGLIANO──────RISORG────────
+  ⚜              ♛                              ☩                ⚑
+
+  LEGENDA: B=nascita  D=morte  M=matrimonio  !=evento fondante  ?=lacuna
+           =====  linea principale   ─────  era storica
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 3B
+┌── 3B · VERTICALE ────────────────────────────────────────────────────────────┐
+  ⚜ NORMANNO
+  │
+  B Pietro Giardina ~1500 · Palermo
+  │
+  B Giovanni Giardina ~1530
+  │ (testimone atti 1558)
+  │
+  ? LACUNA 1560–1580
+  │ (record mancanti)
+  │
+  ♛ ARAGONESE
+  │
+  B Salvatore Giardina ~1580
+  │
+  B Francesco Giardina ~1610
+  │ (Rivele 1651)
+  │
+  ☩ CASTIGLIANO
+  │
+  B Gaetano ~1650 · B Ignazio ~1695
+  │
+  B Paolo ~1720 · B Girolamo ~1750
+  │
+  M ══ MATRIMONIO FONDANTE 1775 ══
+  │    Girolamo × Concetta Naselli
+  │
+  B Carlo 1776 (primo figlio)
+  │
+  ⚑ RISORGIMENTO
+  │
+  B Giuseppe 1810 · testimone 1848
+  │
+  B Calogero 1850 · notaio
+  │
+  ─ REGNO D'ITALIA
+
+  LEGENDA: B=nascita  M=matrimonio  ?=lacuna
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 3C
+┌── 3C · WIREFRAME 120×40 ─────────────────────────────────────────────────────┐
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+│  GN370 · MAPPA 3 · CRONOLOGIA                                                               [x:0,y:0 120×2]         │
++────────────────────+──────────────────────────────────────────────────────────────────+──────────────────────────+
+│ FILTRI EVENTO      │  TIMELINE PRINCIPALE                                              │  EVENTO SELEZIONATO      │
+│ [x:0,y:2 20×28]    │  [x:20,y:2 80×20]                                                 │  [x:100,y:2 20×28]       │
+│                    │                                                                     │                          │
+│ Tipo:              │  1500─────1600─────1700─────1800─────1900─────oggi                │  MATRIMONIO 1775         │
+│ [B] Nascita        │  ==========================================================        │  Girolamo × Concetta     │
+│ [D] Morte          │  B    ?    B   B   M!  B   B   B   B                             │                          │
+│ [M] Matrimonio     │  Pietro lac Ign Giro 75 Carl Gius Calo *                         │  Tipo: MATRIMONIO        │
+│ [!] Fondante       │                                                                     │  Data: 1775              │
+│                    │  ──NORM──│──ARAG──│──CAST──│──RISORG──│──REGNO──                │  Luogo: Palermo          │
+│ Era:               │                                                                     │                          │
+│ Normanno           +──────────────────────────────────────────────────────────────────+  │  Persone:                │
+│ Aragonese          │  DETTAGLIO EVENTO [x:20,y:22 80×8]                                │  Girolamo Giardina       │
+│ Castigliano        │  Seleziona evento nella timeline per dettagli                     │  Concetta Naselli        │
+│ Risorgimento       │                                                                     │  Grimaldi (testimone)    │
++────────────────────+──────────────────────────────────────────────────────────────────+──────────────────────────+
+│ NAVIGAZIONE ERA [x:0,y:30 120×4]   [◄ NORM] [ARAG ►]  [CAST ►]  [RISORG ►]                                      │
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 3D
+┌── 3D · ASCII-370 80×24 ──────────────────────────────────────────────────────┐
+################################################################################
+#  GN370 · CRONOLOGIA                                 PF3=FONTI PF9=TEMI      #
+#==============================================================================#
+# TIPO  [14×18] #  TIMELINE [48×18]                    # EVENTO  [14×18]     #
+#               #                                       #                     #
+# Evento:       #  1500─────1700─────1900─oggi         # MATR.1775           #
+# >[B] Nascita  #  ═══════════════════════════          # Girolamo            #
+#  [D] Morte    #  B   ?   B   M!  B   B   B *          # ×Concetta           #
+#  [M] Matr.    #  Pet lac Ign 75  Car Giu Calo io      #                     #
+#  [!] Fondan.  #                                        # Data: 1775          #
+#               #  ─NORM─│─ARAG─│─CAST─│─RISOR─│─REG─   # Fonte: REG.MAT.    #
+# Era:          #                                        #                     #
+# >[N]ormanno   #                                        # PERSONE:            #
+# [A]ragonese   #                                        # Girolamo Giardina   #
+# [C]astigliano #                                        # Concetta Naselli    #
+# [R]isorgimento#                                        #                     #
+# [K]egno It.   #                                        # [VIS. RECORD]       #
+#               #                                        #                     #
+#==============================================================================#
+# CMD: GN370$_                                    JOB:IDLE  ⬡ CODICE MED.    #
+#==============================================================================#
+# B=nascita  D=morte  M=matrimonio  !=fondante  ?=lacuna  *=utente  ─=era      #
+################################################################################
+└───────────────────────────────────────────────────────────────────────────────
+### MAPPA 4
+#### 4A
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  MAPPA 4 · MAPPA DEI LUOGHI                                                  ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌── 4A · ORIZZONTALE ──────────────────────────────────────────────────────────┐
+  NORMANDIA          SICILIA NORD         SICILIA SUD       PALERMO CENTRO
+
+  ^Rouen─────────────^Messina─────────────^Agrigento
+  │ 1072 Ruggero I   │                    │
+  │                  │                    ^Gela
+  ^Caen              ^Cefalù              : Naselli
+  : DNA R1b-L21      :
+                     ^Monreale
+  NORD EUROPA        │                  ^PALERMO─────────^Ficarazzi
+  ^Vichinghi─────────┘                  : Capoluogo      : Principi
+  ~900 d.C.                             : 1500–oggi      : Giardina
+                                        ^S.Caterina
+  *GARD → GIARDINA                      : Grimaldi
+
+  LEGENDA: ^ = luogo   - = collegamento   : = evento/casato   * = radice
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 4B
+┌── 4B · VERTICALE ────────────────────────────────────────────────────────────┐
+  NORD EUROPA
+  ^Vichinghi (~900 d.C.)
+  │ *GARD proto-germanico
+  │
+  ^Normandia (1000 d.C.)
+  │ DNA R1b-L21 · Jardine
+  │
+  ─ CONQUISTA SICILIA 1072 ─
+  │
+  ^Palermo
+  │ : Altavilla (XII sec.)
+  │ : Sede Regale
+  │
+  ├──^Monreale
+  │   : mosaici normanni
+  │
+  ├──^Cefalù
+  │   : cattedrale 1131
+  │
+  ├──^Ficarazzi
+  │   : Principi Giardina
+  │
+  ├──^S.Caterina
+  │   : Grimaldi
+  │
+  └──^Gela
+      : Naselli · Duchi
+
+  LEGENDA: ^ = luogo   : = casato
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 4C
+┌── 4C · WIREFRAME 120×40 ─────────────────────────────────────────────────────┐
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+│  GN370 · MAPPA 4 · LUOGHI                                                                   [x:0,y:0 120×2]         │
++─────────────────────+──────────────────────────────────────────────────────────────────────+─────────────────────+
+│ FILTRI LUOGO        │  MAPPA GEOGRAFICA                                                     │  LUOGO SELEZIONATO  │
+│ [x:0,y:2 21×32]     │  [x:21,y:2 78×32]                                                     │  [x:99,y:2 21×32]   │
+│                     │                                                                        │                     │
+│ Regione:            │  EUROPA NORD    SICILIA                                               │  ^PALERMO           │
+│ [ ] Normandia       │                                                                        │                     │
+│ [ ] Sicilia N.      │  ^Vichinghi     ^Cefalù  ^Monreale                                    │  Evento:            │
+│ [ ] Palermo         │  │               │                                                     │  Sede 1500–oggi     │
+│ [ ] Gela            │  ^Normandia──────^PALERMO*────^Ficarazzi                              │                     │
+│ [ ] S.Caterina      │  (1072 Ruggero)  │  : Giardina                                        │  Casati:            │
+│                     │                  │                                                     │  Giardina           │
+│ Periodo:            │                  ├─^S.Caterina  : Grimaldi                            │  Altavilla          │
+│ [ ] Normanno        │                  │                                                     │                     │
+│ [ ] Aragonese       │                  └─^Gela         : Naselli                            │  Coordinate:        │
+│ [ ] Castigliano     │                                                                        │  38°N 13°E          │
+│ [ ] Risorgimento    │  * = PALERMO · centro genealogico                                     │                     │
++─────────────────────+──────────────────────────────────────────────────────────────────────+─────────────────────+
+│ INFO [x:0,y:34 120×6]   PALERMO: sede principale 1500–oggi · 11 antenati documentati                              │
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 4D
+┌── 4D · ASCII-370 80×24 ──────────────────────────────────────────────────────┐
+################################################################################
+#  GN370 · LUOGHI                                     PF4=ARALDICA PF9=TEMI   #
+#==============================================================================#
+# FILTRI [14×18] #  MAPPA GEOGRAFICA [48×18]          # LUOGO   [14×18]      #
+#                #                                      #                      #
+# Regione:       #  NORD EUROPA    SICILIA              # ^PALERMO             #
+# >[P]alermo     #                                      #                      #
+# [G]ela         #  ^Vichinghi    ^Cefalù               # Evento:             #
+# [N]ormandia    #  │              ^Monreale            # 1500–oggi           #
+# [S]ic.Nord     #  ^Normandia────^PALERMO*──^Ficar.    #                      #
+#                #  (1072)        │  :Giardina           # Casati:             #
+# Periodo:       #                ├──^S.Cat. :Grimaldi   # Giardina            #
+# >[N]ormanno    #                │                      # Altavilla           #
+# [A]ragonese    #                └──^Gela   :Naselli    #                      #
+# [C]astigliano  #                                       # Coord:              #
+# [R]isorgimento #  * = centro genealogico               # 38°N 13°E           #
+#                #                                       #                      #
+#==============================================================================#
+# CMD: GN370$_                                    JOB:IDLE  ⬡ PAPIRO ARABO   #
+#==============================================================================#
+# ^=luogo  ─=collegamento  :=casato/evento  *=centro principale  >=filtro att. #
+################################################################################
+└───────────────────────────────────────────────────────────────────────────────
+### MAPPA 5
+#### 5A
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  MAPPA 5 · GERARCHIA DEI TITOLI                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌── 5A · ORIZZONTALE ──────────────────────────────────────────────────────────┐
+  ^RE DI SICILIA (ALTAVILLA)
+  │
+  ├──^PRINCIPI DI FICARAZZI (GIARDINA XVII sec.)
+  │       │
+  │       ├── Commissario Real Patrimonio (Ignazio ~1695)
+  │       ├── Nobile palermitano (Paolo ~1720)
+  │       └── [linea principale → UTENTE]
+  │
+  ├──^PRINCIPI DI SANTA CATERINA (GRIMALDI XII sec.)
+  │       │
+  │       └── Concetta Naselli ─────────── MATRIMONIO 1775
+  │                                              │
+  └──^DUCHI DI GELA (NASELLI XIV sec.)           └── CARLO 1776
+          │
+          └── titolo confluito in linea Giardina-Naselli
+
+  LEGENDA: ^ = titolo   ─ = subordinazione   │ = trasmissione
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 5B
+┌── 5B · VERTICALE ────────────────────────────────────────────────────────────┐
+  ^RE DI SICILIA
+  │ Altavilla 1072–1266
+  │
+  ├──^PRINCIPI S.CATERINA
+  │   Grimaldi XII sec.
+  │       │
+  │       └──Concetta Naselli
+  │              │
+  ├──^DUCHI DI GELA
+  │   Naselli XIV sec.
+  │       │
+  │       └──(dote + titolo)
+  │              │
+  ├──^PRINCIPI FICARAZZI
+  │   Giardina XVII sec.
+  │       │
+  │       ├──Commissario R.P.
+  │       │  Ignazio 1695
+  │       │
+  │       └──Nobile Palermitano
+  │          Paolo 1720
+  │              │
+  │          Girolamo 1750
+  │              │
+  └──────────MATRIMONIO 1775
+             TRE CASATI UNITI
+                  │
+              *UTENTE
+
+  LEGENDA: ^ = titolo  │ = trasmiss.
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 5C
+┌── 5C · WIREFRAME 120×40 ─────────────────────────────────────────────────────┐
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+│  GN370 · MAPPA 5 · TITOLI                                                                   [x:0,y:0 120×2]         │
++──────────────────────+───────────────────────────────────────────────────────────────────+────────────────────────+
+│ FILTRI TITOLO        │  GERARCHIA TITOLI                                                  │  TITOLO SELEZIONATO    │
+│ [x:0,y:2 22×32]      │  [x:22,y:2 76×32]                                                  │  [x:98,y:2 22×32]      │
+│                      │                                                                     │                        │
+│ Rango:               │  ^RE DI SICILIA (ALTAVILLA 1072)                                  │  PRINCIPI FICARAZZI    │
+│ [ ] Re/Imperatore    │  │                                                                  │  Giardina              │
+│ [ ] Principe         │  ├──^PRINCIPI FICARAZZI (GIARDINA)                                 │                        │
+│ [ ] Duca             │  │      ├── Commissario R.P. (Ignazio)                             │  Rango: Principe       │
+│ [ ] Conte            │  │      ├── Nobile (Paolo)                                         │  Epoca: XVII sec.      │
+│ [ ] Nobile           │  │      └── Girolamo──MATR.1775──*UTENTE                          │  Fonte: PROTONOTARO    │
+│                      │  │                                                                  │                        │
+│ Casato:              │  ├──^PRINCIPI S.CATERINA (GRIMALDI)                                │  Predecessori:         │
+│ [ ] Giardina         │  │      └── Concetta Naselli──────┘                                │  Altavilla (XII)       │
+│ [ ] Naselli          │  │                                                                  │                        │
+│ [ ] Grimaldi         │  └──^DUCHI DI GELA (NASELLI XIV)                                   │  [DOCUMENTI]           │
+│ [ ] Altavilla        │                                                                     │                        │
++──────────────────────+───────────────────────────────────────────────────────────────────+────────────────────────+
+│ TIMELINE TITOLI [x:0,y:34 120×6]   XII─────────────XIV──────────XVII──────────XIX                                  │
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 5D
+┌── 5D · ASCII-370 80×24 ──────────────────────────────────────────────────────┐
+################################################################################
+#  GN370 · GERARCHIA TITOLI                           PF5=DNA PF9=TEMI        #
+#==============================================================================#
+# RANGO  [14×18] #  GERARCHIA [48×18]                  # TITOLO  [14×18]     #
+#                #                                       #                     #
+# Rango:         #  ^RE SICILIA (ALTAVILLA 1072)        # PRINC.FICAR.        #
+# >[P]rincipe    #  │                                    # Giardina            #
+#  [D]uca        #  ├──^PRINC.FICARAZZI (GIARDIN.)      #                     #
+#  [N]obile      #  │    ├──Commissario R.P.(Ign.)      # Rango: Principe     #
+#  [R]e/Imp.     #  │    ├──Nobile (Paolo)              # Epoca: XVII sec.    #
+#                #  │    └──Girolamo──MATR.75──*IO      #                     #
+# Casato:        #  │                                    # Fonte:              #
+# >[G]iardina    #  ├──^PRINC.S.CAT.(GRIMALDI)          # PROTONOTARO         #
+#  [N]aselli     #  │    └──Concetta──────────┘          #                     #
+#  [Gr]imaldi    #  │                                    # Pred.:              #
+#  [A]ltavilla   #  └──^DUCHI GELA (NASELLI XIV)        # Altavilla XII       #
+#                #                                       #                     #
+#==============================================================================#
+# CMD: GN370$_                                    JOB:IDLE  ⬡ MARMO IMP.     #
+#==============================================================================#
+# ^=titolo  ├──=subordinato  └──=foglia  │=trasmissione  *=utente  >=attivo    #
+################################################################################
+└───────────────────────────────────────────────────────────────────────────────
+### MAPPA 6
+#### 6A
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  MAPPA 6 · DISTRIBUZIONE DELLE PROPRIETÀ                                     ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌── 6A · ORIZZONTALE ──────────────────────────────────────────────────────────┐
+  PERSONA          $PROPRIETÀ              $PROPRIETÀ           PERSONA
+
+  [GIARDINA]──────$Ficarazzi (feudo)───────$Palermo (casa)──────[GIARDINA]
+      │            XVII sec.                1500–oggi                │
+      │                                                               │
+  [NASELLI]───────$Gela (ducato)            $Terreni PA             [NASELLI]
+      │            XIV sec.                 Rivele 1651              │
+      │                                                               │
+  [GRIMALDI]──────$S.Caterina (principato)                       [GRIMALDI]
+                   XII sec.
+
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │  CONFLUENZA 1775: tre patrimoni si uniscono nella discendenza          │
+  └──────────────────────────────────────────────────────────────────────────┘
+
+  LEGENDA: $ = proprietà   [ ] = famiglia   ─ = collegamento patrimoniale
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 6B
+┌── 6B · VERTICALE ────────────────────────────────────────────────────────────┐
+  $PROPRIETÀ GIARDINA
+  │
+  ├──$Feudo Ficarazzi
+  │   XVII sec. · Palermo
+  │
+  ├──$Casa Palermo
+  │   1500–oggi
+  │
+  ├──$Terreni (Rivele 1651)
+  │   Francesco Giardina
+  │
+  └──$Commissariato R.P.
+      Ignazio ~1695
+
+  $PROPRIETÀ NASELLI
+  │
+  └──$Ducato di Gela
+      XIV sec.
+
+  $PROPRIETÀ GRIMALDI
+  │
+  └──$Principato S.Caterina
+      XII sec.
+
+  ══ CONFLUENZA 1775 ══
+  │
+  └──$Patrimonio unificato
+      Carlo 1776 → *UTENTE
+
+  LEGENDA: $=proprietà  │=trasmiss.
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 6C
+┌── 6C · WIREFRAME 120×40 ─────────────────────────────────────────────────────┐
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+│  GN370 · MAPPA 6 · PATRIMONIO                                                               [x:0,y:0 120×2]         │
++──────────────────────+───────────────────────────────────────────────────────────────────+────────────────────────+
+│ FILTRI PATRIMONIO    │  MAPPA PATRIMONI                                                    │  PROPRIETÀ SEL.        │
+│ [x:0,y:2 22×32]      │  [x:22,y:2 76×32]                                                  │  [x:98,y:2 22×32]      │
+│                      │                                                                     │                        │
+│ Tipo:                │  [GIARDINA]──$Ficarazzi XVII──$Casa PA 1500                        │  $Feudo Ficarazzi      │
+│ [ ] Feudo            │       │                                                             │                        │
+│ [ ] Casa             │       ├──$Terreni PA (Rivele 1651)                                 │  Tipo: Feudo           │
+│ [ ] Ducato           │       └──$Commissariato R.P. (Ignazio)                             │  Data: XVII sec.       │
+│ [ ] Principato       │                                                                     │  Casato: Giardina      │
+│ [ ] Terreni          │  [NASELLI]───$Ducato Gela XIV                                      │                        │
+│                      │       │                                                             │  Fonte:                │
+│ Casato:              │  [GRIMALDI]──$Principato S.Caterina XII                            │  PROTONOTARO           │
+│ [ ] Giardina         │                                                                     │  ARCHIVIO PA           │
+│ [ ] Naselli          │  ═══════════════════════════════                                    │                        │
+│ [ ] Grimaldi         │  CONFLUENZA 1775 → $Carlo 1776 → *UTENTE                           │  [DOCUMENTI]           │
++──────────────────────+───────────────────────────────────────────────────────────────────+────────────────────────+
+│ VALORE STIMATO [x:0,y:34 120×6]   [IN RICERCA]  Rivele 1651 · Catasto Feudale                                     │
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 6D
+┌── 6D · ASCII-370 80×24 ──────────────────────────────────────────────────────┐
+################################################################################
+#  GN370 · PATRIMONIO                                 PF6=NOTE PF9=TEMI       #
+#==============================================================================#
+# TIPO    [14×18] #  PATRIMONI [48×18]                 # PROP.   [14×18]     #
+#                 #                                      #                     #
+# Tipo:           #  [GIARDIN]──$Ficaraz.─$Casa PA     # $Ficarazzi          #
+# >[F]eudo        #       │                             #                     #
+#  [C]asa         #       ├──$Terreni (Rivele 1651)     # Tipo: Feudo         #
+#  [D]ucato       #       └──$Comm.R.P.(Ignazio)        # Data: XVII sec.     #
+#  [P]rincipato   #                                      #                     #
+#                 #  [NASELLI]──$Ducato Gela XIV        # Casato:             #
+# Casato:         #                                      # Giardina            #
+# >[G]iardina     #  [GRIMALDI]─$Princ.S.Cat.XII        #                     #
+#  [N]aselli      #                                      # Fonte:              #
+#  [Gr]imaldi     #  ═══CONFLUENZA 1775═══              # PROTONOTARO         #
+#                 #  $Carlo 1776 → *UTENTE              #                     #
+#                 #                                      # [DOCUMENTI]         #
+#==============================================================================#
+# CMD: GN370$_                                    JOB:IDLE  ⬡ ART NOUVEAU    #
+#==============================================================================#
+# $=proprietà  [ ]=famiglia  ─=legame patr.  ═══=confluenza  *=utente          #
+################################################################################
+└───────────────────────────────────────────────────────────────────────────────
+### MAPPA 7
+#### 7A
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  MAPPA 7 · ANALISI DELLE RELAZIONI                                           ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌── 7A · ORIZZONTALE ──────────────────────────────────────────────────────────┐
+  <Girolamo Giardina × Concetta Naselli>   MATRIMONIO FONDANTE 1775
+           :────────────────────────────────────────────────────:
+           :  CONNESSIONE CASATI                               :
+  <Pietro──Giovanni> DISCENDENZA DIRETTA                       :
+           :                                                   :
+  <Naselli : Grimaldi> ALLEANZA NOBILIARE                      :
+           :                                                   :
+  <Giardina : Altavilla> DNA R1b CONNESSIONE                   :
+           :                                  ┌──────────────────┘
+           :                                  └─ CARLO 1776
+  <Calogero Giardina × ?>  LACUNA MATERNA
+                            (nome moglie non documentato)
+
+  LEGENDA: < > = coppia/relazione   × = matrimonio   : = connessione complessa
+           ─ = legame documentato   ? = lacuna        ──: = relazione indiretta
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 7B
+┌── 7B · VERTICALE ────────────────────────────────────────────────────────────┐
+  <ALTAVILLA : GIARDINA>
+  │ DNA R1b-L21
+  │ connessione ipotetica
+  │
+  <GRIMALDI : NASELLI>
+  │ alleanza nobiliare
+  │ XII–XIV sec.
+  │
+  <Ignazio × ?>
+  │ moglie non documentata
+  │
+  <Paolo × ?>
+  │ moglie non documentata
+  │
+  <Girolamo × Concetta>
+  │ MATRIMONIO FONDANTE 1775
+  │ tre casati uniti
+  │
+  <Carlo × ?>
+  │ 1776
+  │
+  <Giuseppe × ?>
+  │ 1810
+  │
+  <Calogero × ?>
+  │ 1850 · moglie non doc.
+  │
+  *UTENTE
+
+  LEGENDA: < >=coppia  ×=matr.  ?=lacuna
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 7C
+┌── 7C · WIREFRAME 120×40 ─────────────────────────────────────────────────────┐
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+│  GN370 · MAPPA 7 · RELAZIONI                                                                [x:0,y:0 120×2]         │
++──────────────────────+───────────────────────────────────────────────────────────────────+────────────────────────+
+│ FILTRI RELAZIONE     │  GRAFO RELAZIONI                                                    │  RELAZIONE SEL.        │
+│ [x:0,y:2 22×32]      │  [x:22,y:2 76×32]                                                  │  [x:98,y:2 22×32]      │
+│                      │                                                                     │                        │
+│ Tipo:                │  <ALTAVILLA:GIARDINA>──────────────────────────────────            │  MATR. FONDANTE        │
+│ [ ] Matrimonio       │  DNA R1b connessione                                               │  1775                  │
+│ [ ] Discendenza      │                                                                     │                        │
+│ [ ] Alleanza         │  <GRIMALDI:NASELLI>────────────────────────────────                 │  Girolamo Giardina     │
+│ [ ] DNA              │  alleanza nobiliare XII–XIV                                        │  × Concetta Naselli    │
+│ [ ] Lacuna           │                                                                     │                        │
+│                      │  <Girolamo × Concetta>═══════════════════════                      │  Tipo: Matrimonio      │
+│ Qualità:             │  MATRIMONIO FONDANTE 1775                   ║                      │  Forza: FONDANTE       │
+│ [ ] Documentata      │                                             ║                      │  Fonte: REG.MAT.PA     │
+│ [ ] Ipotetica        │  <Carlo × ?> 1776                          ║                      │                        │
+│ [ ] Lacuna           │  <Giuseppe × ?> 1810                       ╚═ *UTENTE              │  [DETTAGLIO]           │
++──────────────────────+───────────────────────────────────────────────────────────────────+────────────────────────+
+│ STAT. RELAZIONI [x:0,y:34 120×6]   Matrimoni doc: 1 · Lacune matrimoniali: 6 · Alleanze: 3                        │
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 7D
+┌── 7D · ASCII-370 80×24 ──────────────────────────────────────────────────────┐
+################################################################################
+#  GN370 · RELAZIONI                                  PF7=AI PF9=TEMI         #
+#==============================================================================#
+# TIPO    [14×18] #  GRAFO RELAZIONI [48×18]           # RELAZ.  [14×18]     #
+#                 #                                      #                     #
+# Tipo:           #  <ALTAVILLA:GIARDIN>                # MATR.1775           #
+# >[M]atrimonio   #  DNA R1b connessione                #                     #
+#  [D]iscendenza  #                                      # Girolamo Giardin.   #
+#  [A]lleanza     #  <GRIMALDI:NASELLI>                 # ×Concetta Naselli   #
+#  [X]DNA         #  alleanza XII–XIV                   #                     #
+#                 #                                      # Tipo: Matrimonio    #
+# Qualità:        #  <Girolamo×Concetta>═══             # Forza: FONDANTE     #
+# >[D]ocumentata  #  MATR.FONDANTE 1775    ║            #                     #
+#  [I]potetica    #  <Carlo×?> 1776        ║            # Fonte:              #
+#  [L]acuna       #  <Giuseppe×?> 1810     ╚═*IO        # REG.MAT.PA          #
+#                 #                                      #                     #
+#                 #                                      # [DETTAGLIO]         #
+#==============================================================================#
+# CMD: GN370$_                                    JOB:IDLE  ⬡ TERMINALE      #
+#==============================================================================#
+# <>= coppia  ×=matr  :=conn.  ═══=fondante  ?=lacuna  *=io  >=filtro attivo   #
+################################################################################
+└───────────────────────────────────────────────────────────────────────────────
+### MAPPA 8
+#### 8A
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  MAPPA 8 · SUGGERIMENTI IA                                                   ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌── 8A · ORIZZONTALE ──────────────────────────────────────────────────────────┐
+  ?CLUSTER-A              ?CLUSTER-B              ?CLUSTER-C
+  DNA R1b-L21             Lacune 1560-1640         Titoli non confermati
+  ┌──────────────┐        ┌──────────────┐         ┌──────────────────┐
+  │Pietro──R1b──?│········│?──?──Salvat. │·········│?Ficarazzi──Giard.│
+  │Jardine DNA   │        │record persi  │         │confirmare fonte  │
+  └──────────────┘        └──────────────┘         └──────────────────┘
+          :                       :                          :
+          :·······················:··························:
+                                  :
+  ?CLUSTER-D              ?CLUSTER-E
+  Mogli non documentate   Boerio/Boeri Ligurian
+  ┌──────────────┐        ┌──────────────────────┐
+  │?×Ignazio     │        │Clementina Boerio──?PA │
+  │?×Paolo       │        │origine Liguria/Piem.  │
+  │?×Calogero    │        └──────────────────────┘
+  └──────────────┘
+
+  LEGENDA: ? = cluster IA   ··· = collegamento suggerito   ┌┐ = area analisi
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 8B
+┌── 8B · VERTICALE ────────────────────────────────────────────────────────────┐
+  AI ANALYSIS ENGINE
+  │
+  ├──?CLUSTER-A: DNA
+  │   Pietro ↔ R1b-L21
+  │   Jardine DNA Project
+  │   SUGGERIMENTO: test Y-DNA
+  │
+  ├──?CLUSTER-B: LACUNE
+  │   1560–1640 record persi
+  │   SUGGERIMENTO: Archivio
+  │   Vescovile Palermo
+  │
+  ├──?CLUSTER-C: TITOLI
+  │   Ficarazzi → conferma fonti
+  │   SUGGERIMENTO: Protonotaro
+  │   del Regno
+  │
+  ├──?CLUSTER-D: MOGLI
+  │   6 matrimoni senza nome moglie
+  │   SUGGERIMENTO: Registri
+  │   ecclesiastici PA 1650–1810
+  │
+  └──?CLUSTER-E: BOERIO
+      Clementina Boerio
+      SUGGERIMENTO: Archivio
+      Genova + Archivio TO
+
+  LEGENDA: ?=cluster  ↔=connessione
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 8C
+┌── 8C · WIREFRAME 120×40 ─────────────────────────────────────────────────────┐
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+│  GN370 · MAPPA 8 · AI SUGGERIMENTI                                                          [x:0,y:0 120×2]         │
++──────────────────────+───────────────────────────────────────────────────────────────────+────────────────────────+
+│ CLUSTER AI           │  VISUALIZZAZIONE CLUSTER                                            │  CLUSTER SELEZIONATO   │
+│ [x:0,y:2 22×32]      │  [x:22,y:2 76×32]                                                  │  [x:98,y:2 22×32]      │
+│                      │                                                                     │                        │
+│ Priorità:            │  ?CL-A:DNA         ?CL-B:LACUNE      ?CL-C:TITOLI                 │  CLUSTER-B             │
+│ [ ] Alta             │  ┌──────────┐      ┌──────────┐      ┌──────────┐                 │  LACUNE 1560-1640      │
+│ [ ] Media            │  │Pietro    │······│?─?─Salv. │······│?Ficaraz. │                 │                        │
+│ [ ] Bassa            │  │↔R1b-L21  │      │rec.persi │      │conf.fon. │                 │  Priorità: ALTA        │
+│                      │  └──────────┘      └──────────┘      └──────────┘                 │  Gap: 80 anni          │
+│ Tipo:                │                                                                     │                        │
+│ [ ] DNA              │  ?CL-D:MOGLI       ?CL-E:BOERIO                                    │  Sugg.IA:              │
+│ [ ] Lacune           │  ┌──────────┐      ┌──────────┐                                    │  Archivio Vescovile    │
+│ [ ] Titoli           │  │?×Ignazio │      │Clement.B.│                                    │  PA 1560-1640          │
+│ [ ] Mogli            │  │?×Paolo   │      │Ligurian  │                                    │  Registri battesimo    │
+│ [ ] Boerio           │  │?×Caloger.│      │origin    │                                    │                        │
+│                      │  └──────────┘      └──────────┘                                    │  [AVVIA RICERCA]       │
++──────────────────────+───────────────────────────────────────────────────────────────────+────────────────────────+
+│ SCORE COMPLETEZZA [x:0,y:34 120×6]   TOTALE: 67% · DNA: 40% · MOGLI: 15% · TITOLI: 80%                           │
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 8D
+┌── 8D · ASCII-370 80×24 ──────────────────────────────────────────────────────┐
+################################################################################
+#  GN370 · AI SUGGERIMENTI                            PF8=LACUNE PF9=TEMI     #
+#==============================================================================#
+# CLUSTER [14×18] #  VISUALIZZAZIONE [48×18]          # CLUSTER  [14×18]     #
+#                 #                                      #                     #
+# Priorità:       #  ?CL-A:DNA   ?CL-B:LACUNE          # CLUSTER-B           #
+# >[A]lta         #  ┌────────┐  ┌────────┐            # LACUNE 1560         #
+#  [M]edia        #  │Pietro  │··│?─Salv. │            #                     #
+#  [B]assa        #  │↔R1b    │  │rec.per.│            # Priorità: ALTA      #
+#                 #  └────────┘  └────────┘            # Gap: 80 anni        #
+# Tipo:           #                                      #                     #
+# >[D]NA          #  ?CL-D:MOGLI  ?CL-E:BOERIO          # Sugg.IA:            #
+#  [L]acune       #  ┌────────┐   ┌────────┐            # Arch.Vescovile PA   #
+#  [T]itoli       #  │?×Ign.  │   │Clem.B. │            # 1560-1640           #
+#  [M]ogli        #  │?×Paolo │   │Liguria │            #                     #
+#  [B]oerio       #  └────────┘   └────────┘            # [AVVIA RICERCA]     #
+#==============================================================================#
+# CMD: GN370$_                                    JOB:IDLE  ⬡ ISPF 3270      #
+#==============================================================================#
+# ?=cluster IA  ···=suggerimento  ┌┐=area analisi  ↔=connessione  >=attivo    #
+################################################################################
+└───────────────────────────────────────────────────────────────────────────────
+### MAPPA 9
+#### 9A
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  MAPPA 9 · NAVIGAZIONE 9 MONDI — YGGDRASIL                                   ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌── 9A · ORIZZONTALE · GRIGLIA 3×3 ────────────────────────────────────────────┐
+  ╔═══════════════╦═══════════════╦═══════════════╗
+  ║  1·ÁSGARÐR    ║  2·VANAHEIMR  ║  3·ÁLFHEIMR   ║
+  ║  ᚨ LINEA      ║  ᛃ DEMOGRAFIA ║  ᚢ ARTI       ║
+  ║  REGIA        ║  Nascite·Mort.║  Talenti·Doni ║
+  ║  [PF1]        ║  [PF2]        ║  [PF3]        ║
+  ╠═══════════════╬═══════════════╬═══════════════╣
+  ║  4·JÖTUNHEIMR ║  5·MIÐGARÐR   ║  6·SVARTÁLFA  ║
+  ║  ᚷ FERITE     ║  ᛗ STORIA     ║  ᚾ DNA        ║
+  ║  Traumi·Esili ║  Contesto·Ere ║  Scienza·Genoma║
+  ║  [PF4]        ║  [PF5] ◄►     ║  [PF6]        ║
+  ╠═══════════════╬═══════════════╬═══════════════╣
+  ║  7·NIÐAVELLIR ║  8·NIFLHEIMR  ║  9·HEL        ║
+  ║  ᛈ PATRIMONIO ║  ᚺ MISTERI    ║  ᛏ ORIGINE    ║
+  ║  Beni·Eredità ║  Lacune·Ignoto║  Radici·*GARD  ║
+  ║  [PF7]        ║  [PF8]        ║  [PF9→TEMI]    ║
+  ╚═══════════════╩═══════════════╩═══════════════╝
+
+  LEGENDA: ◄► = mondo attivo   PF1–PF9 = navigazione diretta   ᚨ = runa
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 9B
+┌── 9B · VERTICALE · ASSE YGGDRASIL ───────────────────────────────────────────┐
+  ╔══════════════════╗ ← ÁSGARÐR (cielo)
+  ║  ᚨ 1·LINEA REGIA║
+  ║  Titoli·Destino  ║
+  ╚═════════╤════════╝
+            │ BIFRÖST
+  ╔═════════╧════════╗
+  ║  ᛃ 2·DEMOGRAFIA  ║ ← VANAHEIMR
+  ╚═════════╤════════╝
+            │
+  ╔═════════╧════════╗
+  ║  ᚢ 3·ARTI        ║ ← ÁLFHEIMR
+  ╚═════════╤════════╝
+            │
+  ╔═════════╧════════╗
+  ║  ᚷ 4·FERITE      ║ ← JÖTUNHEIMR
+  ╚═════════╤════════╝
+            │
+  ╔═════════╧════════╗ ← MIÐGARÐR (centro)
+  ║  ᛗ 5·STORIA  ◄►  ║   TU SEI QUI
+  ╚═════════╤════════╝
+            │
+  ╔═════════╧════════╗
+  ║  ᚾ 6·DNA         ║ ← SVARTÁLFAHEIMR
+  ╚═════════╤════════╝
+            │
+  ╔═════════╧════════╗
+  ║  ᛈ 7·PATRIMONIO  ║ ← NIÐAVELLIR
+  ╚═════════╤════════╝
+            │
+  ╔═════════╧════════╗
+  ║  ᚺ 8·MISTERI     ║ ← NIFLHEIMR
+  ╚═════════╤════════╝
+            │
+  ╔═════════╧════════╗ ← HEL (radici)
+  ║  ᛏ 9·ORIGINE     ║   Pietro 1500
+  ║  *GARD 900 d.C.  ║   Y-DNA R1b-L21
+  ╚══════════════════╝
+
+  LEGENDA: ◄►=attivo  │=asse Yggdrasil  ᚨ=runa
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 9C
+┌── 9C · WIREFRAME 120×40 ─────────────────────────────────────────────────────┐
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+│  GN370 · MAPPA 9 · 9 MONDI · YGGDRASIL                                                     [x:0,y:0 120×2]         │
++────────────────────+──────────────────────────────────────────────────────────────────────+──────────────────────+
+│ ASSE YGGDRASIL     │  GRIGLIA 9 MONDI 3×3                                                  │  MONDO ATTIVO        │
+│ [x:0,y:2 20×36]    │  [x:20,y:2 80×36]                                                     │  [x:100,y:2 20×36]   │
+│                    │                                                                        │                      │
+│ ┌──ÁSGARÐR 1       │  ╔══════════════╦══════════════╦══════════════╗                       │  MIÐGARÐR            │
+│ │  ᚨ Linea Regia   │  ║ 1·ÁSGARÐR   ║ 2·VANAHEIMR  ║ 3·ÁLFHEIMR   ║                       │  [PF5]               │
+│ ├──VANAHEIMR 2     │  ║ ᚨ TITOLI    ║ ᛃ DEMOGRAFIA ║ ᚢ ARTI       ║                       │                      │
+│ │  ᛃ Demografia    │  ╠══════════════╬══════════════╬══════════════╣                       │  Descrizione:        │
+│ ├──ÁLFHEIMR 3      │  ║ 4·JÖTUNHEIMR║ 5·MIÐGARÐR◄► ║ 6·SVARTÁLFA  ║                       │  Storia·Contesto     │
+│ │  ᚢ Arti          │  ║ ᚷ FERITE    ║ ᛗ STORIA     ║ ᚾ DNA        ║                       │  Mondo umano         │
+│ ├──JÖTUNHEIM 4     │  ╠══════════════╬══════════════╬══════════════╣                       │                      │
+│ │  ᚷ Ferite        │  ║ 7·NIÐAVELLIR║ 8·NIFLHEIMR  ║ 9·HEL        ║                       │  PF5 = accesso       │
+│ ├──MIÐGARÐR 5 ◄►   │  ║ ᛈ PATRIM.   ║ ᚺ MISTERI    ║ ᛏ ORIGINE    ║                       │                      │
+│ │  ᛗ Storia        │  ╚══════════════╩══════════════╩══════════════╝                       │  Antenati qui:       │
+│ ├──SVARTÁLFA 6     │                                                                        │  Pietro 1500         │
+│ │  ᚾ DNA           │  YGGDRASIL: l'albero che connette tutti i mondi                       │  ...Calogero 1850    │
+│ ├──NIÐAVELLIR 7    │  Ogni mondo = un menu = un ambito di scoperta                         │                      │
+│ │  ᛈ Patrimonio    │                                                                        │  [ENTRA MONDO]       │
+│ ├──NIFLHEIMR 8     │                                                                        │                      │
+│ │  ᚺ Misteri       │                                                                        │                      │
+│ └──HEL       9     │                                                                        │                      │
+│    ᛏ Origine       │                                                                        │                      │
++────────────────────+──────────────────────────────────────────────────────────────────────+──────────────────────+
+│ CMD [x:0,y:38 120×2]  GN370$  ·  PF1=ASGARD  PF5=MIDGARD◄►  PF9=TEMI  PF12=ESCI                                 │
++──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────+
+└───────────────────────────────────────────────────────────────────────────────
+
+#### 9D
+┌── 9D · ASCII-370 80×24 · SCHERMATA PRINCIPALE GN370 ─────────────────────────┐
+################################################################################
+#  GN370 · YGGDRASIL · 9 MONDI                  ᚢ ARCHIVIO GIARDINA          #
+#==============================================================================#
+# ASSE          #  GRIGLIA 3×3 — 9 MONDI              # MONDO ATTIVO          #
+# YGGDRASIL     #                                       # [16×18]              #
+# [14×18]       #  ╔═══════╦═══════╦═══════╗           #                      #
+#               #  ║1·ASG  ║2·VAN  ║3·ALF  ║           # MIÐGARÐR             #
+# 1·ᚨ ASGARD    #  ║TITOLI ║DEMOGR.║ARTI   ║           # ᛗ PF5                #
+# 2·ᛃ VANAHEIM  #  ╠═══════╬═══════╬═══════╣           #                      #
+# 3·ᚢ ALFHEIM   #  ║4·JOT  ║5·MID◄►║6·SVART║           # Storia·Contesto      #
+# 4·ᚷ JOTUN     #  ║FERITE ║STORIA ║DNA    ║           # Mondo umano          #
+# 5·ᛗ MIDGARD◄► #  ╠═══════╬═══════╬═══════╣           #                      #
+# 6·ᚾ SVART     #  ║7·NID  ║8·NIFL ║9·HEL  ║           # Antenati: 11         #
+# 7·ᛈ NIDAVEL   #  ║PATRIM.║MISTER.║ORIGINE║           # Gen: I–XI            #
+# 8·ᚺ NIFLHEIM  #  ╚═══════╩═══════╩═══════╝           #                      #
+# 9·ᛏ HEL       #                                       # [ENTRA MONDO]       #
+#               #  ᚢ YGGDRASIL · L'ALBERO COSMICO      #                      #
+#==============================================================================#
+# CMD: GN370$_          PF1–9=MONDI  PF9=TEMI  PF12=ESCI  JOB:IDLE  ⬡ NORRN #
+#==============================================================================#
+# 1=ASGARD 2=VANA 3=ALF 4=JOT 5=MID◄► 6=SVART 7=NID 8=NIFL 9=HEL  ᛏ=RADICI #
+################################################################################
+└───────────────────────────────────────────────────────────────────────────────
