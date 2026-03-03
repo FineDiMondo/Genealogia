@@ -5,7 +5,8 @@
   const state = {
     basePath: "",
     env: {},
-    swInfo: null
+    swInfo: null,
+    targets: null
   };
 
   function el(id) {
@@ -27,6 +28,11 @@
   function abs(path) {
     const clean = String(path || "").replace(/^\/+/, "");
     return `${window.location.origin}${state.basePath}/${clean}`.replace(/([^:]\/)\/+/g, "$1");
+  }
+
+  function expandTargetPath(path) {
+    const raw = String(path || "");
+    return raw.replace(/\{\{BASE\}\}/g, `${window.location.origin}${state.basePath}`);
   }
 
   function log(msg, cls) {
@@ -171,13 +177,15 @@
   }
 
   function renderHub() {
-    const pages = [
-      { name: "GN370 Home", path: "/index.html" },
-      { name: "Control Center", path: "/control/index.html" }
-    ];
+    const pages = state.targets && Array.isArray(state.targets.pages) && state.targets.pages.length
+      ? state.targets.pages
+      : [
+        { name: "GN370 Home", path: "{{BASE}}/index.html" },
+        { name: "Control Center", path: "{{BASE}}/control/index.html" }
+      ];
     let html = "<table><thead><tr><th>Name</th><th>Open</th><th>New Tab</th></tr></thead><tbody>";
     pages.forEach((p) => {
-      const href = abs(p.path);
+      const href = expandTargetPath(p.path);
       html += `<tr><td>${p.name}</td><td><a href="${href}">Open</a></td><td><a href="${href}" target="_blank" rel="noopener">Open new tab</a></td></tr>`;
     });
     html += "</tbody></table>";
@@ -211,6 +219,89 @@
     } catch (_) {
       return null;
     }
+  }
+
+  async function loadTargets() {
+    try {
+      const res = await fetch(abs("/control/targets.json"), { cache: "no-store" });
+      if (!res.ok) {
+        return null;
+      }
+      return await res.json();
+    } catch (_) {
+      return null;
+    }
+  }
+
+  async function checkUrlLight(url) {
+    const details = {
+      url,
+      method: "HEAD",
+      status: 0,
+      ok: false,
+      contentLength: "-",
+      etag: "-",
+      lastModified: "-",
+      error: ""
+    };
+    try {
+      let res = await fetch(url, { method: "HEAD", cache: "no-store" });
+      if (res.status === 405 || res.status === 501) {
+        details.method = "GET(Range)";
+        res = await fetch(url, {
+          method: "GET",
+          cache: "no-store",
+          headers: { Range: "bytes=0-0" }
+        });
+      }
+      details.status = res.status;
+      details.ok = res.ok;
+      details.contentLength = res.headers.get("content-length") || "-";
+      details.etag = res.headers.get("etag") || "-";
+      details.lastModified = res.headers.get("last-modified") || "-";
+    } catch (err) {
+      details.error = err.message;
+    }
+    return details;
+  }
+
+  async function runDatasetChecks() {
+    const node = el("dataset-checks");
+    if (!state.targets || !state.targets.checks) {
+      node.innerHTML = "<p class='warn'>targets.json not loaded.</p>";
+      return;
+    }
+
+    const checkList = []
+      .concat(state.targets.checks.files || [])
+      .concat(state.targets.checks.optionalDatasetZips || [])
+      .concat(state.targets.checks.dataPaths || []);
+    const paths = Array.from(new Set(checkList)).map(expandTargetPath);
+
+    node.innerHTML = "<p class='muted'>Running checks...</p>";
+    const results = [];
+    for (const path of paths) {
+      // Presence verification only: no table parsing/loading.
+      const row = await checkUrlLight(path);
+      results.push(row);
+    }
+
+    let html = "<table><thead><tr><th>Path</th><th>Method</th><th>Status</th><th>Length</th><th>ETag</th><th>Last-Modified</th><th>Error</th></tr></thead><tbody>";
+    results.forEach((r) => {
+      const cls = r.ok ? "ok" : (r.status ? "warn" : "err");
+      html += `<tr class="${cls}"><td>${r.url}</td><td>${r.method}</td><td>${r.status || "-"}</td><td>${r.contentLength}</td><td>${r.etag}</td><td>${r.lastModified}</td><td>${r.error || "-"}</td></tr>`;
+    });
+    html += "</tbody></table>";
+
+    if (state.targets.checks.datasetRoots && state.targets.checks.datasetRoots.length) {
+      html += "<h3>Dataset Roots</h3><ul>";
+      state.targets.checks.datasetRoots.forEach((root) => {
+        html += `<li>${expandTargetPath(root)}</li>`;
+      });
+      html += "</ul>";
+    }
+
+    node.innerHTML = html;
   }
 
   async function handleAction(action) {
@@ -264,6 +355,10 @@
         log("Full reset completed. Reloading...", "ok");
         setTimeout(hardReload, 500);
         return;
+      case "run-dataset-checks":
+        await runDatasetChecks();
+        log("Dataset presence checks completed.", "ok");
+        return;
       default:
         log(`Unknown action: ${action}`, "warn");
     }
@@ -288,10 +383,12 @@
     state.basePath = detectBasePath();
     state.swInfo = await getSWInfo();
     state.env.version = await fetchVersion();
+    state.targets = await loadTargets();
     renderEnv();
     renderHub();
     bindActions();
     await resourceStatus();
+    await runDatasetChecks();
   }
 
   document.addEventListener("DOMContentLoaded", init);

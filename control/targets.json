@@ -1,0 +1,27 @@
+{
+  "pages": [
+    { "name": "GN370 Home", "path": "{{BASE}}/index.html" },
+    { "name": "Control Center", "path": "{{BASE}}/control/index.html" },
+    { "name": "Legacy GN370 (old)", "path": "{{BASE}}/legacy/index.html", "optional": true }
+  ],
+  "checks": {
+    "datasetRoots": [
+      "{{BASE}}/data/current/",
+      "{{BASE}}/datasets/",
+      "{{BASE}}/test-fixtures/"
+    ],
+    "files": [
+      "{{BASE}}/version.json",
+      "{{BASE}}/service-worker.js",
+      "{{BASE}}/test-fixtures/sample-db.zip"
+    ],
+    "optionalDatasetZips": [
+      "{{BASE}}/test-fixtures/malformed.zip",
+      "{{BASE}}/test-fixtures/schema-mismatch.zip"
+    ],
+    "dataPaths": [
+      "{{BASE}}/tables/PERSON.table",
+      "{{BASE}}/data/current/"
+    ]
+  }
+}
