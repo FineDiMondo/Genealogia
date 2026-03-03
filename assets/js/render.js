@@ -43,9 +43,11 @@
 
   function showHomeImport() {
     if (!refs.panel) { return; }
+    var dbStatus = global.__GN370_DB_STATUS || "EMPTY";
+    var memStatus = global.__GN370_MEM_STATUS || "CLEAN";
     var html = "";
     html += "<div><strong>HOME IMPORT</strong></div>";
-    html += "<div>DB: EMPTY | MEM: CLEAN</div>";
+    html += "<div>DB: " + dbStatus + " | MEM: " + memStatus + "</div>";
     html += "<button id=\"gn370-btn-pick-zip\">Scegli archivio ZIP</button>";
     html += "<div id=\"gn370-zip-stage\"></div>";
     refs.panel.innerHTML = html;

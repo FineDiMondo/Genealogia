@@ -6,3 +6,4 @@ Comandi DB:
 - db show <table>
 - db reset
 - db export
+- mem refresh

@@ -3,6 +3,7 @@
 
   var GN370 = global.GN370 = global.GN370 || {};
   var bootStart = Date.now();
+  var didBoot = false;
 
   function bindInput() {
     var input = document.getElementById("gn370-input");
@@ -18,16 +19,25 @@
     });
   }
 
-  function boot() {
-    GN370.RENDER.init();
+  function hardRefreshMemory(reason) {
     GN370.DB_ENGINE.reset();
-    GN370.CONFIG.applyTheme(GN370.CONFIG.get("gn370.theme.default") || "terminal");
-
-    GN370.RENDER.line("GN370 BOOT", "line-ok");
+    GN370.RENDER.setStatus("DB: EMPTY");
+    GN370.RENDER.showHomeImport();
     GN370.RENDER.line("MEM: CLEAN", "line-ok");
     GN370.RENDER.line("DB: EMPTY", "line-ok");
-    GN370.RENDER.showHomeImport();
-    GN370.RENDER.setStatus("DB: EMPTY");
+    if (reason) {
+      GN370.RENDER.line("MEM REFRESH: " + reason, "line-ok");
+    }
+  }
+
+  function boot() {
+    if (!didBoot) {
+      GN370.RENDER.init();
+      didBoot = true;
+    }
+    GN370.CONFIG.applyTheme(GN370.CONFIG.get("gn370.theme.default") || "terminal");
+    GN370.RENDER.line("GN370 BOOT", "line-ok");
+    hardRefreshMemory("BOOT");
     GN370.RENDER.focusInput();
 
     GN370.JOURNAL.entry("SESSION_START", "SYSTEM", "-", "Boot completed");
@@ -39,5 +49,11 @@
   document.addEventListener("DOMContentLoaded", function () {
     bindInput();
     boot();
+  });
+
+  global.addEventListener("pageshow", function (ev) {
+    if (ev && ev.persisted && didBoot) {
+      hardRefreshMemory("PAGESHOW");
+    }
   });
 }(window));

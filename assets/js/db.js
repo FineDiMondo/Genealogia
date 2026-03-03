@@ -12,6 +12,7 @@
     feed: [],
     errors: []
   };
+  var STORAGE_PREFIXES = ["GN370", "gn370"];
 
   function gate() {
     if (!GN370.STATE || GN370.STATE.getStatus() !== "READY") {
@@ -26,6 +27,27 @@
     if (el && GN370.STATE) {
       el.textContent = "DB: " + GN370.STATE.getStatus();
     }
+  }
+
+  function clearStorageForPrefixes(storage, prefixes) {
+    if (!storage || !storage.length) {
+      return;
+    }
+    var keys = [];
+    for (var i = 0; i < storage.length; i += 1) {
+      keys.push(storage.key(i));
+    }
+    keys.forEach(function (k) {
+      if (!k) {
+        return;
+      }
+      var shouldRemove = prefixes.some(function (prefix) {
+        return k.indexOf(prefix) === 0;
+      });
+      if (shouldRemove) {
+        storage.removeItem(k);
+      }
+    });
   }
 
   function resetMemory() {
@@ -43,6 +65,12 @@
       GN370.JOURNAL.reset();
       GN370.JOURNAL.entry("RESET", "SYSTEM", "-", "Memory reset hard");
     }
+    try {
+      clearStorageForPrefixes(global.localStorage, STORAGE_PREFIXES);
+      clearStorageForPrefixes(global.sessionStorage, STORAGE_PREFIXES);
+    } catch (_) {}
+    global.__GN370_MEM_STATUS = "CLEAN";
+    global.__GN370_LAST_RESET_TS = new Date().toISOString();
     syncStatusLabel();
   }
 
@@ -225,6 +253,12 @@
     serializeTable: serializeTable,
     parseTable: parseTable,
     nowAAAAGGMMHHMM: nowAAAAGGMMHHMM,
-    dump: function () { return clone(memory); }
+    dump: function () { return clone(memory); },
+    memoryStatus: function () {
+      return {
+        status: global.__GN370_MEM_STATUS || "DIRTY",
+        last_reset_ts: global.__GN370_LAST_RESET_TS || null
+      };
+    }
   };
 }(window));

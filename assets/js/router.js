@@ -38,7 +38,7 @@
 
     try {
       if (cmd === "help") {
-        GN370.RENDER.line("Comandi: help man status clear db import db list db show db reset db export import gedcom import herald import notarial import nobility open find tree map timeline validate story journal monitor config theme quit");
+        GN370.RENDER.line("Comandi: help man status clear mem refresh db import db list db show db reset db export import gedcom import herald import notarial import nobility open find tree map timeline validate story journal monitor config theme quit");
         return;
       }
 
@@ -93,6 +93,14 @@
         GN370.RENDER.setStatus("DB: EMPTY");
         GN370.RENDER.showHomeImport();
         GN370.RENDER.line("DB reset completato", "line-ok");
+        return;
+      }
+
+      if (cmd2 === "mem refresh" || cmd2 === "memory reset") {
+        GN370.DB_ENGINE.reset();
+        GN370.RENDER.setStatus("DB: EMPTY");
+        GN370.RENDER.showHomeImport();
+        GN370.RENDER.line("MEM refresh completato", "line-ok");
         return;
       }
 
