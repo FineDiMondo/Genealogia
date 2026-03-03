@@ -59,6 +59,22 @@ Apri:
 ## Architettura evolutiva
 
 - Proposta GN370-NEXT (versione operativa): `docs/GN370_NEXT_ARCHITECTURE.md`
+- Piano migrazione COBOL/CICS + SQL + shell Unix: `docs/PIANO_MIGRAZIONE_COBOL_CICS.md`
+
+
+## Esecuzione iniziale migrazione COBOL/CICS (PoC)
+
+```bash
+./scripts/dev/up.sh
+./scripts/dev/build_all.sh
+./scripts/dev/smoke.sh
+./scripts/release/release.sh
+```
+
+Asset principali:
+- CLI C99 multipiattaforma: `tooling/gnx/`
+- DSL di esempio: `specs/individui.gnx`
+- Schema SQL baseline: `sql/schema_v1.sql`
 
 ## Governance
 

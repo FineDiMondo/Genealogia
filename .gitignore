@@ -45,3 +45,8 @@ src/portale_giardina.DEPRECATED/
 /launcher/build/
 /launcher/.vs/
 /launcher/.vscode/
+
+# Migration PoC generated artifacts
+/build/gnx/gnx
+/cobol/gen/
+/artifacts/
