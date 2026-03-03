@@ -25,6 +25,25 @@
     GN370.RENDER.line("ERR: " + msg, "line-error");
   }
 
+  function printMapWarnings(warnings) {
+    (warnings || []).forEach(function (w) {
+      GN370.RENDER.line("MAP-GUARD: " + w, "line-warn");
+    });
+  }
+
+  function printPlayerResult(result) {
+    var lines = result && result.lines && result.lines.length ? result.lines : [result && result.record ? result.record : "RC=8 RSN=1005 STATE=ERROR TRACK=00 TIME=0 DUR=0 SR=0 BIT=0 CH=0 VOL=0 FILE=- MSG=BAD_CMD"];
+    var cls = "line-ok";
+    if (result && result.rc >= 8) {
+      cls = "line-error";
+    } else if (result && result.rc >= 4) {
+      cls = "line-warn";
+    }
+    lines.forEach(function (l, idx) {
+      GN370.RENDER.line(l, idx === 0 ? cls : "");
+    });
+  }
+
   async function dispatch(raw) {
     var tokens = tokenize(raw);
     if (!tokens.length) {
@@ -38,12 +57,65 @@
 
     try {
       if (cmd === "help") {
-        GN370.RENDER.line("Comandi: help man status clear mem refresh db import db list db show db reset db export import gedcom [--dry-run --auto-skip-low --strict] import status import log import conflicts import review <corr_id> import accept <corr_id> import batch rerun import herald import notarial import nobility open find tree map timeline validate story journal monitor config theme quit");
+        if ((tokens[1] || "").toLowerCase() === "player" && GN370.PLAYER_COMMANDS) {
+          GN370.RENDER.line("PLAYER FLAC: " + GN370.PLAYER_COMMANDS.helpText);
+          return;
+        }
+        GN370.RENDER.line("Comandi: help man status clear mem refresh db import db list db show db reset db export import gedcom [--dry-run --auto-skip-low --strict] import status import log import conflicts import review <corr_id> import accept <corr_id> import batch rerun import herald import notarial import nobility player pls load play pause stop seek next prev stat add tx statico <testo> open find tree maps mappa proto map timeline validate story journal monitor config theme quit");
         return;
       }
 
       if (cmd === "man") {
         GN370.RENDER.line(GN370.MAN.get(tokens.slice(1).join(" ")));
+        return;
+      }
+
+      if (cmd === "player") {
+        global.location.href = "player/";
+        return;
+      }
+
+      if (GN370.PLAYER_COMMANDS && cmd !== "help" && GN370.PLAYER_COMMANDS.canHandle(raw)) {
+        var playerResult = await GN370.PLAYER_COMMANDS.execute(raw);
+        printPlayerResult(playerResult);
+        return;
+      }
+
+      if (cmd === "maps") {
+        if (!GN370.MAPS || typeof GN370.MAPS.help !== "function") {
+          GN370.RENDER.line("Modulo mappe ASCII non disponibile", "line-warn");
+          return;
+        }
+        GN370.RENDER.line(GN370.MAPS.help());
+        return;
+      }
+
+      if (cmd === "mappa") {
+        if (!GN370.MAPS || typeof GN370.MAPS.render !== "function") {
+          GN370.RENDER.line("Modulo mappe ASCII non disponibile", "line-warn");
+          return;
+        }
+        var mapTokenExplicit = tokens[1] || "";
+        if (!mapTokenExplicit) {
+          GN370.RENDER.line("Uso: mappa <1..9 | 1a..9d>", "line-warn");
+          return;
+        }
+        var mapText = await GN370.MAPS.render(mapTokenExplicit);
+        if (GN370.MAPS.guard) {
+          printMapWarnings(GN370.MAPS.guard(mapText));
+        }
+        GN370.RENDER.line(mapText);
+        return;
+      }
+
+      if (cmd === "proto") {
+        if (!GN370.MAPS || typeof GN370.MAPS.renderPrototype !== "function") {
+          GN370.RENDER.line("Modulo prototipo mappe non disponibile", "line-warn");
+          return;
+        }
+        var protoResult = GN370.MAPS.renderPrototype(tokens.slice(1));
+        printMapWarnings(protoResult.warnings);
+        GN370.RENDER.line(protoResult.content);
         return;
       }
 
@@ -215,6 +287,17 @@
         return;
       }
 
+      if (cmd3 === "add tx statico") {
+        var staticTxText = tokens.slice(3).join(" ").trim();
+        if (!staticTxText) {
+          GN370.RENDER.line("Uso: add tx statico <testo>", "line-warn");
+          return;
+        }
+        var txEntry = GN370.JOURNAL.entry("TX_STATIC_ADD", "TX_STATIC", "-", staticTxText);
+        GN370.RENDER.line("TX statico registrato: " + txEntry.journal_id, "line-ok");
+        return;
+      }
+
       if (cmd === "open") {
         ensureReady();
         var entity = (tokens[1] || "").toUpperCase();
@@ -259,6 +342,17 @@
       }
 
       if (cmd === "map") {
+        var quickMapToken = tokens[1] || "";
+        var hasPeriodOpt = tokens.indexOf("--period") >= 0;
+        var isQuickMapToken = /^[1-9]([a-d])?$/i.test(quickMapToken);
+        if (isQuickMapToken && !hasPeriodOpt && GN370.MAPS && typeof GN370.MAPS.render === "function") {
+          var quickMapText = await GN370.MAPS.render(quickMapToken);
+          if (GN370.MAPS.guard) {
+            printMapWarnings(GN370.MAPS.guard(quickMapText));
+          }
+          GN370.RENDER.line(quickMapText);
+          return;
+        }
         ensureReady();
         var period = parseOption(tokens, "--period", "normanno");
         GN370.RENDER.line(GN370.SVG.map.render({ period: period }));
@@ -323,10 +417,10 @@
       }
 
       if (cmd2 === "config set") {
-        var key = tokens[2];
+        var cfgKey = tokens[2];
         var value = tokens.slice(3).join(" ");
-        GN370.CONFIG.set(key, value);
-        GN370.RENDER.line("CONFIG SET " + key + "=" + value);
+        GN370.CONFIG.set(cfgKey, value);
+        GN370.RENDER.line("CONFIG SET " + cfgKey + "=" + value);
         return;
       }
 

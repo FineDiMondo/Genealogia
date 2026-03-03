@@ -196,7 +196,6 @@
             log.final_db_id = c.existing_id;
             log.stages.s6_written = "Y";
           } else {
-            decision = "SKIP";
             skipped += 1;
             log.stages.s6_written = "N";
           }

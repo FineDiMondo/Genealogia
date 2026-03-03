@@ -1,13 +1,31 @@
-﻿{
+{
   "name": "gn370",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "scripts": {
     "test": "node tests/gate_tests.js && bash tests/multienv_tests.sh",
-    "test:playwright": "playwright test",
-    "build": "bash scripts/verify_deployment.sh"
+    "test:playwright": "npx playwright test",
+    "test:sql": "node tests/sql_runtime.test.js",
+    "test:player": "node tests/player_commands.test.js",
+    "build": "bash scripts/verify_deployment.sh",
+    "db:recreate": "python scripts/recreate_sqlite.py --schema db/schema.sql --db out/runtime/gn370.sqlite",
+    "build:all": "python scripts/build-all.py --target all",
+    "vendor:sqlite": "node scripts/vendorize-sqlite-wasm.js",
+    "lint": "eslint assets/js/**/*.js tests/**/*.js scripts/**/*.js",
+    "lint:fix": "eslint --fix assets/js/**/*.js tests/**/*.js scripts/**/*.js",
+    "format": "prettier --write \"assets/js/**/*.js\" \"tests/**/*.js\" \"scripts/**/*.js\"",
+    "format:check": "prettier --check \"assets/js/**/*.js\" \"tests/**/*.js\" \"scripts/**/*.js\"",
+    "serve": "python scripts/serve_with_isolation.py --port 8080",
+    "dev": "nodemon --watch assets/js --watch index.html --ext js,html --exec \"echo [GN370] file changed\""
   },
   "devDependencies": {
-    "@playwright/test": "^1.53.0"
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.53.0",
+    "eslint": "^10.0.2",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.8.1"
+  },
+  "dependencies": {
+    "@sqlite.org/sqlite-wasm": "^3.51.2-build6"
   }
 }

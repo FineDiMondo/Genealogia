@@ -4,3 +4,17 @@ playwright-report/
 test-results/
 .nyc_output/
 coverage/
+
+# Build output
+out/
+
+# Local/personal files
+GN370_Yggdrasil_Atlas.pdf
+mandato_960.txt
+rd_err.txt
+
+# GEDCOM data files (personal data, not versioned)
+*.ged
+
+# Toolchains (binary compiler toolchains, not versioned)
+toolchains/
