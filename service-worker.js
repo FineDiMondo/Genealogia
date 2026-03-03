@@ -1,7 +1,7 @@
 ﻿"use strict";
 
-const STATIC_CACHE = "gn370-static-v2";
-const STATIC_ASSETS = [
+const STATIC_CACHE = "gn370-static-v3";
+const UI_ASSETS = [
   "./",
   "./index.html",
   "./version.json",
@@ -11,13 +11,17 @@ const STATIC_ASSETS = [
   "./assets/js/state.js",
   "./assets/js/config.js",
   "./assets/js/db.js",
-  "./assets/js/router.js"
+  "./assets/js/router.js",
+  "./control/index.html",
+  "./control/control.css",
+  "./control/control.js",
+  "./control/targets.json"
 ];
 
 const DATA_REGEX = /(\/tables\/|\.table($|\?)|\/data\/current\/|\/records\/)/i;
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(STATIC_CACHE).then((cache) => cache.addAll(STATIC_ASSETS)));
+  event.waitUntil(caches.open(STATIC_CACHE).then((cache) => cache.addAll(UI_ASSETS)));
   self.skipWaiting();
 });
 
