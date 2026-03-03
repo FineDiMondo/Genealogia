@@ -1,0 +1,19 @@
+0 HEAD
+1 GEDC
+2 VERS 5.5.1
+1 CHAR UTF-8
+0 @I1@ INDI
+1 NAME Pietro /Giardina/
+1 SEX M
+1 BIRT
+2 DATE ABT 1500
+2 PLAC Corleone, Palermo, Sicilia
+1 DEAT
+2 DATE ABT 1560
+0 @I2@ INDI
+1 NAME Pietro /Giardina/
+1 SEX M
+1 BIRT
+2 DATE ABT 1500
+2 PLAC Corleone, Palermo, Sicilia
+0 TRLR

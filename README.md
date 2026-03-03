@@ -21,6 +21,20 @@ Shell genealogica statica COBOL-first, CICS-like, conforme a `GN370_Blueprint_v2
 - `monitor db`
 - `theme normanno`
 
+## Pipeline GEDCOM (S1-S7)
+
+- `import gedcom`
+- `import gedcom --dry-run`
+- `import gedcom --auto-skip-low`
+- `import gedcom --strict`
+- `import status`
+- `import log --n 20`
+- `import log --record <pipeline_id>`
+- `import conflicts`
+- `import review <corr_id>`
+- `import accept <corr_id>`
+- `import batch rerun`
+
 ## Test e verifiche
 
 - `bash scripts/verify_deployment.sh`

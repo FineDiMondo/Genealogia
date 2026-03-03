@@ -1,217 +1,250 @@
-﻿(function (global) {
+(function (global) {
   "use strict";
-  var GN370 = global.GN370 = global.GN370 || {};
 
-  function mapGedcomDate(input) {
-    var v = String(input || "").trim();
-    if (!v) {
-      return { date: "", date_end: "", qual: "U", cal: "G" };
-    }
-    if (/^ABT\s+/i.test(v)) {
-      return { date: "~" + v.replace(/^ABT\s+/i, ""), date_end: "", qual: "A", cal: "G" };
-    }
-    var range = v.match(/^FROM\s+(\d{3,4})\s+TO\s+(\d{3,4})/i);
-    if (range) {
-      return { date: range[1], date_end: range[2], qual: "N", cal: "G" };
-    }
-    var jul = v.match(/^@#DJULIAN@\s+(.*)$/i);
-    if (jul) {
-      return { date: jul[1], date_end: "", qual: "E", cal: "J" };
-    }
-    return { date: v, date_end: "", qual: "E", cal: "G" };
+  var GN370 = global.GN370 = global.GN370 || {};
+  GN370.IMPORT = GN370.IMPORT || {};
+
+  var SESSION_STATE = {
+    lastSession: null,
+    pendingConflicts: [],
+    pendingCorrelations: []
+  };
+
+  function clone(v) {
+    return JSON.parse(JSON.stringify(v));
   }
 
-  function parse(text) {
-    var lines = String(text || "").split(/\r?\n/);
-    var person = [];
-    var family = [];
-    var familyLink = [];
-    var source = [];
-    var citation = [];
-    var event = [];
+  function mkSessionId() {
+    return "GED" + new Date().toISOString().replace(/[-:TZ.]/g, "").slice(0, 14);
+  }
 
-    var current = null;
-    var mode = null;
-
-    lines.forEach(function (line) {
-      var m0 = line.match(/^0\s+(@[^@]+@)\s+(\w+)/);
-      if (m0) {
-        mode = null;
-        var gid = m0[1];
-        var typ = m0[2].toUpperCase();
-        if (typ === "INDI") {
-          current = {
-            __type: "INDI",
-            gedcom_id: gid,
-            person_id: "GNP" + String(person.length + 1).padStart(9, "0"),
-            surname: "",
-            given_name: "",
-            gender: "U",
-            birth_date: "",
-            birth_qual: "U",
-            birth_cal: "G",
-            death_date: "",
-            death_qual: "U",
-            death_cal: "G",
-            notes: ""
-          };
-          person.push(current);
-          return;
-        }
-        if (typ === "FAM") {
-          current = {
-            __type: "FAM",
-            gedcom_id: gid,
-            family_id: "GNF" + String(family.length + 1).padStart(9, "0"),
-            father_id: "",
-            mother_id: "",
-            union_date: "",
-            union_date_qual: "U"
-          };
-          family.push(current);
-          return;
-        }
-        if (typ === "SOUR") {
-          current = {
-            __type: "SOUR",
-            gedcom_id: gid,
-            source_id: "GNS" + String(source.length + 1).padStart(9, "0"),
-            title: "",
-            notes: ""
-          };
-          source.push(current);
-          return;
-        }
-        current = null;
-        return;
-      }
-
-      if (!current) {
-        return;
-      }
-
-      var mName = line.match(/^1\s+NAME\s+(.+)$/);
-      if (mName && current.__type === "INDI") {
-        var full = mName[1];
-        var mm = full.match(/^(.*)\/(.*)\/(.*)$/);
-        if (mm) {
-          current.given_name = mm[1].trim();
-          current.surname = mm[2].trim();
-        } else {
-          current.given_name = full.trim();
-        }
-        return;
-      }
-
-      var mSex = line.match(/^1\s+SEX\s+([A-Z])/);
-      if (mSex && current.__type === "INDI") {
-        current.gender = /^(M|F)$/i.test(mSex[1]) ? mSex[1].toUpperCase() : "U";
-        return;
-      }
-
-      if (/^1\s+BIRT/.test(line)) { mode = "BIRT"; return; }
-      if (/^1\s+DEAT/.test(line)) { mode = "DEAT"; return; }
-      if (/^1\s+MARR/.test(line)) { mode = "MARR"; return; }
-
-      var mDate = line.match(/^2\s+DATE\s+(.+)$/);
-      if (mDate) {
-        var mapped = mapGedcomDate(mDate[1]);
-        if (current.__type === "INDI" && mode === "BIRT") {
-          current.birth_date = mapped.date;
-          current.birth_date_end = mapped.date_end;
-          current.birth_qual = mapped.qual;
-          current.birth_cal = mapped.cal;
-          event.push({ event_id: "GNE" + String(event.length + 1).padStart(9, "0"), person_id: current.person_id, event_type: "BIRTH", event_date: mapped.date, event_date_end: mapped.date_end, event_date_qual: mapped.qual, event_cal: mapped.cal });
-        } else if (current.__type === "INDI" && mode === "DEAT") {
-          current.death_date = mapped.date;
-          current.death_date_end = mapped.date_end;
-          current.death_qual = mapped.qual;
-          current.death_cal = mapped.cal;
-        } else if (current.__type === "FAM" && mode === "MARR") {
-          current.union_date = mapped.date;
-          current.union_date_qual = mapped.qual;
-        }
-        return;
-      }
-
-      var mHusb = line.match(/^1\s+HUSB\s+(@[^@]+@)$/);
-      if (mHusb && current.__type === "FAM") {
-        var father = person.find(function (p) { return p.gedcom_id === mHusb[1]; });
-        current.father_id = father ? father.person_id : "";
-        return;
-      }
-
-      var mWife = line.match(/^1\s+WIFE\s+(@[^@]+@)$/);
-      if (mWife && current.__type === "FAM") {
-        var mother = person.find(function (p) { return p.gedcom_id === mWife[1]; });
-        current.mother_id = mother ? mother.person_id : "";
-        return;
-      }
-
-      var mChil = line.match(/^1\s+CHIL\s+(@[^@]+@)$/);
-      if (mChil && current.__type === "FAM") {
-        var child = person.find(function (p) { return p.gedcom_id === mChil[1]; });
-        if (child) {
-          familyLink.push({
-            link_id: "GFL" + String(familyLink.length + 1).padStart(9, "0"),
-            family_id: current.family_id,
-            person_id: child.person_id,
-            role: "CHILD"
-          });
-        }
-        return;
-      }
-
-      var mTitl = line.match(/^1\s+TITL\s+(.+)$/);
-      if (mTitl && current.__type === "INDI") {
-        current.notes += (current.notes ? " || " : "") + "TITLE:" + mTitl[1].trim();
-      }
-
-      var mSour = line.match(/^1\s+SOUR\s+(@[^@]+@)$/);
-      if (mSour && current.__type === "INDI") {
-        citation.push({
-          citation_id: "GNC" + String(citation.length + 1).padStart(9, "0"),
-          source_ref_gedcom: mSour[1],
-          person_id: current.person_id,
-          source_id: ""
+  function mapNormToCompatTables(normRecords) {
+    var tables = {
+      PERSON: [],
+      FAMILY: [],
+      SOURCE: [],
+      PLACE: [],
+      MEDIA: []
+    };
+    (normRecords || []).forEach(function (n, idx) {
+      if (n.record_type === "INDI") {
+        tables.PERSON.push({
+          person_id: "GNP" + String(idx + 1).padStart(9, "0"),
+          gedcom_id: n.gedcom_xref,
+          surname: n.surname_norm,
+          given_name: n.given_norm,
+          birth_date: n.birth_date_iso,
+          death_date: n.death_date_iso
+        });
+      } else if (n.record_type === "FAM") {
+        tables.FAMILY.push({
+          family_id: "GNF" + String(idx + 1).padStart(9, "0"),
+          union_date: n.birth_date_iso
+        });
+      } else if (n.record_type === "SOUR") {
+        tables.SOURCE.push({
+          source_id: "GNS" + String(idx + 1).padStart(9, "0"),
+          title: n.title_norm
+        });
+      } else if (n.record_type === "PLAC") {
+        tables.PLACE.push({
+          place_id: n.birth_place_id,
+          place_name: n.birth_place_norm
+        });
+      } else if (n.record_type === "OBJE") {
+        tables.MEDIA.push({
+          media_id: "GNM" + String(idx + 1).padStart(9, "0"),
+          entity_type: "GEDCOM",
+          entity_id: n.gedcom_xref
         });
       }
     });
+    return tables;
+  }
 
-    citation.forEach(function (c) {
-      var s = source.find(function (x) { return x.gedcom_id === c.source_ref_gedcom; });
-      c.source_id = s ? s.source_id : "";
-      delete c.source_ref_gedcom;
+  function runBatchPipeline(tables, options) {
+    var logs = tables.IMPORT_LOG || [];
+    var ic = GN370.IMPORT.batchAgtIC.run(tables, logs);
+    var norm2 = GN370.IMPORT.batchAgtNorm2.run(tables, logs);
+    var corr = GN370.IMPORT.batchAgtCorr.run(tables, logs);
+    if (options && options.strict && ic.findings.some(function (f) { return f.severity === "ERR"; })) {
+      var err = new Error("STRICT_MODE_IC_FAILED");
+      err.exitCode = 12;
+      throw err;
+    }
+    return { ic: ic, norm2: norm2, corr: corr };
+  }
+
+  function startFromText(text, options) {
+    var opts = options || {};
+    var sessionId = mkSessionId();
+    var tokenized = GN370.IMPORT.gedcomTokenizer.tokenize(text);
+    var mapped = GN370.IMPORT.gedcomMapper.map(tokenized, { sessionId: sessionId });
+    var normalized = GN370.IMPORT.normAgent.normalize(mapped.records);
+
+    var existingTables = GN370.STATE.getStatus() === "READY"
+      ? clone(GN370.DB_ENGINE.dump().tables)
+      : {};
+
+    var detected = GN370.IMPORT.conflictDetect.detectAll(normalized.records, existingTables);
+    var resolved = GN370.IMPORT.conflictUI.resolve(detected.reports, {
+      autoSkipLow: !!opts.autoSkipLow,
+      forceAccept: !!opts.dryRun
+    });
+    var written = GN370.IMPORT.dbWriter.write({
+      sessionId: sessionId,
+      normRecords: normalized.records,
+      conflicts: detected.reports,
+      decisions: resolved.decisions,
+      tables: existingTables,
+      dryRun: !!opts.dryRun,
+      strict: false,
+      stageStats: {
+        s1_tokens: tokenized.stats.total,
+        s2_warnings: mapped.stats.warnings
+      }
     });
 
-    person.forEach(function (p) { delete p.__type; });
-    family.forEach(function (f) { delete f.__type; });
-    source.forEach(function (s) { delete s.__type; });
+    var batch = null;
+    if (!opts.dryRun) {
+      var current = GN370.DB_ENGINE.dump().tables;
+      batch = runBatchPipeline(current, opts);
+      GN370.DB_ENGINE.populate(current, {
+        source: "GEDCOM_IMPORT_PIPELINE",
+        imported_at: new Date().toISOString(),
+        import_session: sessionId
+      });
+    }
 
-    return {
-      PERSON: person,
-      FAMILY: family,
-      FAMILY_LINK: familyLink,
-      SOURCE: source,
-      CITATION: citation,
-      EVENT: event
+    SESSION_STATE.pendingConflicts = resolved.pending;
+    SESSION_STATE.pendingCorrelations = !opts.dryRun
+      ? (GN370.DB_ENGINE.dump().tables.CORRELATION_PENDING || [])
+      : [];
+    SESSION_STATE.lastSession = {
+      session_id: sessionId,
+      options: opts,
+      stage_stats: {
+        s1_tokens: tokenized.stats.total,
+        s2_records: mapped.stats.count,
+        s3_norm_count: normalized.stats.norm_count,
+        s4_conflicts: detected.reports.filter(function (r) { return r.severity !== "NONE"; }).length,
+        s5_pending: resolved.pending.length,
+        s6_written: written.stats.written,
+        s6_merged: written.stats.merged,
+        s6_skipped: written.stats.skipped,
+        s7_ran: !opts.dryRun
+      },
+      tokenized: tokenized.stats,
+      mapped: mapped.stats,
+      normalized: normalized.stats,
+      conflict_stats: detected.stats,
+      writer_stats: written.stats,
+      batch: batch,
+      panel: resolved.panel
     };
+
+    if (GN370.JOURNAL) {
+      GN370.JOURNAL.entry("IMPORT_GEDCOM_PIPELINE", "IMPORT_LOG", sessionId, "GEDCOM S1-S7 completed");
+    }
+
+    return SESSION_STATE.lastSession;
   }
 
-  async function importFile(file) {
-    var text = await file.text();
-    var tables = parse(text);
-    GN370.DB_ENGINE.reset();
-    GN370.DB_ENGINE.populate(tables, { source: file.name, format: "GEDCOM" });
-    var report = GN370.VALIDATE.run(GN370.DB_ENGINE.dump().tables);
-    GN370.JOURNAL.entry("IMPORT_GEDCOM", "DB", "-", "GEDCOM loaded: " + file.name);
-    return report;
+  function start(file, options) {
+    return file.text().then(function (text) {
+      return startFromText(text, options);
+    });
   }
 
-  GN370.IMPORT = GN370.IMPORT || {};
+  function status() {
+    return SESSION_STATE.lastSession;
+  }
+
+  function listLogs(opts) {
+    var options = opts || {};
+    if (GN370.STATE.getStatus() !== "READY") {
+      return [];
+    }
+    var logs = GN370.DB_ENGINE.query("IMPORT_LOG");
+    if (options.recordId) {
+      return logs.filter(function (l) { return l.pipeline_id === options.recordId || l.gedcom_xref === options.recordId; });
+    }
+    if (options.n) {
+      return logs.slice(-Number(options.n));
+    }
+    return logs;
+  }
+
+  function listConflicts() {
+    return clone(SESSION_STATE.pendingConflicts || []);
+  }
+
+  function listCorrelations() {
+    if (GN370.STATE.getStatus() !== "READY") {
+      return [];
+    }
+    var rows = GN370.DB_ENGINE.query("CORRELATION_PENDING");
+    return rows;
+  }
+
+  function reviewCorrelation(corrId) {
+    var rows = listCorrelations();
+    return rows.find(function (r) { return r.corr_id === corrId; }) || null;
+  }
+
+  function acceptCorrelation(corrId) {
+    if (GN370.STATE.getStatus() !== "READY") {
+      var e = new Error("DB_NOT_READY");
+      e.exitCode = 2;
+      throw e;
+    }
+    var dump = GN370.DB_ENGINE.dump();
+    dump.tables.CORRELATION_PENDING = dump.tables.CORRELATION_PENDING || [];
+    var idx = dump.tables.CORRELATION_PENDING.findIndex(function (r) { return r.corr_id === corrId; });
+    if (idx < 0) {
+      return false;
+    }
+    dump.tables.CORRELATION_PENDING[idx].status = "ACCEPTED";
+    GN370.DB_ENGINE.populate(dump.tables, dump.meta || {});
+    return true;
+  }
+
+  function rerunBatch() {
+    if (GN370.STATE.getStatus() !== "READY") {
+      var e = new Error("DB_NOT_READY");
+      e.exitCode = 2;
+      throw e;
+    }
+    var dump = GN370.DB_ENGINE.dump();
+    var batch = runBatchPipeline(dump.tables, { strict: false });
+    GN370.DB_ENGINE.populate(dump.tables, dump.meta || {});
+    SESSION_STATE.pendingCorrelations = dump.tables.CORRELATION_PENDING || [];
+    return batch;
+  }
+
+  GN370.GEDCOM = {
+    start: start,
+    startFromText: startFromText,
+    status: status,
+    importLog: listLogs,
+    conflicts: listConflicts,
+    correlations: listCorrelations,
+    reviewCorrelation: reviewCorrelation,
+    acceptCorrelation: acceptCorrelation,
+    rerunBatch: rerunBatch
+  };
+
+  // Compatibility layer for legacy calls/tests.
   GN370.IMPORT.gedcom = {
-    parse: parse,
-    importFile: importFile,
-    mapGedcomDate: mapGedcomDate
+    mapGedcomDate: GN370.IMPORT.normAgent.mapGedcomDate,
+    parse: function (text) {
+      var tokenized = GN370.IMPORT.gedcomTokenizer.tokenize(text);
+      var mapped = GN370.IMPORT.gedcomMapper.map(tokenized, { sessionId: "COMPAT" });
+      var normalized = GN370.IMPORT.normAgent.normalize(mapped.records);
+      return mapNormToCompatTables(normalized.records);
+    },
+    importFile: function (file, options) {
+      return start(file, options || {});
+    }
   };
 }(window));

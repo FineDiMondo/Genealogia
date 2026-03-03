@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "test": "node tests/gate_tests.js && bash tests/multienv_tests.sh",
-    "test:playwright": "playwright test"
+    "test:playwright": "playwright test",
+    "build": "bash scripts/verify_deployment.sh"
   },
   "devDependencies": {
     "@playwright/test": "^1.53.0"

@@ -1,0 +1,23 @@
+0 HEAD
+1 GEDC
+2 VERS 7.0
+1 CHAR UTF-8
+0 @I1@ INDI
+1 NAME Antonino /Giardina/
+1 SEX M
+1 BIRT
+2 DATE ABT 1526
+2 PLAC Corleone, Palermo, Sicilia
+0 @I2@ INDI
+1 NAME Maria /Giardina/
+1 SEX F
+1 BIRT
+2 DATE ABT 1528
+2 PLAC Corleone, Palermo, Sicilia
+0 @I3@ INDI
+1 NAME Giovanni /Giardina/
+1 SEX M
+1 BIRT
+2 DATE ABT 1530
+2 PLAC Corleone, Palermo, Sicilia
+0 TRLR

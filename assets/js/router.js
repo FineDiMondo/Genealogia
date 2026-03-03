@@ -38,7 +38,7 @@
 
     try {
       if (cmd === "help") {
-        GN370.RENDER.line("Comandi: help man status clear mem refresh db import db list db show db reset db export import gedcom import herald import notarial import nobility open find tree map timeline validate story journal monitor config theme quit");
+        GN370.RENDER.line("Comandi: help man status clear mem refresh db import db list db show db reset db export import gedcom [--dry-run --auto-skip-low --strict] import status import log import conflicts import review <corr_id> import accept <corr_id> import batch rerun import herald import notarial import nobility open find tree map timeline validate story journal monitor config theme quit");
         return;
       }
 
@@ -111,11 +111,79 @@
         return;
       }
 
+      if (cmd2 === "import status") {
+        var st = GN370.GEDCOM.status();
+        if (!st) {
+          GN370.RENDER.line("Nessuna sessione import GEDCOM.", "line-warn");
+        } else {
+          GN370.RENDER.line(JSON.stringify(st.stage_stats, null, 2));
+        }
+        return;
+      }
+
+      if (cmd2 === "import log") {
+        var rid = parseOption(tokens, "--record", "");
+        var nlogs = parseOption(tokens, "--n", "");
+        var logs = GN370.GEDCOM.importLog({ recordId: rid || "", n: nlogs ? Number(nlogs) : null });
+        if (!logs.length) {
+          GN370.RENDER.line("IMPORT_LOG vuoto o DB non READY.", "line-warn");
+          return;
+        }
+        GN370.RENDER.printTable(logs);
+        return;
+      }
+
+      if (cmd2 === "import conflicts") {
+        var pending = GN370.GEDCOM.conflicts();
+        if (!pending.length) {
+          GN370.RENDER.line("Nessun conflitto pendente.", "line-ok");
+        } else {
+          GN370.RENDER.line("CONFLICT PANEL:");
+          GN370.RENDER.line(GN370.IMPORT.conflictUI.renderAscii(pending));
+        }
+        return;
+      }
+
+      if (cmd2 === "import review") {
+        var corrId = tokens[2] || "";
+        var corr = GN370.GEDCOM.reviewCorrelation(corrId);
+        GN370.RENDER.line(corr ? JSON.stringify(corr, null, 2) : "Correlation non trovata", corr ? "line-ok" : "line-warn");
+        return;
+      }
+
+      if (cmd2 === "import accept") {
+        var corrId2 = tokens[2] || "";
+        var accepted = GN370.GEDCOM.acceptCorrelation(corrId2);
+        GN370.RENDER.line(accepted ? "Correlation accettata." : "Correlation non trovata.", accepted ? "line-ok" : "line-warn");
+        return;
+      }
+
+      if (cmd3 === "import batch rerun") {
+        var batch = GN370.GEDCOM.rerunBatch();
+        GN370.RENDER.line("Batch rerun completato: " + JSON.stringify({
+          ic: batch.ic.findings.length,
+          norm2: batch.norm2.findings.length,
+          corr: batch.corr.findings.length
+        }), "line-ok");
+        return;
+      }
+
       if (cmd2 === "import gedcom") {
+        var importOpts = {
+          dryRun: tokens.indexOf("--dry-run") >= 0,
+          autoSkipLow: tokens.indexOf("--auto-skip-low") >= 0,
+          strict: tokens.indexOf("--strict") >= 0
+        };
         GN370.RENDER.openFilePicker(".ged,.gedcom", false, async function (file) {
-          var report = await GN370.IMPORT.gedcom.importFile(file);
-          GN370.RENDER.line("GEDCOM import: errors=" + report.errors.length + " warnings=" + report.warnings.length);
-          GN370.RENDER.setStatus("DB: READY");
+          var session = await GN370.GEDCOM.start(file, importOpts);
+          GN370.RENDER.line("GEDCOM pipeline session: " + session.session_id, "line-ok");
+          GN370.RENDER.line(JSON.stringify(session.stage_stats, null, 2));
+          if (!importOpts.dryRun) {
+            GN370.RENDER.setStatus("DB: READY");
+          }
+          if (session.stage_stats.s5_pending > 0) {
+            GN370.RENDER.line("Conflitti pendenti: usa `import conflicts`.", "line-warn");
+          }
         });
         return;
       }
