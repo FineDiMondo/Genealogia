@@ -1,0 +1,121 @@
+:root {
+  --bg: #0d1117;
+  --panel: #161b22;
+  --border: #30363d;
+  --text: #d1d5db;
+  --muted: #8b949e;
+  --ok: #2ea043;
+  --warn: #d29922;
+  --err: #f85149;
+  --accent: #58a6ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "IBM Plex Mono", "Consolas", monospace;
+}
+
+.cc-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+h1, h2 {
+  margin: 0 0 10px 0;
+}
+
+.cc-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 14px;
+  padding: 14px;
+}
+
+.card {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+button {
+  background: #21262d;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  text-align: left;
+}
+
+button:hover {
+  border-color: var(--accent);
+}
+
+button.danger {
+  border-color: var(--err);
+}
+
+.confirm {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mono {
+  white-space: pre-wrap;
+  font-family: inherit;
+}
+
+.output {
+  min-height: 80px;
+  border: 1px solid var(--border);
+  padding: 8px;
+  background: #0f141b;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.ok {
+  color: var(--ok);
+}
+
+.warn {
+  color: var(--warn);
+}
+
+.err {
+  color: var(--err);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  padding: 6px;
+  vertical-align: top;
+}
+
+a {
+  color: var(--accent);
+}

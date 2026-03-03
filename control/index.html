@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GN370 Control Center</title>
+  <link rel="stylesheet" href="control.css">
+</head>
+<body>
+  <header class="cc-header">
+    <h1>GN370 Control Center</h1>
+    <div id="env-info" class="mono"></div>
+  </header>
+
+  <main class="cc-main">
+    <section class="card">
+      <h2>Quick Actions</h2>
+      <label class="confirm">
+        <input id="confirm-destructive" type="checkbox">
+        I understand destructive actions
+      </label>
+      <div class="actions">
+        <button data-action="clear-ui-cache">Clear UI Cache</button>
+        <button data-action="clear-all-caches">Clear All Caches</button>
+        <button data-action="clear-storage">Clear localStorage + sessionStorage</button>
+        <button data-action="delete-idb">Delete IndexedDB DBs</button>
+        <button data-action="unregister-sw">Unregister Service Worker(s)</button>
+        <button data-action="hard-reload">Hard Reload</button>
+        <button class="danger" data-action="full-reset">Full Reset & Restart</button>
+      </div>
+      <pre id="quick-log" class="mono output"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Resource Status</h2>
+      <div id="resource-status"></div>
+      <button data-action="refresh-status">Refresh Status</button>
+    </section>
+
+    <section class="card">
+      <h2>Dataset Presence Check</h2>
+      <p class="muted">Registry not loaded yet.</p>
+      <div id="dataset-checks"></div>
+    </section>
+
+    <section class="card">
+      <h2>Shell & Pages Hub</h2>
+      <div id="pages-hub"></div>
+    </section>
+
+    <section class="card">
+      <h2>Smoke Tests</h2>
+      <p class="muted">Smoke tests available after setup.</p>
+      <div id="smoke-tests"></div>
+    </section>
+  </main>
+
+  <script defer src="control.js"></script>
+</body>
+</html>
