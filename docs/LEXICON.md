@@ -11,3 +11,5 @@
 - **MAP-GUARD**: warning automatico su output verbose/duplicato/non conforme.
 - **Copybook**: sorgente storico schema COBOL.
 - **OPFS**: persistenza browser-side per SQLite WASM quando disponibile.
+- **GNHM0001**: identificativo funzionale della nuova home gateway risorgimentale.
+- **Home Gateway**: pagina iniziale guidata con CTA/PF per accesso rapido ai 9 mondi.

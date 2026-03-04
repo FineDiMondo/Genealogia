@@ -44,3 +44,12 @@
 - reset idempotente
 - naming export conforme al timestamp previsto
 - routing comandi senza side-effect impliciti in boot
+
+## Evoluzione proposta - GNHM0001
+
+- nuovo modulo UI `home-gateway` per onboarding guidato;
+- estensione `render.js`/`boot.js` senza alterare invarianti gate/boot;
+- nessuna variazione schema DB, solo orchestrazione UI e logging eventi home.
+
+Documento di dettaglio:
+- `docs/ANALISI_TECNICA_GNHM0001.md`

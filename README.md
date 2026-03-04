@@ -35,6 +35,8 @@ Questa documentazione descrive la **Versione 0**: base funzionante, perimetro ch
 - [Analisi requisiti](docs/ANALISI_REQUISITI.md)
 - [Analisi tecnica](docs/ANALISI_TECNICA.md)
 - [Analisi funzionale](docs/ANALISI_FUNZIONALE.md)
+- [Analisi funzionale GNHM0001 (home gateway)](docs/ANALISI_FUNZIONALE_GNHM0001.md)
+- [Analisi tecnica GNHM0001 (home gateway)](docs/ANALISI_TECNICA_GNHM0001.md)
 - [GEDCOM mapping](docs/GEDCOM_MAPPING.md)
 - [Herald format](docs/HERALD_FORMAT.md)
 - [Lessico](docs/LEXICON.md)
