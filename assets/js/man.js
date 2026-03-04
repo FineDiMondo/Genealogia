@@ -7,6 +7,8 @@
     start: "start: apre il frontespizio operativo GNHM0001 (home gateway)",
     home: "home: alias di start, riporta al frontespizio operativo",
     risorgimento: "risorgimento: forza tema risorgimentale e apre il frontespizio operativo",
+    lista: "lista: mostra gli archivi .zip presenti in /salvataggi",
+    carica: "carica <nomefile.zip>: importa lo ZIP da /salvataggi senza file picker",
     status: "status: mostra stato DB, ambiente e conteggi",
     "db import": "db import: apre il gateway in modalita import ZIP (PF3)",
     "db export": "db export: esporta DB in AAAAGGMMHHMM.zip",
