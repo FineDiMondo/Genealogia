@@ -1,0 +1,7 @@
+GN370 build target: windows
+pipeline: build-all.py
+sqlite: out/runtime/gn370.sqlite
+todo:
+- compile native core via CMake/toolchain
+- package UI shell and assets
+- produce target installer/bundle

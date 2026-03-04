@@ -1,0 +1,83 @@
+
+
+=== PAGE 1 ===
+
+Piano per l'orchestrazione multiutente
+Obiettivo
+La versione 0 di GN370 è concepita come una shell genealogica a utente singolo con runtime client‑side.
+Per evolvere verso un ambiente multiutente, è necessario definire un piano che consenta a più persone di
+condividere e collaborare sugli stessi dataset genealogici mantenendo integrità e coerenza dei dati. Questo
+documento è una bozza iniziale di orchestrazione multiutente.
+Scenari di utilizzo
+Consultazione contemporanea: più utenti accedono in sola lettura al medesimo database
+genealogico.
+Collaborazione: un gruppo di utenti con ruoli diversi (es. amministratore, editor , revisore) modifica e
+arricchisce i dati genealogici.
+Revisione e approvazione: le modifiche proposte da un utente vengono esaminate e approvate da
+un altro prima di essere applicate.
+Architettura proposta
+Backend condiviso: introdurre un server leggero che gestisca le connessioni e centralizzi il database
+(ad esempio PostgreSQL o SQLite con sincronizzazione). Questo backend mantiene lo stato e
+gestisce concorrenza e transazioni.
+Sessioni utente: ogni utente autenticato ottiene una sessione con stato isolato (CTX) e ID di
+sessione. Le sessioni vengono gestite dal server e replicano parte della logica della shell attuale.
+Gestione delle transazioni: le operazioni di import, modifica o cancellazione devono essere
+racchiuse in transazioni atomiche. In caso di conflitti, viene attivato un meccanismo di merge o viene
+richiesta l’approvazione.
+Notifiche e log: tutte le azioni vengono registrate in un registro (JOURNAL) con identificativo
+dell’utente, timestamp e descrizione. Le notifiche vengono inviate ai collaboratori quando vengono
+proposte modifiche rilevanti.
+Gestione dei ruoli e dei permessi
+Ruolo Permessi principali
+AmministratoreGestione utenti, import/export, reset DB, approvazione finale dei cambiamenti
+Editor Inserimento e modifica dati genealogici, avvio pipeline GEDCOM
+Revisore Verifica e approvazione modifiche proposte da editor
+Lettore Accesso in sola lettura a database e visualizzazioni
+1. 
+2. 
+3. 
+• 
+• 
+• 
+• 
+1
+
+=== PAGE 2 ===
+
+Il server applica le regole di autorizzazione consultando una tabella  permissions e può delegare la
+validazione al modulo “workflow autorizzativi avanzati”.
+Concorrenza e sincronizzazione
+Per evitare perdite di dati e conflitti:
+Lock ottimistico: ogni record porta un numero di versione; quando un utente prova a salvare, il
+sistema verifica che il record non sia stato modificato da altri. In caso contrario, viene richiesto un
+merge manuale o una revisione.
+Lock pessimista: alcune operazioni, come import GEDCOM o reset del database, sono esclusive e
+bloccano l’accesso in scrittura agli altri utenti finché non terminano.
+Code di lavoro: per elaborazioni lunghe (es. pipeline GEDCOM), le richieste vengono messe in coda e
+processate in ordine, notificando gli utenti sullo stato di avanzamento.
+Persistenza e sincronizzazione client
+La versione multiutente presuppone un runtime in cui la logica di shell gira principalmente sul server .
+Tuttavia, per supportare operazioni offline o ambienti con connettività intermittente è possibile introdurre:
+Cache locale: ogni client mantiene una copia locale (eventualmente crittografata) del DB e
+sincronizza le modifiche quando torna online.
+Replica: i client replicano porzioni del database tramite meccanismi di sincronizzazione (es. CRDT o
+replicazione basata su log). Questa funzionalità è complessa e potrebbe essere affrontata in versioni
+successive.
+Considerazioni aperte
+Definire un protocollo di autenticazione (OAuth, JWT, ecc.) e integrazione con sistemi di identità
+esistenti.
+Decidere se la shell client resterà indipendente (con adattatore per il server) o verrà trasformata in
+un’app web completa.
+Valutare l’uso di framework back‑end (es. Node.js/Express, Django) e se introdurre GraphQL/REST
+per l’API.
+Questa  bozza  descrive  i  punti  chiave  per  abilitare  un  futuro  supporto  multiutente,  lasciando
+approfondimenti e decisioni implementative a fasi successive.
+1. 
+2. 
+3. 
+1. 
+2. 
+• 
+• 
+• 
+2

@@ -1,0 +1,960 @@
+MAPPA 1A
+A · ORIZZONTALE · ALBERO
+* io | + antenato | ─│ linee | ╲ matrimonio
+*IO ──────+ANT-01 │ ╲ +ANT-02 ──────+ANT-03
+*IO ──────+ANT-02 │ ╲ +ANT-03 ──────+ANT-04
+*IO ──────+ANT-03 │ ╲ +ANT-04 ──────+ANT-05
+*IO ──────+ANT-04 │ ╲ +ANT-05 ──────+ANT-06
+*IO ──────+ANT-05 │ ╲ +ANT-06 ──────+ANT-07
+*IO ──────+ANT-06 │ ╲ +ANT-07 ──────+ANT-08
+*IO ──────+ANT-07 │ ╲ +ANT-08 ──────+ANT-09
+*IO ──────+ANT-08 │ ╲ +ANT-09 ──────+ANT-10
+*IO ──────+ANT-09 │ ╲ +ANT-10 ──────+ANT-11
+*IO ──────+ANT-10 │ ╲ +ANT-11 ──────+ANT-12
+*IO ──────+ANT-11 │ ╲ +ANT-12 ──────+ANT-13
+*IO ──────+ANT-12 │ ╲ +ANT-13 ──────+ANT-14
+*IO ──────+ANT-13 │ ╲ +ANT-14 ──────+ANT-15
+*IO ──────+ANT-14 │ ╲ +ANT-15 ──────+ANT-16
+*IO ──────+ANT-15 │ ╲ +ANT-16 ──────+ANT-17
+*IO ──────+ANT-16 │ ╲ +ANT-17 ──────+ANT-18
+*IO ──────+ANT-17 │ ╲ +ANT-18 ──────+ANT-19
+*IO ──────+ANT-18 │ ╲ +ANT-19 ──────+ANT-20
+*IO ──────+ANT-19 │ ╲ +ANT-20 ──────+ANT-21
+*IO ──────+ANT-20 │ ╲ +ANT-21 ──────+ANT-22
+*IO ──────+ANT-21 │ ╲ +ANT-22 ──────+ANT-23
+*IO ──────+ANT-22 │ ╲ +ANT-23 ──────+ANT-24
+*IO ──────+ANT-23 │ ╲ +ANT-24 ──────+ANT-25
+*IO ──────+ANT-24 │ ╲ +ANT-25 ──────+ANT-26
+MAPPA 1B
+B · VERTICALE · ALBERO
+* io | + antenato | ─│ linee | ╲ matrimonio
+    +ANT-01
+      │
+      ╲ *IO │ +ANT-03
+    +ANT-04
+      │
+      ╲ *IO │ +ANT-06
+    +ANT-07
+      │
+      ╲ *IO │ +ANT-09
+    +ANT-10
+      │
+      ╲ *IO │ +ANT-12
+    +ANT-13
+      │
+      ╲ *IO │ +ANT-15
+    +ANT-16
+      │
+      ╲ *IO │ +ANT-18
+    +ANT-19
+      │
+      ╲ *IO │ +ANT-21
+    +ANT-22
+      │
+      ╲ *IO │ +ANT-24
+MAPPA 1C
+C · WIREFRAME · ALBERO · GRID 120x40
+coord(x,y,wxh)
+(x=011,y=003,w=018xh=003) *NODO-01 │ +RAMO-02 ╲
+(x=022,y=006,w=018xh=003) *NODO-02 │ +RAMO-03 ╲
+(x=033,y=009,w=018xh=003) *NODO-03 │ +RAMO-04 ╲
+(x=044,y=012,w=018xh=003) *NODO-04 │ +RAMO-05 ╲
+(x=055,y=015,w=018xh=003) *NODO-05 │ +RAMO-06 ╲
+(x=066,y=018,w=018xh=003) *NODO-06 │ +RAMO-07 ╲
+(x=077,y=021,w=018xh=003) *NODO-07 │ +RAMO-08 ╲
+(x=088,y=024,w=018xh=003) *NODO-08 │ +RAMO-09 ╲
+(x=099,y=027,w=018xh=003) *NODO-09 │ +RAMO-10 ╲
+(x=000,y=030,w=018xh=003) *NODO-10 │ +RAMO-11 ╲
+(x=011,y=033,w=018xh=003) *NODO-11 │ +RAMO-12 ╲
+(x=022,y=036,w=018xh=003) *NODO-12 │ +RAMO-13 ╲
+(x=033,y=001,w=018xh=003) *NODO-13 │ +RAMO-14 ╲
+(x=044,y=004,w=018xh=003) *NODO-14 │ +RAMO-15 ╲
+(x=055,y=007,w=018xh=003) *NODO-15 │ +RAMO-16 ╲
+(x=066,y=010,w=018xh=003) *NODO-16 │ +RAMO-17 ╲
+(x=077,y=013,w=018xh=003) *NODO-17 │ +RAMO-18 ╲
+(x=088,y=016,w=018xh=003) *NODO-18 │ +RAMO-19 ╲
+(x=099,y=019,w=018xh=003) *NODO-19 │ +RAMO-20 ╲
+(x=000,y=022,w=018xh=003) *NODO-20 │ +RAMO-21 ╲
+(x=011,y=025,w=018xh=003) *NODO-21 │ +RAMO-22 ╲
+(x=022,y=028,w=018xh=003) *NODO-22 │ +RAMO-23 ╲
+(x=033,y=031,w=018xh=003) *NODO-23 │ +RAMO-24 ╲
+(x=044,y=034,w=018xh=003) *NODO-24 │ +RAMO-25 ╲
+MAPPA 1D
+D · ASCII-370 · ALBERO
+#==============================================================================#
+#GN370 ALBERO                                                                  #
+#* io | + antenato | ─│ linee | ╲ matrimonio                                   #
+#*IO ─────+ANT-01 │ ╲ +ANT-02                                                  #
+#*IO ─────+ANT-02 │ ╲ +ANT-03                                                  #
+#*IO ─────+ANT-03 │ ╲ +ANT-04                                                  #
+#*IO ─────+ANT-04 │ ╲ +ANT-05                                                  #
+#*IO ─────+ANT-05 │ ╲ +ANT-06                                                  #
+#*IO ─────+ANT-06 │ ╲ +ANT-07                                                  #
+#*IO ─────+ANT-07 │ ╲ +ANT-08                                                  #
+#*IO ─────+ANT-08 │ ╲ +ANT-09                                                  #
+#*IO ─────+ANT-09 │ ╲ +ANT-10                                                  #
+#*IO ─────+ANT-10 │ ╲ +ANT-11                                                  #
+#*IO ─────+ANT-11 │ ╲ +ANT-12                                                  #
+#*IO ─────+ANT-12 │ ╲ +ANT-13                                                  #
+#*IO ─────+ANT-13 │ ╲ +ANT-14                                                  #
+#*IO ─────+ANT-14 │ ╲ +ANT-15                                                  #
+#*IO ─────+ANT-15 │ ╲ +ANT-16                                                  #
+#*IO ─────+ANT-16 │ ╲ +ANT-17                                                  #
+#*IO ─────+ANT-17 │ ╲ +ANT-18                                                  #
+#*IO ─────+ANT-18 │ ╲ +ANT-19                                                  #
+#*IO ─────+ANT-19 │ ╲ +ANT-20                                                  #
+#*IO ─────+ANT-20 │ ╲ +ANT-21                                                  #
+#==============================================================================#
+MAPPA 2A
+A · ORIZZONTALE · FAMIGLIE
+[ ] casato | ─ legame | ║ confluenza
+[CAS-01] ───── [CAS-02] ║ [CAS-03] ───── [CAS-04]
+[CAS-02] ───── [CAS-03] ║ [CAS-04] ───── [CAS-05]
+[CAS-03] ───── [CAS-04] ║ [CAS-05] ───── [CAS-06]
+[CAS-04] ───── [CAS-05] ║ [CAS-06] ───── [CAS-07]
+[CAS-05] ───── [CAS-06] ║ [CAS-07] ───── [CAS-08]
+[CAS-06] ───── [CAS-07] ║ [CAS-08] ───── [CAS-09]
+[CAS-07] ───── [CAS-08] ║ [CAS-09] ───── [CAS-10]
+[CAS-08] ───── [CAS-09] ║ [CAS-10] ───── [CAS-11]
+[CAS-09] ───── [CAS-10] ║ [CAS-11] ───── [CAS-12]
+[CAS-10] ───── [CAS-11] ║ [CAS-12] ───── [CAS-13]
+[CAS-11] ───── [CAS-12] ║ [CAS-13] ───── [CAS-14]
+[CAS-12] ───── [CAS-13] ║ [CAS-14] ───── [CAS-15]
+[CAS-13] ───── [CAS-14] ║ [CAS-15] ───── [CAS-16]
+[CAS-14] ───── [CAS-15] ║ [CAS-16] ───── [CAS-17]
+[CAS-15] ───── [CAS-16] ║ [CAS-17] ───── [CAS-18]
+[CAS-16] ───── [CAS-17] ║ [CAS-18] ───── [CAS-19]
+[CAS-17] ───── [CAS-18] ║ [CAS-19] ───── [CAS-20]
+[CAS-18] ───── [CAS-19] ║ [CAS-20] ───── [CAS-21]
+[CAS-19] ───── [CAS-20] ║ [CAS-21] ───── [CAS-22]
+[CAS-20] ───── [CAS-21] ║ [CAS-22] ───── [CAS-23]
+[CAS-21] ───── [CAS-22] ║ [CAS-23] ───── [CAS-24]
+[CAS-22] ───── [CAS-23] ║ [CAS-24] ───── [CAS-25]
+[CAS-23] ───── [CAS-24] ║ [CAS-25] ───── [CAS-26]
+[CAS-24] ───── [CAS-25] ║ [CAS-26] ───── [CAS-27]
+MAPPA 2B
+B · VERTICALE · FAMIGLIE
+[ ] casato | ─ legame | ║ confluenza
+    [CAS-01]
+      ║
+    [CAS-03]
+      ║
+    [CAS-05]
+      ║
+    [CAS-07]
+      ║
+    [CAS-09]
+      ║
+    [CAS-11]
+      ║
+    [CAS-13]
+      ║
+    [CAS-15]
+      ║
+    [CAS-17]
+      ║
+    [CAS-19]
+      ║
+    [CAS-21]
+      ║
+    [CAS-23]
+      ║
+MAPPA 2C
+C · WIREFRAME · FAMIGLIE · GRID 120x40
+coord(x,y,wxh)
+(x=011,y=003,w=020xh=003) [CAS-01] ─ [CAS-02] ║
+(x=022,y=006,w=020xh=003) [CAS-02] ─ [CAS-03] ║
+(x=033,y=009,w=020xh=003) [CAS-03] ─ [CAS-04] ║
+(x=044,y=012,w=020xh=003) [CAS-04] ─ [CAS-05] ║
+(x=055,y=015,w=020xh=003) [CAS-05] ─ [CAS-06] ║
+(x=066,y=018,w=020xh=003) [CAS-06] ─ [CAS-07] ║
+(x=077,y=021,w=020xh=003) [CAS-07] ─ [CAS-08] ║
+(x=088,y=024,w=020xh=003) [CAS-08] ─ [CAS-09] ║
+(x=099,y=027,w=020xh=003) [CAS-09] ─ [CAS-10] ║
+(x=000,y=030,w=020xh=003) [CAS-10] ─ [CAS-11] ║
+(x=011,y=033,w=020xh=003) [CAS-11] ─ [CAS-12] ║
+(x=022,y=036,w=020xh=003) [CAS-12] ─ [CAS-13] ║
+(x=033,y=001,w=020xh=003) [CAS-13] ─ [CAS-14] ║
+(x=044,y=004,w=020xh=003) [CAS-14] ─ [CAS-15] ║
+(x=055,y=007,w=020xh=003) [CAS-15] ─ [CAS-16] ║
+(x=066,y=010,w=020xh=003) [CAS-16] ─ [CAS-17] ║
+(x=077,y=013,w=020xh=003) [CAS-17] ─ [CAS-18] ║
+(x=088,y=016,w=020xh=003) [CAS-18] ─ [CAS-19] ║
+(x=099,y=019,w=020xh=003) [CAS-19] ─ [CAS-20] ║
+(x=000,y=022,w=020xh=003) [CAS-20] ─ [CAS-21] ║
+(x=011,y=025,w=020xh=003) [CAS-21] ─ [CAS-22] ║
+(x=022,y=028,w=020xh=003) [CAS-22] ─ [CAS-23] ║
+(x=033,y=031,w=020xh=003) [CAS-23] ─ [CAS-24] ║
+(x=044,y=034,w=020xh=003) [CAS-24] ─ [CAS-25] ║
+MAPPA 2D
+D · ASCII-370 · FAMIGLIE
+#==============================================================================#
+#GN370 FAMIGLIE                                                                #
+#[ ] casato | ─ legame | ║ confluenza                                          #
+#[CAS-01] ──── [CAS-02] ║ [CAS-03]                                             #
+#[CAS-02] ──── [CAS-03] ║ [CAS-04]                                             #
+#[CAS-03] ──── [CAS-04] ║ [CAS-05]                                             #
+#[CAS-04] ──── [CAS-05] ║ [CAS-06]                                             #
+#[CAS-05] ──── [CAS-06] ║ [CAS-07]                                             #
+#[CAS-06] ──── [CAS-07] ║ [CAS-08]                                             #
+#[CAS-07] ──── [CAS-08] ║ [CAS-09]                                             #
+#[CAS-08] ──── [CAS-09] ║ [CAS-10]                                             #
+#[CAS-09] ──── [CAS-10] ║ [CAS-11]                                             #
+#[CAS-10] ──── [CAS-11] ║ [CAS-12]                                             #
+#[CAS-11] ──── [CAS-12] ║ [CAS-13]                                             #
+#[CAS-12] ──── [CAS-13] ║ [CAS-14]                                             #
+#[CAS-13] ──── [CAS-14] ║ [CAS-15]                                             #
+#[CAS-14] ──── [CAS-15] ║ [CAS-16]                                             #
+#[CAS-15] ──── [CAS-16] ║ [CAS-17]                                             #
+#[CAS-16] ──── [CAS-17] ║ [CAS-18]                                             #
+#[CAS-17] ──── [CAS-18] ║ [CAS-19]                                             #
+#[CAS-18] ──── [CAS-19] ║ [CAS-20]                                             #
+#[CAS-19] ──── [CAS-20] ║ [CAS-21]                                             #
+#[CAS-20] ──── [CAS-21] ║ [CAS-22]                                             #
+#==============================================================================#
+MAPPA 3A
+A · ORIZZONTALE · CRONOLOGIA
+= timeline | B nascita | M matrimonio | ! fondante | ? lacuna
+M======!======?======B======M======!======?
+!======?======B======M======!======?======B
+?======B======M======!======?======B======M
+B======M======!======?======B======M======!
+M======!======?======B======M======!======?
+!======?======B======M======!======?======B
+?======B======M======!======?======B======M
+B======M======!======?======B======M======!
+M======!======?======B======M======!======?
+!======?======B======M======!======?======B
+?======B======M======!======?======B======M
+B======M======!======?======B======M======!
+M======!======?======B======M======!======?
+!======?======B======M======!======?======B
+?======B======M======!======?======B======M
+B======M======!======?======B======M======!
+M======!======?======B======M======!======?
+!======?======B======M======!======?======B
+?======B======M======!======?======B======M
+B======M======!======?======B======M======!
+M======!======?======B======M======!======?
+!======?======B======M======!======?======B
+?======B======M======!======?======B======M
+B======M======!======?======B======M======!
+MAPPA 3B
+B · VERTICALE · CRONOLOGIA
+= timeline | B nascita | M matrimonio | ! fondante | ? lacuna
+      M
+      =
+      ?
+      =
+      M
+      =
+      ?
+      =
+      M
+      =
+      ?
+      =
+      M
+      =
+      ?
+      =
+      M
+      =
+      ?
+      =
+      M
+      =
+      ?
+      =
+MAPPA 3C
+C · WIREFRAME · CRONOLOGIA · GRID 120x40
+coord(x,y,wxh)
+(x=011,y=003,w=024xh=003) ========M======!
+(x=022,y=006,w=024xh=003) ========!======?
+(x=033,y=009,w=024xh=003) ========?======B
+(x=044,y=012,w=024xh=003) ========B======M
+(x=055,y=015,w=024xh=003) ========M======!
+(x=066,y=018,w=024xh=003) ========!======?
+(x=077,y=021,w=024xh=003) ========?======B
+(x=088,y=024,w=024xh=003) ========B======M
+(x=099,y=027,w=024xh=003) ========M======!
+(x=000,y=030,w=024xh=003) ========!======?
+(x=011,y=033,w=024xh=003) ========?======B
+(x=022,y=036,w=024xh=003) ========B======M
+(x=033,y=001,w=024xh=003) ========M======!
+(x=044,y=004,w=024xh=003) ========!======?
+(x=055,y=007,w=024xh=003) ========?======B
+(x=066,y=010,w=024xh=003) ========B======M
+(x=077,y=013,w=024xh=003) ========M======!
+(x=088,y=016,w=024xh=003) ========!======?
+(x=099,y=019,w=024xh=003) ========?======B
+(x=000,y=022,w=024xh=003) ========B======M
+(x=011,y=025,w=024xh=003) ========M======!
+(x=022,y=028,w=024xh=003) ========!======?
+(x=033,y=031,w=024xh=003) ========?======B
+(x=044,y=034,w=024xh=003) ========B======M
+MAPPA 3D
+D · ASCII-370 · CRONOLOGIA
+#==============================================================================#
+#GN370 CRONOLOGIA                                                              #
+#= timeline | B nascita | M matrimonio | ! fondante | ? lacuna                 #
+#M=====!=====?=====B                                                           #
+#!=====?=====B=====M                                                           #
+#?=====B=====M=====!                                                           #
+#B=====M=====!=====?                                                           #
+#M=====!=====?=====B                                                           #
+#!=====?=====B=====M                                                           #
+#?=====B=====M=====!                                                           #
+#B=====M=====!=====?                                                           #
+#M=====!=====?=====B                                                           #
+#!=====?=====B=====M                                                           #
+#?=====B=====M=====!                                                           #
+#B=====M=====!=====?                                                           #
+#M=====!=====?=====B                                                           #
+#!=====?=====B=====M                                                           #
+#?=====B=====M=====!                                                           #
+#B=====M=====!=====?                                                           #
+#M=====!=====?=====B                                                           #
+#!=====?=====B=====M                                                           #
+#?=====B=====M=====!                                                           #
+#B=====M=====!=====?                                                           #
+#==============================================================================#
+MAPPA 4A
+A · ORIZZONTALE · LUOGHI
+^ luogo | - collegamento | : evento/casato
+^LUOGO-01:CAS-01---^LUOGO-02:EV-02---^LUOGO-03:CAS-03
+^LUOGO-02:CAS-02---^LUOGO-03:EV-03---^LUOGO-04:CAS-04
+^LUOGO-03:CAS-03---^LUOGO-04:EV-04---^LUOGO-05:CAS-05
+^LUOGO-04:CAS-04---^LUOGO-05:EV-05---^LUOGO-06:CAS-06
+^LUOGO-05:CAS-05---^LUOGO-06:EV-06---^LUOGO-07:CAS-07
+^LUOGO-06:CAS-06---^LUOGO-07:EV-07---^LUOGO-08:CAS-08
+^LUOGO-07:CAS-07---^LUOGO-08:EV-08---^LUOGO-09:CAS-09
+^LUOGO-08:CAS-08---^LUOGO-09:EV-09---^LUOGO-10:CAS-10
+^LUOGO-09:CAS-09---^LUOGO-10:EV-10---^LUOGO-11:CAS-11
+^LUOGO-10:CAS-10---^LUOGO-11:EV-11---^LUOGO-12:CAS-12
+^LUOGO-11:CAS-11---^LUOGO-12:EV-12---^LUOGO-13:CAS-13
+^LUOGO-12:CAS-12---^LUOGO-13:EV-13---^LUOGO-14:CAS-14
+^LUOGO-13:CAS-13---^LUOGO-14:EV-14---^LUOGO-15:CAS-15
+^LUOGO-14:CAS-14---^LUOGO-15:EV-15---^LUOGO-16:CAS-16
+^LUOGO-15:CAS-15---^LUOGO-16:EV-16---^LUOGO-17:CAS-17
+^LUOGO-16:CAS-16---^LUOGO-17:EV-17---^LUOGO-18:CAS-18
+^LUOGO-17:CAS-17---^LUOGO-18:EV-18---^LUOGO-19:CAS-19
+^LUOGO-18:CAS-18---^LUOGO-19:EV-19---^LUOGO-20:CAS-20
+^LUOGO-19:CAS-19---^LUOGO-20:EV-20---^LUOGO-21:CAS-21
+^LUOGO-20:CAS-20---^LUOGO-21:EV-21---^LUOGO-22:CAS-22
+^LUOGO-21:CAS-21---^LUOGO-22:EV-22---^LUOGO-23:CAS-23
+^LUOGO-22:CAS-22---^LUOGO-23:EV-23---^LUOGO-24:CAS-24
+^LUOGO-23:CAS-23---^LUOGO-24:EV-24---^LUOGO-25:CAS-25
+^LUOGO-24:CAS-24---^LUOGO-25:EV-25---^LUOGO-26:CAS-26
+MAPPA 4B
+B · VERTICALE · LUOGHI
+^ luogo | - collegamento | : evento/casato
+    ^LUOGO-01:EV-01
+      -
+    ^LUOGO-03:EV-03
+      -
+    ^LUOGO-05:EV-05
+      -
+    ^LUOGO-07:EV-07
+      -
+    ^LUOGO-09:EV-09
+      -
+    ^LUOGO-11:EV-11
+      -
+    ^LUOGO-13:EV-13
+      -
+    ^LUOGO-15:EV-15
+      -
+    ^LUOGO-17:EV-17
+      -
+    ^LUOGO-19:EV-19
+      -
+    ^LUOGO-21:EV-21
+      -
+    ^LUOGO-23:EV-23
+      -
+MAPPA 4C
+C · WIREFRAME · LUOGHI · GRID 120x40
+coord(x,y,wxh)
+(x=011,y=003,w=022xh=003) ^LUOGO-01:CAS-02 -
+(x=022,y=006,w=022xh=003) ^LUOGO-02:CAS-03 -
+(x=033,y=009,w=022xh=003) ^LUOGO-03:CAS-04 -
+(x=044,y=012,w=022xh=003) ^LUOGO-04:CAS-05 -
+(x=055,y=015,w=022xh=003) ^LUOGO-05:CAS-06 -
+(x=066,y=018,w=022xh=003) ^LUOGO-06:CAS-07 -
+(x=077,y=021,w=022xh=003) ^LUOGO-07:CAS-08 -
+(x=088,y=024,w=022xh=003) ^LUOGO-08:CAS-09 -
+(x=099,y=027,w=022xh=003) ^LUOGO-09:CAS-10 -
+(x=000,y=030,w=022xh=003) ^LUOGO-10:CAS-11 -
+(x=011,y=033,w=022xh=003) ^LUOGO-11:CAS-12 -
+(x=022,y=036,w=022xh=003) ^LUOGO-12:CAS-13 -
+(x=033,y=001,w=022xh=003) ^LUOGO-13:CAS-14 -
+(x=044,y=004,w=022xh=003) ^LUOGO-14:CAS-15 -
+(x=055,y=007,w=022xh=003) ^LUOGO-15:CAS-16 -
+(x=066,y=010,w=022xh=003) ^LUOGO-16:CAS-17 -
+(x=077,y=013,w=022xh=003) ^LUOGO-17:CAS-18 -
+(x=088,y=016,w=022xh=003) ^LUOGO-18:CAS-19 -
+(x=099,y=019,w=022xh=003) ^LUOGO-19:CAS-20 -
+(x=000,y=022,w=022xh=003) ^LUOGO-20:CAS-21 -
+(x=011,y=025,w=022xh=003) ^LUOGO-21:CAS-22 -
+(x=022,y=028,w=022xh=003) ^LUOGO-22:CAS-23 -
+(x=033,y=031,w=022xh=003) ^LUOGO-23:CAS-24 -
+(x=044,y=034,w=022xh=003) ^LUOGO-24:CAS-25 -
+MAPPA 4D
+D · ASCII-370 · LUOGHI
+#==============================================================================#
+#GN370 LUOGHI                                                                  #
+#^ luogo | - collegamento | : evento/casato                                    #
+#^LUOGO-01:CAS-01---^LUOGO-02:EV-02                                            #
+#^LUOGO-02:CAS-02---^LUOGO-03:EV-03                                            #
+#^LUOGO-03:CAS-03---^LUOGO-04:EV-04                                            #
+#^LUOGO-04:CAS-04---^LUOGO-05:EV-05                                            #
+#^LUOGO-05:CAS-05---^LUOGO-06:EV-06                                            #
+#^LUOGO-06:CAS-06---^LUOGO-07:EV-07                                            #
+#^LUOGO-07:CAS-07---^LUOGO-08:EV-08                                            #
+#^LUOGO-08:CAS-08---^LUOGO-09:EV-09                                            #
+#^LUOGO-09:CAS-09---^LUOGO-10:EV-10                                            #
+#^LUOGO-10:CAS-10---^LUOGO-11:EV-11                                            #
+#^LUOGO-11:CAS-11---^LUOGO-12:EV-12                                            #
+#^LUOGO-12:CAS-12---^LUOGO-13:EV-13                                            #
+#^LUOGO-13:CAS-13---^LUOGO-14:EV-14                                            #
+#^LUOGO-14:CAS-14---^LUOGO-15:EV-15                                            #
+#^LUOGO-15:CAS-15---^LUOGO-16:EV-16                                            #
+#^LUOGO-16:CAS-16---^LUOGO-17:EV-17                                            #
+#^LUOGO-17:CAS-17---^LUOGO-18:EV-18                                            #
+#^LUOGO-18:CAS-18---^LUOGO-19:EV-19                                            #
+#^LUOGO-19:CAS-19---^LUOGO-20:EV-20                                            #
+#^LUOGO-20:CAS-20---^LUOGO-21:EV-21                                            #
+#==============================================================================#
+MAPPA 5A
+A · ORIZZONTALE · TITOLI
+^ titolo | ├── subordinazione | │ trasmissione
+│   ├── ^TITOLO-01 │
+│   │   ├── ^TITOLO-02 │
+│   │   │   ├── ^TITOLO-03 │
+├── ^TITOLO-04 │
+│   ├── ^TITOLO-05 │
+│   │   ├── ^TITOLO-06 │
+│   │   │   ├── ^TITOLO-07 │
+├── ^TITOLO-08 │
+│   ├── ^TITOLO-09 │
+│   │   ├── ^TITOLO-10 │
+│   │   │   ├── ^TITOLO-11 │
+├── ^TITOLO-12 │
+│   ├── ^TITOLO-13 │
+│   │   ├── ^TITOLO-14 │
+│   │   │   ├── ^TITOLO-15 │
+├── ^TITOLO-16 │
+│   ├── ^TITOLO-17 │
+│   │   ├── ^TITOLO-18 │
+│   │   │   ├── ^TITOLO-19 │
+├── ^TITOLO-20 │
+│   ├── ^TITOLO-21 │
+│   │   ├── ^TITOLO-22 │
+│   │   │   ├── ^TITOLO-23 │
+├── ^TITOLO-24 │
+MAPPA 5B
+B · VERTICALE · TITOLI
+^ titolo | ├── subordinazione | │ trasmissione
+    ├── ^TITOLO-01
+    │
+    ├── ^TITOLO-03
+    │
+    ├── ^TITOLO-05
+    │
+    ├── ^TITOLO-07
+    │
+    ├── ^TITOLO-09
+    │
+    ├── ^TITOLO-11
+    │
+    ├── ^TITOLO-13
+    │
+    ├── ^TITOLO-15
+    │
+    ├── ^TITOLO-17
+    │
+    ├── ^TITOLO-19
+    │
+    ├── ^TITOLO-21
+    │
+    ├── ^TITOLO-23
+    │
+MAPPA 5C
+C · WIREFRAME · TITOLI · GRID 120x40
+coord(x,y,wxh)
+(x=011,y=003,w=022xh=003) ├── ^TITOLO-01 │
+(x=022,y=006,w=022xh=003) ├── ^TITOLO-02 │
+(x=033,y=009,w=022xh=003) ├── ^TITOLO-03 │
+(x=044,y=012,w=022xh=003) ├── ^TITOLO-04 │
+(x=055,y=015,w=022xh=003) ├── ^TITOLO-05 │
+(x=066,y=018,w=022xh=003) ├── ^TITOLO-06 │
+(x=077,y=021,w=022xh=003) ├── ^TITOLO-07 │
+(x=088,y=024,w=022xh=003) ├── ^TITOLO-08 │
+(x=099,y=027,w=022xh=003) ├── ^TITOLO-09 │
+(x=000,y=030,w=022xh=003) ├── ^TITOLO-10 │
+(x=011,y=033,w=022xh=003) ├── ^TITOLO-11 │
+(x=022,y=036,w=022xh=003) ├── ^TITOLO-12 │
+(x=033,y=001,w=022xh=003) ├── ^TITOLO-13 │
+(x=044,y=004,w=022xh=003) ├── ^TITOLO-14 │
+(x=055,y=007,w=022xh=003) ├── ^TITOLO-15 │
+(x=066,y=010,w=022xh=003) ├── ^TITOLO-16 │
+(x=077,y=013,w=022xh=003) ├── ^TITOLO-17 │
+(x=088,y=016,w=022xh=003) ├── ^TITOLO-18 │
+(x=099,y=019,w=022xh=003) ├── ^TITOLO-19 │
+(x=000,y=022,w=022xh=003) ├── ^TITOLO-20 │
+(x=011,y=025,w=022xh=003) ├── ^TITOLO-21 │
+(x=022,y=028,w=022xh=003) ├── ^TITOLO-22 │
+(x=033,y=031,w=022xh=003) ├── ^TITOLO-23 │
+(x=044,y=034,w=022xh=003) ├── ^TITOLO-24 │
+MAPPA 5D
+D · ASCII-370 · TITOLI
+#==============================================================================#
+#GN370 TITOLI                                                                  #
+#^ titolo | ├── subordinazione | │ trasmissione                                #
+#│   ├── ^TITOLO-01                                                            #
+#│   │   ├── ^TITOLO-02                                                        #
+#│   │   │   ├── ^TITOLO-03                                                    #
+#├── ^TITOLO-04                                                                #
+#│   ├── ^TITOLO-05                                                            #
+#│   │   ├── ^TITOLO-06                                                        #
+#│   │   │   ├── ^TITOLO-07                                                    #
+#├── ^TITOLO-08                                                                #
+#│   ├── ^TITOLO-09                                                            #
+#│   │   ├── ^TITOLO-10                                                        #
+#│   │   │   ├── ^TITOLO-11                                                    #
+#├── ^TITOLO-12                                                                #
+#│   ├── ^TITOLO-13                                                            #
+#│   │   ├── ^TITOLO-14                                                        #
+#│   │   │   ├── ^TITOLO-15                                                    #
+#├── ^TITOLO-16                                                                #
+#│   ├── ^TITOLO-17                                                            #
+#│   │   ├── ^TITOLO-18                                                        #
+#│   │   │   ├── ^TITOLO-19                                                    #
+#├── ^TITOLO-20                                                                #
+#==============================================================================#
+MAPPA 6A
+A · ORIZZONTALE · PATRIMONIO
+$ proprieta | ═══ confluenza
+$BENE-01═══$BENE-02═══$BENE-03═══$BENE-04
+$BENE-02═══$BENE-03═══$BENE-04═══$BENE-05
+$BENE-03═══$BENE-04═══$BENE-05═══$BENE-06
+$BENE-04═══$BENE-05═══$BENE-06═══$BENE-07
+$BENE-05═══$BENE-06═══$BENE-07═══$BENE-08
+$BENE-06═══$BENE-07═══$BENE-08═══$BENE-09
+$BENE-07═══$BENE-08═══$BENE-09═══$BENE-10
+$BENE-08═══$BENE-09═══$BENE-10═══$BENE-11
+$BENE-09═══$BENE-10═══$BENE-11═══$BENE-12
+$BENE-10═══$BENE-11═══$BENE-12═══$BENE-13
+$BENE-11═══$BENE-12═══$BENE-13═══$BENE-14
+$BENE-12═══$BENE-13═══$BENE-14═══$BENE-15
+$BENE-13═══$BENE-14═══$BENE-15═══$BENE-16
+$BENE-14═══$BENE-15═══$BENE-16═══$BENE-17
+$BENE-15═══$BENE-16═══$BENE-17═══$BENE-18
+$BENE-16═══$BENE-17═══$BENE-18═══$BENE-19
+$BENE-17═══$BENE-18═══$BENE-19═══$BENE-20
+$BENE-18═══$BENE-19═══$BENE-20═══$BENE-21
+$BENE-19═══$BENE-20═══$BENE-21═══$BENE-22
+$BENE-20═══$BENE-21═══$BENE-22═══$BENE-23
+$BENE-21═══$BENE-22═══$BENE-23═══$BENE-24
+$BENE-22═══$BENE-23═══$BENE-24═══$BENE-25
+$BENE-23═══$BENE-24═══$BENE-25═══$BENE-26
+$BENE-24═══$BENE-25═══$BENE-26═══$BENE-27
+MAPPA 6B
+B · VERTICALE · PATRIMONIO
+$ proprieta | ═══ confluenza
+    $ASSE-01
+      ═══
+    $ASSE-03
+      ═══
+    $ASSE-05
+      ═══
+    $ASSE-07
+      ═══
+    $ASSE-09
+      ═══
+    $ASSE-11
+      ═══
+    $ASSE-13
+      ═══
+    $ASSE-15
+      ═══
+    $ASSE-17
+      ═══
+    $ASSE-19
+      ═══
+    $ASSE-21
+      ═══
+    $ASSE-23
+      ═══
+MAPPA 6C
+C · WIREFRAME · PATRIMONIO · GRID 120x40
+coord(x,y,wxh)
+(x=011,y=003,w=024xh=003) $BENE-01 ═══ $BENE-02
+(x=022,y=006,w=024xh=003) $BENE-02 ═══ $BENE-03
+(x=033,y=009,w=024xh=003) $BENE-03 ═══ $BENE-04
+(x=044,y=012,w=024xh=003) $BENE-04 ═══ $BENE-05
+(x=055,y=015,w=024xh=003) $BENE-05 ═══ $BENE-06
+(x=066,y=018,w=024xh=003) $BENE-06 ═══ $BENE-07
+(x=077,y=021,w=024xh=003) $BENE-07 ═══ $BENE-08
+(x=088,y=024,w=024xh=003) $BENE-08 ═══ $BENE-09
+(x=099,y=027,w=024xh=003) $BENE-09 ═══ $BENE-10
+(x=000,y=030,w=024xh=003) $BENE-10 ═══ $BENE-11
+(x=011,y=033,w=024xh=003) $BENE-11 ═══ $BENE-12
+(x=022,y=036,w=024xh=003) $BENE-12 ═══ $BENE-13
+(x=033,y=001,w=024xh=003) $BENE-13 ═══ $BENE-14
+(x=044,y=004,w=024xh=003) $BENE-14 ═══ $BENE-15
+(x=055,y=007,w=024xh=003) $BENE-15 ═══ $BENE-16
+(x=066,y=010,w=024xh=003) $BENE-16 ═══ $BENE-17
+(x=077,y=013,w=024xh=003) $BENE-17 ═══ $BENE-18
+(x=088,y=016,w=024xh=003) $BENE-18 ═══ $BENE-19
+(x=099,y=019,w=024xh=003) $BENE-19 ═══ $BENE-20
+(x=000,y=022,w=024xh=003) $BENE-20 ═══ $BENE-21
+(x=011,y=025,w=024xh=003) $BENE-21 ═══ $BENE-22
+(x=022,y=028,w=024xh=003) $BENE-22 ═══ $BENE-23
+(x=033,y=031,w=024xh=003) $BENE-23 ═══ $BENE-24
+(x=044,y=034,w=024xh=003) $BENE-24 ═══ $BENE-25
+MAPPA 6D
+D · ASCII-370 · PATRIMONIO
+#==============================================================================#
+#GN370 PATRIMONIO                                                              #
+#$ proprieta | ═══ confluenza                                                  #
+#$BENE-01═══$BENE-02═══$BENE-03                                                #
+#$BENE-02═══$BENE-03═══$BENE-04                                                #
+#$BENE-03═══$BENE-04═══$BENE-05                                                #
+#$BENE-04═══$BENE-05═══$BENE-06                                                #
+#$BENE-05═══$BENE-06═══$BENE-07                                                #
+#$BENE-06═══$BENE-07═══$BENE-08                                                #
+#$BENE-07═══$BENE-08═══$BENE-09                                                #
+#$BENE-08═══$BENE-09═══$BENE-10                                                #
+#$BENE-09═══$BENE-10═══$BENE-11                                                #
+#$BENE-10═══$BENE-11═══$BENE-12                                                #
+#$BENE-11═══$BENE-12═══$BENE-13                                                #
+#$BENE-12═══$BENE-13═══$BENE-14                                                #
+#$BENE-13═══$BENE-14═══$BENE-15                                                #
+#$BENE-14═══$BENE-15═══$BENE-16                                                #
+#$BENE-15═══$BENE-16═══$BENE-17                                                #
+#$BENE-16═══$BENE-17═══$BENE-18                                                #
+#$BENE-17═══$BENE-18═══$BENE-19                                                #
+#$BENE-18═══$BENE-19═══$BENE-20                                                #
+#$BENE-19═══$BENE-20═══$BENE-21                                                #
+#$BENE-20═══$BENE-21═══$BENE-22                                                #
+#==============================================================================#
+MAPPA 7A
+A · ORIZZONTALE · RELAZIONI
+< > coppia | × matrimonio | : connessione complessa
+<P01>A × <P02>B : <P03>C : <P04>D
+<P02>A × <P03>B : <P04>C : <P05>D
+<P03>A × <P04>B : <P05>C : <P06>D
+<P04>A × <P05>B : <P06>C : <P07>D
+<P05>A × <P06>B : <P07>C : <P08>D
+<P06>A × <P07>B : <P08>C : <P09>D
+<P07>A × <P08>B : <P09>C : <P10>D
+<P08>A × <P09>B : <P10>C : <P11>D
+<P09>A × <P10>B : <P11>C : <P12>D
+<P10>A × <P11>B : <P12>C : <P13>D
+<P11>A × <P12>B : <P13>C : <P14>D
+<P12>A × <P13>B : <P14>C : <P15>D
+<P13>A × <P14>B : <P15>C : <P16>D
+<P14>A × <P15>B : <P16>C : <P17>D
+<P15>A × <P16>B : <P17>C : <P18>D
+<P16>A × <P17>B : <P18>C : <P19>D
+<P17>A × <P18>B : <P19>C : <P20>D
+<P18>A × <P19>B : <P20>C : <P21>D
+<P19>A × <P20>B : <P21>C : <P22>D
+<P20>A × <P21>B : <P22>C : <P23>D
+<P21>A × <P22>B : <P23>C : <P24>D
+<P22>A × <P23>B : <P24>C : <P25>D
+<P23>A × <P24>B : <P25>C : <P26>D
+<P24>A × <P25>B : <P26>C : <P27>D
+MAPPA 7B
+B · VERTICALE · RELAZIONI
+< > coppia | × matrimonio | : connessione complessa
+    <P01>A
+      ×
+      :
+    <P04>A
+      ×
+      :
+    <P07>A
+      ×
+      :
+    <P10>A
+      ×
+      :
+    <P13>A
+      ×
+      :
+    <P16>A
+      ×
+      :
+    <P19>A
+      ×
+      :
+    <P22>A
+      ×
+      :
+MAPPA 7C
+C · WIREFRAME · RELAZIONI · GRID 120x40
+coord(x,y,wxh)
+(x=011,y=003,w=024xh=003) <P01>A × <P02>B :
+(x=022,y=006,w=024xh=003) <P02>A × <P03>B :
+(x=033,y=009,w=024xh=003) <P03>A × <P04>B :
+(x=044,y=012,w=024xh=003) <P04>A × <P05>B :
+(x=055,y=015,w=024xh=003) <P05>A × <P06>B :
+(x=066,y=018,w=024xh=003) <P06>A × <P07>B :
+(x=077,y=021,w=024xh=003) <P07>A × <P08>B :
+(x=088,y=024,w=024xh=003) <P08>A × <P09>B :
+(x=099,y=027,w=024xh=003) <P09>A × <P10>B :
+(x=000,y=030,w=024xh=003) <P10>A × <P11>B :
+(x=011,y=033,w=024xh=003) <P11>A × <P12>B :
+(x=022,y=036,w=024xh=003) <P12>A × <P13>B :
+(x=033,y=001,w=024xh=003) <P13>A × <P14>B :
+(x=044,y=004,w=024xh=003) <P14>A × <P15>B :
+(x=055,y=007,w=024xh=003) <P15>A × <P16>B :
+(x=066,y=010,w=024xh=003) <P16>A × <P17>B :
+(x=077,y=013,w=024xh=003) <P17>A × <P18>B :
+(x=088,y=016,w=024xh=003) <P18>A × <P19>B :
+(x=099,y=019,w=024xh=003) <P19>A × <P20>B :
+(x=000,y=022,w=024xh=003) <P20>A × <P21>B :
+(x=011,y=025,w=024xh=003) <P21>A × <P22>B :
+(x=022,y=028,w=024xh=003) <P22>A × <P23>B :
+(x=033,y=031,w=024xh=003) <P23>A × <P24>B :
+(x=044,y=034,w=024xh=003) <P24>A × <P25>B :
+MAPPA 7D
+D · ASCII-370 · RELAZIONI
+#==============================================================================#
+#GN370 RELAZIONI                                                               #
+#< > coppia | × matrimonio | : connessione complessa                           #
+#<P01>A × <P02>B : <P03>C                                                      #
+#<P02>A × <P03>B : <P04>C                                                      #
+#<P03>A × <P04>B : <P05>C                                                      #
+#<P04>A × <P05>B : <P06>C                                                      #
+#<P05>A × <P06>B : <P07>C                                                      #
+#<P06>A × <P07>B : <P08>C                                                      #
+#<P07>A × <P08>B : <P09>C                                                      #
+#<P08>A × <P09>B : <P10>C                                                      #
+#<P09>A × <P10>B : <P11>C                                                      #
+#<P10>A × <P11>B : <P12>C                                                      #
+#<P11>A × <P12>B : <P13>C                                                      #
+#<P12>A × <P13>B : <P14>C                                                      #
+#<P13>A × <P14>B : <P15>C                                                      #
+#<P14>A × <P15>B : <P16>C                                                      #
+#<P15>A × <P16>B : <P17>C                                                      #
+#<P16>A × <P17>B : <P18>C                                                      #
+#<P17>A × <P18>B : <P19>C                                                      #
+#<P18>A × <P19>B : <P20>C                                                      #
+#<P19>A × <P20>B : <P21>C                                                      #
+#<P20>A × <P21>B : <P22>C                                                      #
+#==============================================================================#
+MAPPA 8A
+A · ORIZZONTALE · AI
+? cluster | ··· suggerimento | ┌┐ area analisi
+┌?CL-01┐ ··· suggerimento-01 ··· ┌?CL-02┐
+┌?CL-02┐ ··· suggerimento-02 ··· ┌?CL-03┐
+┌?CL-03┐ ··· suggerimento-03 ··· ┌?CL-04┐
+┌?CL-04┐ ··· suggerimento-04 ··· ┌?CL-05┐
+┌?CL-05┐ ··· suggerimento-05 ··· ┌?CL-06┐
+┌?CL-06┐ ··· suggerimento-06 ··· ┌?CL-07┐
+┌?CL-07┐ ··· suggerimento-07 ··· ┌?CL-08┐
+┌?CL-08┐ ··· suggerimento-08 ··· ┌?CL-09┐
+┌?CL-09┐ ··· suggerimento-09 ··· ┌?CL-10┐
+┌?CL-10┐ ··· suggerimento-10 ··· ┌?CL-11┐
+┌?CL-11┐ ··· suggerimento-11 ··· ┌?CL-12┐
+┌?CL-12┐ ··· suggerimento-12 ··· ┌?CL-13┐
+┌?CL-13┐ ··· suggerimento-13 ··· ┌?CL-14┐
+┌?CL-14┐ ··· suggerimento-14 ··· ┌?CL-15┐
+┌?CL-15┐ ··· suggerimento-15 ··· ┌?CL-16┐
+┌?CL-16┐ ··· suggerimento-16 ··· ┌?CL-17┐
+┌?CL-17┐ ··· suggerimento-17 ··· ┌?CL-18┐
+┌?CL-18┐ ··· suggerimento-18 ··· ┌?CL-19┐
+┌?CL-19┐ ··· suggerimento-19 ··· ┌?CL-20┐
+┌?CL-20┐ ··· suggerimento-20 ··· ┌?CL-21┐
+┌?CL-21┐ ··· suggerimento-21 ··· ┌?CL-22┐
+┌?CL-22┐ ··· suggerimento-22 ··· ┌?CL-23┐
+┌?CL-23┐ ··· suggerimento-23 ··· ┌?CL-24┐
+┌?CL-24┐ ··· suggerimento-24 ··· ┌?CL-25┐
+MAPPA 8B
+B · VERTICALE · AI
+? cluster | ··· suggerimento | ┌┐ area analisi
+    ?CLUSTER-01
+      ···
+    ?CLUSTER-03
+      ···
+    ?CLUSTER-05
+      ···
+    ?CLUSTER-07
+      ···
+    ?CLUSTER-09
+      ···
+    ?CLUSTER-11
+      ···
+    ?CLUSTER-13
+      ···
+    ?CLUSTER-15
+      ···
+    ?CLUSTER-17
+      ···
+    ?CLUSTER-19
+      ···
+    ?CLUSTER-21
+      ···
+    ?CLUSTER-23
+      ···
+MAPPA 8C
+C · WIREFRAME · AI · GRID 120x40
+coord(x,y,wxh)
+(x=011,y=003,w=026xh=003) ┌?CL-01┐ ··· area-ana
+(x=022,y=006,w=026xh=003) ┌?CL-02┐ ··· area-ana
+(x=033,y=009,w=026xh=003) ┌?CL-03┐ ··· area-ana
+(x=044,y=012,w=026xh=003) ┌?CL-04┐ ··· area-ana
+(x=055,y=015,w=026xh=003) ┌?CL-05┐ ··· area-ana
+(x=066,y=018,w=026xh=003) ┌?CL-06┐ ··· area-ana
+(x=077,y=021,w=026xh=003) ┌?CL-07┐ ··· area-ana
+(x=088,y=024,w=026xh=003) ┌?CL-08┐ ··· area-ana
+(x=099,y=027,w=026xh=003) ┌?CL-09┐ ··· area-ana
+(x=000,y=030,w=026xh=003) ┌?CL-10┐ ··· area-ana
+(x=011,y=033,w=026xh=003) ┌?CL-11┐ ··· area-ana
+(x=022,y=036,w=026xh=003) ┌?CL-12┐ ··· area-ana
+(x=033,y=001,w=026xh=003) ┌?CL-13┐ ··· area-ana
+(x=044,y=004,w=026xh=003) ┌?CL-14┐ ··· area-ana
+(x=055,y=007,w=026xh=003) ┌?CL-15┐ ··· area-ana
+(x=066,y=010,w=026xh=003) ┌?CL-16┐ ··· area-ana
+(x=077,y=013,w=026xh=003) ┌?CL-17┐ ··· area-ana
+(x=088,y=016,w=026xh=003) ┌?CL-18┐ ··· area-ana
+(x=099,y=019,w=026xh=003) ┌?CL-19┐ ··· area-ana
+(x=000,y=022,w=026xh=003) ┌?CL-20┐ ··· area-ana
+(x=011,y=025,w=026xh=003) ┌?CL-21┐ ··· area-ana
+(x=022,y=028,w=026xh=003) ┌?CL-22┐ ··· area-ana
+(x=033,y=031,w=026xh=003) ┌?CL-23┐ ··· area-ana
+(x=044,y=034,w=026xh=003) ┌?CL-24┐ ··· area-ana
+MAPPA 8D
+D · ASCII-370 · AI
+#==============================================================================#
+#GN370 AI                                                                      #
+#? cluster | ··· suggerimento | ┌┐ area analisi                                #
+#┌?CL-01┐ ··· suggerimento-01 ··· ┌?CL-02┐                                     #
+#┌?CL-02┐ ··· suggerimento-02 ··· ┌?CL-03┐                                     #
+#┌?CL-03┐ ··· suggerimento-03 ··· ┌?CL-04┐                                     #
+#┌?CL-04┐ ··· suggerimento-04 ··· ┌?CL-05┐                                     #
+#┌?CL-05┐ ··· suggerimento-05 ··· ┌?CL-06┐                                     #
+#┌?CL-06┐ ··· suggerimento-06 ··· ┌?CL-07┐                                     #
+#┌?CL-07┐ ··· suggerimento-07 ··· ┌?CL-08┐                                     #
+#┌?CL-08┐ ··· suggerimento-08 ··· ┌?CL-09┐                                     #
+#┌?CL-09┐ ··· suggerimento-09 ··· ┌?CL-10┐                                     #
+#┌?CL-10┐ ··· suggerimento-10 ··· ┌?CL-11┐                                     #
+#┌?CL-11┐ ··· suggerimento-11 ··· ┌?CL-12┐                                     #
+#┌?CL-12┐ ··· suggerimento-12 ··· ┌?CL-13┐                                     #
+#┌?CL-13┐ ··· suggerimento-13 ··· ┌?CL-14┐                                     #
+#┌?CL-14┐ ··· suggerimento-14 ··· ┌?CL-15┐                                     #
+#┌?CL-15┐ ··· suggerimento-15 ··· ┌?CL-16┐                                     #
+#┌?CL-16┐ ··· suggerimento-16 ··· ┌?CL-17┐                                     #
+#┌?CL-17┐ ··· suggerimento-17 ··· ┌?CL-18┐                                     #
+#┌?CL-18┐ ··· suggerimento-18 ··· ┌?CL-19┐                                     #
+#┌?CL-19┐ ··· suggerimento-19 ··· ┌?CL-20┐                                     #
+#┌?CL-20┐ ··· suggerimento-20 ··· ┌?CL-21┐                                     #
+#==============================================================================#
+MAPPA 9A
+A · ORIZZONTALE · 9 MONDI
+griglia ╔╦╣ 3x3 | ◄► mondo attivo | rune ᚨᛃᚢᚷᛗᚾᛈᚺᛏ
+╔╦╣ griglia-01 ◄► ᛃᚢᚷᛗᚾ
+╔╦╣ griglia-02 ◄► ᚢᚷᛗᚾᛈ
+╔╦╣ griglia-03 ◄► ᚷᛗᚾᛈᚺ
+╔╦╣ griglia-04 ◄► ᛗᚾᛈᚺᛏ
+╔╦╣ griglia-05 ◄► ᚾᛈᚺᛏᚨ
+╔╦╣ griglia-06 ◄► ᛈᚺᛏᚨᛃ
+╔╦╣ griglia-07 ◄► ᚺᛏᚨᛃᚢ
+╔╦╣ griglia-08 ◄► ᛏᚨᛃᚢᚷ
+╔╦╣ griglia-09 ◄► ᚨᛃᚢᚷᛗ
+╔╦╣ griglia-10 ◄► ᛃᚢᚷᛗᚾ
+╔╦╣ griglia-11 ◄► ᚢᚷᛗᚾᛈ
+╔╦╣ griglia-12 ◄► ᚷᛗᚾᛈᚺ
+╔╦╣ griglia-13 ◄► ᛗᚾᛈᚺᛏ
+╔╦╣ griglia-14 ◄► ᚾᛈᚺᛏᚨ
+╔╦╣ griglia-15 ◄► ᛈᚺᛏᚨᛃ
+╔╦╣ griglia-16 ◄► ᚺᛏᚨᛃᚢ
+╔╦╣ griglia-17 ◄► ᛏᚨᛃᚢᚷ
+╔╦╣ griglia-18 ◄► ᚨᛃᚢᚷᛗ
+╔╦╣ griglia-19 ◄► ᛃᚢᚷᛗᚾ
+╔╦╣ griglia-20 ◄► ᚢᚷᛗᚾᛈ
+╔╦╣ griglia-21 ◄► ᚷᛗᚾᛈᚺ
+╔╦╣ griglia-22 ◄► ᛗᚾᛈᚺᛏ
+╔╦╣ griglia-23 ◄► ᚾᛈᚺᛏᚨ
+MAPPA 9B
+B · VERTICALE · 9 MONDI
+griglia ╔╦╣ 3x3 | ◄► mondo attivo | rune ᚨᛃᚢᚷᛗᚾᛈᚺᛏ
+    WORLD-02 ◄► ᛃ
+      ╔╦╣
+    WORLD-04 ◄► ᚷ
+      ╔╦╣
+    WORLD-06 ◄► ᚾ
+      ╔╦╣
+    WORLD-08 ◄► ᚺ
+      ╔╦╣
+    WORLD-01 ◄► ᚨ
+      ╔╦╣
+    WORLD-03 ◄► ᚢ
+      ╔╦╣
+    WORLD-05 ◄► ᛗ
+      ╔╦╣
+    WORLD-07 ◄► ᛈ
+      ╔╦╣
+    WORLD-09 ◄► ᛏ
+      ╔╦╣
+    WORLD-02 ◄► ᛃ
+      ╔╦╣
+    WORLD-04 ◄► ᚷ
+      ╔╦╣
+    WORLD-06 ◄► ᚾ
+MAPPA 9C
+C · WIREFRAME · 9 MONDI · GRID 120x40
+coord(x,y,wxh)
+(x=011,y=003,w=028xh=003) ╔╦╣ ◄► ᛃᚢᚷ
+(x=022,y=006,w=028xh=003) ╔╦╣ ◄► ᚢᚷᛗ
+(x=033,y=009,w=028xh=003) ╔╦╣ ◄► ᚷᛗᚾ
+(x=044,y=012,w=028xh=003) ╔╦╣ ◄► ᛗᚾᛈ
+(x=055,y=015,w=028xh=003) ╔╦╣ ◄► ᚾᛈᚺ
+(x=066,y=018,w=028xh=003) ╔╦╣ ◄► ᛈᚺᛏ
+(x=077,y=021,w=028xh=003) ╔╦╣ ◄► ᚺᛏᚨ
+(x=088,y=024,w=028xh=003) ╔╦╣ ◄► ᛏᚨᛃ
+(x=099,y=027,w=028xh=003) ╔╦╣ ◄► ᚨᛃᚢ
+(x=000,y=030,w=028xh=003) ╔╦╣ ◄► ᛃᚢᚷ
+(x=011,y=033,w=028xh=003) ╔╦╣ ◄► ᚢᚷᛗ
+(x=022,y=036,w=028xh=003) ╔╦╣ ◄► ᚷᛗᚾ
+(x=033,y=001,w=028xh=003) ╔╦╣ ◄► ᛗᚾᛈ
+(x=044,y=004,w=028xh=003) ╔╦╣ ◄► ᚾᛈᚺ
+(x=055,y=007,w=028xh=003) ╔╦╣ ◄► ᛈᚺᛏ
+(x=066,y=010,w=028xh=003) ╔╦╣ ◄► ᚺᛏᚨ
+(x=077,y=013,w=028xh=003) ╔╦╣ ◄► ᛏᚨᛃ
+(x=088,y=016,w=028xh=003) ╔╦╣ ◄► ᚨᛃᚢ
+(x=099,y=019,w=028xh=003) ╔╦╣ ◄► ᛃᚢᚷ
+(x=000,y=022,w=028xh=003) ╔╦╣ ◄► ᚢᚷᛗ
+(x=011,y=025,w=028xh=003) ╔╦╣ ◄► ᚷᛗᚾ
+(x=022,y=028,w=028xh=003) ╔╦╣ ◄► ᛗᚾᛈ
+(x=033,y=031,w=028xh=003) ╔╦╣ ◄► ᚾᛈᚺ
+MAPPA 9D
+D · ASCII-370 · 9 MONDI
+#==============================================================================#
+#GN370 9 MONDI                                                                 #
+#griglia ╔╦╣ 3x3 | ◄► mondo attivo | rune ᚨᛃᚢᚷᛗᚾᛈᚺᛏ                            #
+#╔══════════╦══════════╦══════════╣                                            #
+#│ ᚨ W1     │ ᛃ W2     │ ᚢ W3     │                                            #
+#╠══════════╬══════════╬══════════╣                                            #
+#│ ᚷ W4     │◄ᛗ W5►│ ᚾ W6     │                                                #
+#╠══════════╬══════════╬══════════╣                                            #
+#│ ᛈ W7     │ ᚺ W8     │ ᛏ W9     │                                            #
+#╚══════════╩══════════╩══════════╝                                            #
+#NAV ROOT ◄► WORLD-5 | ᚨᛃᚢᚷᛗᚾᛈᚺᛏ                                               #
+#NAV ROOT ◄► WORLD-5 | ᚨᛃᚢᚷᛗᚾᛈᚺᛏ                                               #
+#NAV ROOT ◄► WORLD-5 | ᚨᛃᚢᚷᛗᚾᛈᚺᛏ                                               #
+#NAV ROOT ◄► WORLD-5 | ᚨᛃᚢᚷᛗᚾᛈᚺᛏ                                               #
+#NAV ROOT ◄► WORLD-5 | ᚨᛃᚢᚷᛗᚾᛈᚺᛏ                                               #
+#NAV ROOT ◄► WORLD-5 | ᚨᛃᚢᚷᛗᚾᛈᚺᛏ                                               #
+#NAV ROOT ◄► WORLD-5 | ᚨᛃᚢᚷᛗᚾᛈᚺᛏ                                               #
+#NAV ROOT ◄► WORLD-5 | ᚨᛃᚢᚷᛗᚾᛈᚺᛏ                                               #
+#NAV ROOT ◄► WORLD-5 | ᚨᛃᚢᚷᛗᚾᛈᚺᛏ                                               #
+#NAV ROOT ◄► WORLD-5 | ᚨᛃᚢᚷᛗᚾᛈᚺᛏ                                               #
+#NAV ROOT ◄► WORLD-5 | ᚨᛃᚢᚷᛗᚾᛈᚺᛏ                                               #
+#NAV ROOT ◄► WORLD-5 | ᚨᛃᚢᚷᛗᚾᛈᚺᛏ                                               #
+#NAV ROOT ◄► WORLD-5 | ᚨᛃᚢᚷᛗᚾᛈᚺᛏ                                               #
+#==============================================================================#

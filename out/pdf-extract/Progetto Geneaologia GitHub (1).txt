@@ -1,0 +1,87 @@
+
+
+=== PAGE 1 ===
+
+Bozza di workflow autorizzativi avanzati
+Obiettivo
+Con l’introduzione del supporto multiutente in GN370, diventa fondamentale gestire in modo rigoroso chi
+può fare cosa e come le modifiche ai dati vengono approvate. Questo documento propone un workflow
+di autorizzazione a più livelli per le operazioni sensibili (importazione, modifica, cancellazione) e l’accesso
+alle funzionalità.
+Principi guida
+Separazione dei ruoli: le funzioni di gestione, inserimento e revisione sono assegnate a ruoli
+distinti.
+Tracciabilità completa: ogni richiesta di modifica deve essere tracciata con un ID, un autore, un
+revisore e un risultato (approvato/rifiutato/pending).
+Approccio modulare: i controlli autorizzativi sono implementati come moduli indipendenti che
+possono essere abilitati/disabilitati a seconda dell’installazione.
+Ruoli e permessi
+Superutente: può configurare ruoli, policy e override di emergenza.
+Amministratore: gestisce utenti e impostazioni globali, approva modifiche ad alto impatto.
+Editor: propone modifiche ai record e avvia import.
+Revisore: verifica e approva le proposte degli editor .
+Osservatore: accesso in sola lettura.
+Le autorizzazioni sono definite in una tabella roles_permissions e possono essere estese con politiche
+granulari (es. accesso a specifici rami familiari o ere storiche).
+Flusso di approvazione
+Proposta: un editor esegue un’azione (es. db import, import gedcom, modifica record). Il
+sistema crea una richiesta di modifica con stato pending.
+Validazione automatica: moduli di validazione controllano la coerenza dei dati. Eventuali errori
+bloccano la richiesta, che viene rimandata all’editor per correzione.
+Assegnazione: la richiesta viene assegnata a uno o più revisori sulla base di regole (round‑robin,
+competenze, disponibilità).
+Revisione: il revisore esamina la richiesta, può chiedere chiarimenti all’editor e decide se approvare
+o rifiutare. In caso di approvazione, la modifica viene applicata al database; in caso di rifiuto, la
+richiesta viene chiusa con motivazione.
+Audit: tutte le decisioni vengono registrate in un registro di audit, con timestamp e firme digitali se
+necessario. Il registro può essere esportato per verifiche di conformità.
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+1. 
+2. 
+3. 
+4. 
+5. 
+1
+
+=== PAGE 2 ===
+
+Integrazione con la pipeline GEDCOM
+Le importazioni GEDCOM generano richieste di modifica per ogni conflitto rilevato. Le risoluzioni
+proposte dall’editor devono essere approvate da un revisore.
+I batch agent post‑write (IC/NORM2/CORR) possono essere configurati per eseguire controlli
+aggiuntivi e generare notifiche.
+Gestione delle credenziali e autenticazione
+Implementare un provider di identità (IdP) con supporto a OAuth 2.0 / OpenID Connect o, in
+alternativa, un sistema di autenticazione interno con password hashate e gestione di sessioni.
+Prevedere autenticazione multi‑fattore (MFA) per ruoli sensibili.
+Consentire integrazione con sistemi SSO aziendali.
+Notifiche e escalation
+Le richieste in attesa vengono notificate via e‑mail o interfaccia web ai revisori designati.
+In caso di inattività oltre una soglia configurabile, il sistema può inviare escalation ad altri revisori o
+agli amministratori.
+Considerazioni future
+Sviluppare una console di amministrazione per visualizzare richieste pendenti, storici e configurare
+regole.
+Integrare firme digitali o tracciamento blockchain per garantire l’immutabilità del log.
+Valutare l’estensione del modello per supportare workflow a più livelli (es. doppia approvazione per
+modifiche critiche).
+Questa  bozza  definisce  un  quadro  iniziale  per  i  workflow  autorizzativi  avanzati,  lasciando  dettagli
+implementativi e ottimizzazioni a fasi successive.
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+2

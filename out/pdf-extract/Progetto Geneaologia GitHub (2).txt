@@ -1,0 +1,107 @@
+
+
+=== PAGE 1 ===
+
+Strategia per packaging nativo definitivo
+Premessa
+La versione 0 di GN370 è distribuita come applicazione web statica con runtime client‑side. Per raggiungere
+una distribuzione  nativa definitiva su più piattaforme (desktop e mobile), è necessario pianificare come
+confezionare  l’applicazione  in  pacchetti  installabili,  fornendo  allo  stesso  tempo  una  buona  esperienza
+utente e aggiornamenti regolari.
+Obiettivi
+Installabilità: consentire agli utenti di installare l’app su Windows, macOS, Linux e Android senza
+dipendenze esterne complicate.
+Fruibilità offline: mantenere la capacità di operare senza connessione internet, sincronizzando i
+dati quando disponibile.
+Aggiornabilità: prevedere un meccanismo di aggiornamento sicuro e semplice.
+Tecnologie candidate
+Opzione Vantaggi Svantaggi
+Electron
+Ambiente noto, supporto
+multi‑piattaforma, accesso alle API
+native (filesystem, notifiche).
+Ingombro maggiore, maggior
+consumo di risorse.
+Tauri
+Utilizza WebView native più leggere,
+dimensioni ridotte, scritta in Rust
+(sicurezza).
+Ecosistema più giovane, minore
+maturità di plugin.
+Progressive Web
+App (PWA) + Web
+Bundle
+Installabile da browser ,
+aggiornamento automatico, supporto
+offline con service worker .
+Accesso limitato alle API native e alle
+funzionalità di sistema, dipende da
+supporto del browser .
+React Native /
+Flutter
+Creazione di app mobili native e
+desktop, UI moderna.
+Richiede riscrittura parziale
+dell’interfaccia, complessità
+aggiuntiva.
+La scelta potrebbe cadere su una combinazione di Tauri per le versioni desktop e PWA per la distribuzione
+mobile/leggera.
+• 
+• 
+• 
+1
+
+=== PAGE 2 ===
+
+Pipeline di build e CI/CD
+Preparazione del codice: consolidare gli asset e i moduli JS/CSS in un bundle ottimizzato. Utilizzare 
+npm run build per generare la versione statica.
+Automazione: configurare workflow GitHub Actions (o altro CI) per compilare, testare e creare
+pacchetti per ogni piattaforma target. Ad esempio:
+build-tauri.yml per Windows/macOS/Linux che esegue la build Rust/JS.
+build-pwa.yml che genera la versione PWA con manifest.json e service worker .
+Firma e notarizzazione: per macOS e Windows, prevedere la firma digitale e la notarizzazione
+secondo i requisiti di Apple e Microsoft.
+Distribuzione:
+Desktop: distribuire installer (.msi, .dmg, .AppImage) tramite GitHub Releases e, se desiderato, store
+ufficiali (Microsoft Store, Mac App Store, Snapcraft).
+Mobile: se si opta per una PWA, pubblicare su Web; in alternativa, usare wrapper come Capacitor
+per generare APK/IPA.
+Gestione degli aggiornamenti
+Aggiornamenti automatici: integrare un modulo di update che verifichi la disponibilità di nuove
+versioni e le scarichi in background (Electron/AutoUpdater o soluzione analoga in Tauri).
+Versioning semantico: adottare versioni major.minor.patch e documentare le modifiche tra
+versioni.
+Canali di rilascio: considerare canali stable/beta per testare nuove funzionalità con un gruppo
+ristretto di utenti prima del rilascio generale.
+Sicurezza e compliance
+Consolidare dipendenze e verificare vulnerabilità tramite strumenti automatizzati (es. Dependabot,
+Snyk).
+Implementare misure di integrità del pacchetto (checksum, firma) per prevenire manomissioni.
+Garantire il rispetto delle normative sulla privacy (GDPR) includendo informative nell’installer .
+Considerazioni future
+Valutare l’esposizione di funzionalità tramite plugin o estensioni per permettere customizzazioni
+senza alterare il core.
+Esplorare l’integrazione con store mobili (Google Play, Apple App Store) se si decide di creare versioni
+native complete.
+Migrare gradualmente la base code verso un framework UI più moderno se necessario.
+Questa strategia propone una panoramica iniziale sul packaging nativo definitivo di GN370. Le scelte finali
+dovranno bilanciare facilità di sviluppo, dimensioni del pacchetto, prestazioni e mantenibilità.
+1. 
+2. 
+3. 
+4. 
+5. 
+6. 
+7. 
+8. 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+2

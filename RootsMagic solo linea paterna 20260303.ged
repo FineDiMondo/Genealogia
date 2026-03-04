@@ -1,0 +1,2132 @@
+﻿0 HEAD
+1 SOUR RootsMagic
+2 NAME RootsMagic
+2 CORP RootsMagic, Inc.
+3 ADDR PO Box 495
+4 CONT Springville, UT 84663
+4 CONT USA
+3 PHON 1-800-ROOTSMAGIC
+3 WWW www.RootsMagic.com
+1 DEST RootsMagic
+1 DATE 3 MAR 2026
+1 FILE RootsMagic solo linea paterna 20260303.ged
+1 GEDC
+2 VERS 5.5.1
+2 FORM LINEAGE-LINKED
+1 CHAR UTF-8
+0 @I1@ INDI
+1 NAME Daniel /Giardina/
+2 GIVN Daniel
+2 SURN Giardina
+1 SEX M
+1 _UID C017B5EC0B87405AB0E3B35362B3C07F915C
+1 _FSFTID PQXK-NYH
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 14 NOV 1977
+2 PLAC Bussolengo, Verona, Veneto, Italia
+1 FAMC @F1@
+0 @I2@ INDI
+1 NAME Franco /Giardina/
+2 GIVN Franco
+2 SURN Giardina
+1 SEX M
+1 _UID 55AACD649031473A84318BE689222B239175
+1 _FSFTID PWTS-WHJ
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 5 DEC 1943
+2 PLAC Verona, Veneto, Italia
+1 FAMS @F1@
+1 FAMC @F2@
+0 @I3@ INDI
+1 NAME Fiamma /Negrini/
+2 GIVN Fiamma
+2 SURN Negrini
+1 SEX F
+1 _UID 409A57A865634A09A60B8EE5234CB1D1096F
+1 _FSFTID PWTS-W5J
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 23 SEP 1945
+2 PLAC Villafranca di Verona, Verona, Veneto, Italia
+1 DEAT
+2 DATE 13 MAY 2013
+2 PLAC Verona, Veneto, Italia
+1 FAMS @F1@
+1 FAMC @F3@
+0 @I4@ INDI
+1 NAME Dimitri /Giardina/
+2 GIVN Dimitri
+2 SURN Giardina
+1 SEX M
+1 _UID 4873A00BC39A4AD4B72C5F05D76D7E3D27C1
+1 _FSFTID PWYQ-D38
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 4 MAR 1975
+2 PLAC Bussolengo, Verona, Veneto, Italia
+1 FAMC @F1@
+0 @I5@ INDI
+1 NAME Marcella /Danese/
+2 GIVN Marcella
+2 SURN Danese
+1 SEX F
+1 _UID 94AA6C1577794C59AAEF9E46C9C3DCE92208
+1 _FSFTID PWTP-GB7
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 23 NOV 1919
+2 PLAC Villafranca di Verona, Verona, Veneto, Italia
+1 DEAT
+2 PLAC Villafranca di Verona, Verona, Veneto, Italia
+1 FAMS @F3@
+1 FAMC @F4@
+0 @I6@ INDI
+1 NAME Franco /Giardina/
+2 GIVN Franco
+2 SURN Giardina
+1 SEX M
+1 _UID 91424360DAC64DCC99252A076C04424717D1
+1 _FSFTID PWTG-V8Y
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1921
+2 PLAC Italia
+1 DEAT
+2 DATE 1943
+2 PLAC Arcole
+1 BURI
+2 PLAC cimitero monumentale verona
+1 FAMS @F2@
+1 FAMC @F5@
+0 @I7@ INDI
+1 NAME Angelo /Negrini/
+2 GIVN Angelo
+2 SURN Negrini
+1 SEX M
+1 _UID 9745007B261D487EA1058F20F72329231BDE
+1 _FSFTID PWTG-99J
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1913
+2 PLAC Italia
+1 DEAT
+1 FAMS @F3@
+1 FAMC @F6@
+0 @I8@ INDI
+1 NAME Maria /Valentini/
+2 GIVN Maria
+2 SURN Valentini
+1 SEX F
+1 _UID 10328331715F4AF1A27EB767FD374FE6A83F
+1 _FSFTID PWTL-BTM
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1923
+2 PLAC Italia
+1 DEAT
+2 DATE 1990
+1 FAMS @F2@
+1 FAMS @F8@
+1 FAMC @F7@
+0 @I9@ INDI
+1 NAME Rosa /Biasi/
+2 GIVN Rosa
+2 SURN Biasi
+1 SEX F
+1 _UID 8D3054BFB0DC4FBC9CEC7B1667C4244F1E74
+1 _FSFTID PWTP-T4P
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1880
+2 PLAC Villafranca di Verona, Verona, Veneto, Italia
+1 DEAT
+2 PLAC Villafranca di Verona, Verona, Veneto, Italia
+1 FAMS @F4@
+1 FAMC @F9@
+0 @I10@ INDI
+1 NAME Clementina /Boerio/
+2 GIVN Clementina
+2 SURN Boerio
+1 SEX F
+1 _UID B579E1B457A84808A70CF055257E5FDAE6B8
+1 _FSFTID PWTL-1DY
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 PLAC Italia
+1 DEAT
+1 FAMS @F5@
+0 @I11@ INDI
+1 NAME Luigi /Biasi/
+2 GIVN Luigi
+2 SURN Biasi
+1 SEX M
+1 _UID C7BBA31DE0C245F09A673BBAC3970E8F06E1
+1 _FSFTID P4Z6-JJ5
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMS @F9@
+0 @I12@ INDI
+1 NAME Giuseppe /Giardina/
+2 GIVN Giuseppe
+2 SURN Giardina
+1 SEX M
+1 _UID 6A03118DDE7A4A3EA184F9BF1A3FD6443BE6
+1 _FSFTID GQVT-VVC
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 27 SEP 1863
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMS @F5@
+1 FAMC @F10@
+0 @I13@ INDI
+1 NAME Flavia /Giardina/
+2 GIVN Flavia
+2 SURN Giardina
+1 SEX F
+1 _UID 12AD008D518A4847820D83AAD01DE9428AEF
+1 _FSFTID PHV6-LGK
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+2 PLAC Pisa, Toscana, Italia
+1 FAMC @F5@
+0 @I14@ INDI
+1 NAME Ismaele /Danese/
+2 GIVN Ismaele
+2 SURN Danese
+1 SEX M
+1 _UID 2F7FD925F5D8458CBD45FFA49B45D611B673
+1 _FSFTID PWTG-K6C
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1879
+1 DEAT
+1 FAMS @F4@
+1 FAMS @F11@
+0 @I15@ INDI
+1 NAME Enrico Angelo /Danese/
+2 GIVN Enrico Angelo
+2 SURN Danese
+1 SEX M
+1 _UID D35B3A691F8A4605B02AB3D5ACB1430CD3A7
+1 _FSFTID PWTP-CGD
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1 APR 1912
+2 PLAC Villafranca di Verona, Verona, Veneto, Italia
+1 DEAT
+1 FAMC @F4@
+0 @I16@ INDI
+1 NAME Franco /Giardina/
+2 GIVN Franco
+2 SURN Giardina
+1 SEX M
+1 _UID 340B2FB4F15D47FABA85AC1DC944E0CC72FE
+1 _FSFTID PWYQ-9JV
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMS @F8@
+0 @I17@ INDI
+1 NAME Marco Aurelio Pasquale /Giardina/
+2 GIVN Marco Aurelio Pasquale
+2 SURN Giardina
+1 SEX M
+1 _UID 1B41B93B1CCC418A85F28595840B3385DBFD
+1 _FSFTID PWTG-782
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 8 MAR 1917
+2 PLAC Roma
+1 DEAT
+2 DATE 1978
+1 FAMS @F12@
+1 FAMC @F5@
+0 @I18@ INDI
+1 NAME Aurelia /Bennati/
+2 GIVN Aurelia
+2 SURN Bennati
+1 SEX F
+1 _UID CE88C07520A74FE0879C0531820A8D5C4F17
+1 _FSFTID PWTG-VBL
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 PLAC Italia
+1 DEAT
+1 FAMS @F7@
+1 FAMC @F14@
+0 @I19@ INDI
+1 NAME Giuseppe /Valentini/
+2 GIVN Giuseppe
+2 SURN Valentini
+1 SEX M
+1 _UID 9D9A11CCDB554EBDAD8652CAC662A786F3BE
+1 _FSFTID PWTG-DN3
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 PLAC Italia
+1 DEAT
+1 FAMS @F7@
+1 FAMC @F13@
+0 @I20@ INDI
+1 NAME Orietta /Ripafratti/
+2 GIVN Orietta
+2 SURN Ripafratti
+1 SEX F
+1 _UID 160EC7045BAF4FCEAF63C8DF0F9ADC7CD0DB
+1 _FSFTID PWTG-3LL
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1933
+1 DEAT
+2 DATE 1999
+1 FAMS @F12@
+0 @I21@ INDI
+1 NAME Cesare Antonio /Negrini/
+2 GIVN Cesare Antonio
+2 SURN Negrini
+1 SEX M
+1 _UID ABA66776DF23443AB6F33C64211CAE5E40F4
+1 _FSFTID PWTG-8D1
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 17 JAN 1874
+2 PLAC Italia
+1 DEAT
+1 FAMS @F6@
+1 FAMC @F15@
+0 @I22@ INDI
+1 NAME Rosa /Biasi/
+2 GIVN Rosa
+2 SURN Biasi
+1 SEX F
+1 _UID 1475317190394F68A7304BC3B7F288FABB4C
+1 _FSFTID PWTP-4V9
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMS @F11@
+0 @I23@ INDI
+1 NAME EMILIA /PERON/
+2 GIVN EMILIA
+2 SURN PERON
+1 SEX F
+1 _UID 7FD645C41EA248AEBDB972209C66AB16DFD1
+1 _FSFTID PWTG-4NQ
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 29 APR 1875
+2 PLAC Italia
+1 DEAT
+1 FAMS @F6@
+1 FAMC @F16@
+0 @I24@ INDI
+1 NAME Luigi /Valentini/
+2 GIVN Luigi
+2 SURN Valentini
+1 SEX M
+1 _UID 29D3C0618E64466B9E0462B2FFE6D6D90AD2
+1 _FSFTID PHVH-KYN
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1915
+2 PLAC Arcole, Verona, Veneto, Italia
+1 DEAT
+1 FAMC @F7@
+0 @I25@ INDI
+1 NAME Antonino /Giardina - Iaci/
+2 NPFX Principe
+2 GIVN Antonino
+2 SURN Giardina - Iaci
+1 SEX M
+1 _UID 755F25CE09724B0BA8545ECB91E8A75A375B
+1 _FSFTID GQVT-2KK
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 30 JAN 1831
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMS @F10@
+1 FAMC @F19@
+0 @I26@ INDI
+1 NAME Rosa /Lipari/
+2 GIVN Rosa
+2 SURN Lipari
+1 SEX F
+1 _UID 95FBAA0CD00241F7BF238695BF772834DFDB
+1 _FSFTID GQJ9-SQP
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1 DEC 1838
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMS @F10@
+1 FAMC @F17@
+0 @I27@ INDI
+1 NAME Paola /Pasquali/
+2 GIVN Paola
+2 SURN Pasquali
+1 SEX F
+1 _UID 08B6B4CE377144509E6FD7C0FD0C760DAC33
+1 _FSFTID PHVM-HRT
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1860
+2 PLAC Arcole
+1 DEAT
+1 FAMS @F13@
+1 FAMC @F18@
+0 @I28@ INDI
+1 NAME MARIA VIRGINIA /NEGRINI/
+2 GIVN MARIA VIRGINIA
+2 SURN NEGRINI
+1 SEX F
+1 _UID BAA520E6B02F4DF1BFCA9C29B50CFF8D1DEF
+1 _FSFTID PWTG-5XB
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1904
+1 DEAT
+1 FAMC @F6@
+0 @I29@ INDI
+1 NAME ERMINIO /NEGRINI/
+2 GIVN ERMINIO
+2 SURN NEGRINI
+1 SEX M
+1 _UID C17AA85040CE4C4891E9702F5278775E8D3E
+1 _FSFTID PWTG-29B
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1899
+1 DEAT
+1 FAMC @F6@
+0 @I30@ INDI
+1 NAME Giovanni /Valentini/
+2 GIVN Giovanni
+2 SURN Valentini
+1 SEX M
+1 _UID 1B9B71F5104F4ED398723CC1B9A518486156
+1 _FSFTID PHVM-WV3
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1856
+2 PLAC Arcole, Verona, Veneto, Italia
+1 DEAT
+2 DATE 17 SEP 1893
+2 PLAC Minerbe, Verona, Veneto, Italia
+1 FAMS @F13@
+1 FAMC @F20@
+0 @I31@ INDI
+1 NAME Lucia /Steccanella/
+2 GIVN Lucia
+2 SURN Steccanella
+1 SEX F
+1 _UID 43388FF0BFDF438B811F717EFA2F49AA1132
+1 _FSFTID PHVM-HR4
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMS @F14@
+0 @I32@ INDI
+1 NAME Ferdinando /Bennati/
+2 GIVN Ferdinando
+2 SURN Bennati
+1 SEX M
+1 _UID 22A21838B0394EF0B5C4C8919863E7E3D2B8
+1 _FSFTID PHJ1-2XL
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMS @F14@
+0 @I33@ INDI
+1 NAME LUIGI ANTONIO /NEGRINI/
+2 GIVN LUIGI ANTONIO
+2 SURN NEGRINI
+1 SEX M
+1 _UID FAAD3A391A0541769BC900D3F86A79A9AB22
+1 _FSFTID PWTG-5XY
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1906
+1 DEAT
+1 FAMC @F6@
+0 @I34@ INDI
+1 NAME Giacomo /Peron/
+2 GIVN Giacomo
+2 SURN Peron
+1 SEX M
+1 _UID 3BB66704FB624D8E999B857C382AB4ECCB6B
+1 _FSFTID P4ZD-89P
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMS @F16@
+0 @I35@ INDI
+1 NAME MARIA /MARTINELLI/
+2 GIVN MARIA
+2 SURN MARTINELLI
+1 SEX F
+1 _UID 7DAF34A574394BA491D53D566943408C12CF
+1 _FSFTID PWTL-YW4
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMS @F15@
+0 @I36@ INDI
+1 NAME BRUNO /NEGRINI/
+2 GIVN BRUNO
+2 SURN NEGRINI
+1 SEX M
+1 _UID AD97140F5CB74B25B447F9DC8D101DAF23EC
+1 _FSFTID PWTG-86R
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMC @F6@
+0 @I37@ INDI
+1 NAME ROMANO /NEGRINI/
+2 GIVN ROMANO
+2 SURN NEGRINI
+1 SEX M
+1 _UID 2E220AD5663146A0A2DE86D5703EC12E2413
+1 _FSFTID PWTG-295
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1916
+1 DEAT
+2 DATE 1962
+1 FAMC @F6@
+0 @I38@ INDI
+1 NAME GIACOMO /NEGRINI/
+2 GIVN GIACOMO
+2 SURN NEGRINI
+1 SEX M
+1 _UID 01A307CE4B15490EBE748727D4CB91B3F3C7
+1 _FSFTID PWTL-BCZ
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMC @F6@
+0 @I39@ INDI
+1 NAME ANTONIO /NEGRINI/
+2 GIVN ANTONIO
+2 SURN NEGRINI
+1 SEX M
+1 _UID CECAF7DAE87F4E5DAC703C7836ADA203D346
+1 _FSFTID PWTG-3WC
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 15 JAN 1911
+2 PLAC Italia
+1 DEAT
+1 FAMS @F21@
+1 FAMC @F6@
+0 @I40@ INDI
+1 NAME LUIGI GIUSEPPE /NEGRINI/
+2 GIVN LUIGI GIUSEPPE
+2 SURN NEGRINI
+1 SEX M
+1 _UID 3DAA2A6A9BB04C8499A9C4AC699B23A2119C
+1 _FSFTID PWTG-SKX
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1908
+1 DEAT
+2 DATE 2005
+1 FAMS @F22@
+1 FAMC @F6@
+0 @I41@ INDI
+1 NAME ANTONIO MARIA /NEGRINI/
+2 GIVN ANTONIO MARIA
+2 SURN NEGRINI
+1 SEX M
+1 _UID DD051F6335BF46EBAEC6124FE7EA906B2A3A
+1 _FSFTID PWTG-HKC
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 12 JUN 1819
+1 DEAT
+1 FAMS @F15@
+1 FAMC @F23@
+0 @I42@ INDI
+1 NAME Antonia /Giardina/
+2 GIVN Antonia
+2 SURN Giardina
+1 SEX F
+1 _UID 729091F3F76A476CBC62C4BDE97B5AC0B7E9
+1 _FSFTID GQVT-NF8
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 31 AUG 1859
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMC @F10@
+0 @I43@ INDI
+1 NAME Antonia /Giardina/
+2 GIVN Antonia
+2 SURN Giardina
+1 SEX F
+1 _UID 58C33F29E2464AD49A29E647F11FB653D2FC
+1 _FSFTID GQVT-LWS
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 5 JUL 1861
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMC @F10@
+0 @I44@ INDI
+1 NAME Rosaria /Giardina/
+2 GIVN Rosaria
+2 SURN Giardina
+1 SEX F
+1 _UID AEF1FFBF07EA44868957093451E699C1C630
+1 _FSFTID GQVT-K4X
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 5 JUL 1866
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMC @F10@
+0 @I45@ INDI
+1 NAME Rosaria /Giardina/
+2 GIVN Rosaria
+2 SURN Giardina
+1 SEX F
+1 _UID 716C171972374981BE28646BCC4454E37C01
+1 _FSFTID GQVT-KLQ
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 24 MAY 1868
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMC @F10@
+0 @I46@ INDI
+1 NAME Rosaria /Giardina/
+2 GIVN Rosaria
+2 SURN Giardina
+1 SEX F
+1 _UID 44E8AA0FE4F045AB94215D00B21944804A6C
+1 _FSFTID GQVT-2LS
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 21 DEC 1870
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMC @F10@
+0 @I47@ INDI
+1 NAME Eligio /Giardina/
+2 GIVN Eligio
+2 SURN Giardina
+1 SEX M
+1 _UID 40BF7CFB95674FCA998AD95D2E1121BD01B0
+1 _FSFTID GQVT-KL5
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 25 FEB 1874
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMC @F10@
+0 @I48@ INDI
+1 NAME Rosaria /Giardina/
+2 GIVN Rosaria
+2 SURN Giardina
+1 SEX F
+1 _UID 868F28681530437F98FF35ECD40FF1D30B1F
+1 _FSFTID GQVT-NN8
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 22 JUN 1876
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMC @F10@
+0 @I49@ INDI
+1 NAME Provvidenza /Giardina/
+2 GIVN Provvidenza
+2 SURN Giardina
+1 SEX F
+1 _UID F53CBBF623AC4BFAB5B3F75F3A0F8DB23C5F
+1 _FSFTID GQVT-VKF
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 16 JAN 1879
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMC @F10@
+0 @I50@ INDI
+1 NAME Paschoal /Negri/
+2 GIVN Paschoal
+2 SURN Negri
+1 SEX M
+1 _UID 8248D9F9451945D896D5036EC8AC4FAA609B
+1 _FSFTID G6YB-FK6
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1897
+1 DEAT
+2 DATE 4 OCT 1952
+1 BURI
+2 PLAC Brasil
+1 FAMS @F24@
+1 FAMC @F6@
+0 @I51@ INDI
+1 NAME Maria Antonia Teresa Maddalena /Iaci/
+2 NPFX Contessa
+2 GIVN Maria Antonia Teresa Maddalena
+2 SURN Iaci
+1 SEX F
+1 _UID 0CD3F8D030274F06A7D19946342EB210CE27
+1 _FSFTID G14F-36F
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1796
+2 PLAC Palermo, Palermo, Regno delle Due Sicilie
+1 DEAT
+2 PLAC Palermo, Palermo, Regno delle Due Sicilie
+1 FAMS @F19@
+0 @I52@ INDI
+1 NAME Maddalena /Venturini/
+2 GIVN Maddalena
+2 SURN Venturini
+1 SEX F
+1 _UID 415D3B40FA7D4AD6B94C7185E9CE073CA5F1
+1 _FSFTID PHV7-252
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMS @F18@
+0 @I53@ INDI
+1 NAME Paolo /Giardina - Naselli/
+2 NPFX Principe
+2 GIVN Paolo
+2 SURN Giardina - Naselli
+1 SEX M
+1 _UID 81390848795C4AA4B37F50962578B867A179
+1 _FSFTID GQVT-5V5
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 8 JUN 1791
+2 PLAC Palermo, Regno delle Due Sicilie
+1 DEAT
+2 DATE 6 JUL 1837
+2 PLAC Palermo, Palermo, Regno delle Due Sicilie
+1 FAMS @F19@
+0 @I54@ INDI
+1 NAME Luigi /Pasquali/
+2 GIVN Luigi
+2 SURN Pasquali
+1 SEX M
+1 _UID FD9209A162AF4ED99B6F66051F149748F85F
+1 _FSFTID PHV7-6QJ
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMS @F18@
+0 @I55@ INDI
+1 NAME Salvatore /Giardina/
+2 GIVN Salvatore
+2 SURN Giardina
+1 SEX M
+1 _UID 753C1B6C7DC343A58C5385509138B13CCA4F
+1 _FSFTID GQVT-J9K
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 18 SEP 1857
+2 PLAC Palermo, Palermo, Sicilia, Italia
+1 DEAT
+2 DATE 1907
+2 PLAC Palermo, Palermo, Sicilia, Italia
+1 FAMS @F25@
+1 FAMC @F10@
+0 @I56@ INDI
+1 NAME Giuseppe /Lipari/
+2 GIVN Giuseppe
+2 SURN Lipari
+1 SEX M
+1 _UID A82E9B76C11A4088B4E555A0F92D4DFA851C
+1 _FSFTID GQ6T-6P5
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 14 MAY 1820
+2 PLAC Palermo, Palermo, Sicilia, Italia
+1 DEAT
+1 FAMS @F17@
+0 @I57@ INDI
+1 NAME Rosaria /Albanese/
+2 GIVN Rosaria
+2 SURN Albanese
+1 SEX F
+1 _UID FE2E2E12CEE045568B0B8020BCD34FB37CFF
+1 _FSFTID GQNM-QCW
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE ABT 1818
+2 PLAC Palermo, Palermo, Sicilia, Italia
+1 DEAT
+2 DATE 28 APR 1893
+2 PLAC Palermo, Palermo, Sicilia, Italia
+1 FAMS @F17@
+0 @I58@ INDI
+1 NAME America /Bennati/
+2 GIVN America
+2 SURN Bennati
+1 SEX F
+1 _UID DAC15BA05DFC4497B79F71238DC7436EB913
+1 _FSFTID PHVC-3KS
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 23 JAN 1901
+2 PLAC Cazzano di Tramigna, Verona, Veneto, Italia
+1 DEAT
+1 FAMC @F14@
+0 @I59@ INDI
+1 NAME Eugenia Amabile /Benatti/
+2 GIVN Eugenia Amabile
+2 SURN Benatti
+1 SEX F
+1 _UID 0F3215A458384C1DBD9664D8B796416171F0
+1 _FSFTID PHVH-PPZ
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1890
+2 PLAC Cazzano
+1 DEAT
+2 DATE 2 JUL 1890
+2 PLAC Cazzano di Tramigna, Verona, Veneto, Italia
+1 FAMC @F14@
+0 @I60@ INDI
+1 NAME CESARE GIUSEPPE /NEGRINI/
+2 GIVN CESARE GIUSEPPE
+2 SURN NEGRINI
+1 SEX M
+1 _UID 6430383724584C25A320EE25A7EF878E71F2
+1 _FSFTID PWTG-HKX
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 6 FEB 1869
+1 DEAT
+1 FAMC @F15@
+0 @I61@ INDI
+1 NAME Benvenuta Pellegrina /Benatti/
+2 GIVN Benvenuta Pellegrina
+2 SURN Benatti
+1 SEX F
+1 _UID 4F6E7CAB02FA4D9887AFA426EA4085BE32D0
+1 _FSFTID PHVC-F2K
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 22 DEC 1902
+2 PLAC Cazzano di Tramigna, Verona, Veneto, Italia
+1 DEAT
+1 FAMC @F14@
+0 @I62@ INDI
+1 NAME Lucia /Carcereri/
+2 GIVN Lucia
+2 SURN Carcereri
+1 SEX F
+1 _UID B6A05F9004B64289BB89EE19EFAEA08ADCE1
+1 _FSFTID PHV7-1SP
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMS @F20@
+0 @I63@ INDI
+1 NAME GELMINA /SORIO/
+2 GIVN GELMINA
+2 SURN SORIO
+1 SEX F
+1 _UID AD01EA11D1BA4B78830D79E4E19A55EA9E1B
+1 _FSFTID PWTG-QCQ
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMS @F21@
+0 @I64@ INDI
+1 NAME VIRGINIA PASQUA (PASCHA) /NEGRINI/
+2 GIVN VIRGINIA PASQUA (PASCHA)
+2 SURN NEGRINI
+1 SEX F
+1 _UID 97F9BC6B9EF44C37833E263E63F03DB839FB
+1 _FSFTID PWTG-991
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 31 MAR 1872
+1 DEAT
+1 FAMC @F15@
+0 @I65@ INDI
+1 NAME NOEMI /NEGRINI/
+2 GIVN NOEMI
+2 SURN NEGRINI
+1 SEX F
+1 _UID BC1555BC5044424AADA92612A94727832A96
+1 _FSFTID PWTG-6SG
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 10 NOV 1870
+1 DEAT
+1 FAMC @F15@
+0 @I66@ INDI
+1 NAME Rocco /Valentini/
+2 GIVN Rocco
+2 SURN Valentini
+1 SEX M
+1 _UID 65FFB6F7A8FC4484B573A0F962D9935864BB
+1 _FSFTID PHV7-JF3
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1813
+2 PLAC Albaredo d'Adige, Verona, Veneto, Italia
+1 DEAT
+1 FAMS @F20@
+0 @I67@ INDI
+1 NAME ROMA /RECCHI/
+2 GIVN ROMA
+2 SURN RECCHI
+1 SEX F
+1 _UID 921E124CA5684A98BAB131C9CFBB81E45137
+1 _FSFTID PWTG-5XC
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1912
+1 DEAT
+1 FAMS @F22@
+0 @I68@ INDI
+1 NAME ANGELA /GOTTARDELLI/
+2 GIVN ANGELA
+2 SURN GOTTARDELLI
+1 SEX F
+1 _UID 37809ED220A94F5598C418C2152F92E18170
+1 _FSFTID PWTG-VBX
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 12 AUG 1796
+1 DEAT
+1 FAMS @F23@
+0 @I69@ INDI
+1 NAME Elena /Pasquali/
+2 GIVN Elena
+2 SURN Pasquali
+1 SEX F
+1 _UID D33080273F5E440EB0F21CE36A5FE8543F3D
+1 _FSFTID PHVZ-Z7L
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1845
+2 PLAC Arcole
+1 DEAT
+2 DATE 11 DEC 1891
+2 PLAC Arcole, Verona, Veneto, Italia
+1 FAMC @F18@
+0 @I70@ INDI
+1 NAME FRANCESCO /NEGRINI/
+2 GIVN FRANCESCO
+2 SURN NEGRINI
+1 SEX M
+1 _UID 30979BB757DA45E8A9030372C258252A0117
+1 _FSFTID PWTG-T3V
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 30 JAN 1785
+1 DEAT
+1 FAMS @F23@
+1 FAMS @F26@
+0 @I71@ INDI
+1 NAME Emmanuele /Lipari/
+2 GIVN Emmanuele
+2 SURN Lipari
+1 SEX M
+1 _UID 0051813BEF4A496D9B44A43544963910D7C6
+1 _FSFTID GQJ9-X9W
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 27 DEC 1840
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMC @F17@
+0 @I72@ INDI
+1 NAME Giovanni /Lipari/
+2 GIVN Giovanni
+2 SURN Lipari
+1 SEX M
+1 _UID C53144CD2F40427787DEF5A95CBAA2ECD62A
+1 _FSFTID GQJ9-ZWS
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 25 MAY 1842
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMC @F17@
+0 @I73@ INDI
+1 NAME Giovanni /Lipari/
+2 GIVN Giovanni
+2 SURN Lipari
+1 SEX M
+1 _UID B208DF6F7217480FAFC4F527A6F2CF5230CC
+1 _FSFTID GQJM-1BT
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 26 MAY 1846
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMC @F17@
+0 @I74@ INDI
+1 NAME Giuseppa /Lipari/
+2 GIVN Giuseppa
+2 SURN Lipari
+1 SEX F
+1 _UID EF02D745691A427F9E6F4D10B4D0BB9B95CE
+1 _FSFTID GQJ9-C7G
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 22 SEP 1850
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMC @F17@
+0 @I75@ INDI
+1 NAME Giuseppa /Lipari/
+2 GIVN Giuseppa
+2 SURN Lipari
+1 SEX F
+1 _UID D8C92DA47FBD49D992CC41993E6827A27766
+1 _FSFTID GQJ9-NQN
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 13 MAY 1848
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMC @F17@
+0 @I76@ INDI
+1 NAME Rosina /Negri/
+2 GIVN Rosina
+2 SURN Negri
+1 SEX F
+1 _UID 22F1C931D4284044A704221FA5DF0DDEE82A
+1 _FSFTID GKWG-ZWM
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMS @F24@
+0 @I77@ INDI
+1 NAME Caterina /Giacona/
+2 GIVN Caterina
+2 SURN Giacona
+1 SEX F
+1 _UID C1A39B8426004CD3A315AD30B669A5446540
+1 _FSFTID GP1B-7CB
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1864
+2 PLAC Palermo, Palermo, Sicilia, Italia
+1 DEAT
+2 DATE 1914
+2 PLAC Palermo, Palermo, Sicilia, Italia
+1 FAMS @F25@
+0 @I78@ INDI
+1 NAME Provvidenza /Lipari/
+2 GIVN Provvidenza
+2 SURN Lipari
+1 SEX F
+1 _UID DDCB49EEA18C406A85FDD5A6AB05E3DD2340
+1 _FSFTID GQNM-6SL
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 18 MAR 1845
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMS @F27@
+1 FAMC @F17@
+0 @I79@ INDI
+1 NAME Francesco Paolo /Lipari/
+2 GIVN Francesco Paolo
+2 SURN Lipari
+1 SEX M
+1 _UID 8086DBC7C2A8401199820E99AFB3372AE86C
+1 _FSFTID GQJ9-C77
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 3 JAN 1844
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMS @F29@
+1 FAMC @F17@
+0 @I80@ INDI
+1 NAME Vincenza /Lipari/
+2 GIVN Vincenza
+2 SURN Lipari
+1 SEX F
+1 _UID 47653F4338B94BBCBF6FA223C42307545BA8
+1 _FSFTID GQJ9-WMV
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 28 MAR 1856
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMS @F28@
+1 FAMC @F17@
+0 @I81@ INDI
+1 NAME GIOVANNA /MASSAGRANDE/
+2 GIVN GIOVANNA
+2 SURN MASSAGRANDE
+1 SEX F
+1 _UID 8995FCF1DA5C4EA2AFD8FE74DB3508D416C1
+1 _FSFTID PWTG-T3K
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+2 DATE 1817
+1 FAMS @F26@
+0 @I82@ INDI
+1 NAME Gaetano /Lombardo/
+2 GIVN Gaetano
+2 SURN Lombardo
+1 SEX M
+1 _UID DA6059112205400193928C1BF2103D647B8E
+1 _FSFTID PHVM-5BN
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMS @F28@
+0 @I83@ INDI
+1 NAME Anna /Lipari/
+2 GIVN Anna
+2 SURN Lipari
+1 SEX F
+1 _UID 494E7F1D4A1E447B8FEB523A997E8765638E
+1 _FSFTID GQJ9-WDR
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 21 OCT 1852
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMS @F30@
+1 FAMC @F17@
+0 @I84@ INDI
+1 NAME Michelangelo /Sgarlata/
+2 GIVN Michelangelo
+2 SURN Sgarlata
+1 SEX M
+1 _UID 4FE61F6FC759427888B7CECE286B7852D5F0
+1 _FSFTID GQJZ-GV6
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 26 MAR 1840
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMS @F27@
+0 @I85@ INDI
+1 NAME Giuseppe /Negrini/
+2 GIVN Giuseppe
+2 SURN Negrini
+1 SEX M
+1 _UID 92B22D451273405DBD42B2FE9AB7CDB75CC9
+1 _FSFTID GXPF-XQY
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 1811
+2 PLAC Poggio Rusco, Mantova, Lombardia, Italia
+1 DEAT
+2 DATE 24 APR 1874
+2 PLAC Poggio Rusco, Mantova, Lombardia, Italia
+1 FAMS @F31@
+1 FAMC @F23@
+0 @I86@ INDI
+1 NAME bianca /rossi/
+2 GIVN bianca
+2 SURN rossi
+1 SEX F
+1 _UID C40A95E7D0654021A706E95D67FA5EC5572B
+1 _FSFTID GLWL-Z33
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+2 DATE 1995
+2 PLAC Toronto, Ontario, Canada
+1 FAMS @F29@
+0 @I87@ INDI
+1 NAME Vincenzo /Sgarlata/
+2 GIVN Vincenzo
+2 SURN Sgarlata
+1 SEX M
+1 _UID 35F4B6B750AE495BBE0CDC4D18F24ADB5AB4
+1 _FSFTID GQJ8-W3P
+1 CHAN
+2 DATE 3 MAR 2026
+1 BIRT
+2 DATE 29 MAR 1846
+2 PLAC Palermo, Sicilia, Italia
+1 DEAT
+1 FAMS @F30@
+0 @I88@ INDI
+1 NAME Giuditta /Frigeri/
+2 GIVN Giuditta
+2 SURN Frigeri
+1 SEX F
+1 _UID DE8267AB075644BFA57DF34D4F2D3E7967B2
+1 _FSFTID GXPF-633
+1 CHAN
+2 DATE 3 MAR 2026
+1 DEAT
+1 FAMS @F31@
+0 @F1@ FAM
+1 HUSB @I2@
+1 WIFE @I3@
+1 CHIL @I1@
+1 CHIL @I4@
+0 @F2@ FAM
+1 HUSB @I6@
+1 WIFE @I8@
+1 CHIL @I2@
+0 @F3@ FAM
+1 HUSB @I7@
+1 WIFE @I5@
+1 CHIL @I3@
+0 @F4@ FAM
+1 HUSB @I14@
+1 WIFE @I9@
+1 CHIL @I5@
+1 CHIL @I15@
+0 @F5@ FAM
+1 HUSB @I12@
+1 WIFE @I10@
+1 CHIL @I6@
+1 CHIL @I17@
+1 CHIL @I13@
+0 @F6@ FAM
+1 HUSB @I21@
+1 WIFE @I23@
+1 CHIL @I7@
+1 CHIL @I50@
+1 CHIL @I29@
+1 CHIL @I28@
+1 CHIL @I33@
+1 CHIL @I40@
+1 CHIL @I39@
+1 CHIL @I37@
+1 CHIL @I36@
+1 CHIL @I38@
+1 MARR
+2 DATE 29 APR 1875
+0 @F7@ FAM
+1 HUSB @I19@
+1 WIFE @I18@
+1 CHIL @I8@
+1 CHIL @I24@
+1 MARR
+2 DATE 21 JUL 1914
+2 PLAC Arcole, Verona, Veneto, Italia
+0 @F8@ FAM
+1 HUSB @I16@
+1 WIFE @I8@
+0 @F9@ FAM
+1 HUSB @I11@
+1 CHIL @I9@
+0 @F10@ FAM
+1 HUSB @I25@
+1 WIFE @I26@
+1 CHIL @I12@
+1 CHIL @I55@
+1 CHIL @I42@
+1 CHIL @I43@
+1 CHIL @I44@
+1 CHIL @I45@
+1 CHIL @I46@
+1 CHIL @I47@
+1 CHIL @I48@
+1 CHIL @I49@
+1 MARR
+2 DATE 21 AUG 1856
+2 PLAC Palermo, Palermo, Sicilia, Italia
+0 @F11@ FAM
+1 HUSB @I14@
+1 WIFE @I22@
+0 @F12@ FAM
+1 HUSB @I17@
+1 WIFE @I20@
+0 @F13@ FAM
+1 HUSB @I27@
+1 WIFE @I30@
+1 CHIL @I19@
+1 MARR
+2 DATE 23 NOV 1891
+2 PLAC Arcole, Verona, Veneto, Italia
+0 @F14@ FAM
+1 HUSB @I31@
+1 WIFE @I32@
+1 CHIL @I18@
+1 CHIL @I59@
+1 CHIL @I58@
+1 CHIL @I61@
+0 @F15@ FAM
+1 HUSB @I41@
+1 WIFE @I35@
+1 CHIL @I21@
+1 CHIL @I60@
+1 CHIL @I65@
+1 CHIL @I64@
+0 @F16@ FAM
+1 HUSB @I34@
+1 CHIL @I23@
+0 @F17@ FAM
+1 HUSB @I56@
+1 WIFE @I57@
+1 CHIL @I26@
+1 CHIL @I71@
+1 CHIL @I72@
+1 CHIL @I79@
+1 CHIL @I78@
+1 CHIL @I73@
+1 CHIL @I75@
+1 CHIL @I74@
+1 CHIL @I83@
+1 CHIL @I80@
+1 MARR
+2 DATE 22 JAN 1838
+2 PLAC Palermo, Palermo, Sicilia, Italia
+0 @F18@ FAM
+1 HUSB @I52@
+1 WIFE @I54@
+1 CHIL @I27@
+1 CHIL @I69@
+0 @F19@ FAM
+1 HUSB @I53@
+1 WIFE @I51@
+1 CHIL @I25@
+1 MARR
+2 DATE 20 SEP 1814
+2 PLAC Palermo, Palermo, Regno delle Due Sicilie
+0 @F20@ FAM
+1 HUSB @I62@
+1 WIFE @I66@
+1 CHIL @I30@
+0 @F21@ FAM
+1 HUSB @I39@
+1 WIFE @I63@
+1 MARR
+2 DATE 30 DEC 1937
+0 @F22@ FAM
+1 HUSB @I40@
+1 WIFE @I67@
+1 MARR
+2 DATE 1992
+0 @F23@ FAM
+1 HUSB @I70@
+1 WIFE @I68@
+1 CHIL @I41@
+1 CHIL @I85@
+1 MARR
+2 DATE 17 APR 1817
+2 PLAC VILLAFRANCA DI VERONA
+0 @F24@ FAM
+1 HUSB @I50@
+1 WIFE @I76@
+0 @F25@ FAM
+1 HUSB @I55@
+1 WIFE @I77@
+1 MARR
+2 DATE 28 JUL 1884
+2 PLAC Palermo, Palermo, Sicilia, Italia
+0 @F26@ FAM
+1 HUSB @I70@
+1 WIFE @I81@
+0 @F27@ FAM
+1 HUSB @I84@
+1 WIFE @I78@
+1 MARR
+2 DATE 27 JAN 1866
+2 PLAC Palermo, Sicilia, Italia
+0 @F28@ FAM
+1 HUSB @I82@
+1 WIFE @I80@
+0 @F29@ FAM
+1 HUSB @I79@
+1 WIFE @I86@
+0 @F30@ FAM
+1 HUSB @I87@
+1 WIFE @I83@
+1 MARR
+2 DATE 29 AUG 1870
+2 PLAC Palermo, Sicilia, Italia
+0 @F31@ FAM
+1 HUSB @I85@
+1 WIFE @I88@
+0 _EVDEF BIRT
+1 TYPE P
+1 TITL Birth
+1 ABBR Birth
+1 SENT [person] was born< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the birth of [person]< [Date]>< [PlaceDetails]>< [
+3 CONC Place]>.
+1 ROLE Doctor
+2 SENT [ThisPerson] delivered [person]< [Date]>< [PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF DEAT
+1 TYPE P
+1 TITL Death
+1 ABBR Death
+1 SENT [person] died< [Desc]>< [Date]>< [person:Age]>< [PlaceDetails]>< [Place
+2 CONC ]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the death of [person]< [Date]>< [PlaceDetails]>< [
+3 CONC Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF CHR
+1 TYPE P
+1 TITL Christen
+1 ABBR Chr
+1 SENT [person] was christened< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the christening of [person]< [Date]>< [PlaceDeta
+3 CONC ils]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF BURI
+1 TYPE P
+1 TITL Burial
+1 ABBR Burial
+1 SENT [person] was buried< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the burial of [person]< [Date]>< [PlaceDetails]>
+3 CONC < [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF CREM
+1 TYPE P
+1 TITL Cremation
+1 ABBR Cremation
+1 SENT [person] was cremated< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the cremation of [person]< [Date]>< [PlaceDetail
+3 CONC s]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF ADOP
+1 TYPE P
+1 TITL Adoption
+1 ABBR Adoption
+1 SENT [person] was adopted< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the adoption of [person]< [Date]>< [PlaceDetails
+3 CONC ]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF BAPM
+1 TYPE P
+1 TITL Baptism
+1 ABBR Baptism
+1 SENT [person] was baptized< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the baptism of [person]< [Date]>< [PlaceDetails]
+3 CONC >< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF BARM
+1 TYPE P
+1 TITL Bar Mitzvah
+1 ABBR Bar Mitzvah
+1 SENT [person] celebrated his bar mitzvah< [Date]>< [PlaceDetails]>< [Place]>
+2 CONC .
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the bar mitzvah of [person]< [Date]>< [PlaceDeta
+3 CONC ils]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF BASM
+1 TYPE P
+1 TITL Bas Mitzvah
+1 ABBR Bas Mitzvah
+1 SENT [person] celebrated her bas mitzvah< [Date]>< [PlaceDetails]>< [Place]>
+2 CONC .
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the bas mitzvah of [person]< [Date]>< [PlaceDeta
+3 CONC ils]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF BLES
+1 TYPE P
+1 TITL Blessing
+1 ABBR Blessing
+1 SENT [person] was blessed< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the blessing of [person]< [Date]>< [PlaceDetails
+3 CONC ]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF CHRA
+1 TYPE P
+1 TITL Christen (adult)
+1 ABBR Chr (adult)
+1 SENT [person] was christened< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the christening of [person]< [Date]>< [PlaceDeta
+3 CONC ils]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF CONF
+1 TYPE P
+1 TITL Confirmation
+1 ABBR Confirmation
+1 SENT [person] was confirmed< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the confirmation of [person]< [Date]>< [PlaceDet
+3 CONC ails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF FCOM
+1 TYPE P
+1 TITL First communion
+1 ABBR First comm
+1 SENT [person] received first communion< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the first communion of [person]< [Date]>< [Place
+3 CONC Details]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF ORDN
+1 TYPE P
+1 TITL Ordination
+1 ABBR Ordination
+1 SENT [person] was ordained< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the ordination of [person]< [Date]>< [PlaceDetai
+3 CONC ls]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF NATU
+1 TYPE P
+1 TITL Naturalization
+1 ABBR Naturalization
+1 SENT [person] was naturalized< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the naturalization of [person]< [Date]>< [PlaceD
+3 CONC etails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF EMIG
+1 TYPE P
+1 TITL Emigration
+1 ABBR Emigration
+1 SENT [person] emigrated< [Date]>< from [Place:plain]>< [PlaceDetails]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the emigration of [person]< [Date]>< [PlaceDetai
+3 CONC ls]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF IMMI
+1 TYPE P
+1 TITL Immigration
+1 ABBR Immigration
+1 SENT [person] immigrated< [Date]>< to [Place:plain]>< [PlaceDetails]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the immigration of [person]< [Date]>< [PlaceDeta
+3 CONC ils]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF CENS
+1 TYPE P
+1 TITL Census
+1 ABBR Census
+1 SENT [person] appeared in the census< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] appeared in the household of [person] in the census< [Date
+3 CONC ]>< [PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF PROB
+1 TYPE P
+1 TITL Probate
+1 ABBR Probate
+1 SENT [person] had [person:hisher] estate probated< [Date]>< [PlaceDetails]>< [
+2 CONC Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the probate of [person]< [Date]>< [PlaceDetails]
+3 CONC >< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF WILL
+1 TYPE P
+1 TITL Will
+1 ABBR Will
+1 SENT [person] signed a will< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the will of [person]< [Date]>< [PlaceDetails]>< [
+3 CONC Place]>.
+1 ROLE Heir
+2 SENT [ThisPerson] was named an heir in the will of [person]< [Date]>< [Place
+3 CONC Details]>< [Place]>.
+1 ROLE Executor
+2 SENT [ThisPerson] was named an executor for the will of [person]< [Date]>< [
+3 CONC PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF GRAD
+1 TYPE P
+1 TITL Graduation
+1 ABBR Graduation
+1 SENT [person] graduated< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the graduation of [person]< [Date]>< [PlaceDetai
+3 CONC ls]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF RETI
+1 TYPE P
+1 TITL Retirement
+1 ABBR Retirement
+1 SENT [person] retired< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the retirement of [person]< [Date]>< [PlaceDetai
+3 CONC ls]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF DSCR
+1 TYPE P
+1 TITL Description
+1 ABBR Description
+1 SENT [person] was described as [Desc]< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the appearance of [person] as [Desc]< [Date]>< [
+3 CONC PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF EDUC
+1 TYPE P
+1 TITL Education
+1 ABBR Education
+1 SENT [person] was educated < [Desc]>< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the education of [person]< [Date]>< [PlaceDetail
+3 CONC s]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF NATI
+1 TYPE P
+1 TITL Nationality
+1 ABBR Nationality
+1 SENT [person] was [Desc]< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the nationality of [person] as [Desc]< [Date]>< [
+3 CONC PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF OCCU
+1 TYPE P
+1 TITL Occupation
+1 ABBR Occupation
+1 SENT [date] [person] was [Desc:A]< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the occupation of [person]< [Date]> as [Desc:A]< [
+3 CONC PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF PROP
+1 TYPE P
+1 TITL Property
+1 ABBR Property
+1 SENT [person] owned [Desc]< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the property of [person] as [Desc:A]< [Date]>< [
+3 CONC PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF RELI
+1 TYPE P
+1 TITL Religion
+1 ABBR Religion
+1 SENT [person] was [Desc]< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the religion of [person] as [Desc:A]< [Date]>< [
+3 CONC PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF RESI
+1 TYPE P
+1 TITL Residence
+1 ABBR Residence
+1 SENT [person] lived< [Desc]>< [PlaceDetails]>< [Place]>< [Date]>.
+1 ROLE Witness
+2 SENT [ThisPerson] lived in the residence of [person] < [PlaceDetails]>< [Pla
+3 CONC ce]>< [Date]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF SSN
+1 TYPE P
+1 TITL Soc Sec No
+1 ABBR SSN
+1 SENT [person] had Social Security Number [Desc].
+1 PLAC N
+1 DATE N
+1 DESC Y
+0 _EVDEF BAPL
+1 TYPE P
+1 TITL LDS Baptism
+1 ABBR LDS Bapt
+1 SENT [person] was baptized into the LDS Church< [Date]>< [PlaceDetails]>< [P
+2 CONC lace]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the baptism of [person] into the LDS Church< [Da
+3 CONC te]>< [PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF ENDL
+1 TYPE P
+1 TITL LDS Endowment
+1 ABBR LDS Endow
+1 SENT [person] was endowed< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the endowment of [person]< [Date]>< [PlaceDetail
+3 CONC s]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF SLGC
+1 TYPE P
+1 TITL LDS Seal to parents
+1 ABBR LDS SealPar
+1 SENT [person] was sealed to [person:hisher] parents< [Date]>< [PlaceDetails]
+2 CONC >< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the sealed to parents of [person]< [Date]>< [Pla
+3 CONC ceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF AFN
+1 TYPE P
+1 TITL Ancestral File Number
+1 ABBR AFN
+1 SENT [person] has Ancestral File Number [Desc].
+1 PLAC N
+1 DATE N
+1 DESC Y
+0 _EVDEF REFN
+1 TYPE P
+1 TITL Reference No
+1 ABBR Ref #
+1 SENT [person] has reference number [Desc].
+1 PLAC N
+1 DATE N
+1 DESC Y
+0 _EVDEF CAST
+1 TYPE P
+1 TITL Caste
+1 ABBR Caste
+1 SENT [person] was associated with [Desc]< [Date]>< [PlaceDetails]>< [Place]>
+2 CONC .
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the associated with [Desc] of [person]< [Date]>< [
+3 CONC PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF TITL
+1 TYPE P
+1 TITL Title (Nobility)
+1 ABBR Title
+1 SENT [person] held the title of [Desc]< [Date]>< [PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF CONL
+1 TYPE P
+1 TITL LDS Confirmation
+1 ABBR LDS Conf
+1 SENT [person] was confirmed a member of the LDS Church< [Date]>< [PlaceDetai
+2 CONC ls]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the confirmation of [person] as a member of the L
+3 CONC DS Church< [Date]>< [PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF WAC
+1 TYPE P
+1 TITL LDS Initiatory
+1 ABBR LDS Init
+1 SENT [person] received LDS initiatory< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the LDS initiatory of [person]< [Date]>< [PlaceD
+3 CONC etails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF MARR
+1 TYPE F
+1 TITL Marriage
+1 ABBR Marriage
+1 SENT [couple] <#Couple#was|were> married< [Date]>< [PlaceDetails]>< [Place]>
+2 CONC .
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the marriage of [couple]< [Date]>< [PlaceDetails
+3 CONC ]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF ANUL
+1 TYPE F
+1 TITL Annulment
+1 ABBR Annulment
+1 SENT [couple] had their marriage annulled< [Date]>< [PlaceDetails]>< [Place]
+2 CONC >.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the annulment of the marriage of [couple]< [Date
+3 CONC ]>< [PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF DIV
+1 TYPE F
+1 TITL Divorce
+1 ABBR Divorce
+1 SENT [couple] <#Couple#was|were> divorced< [Date]>< [PlaceDetails]>< [Place]
+2 CONC >.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the divorce of [couple]< [Date]>< [PlaceDetails]
+3 CONC >< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF DIVF
+1 TYPE F
+1 TITL Divorce filed
+1 ABBR Div. filed
+1 SENT [couple] filed for divorce< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the divorce filing of [couple]< [Date]>< [PlaceD
+3 CONC etails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF ENGA
+1 TYPE F
+1 TITL Engagement
+1 ABBR Engagement
+1 SENT [couple] <#Couple#was|were> engaged< [Date]>< [PlaceDetails]>< [Place]>
+2 CONC .
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the engagement of [couple]< [Date]>< [PlaceDetai
+3 CONC ls]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF MARB
+1 TYPE F
+1 TITL Marriage Bann
+1 ABBR Marr Bann
+1 SENT [couple] had marriage banns published< [Date]>< [PlaceDetails]>< [Place
+2 CONC ]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the publishing of the marriage banns of [couple]
+3 CONC <[Date]>< [PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF MARC
+1 TYPE F
+1 TITL Marriage Contract
+1 ABBR Marr Contract
+1 SENT [couple] signed a marriage contract< [Date]>< [PlaceDetails]>< [Place]>
+2 CONC .
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the marriage contract of [couple]< [Date]>< [Pla
+3 CONC ceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF MARL
+1 TYPE F
+1 TITL Marriage License
+1 ABBR Marr Lic
+1 SENT [couple] obtained a marriage license< [Date]>< [PlaceDetails]>< [Place]
+2 CONC >.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the obtaining of the marriage license by [couple
+3 CONC ]< [Date]>< [PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF MARS
+1 TYPE F
+1 TITL Marriage Settlement
+1 ABBR Marr Settlement
+1 SENT [couple] obtained a marriage settlement< [Date]>< [PlaceDetails]>< [Pla
+2 CONC ce]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the marriage settlement of [couple]< [Date]>< [P
+3 CONC laceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF SLGS
+1 TYPE F
+1 TITL LDS Seal to spouse
+1 ABBR LDS SealSp
+1 SENT [couple] were sealed together< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the sealing of [couple]< [Date]>< [PlaceDetails]
+3 CONC >< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF RESI
+1 TYPE F
+1 TITL Residence (family)
+1 ABBR Residence (fam)
+1 SENT [couple] lived < [Desc]>< [PlaceDetails]>< [Place]>< [Date]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF CENS
+1 TYPE F
+1 TITL Census (family)
+1 ABBR Census (fam)
+1 SENT [couple] appeared in the census< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] appeared in the census in the household of [couple]< [Date
+3 CONC ]>< [PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF Degree
+1 TYPE P
+1 TITL Degree
+1 ABBR Degree
+1 SENT [person] received a< [desc]> degree< [Date]>< [PlaceDetails]>< [Place]>
+2 CONC .
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the degree of [person]< [Date]>< [PlaceDetails]>
+3 CONC < [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF Military
+1 TYPE P
+1 TITL Military
+1 ABBR Military
+1 SENT [person] served in the military< [Desc]>< [Date]>< [PlaceDetails]>< [Pl
+2 CONC ace]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the military service of [person]< [Date]>< [Plac
+3 CONC eDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF Mission
+1 TYPE P
+1 TITL Mission
+1 ABBR Mission
+1 SENT [person] served a mission< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the mission of [person]< [Date]>< [PlaceDetails]
+3 CONC >< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF Stillborn
+1 TYPE P
+1 TITL Stillborn
+1 ABBR Stillborn
+1 SENT [person] was stillborn< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the stillbirth of [person]< [Date]>< [PlaceDetai
+3 CONC ls]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF Illness
+1 TYPE P
+1 TITL Illness
+1 ABBR Illness
+1 SENT [person] was ill< with [Desc]>< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the illness of [person] with [Desc]< [Date]>< [P
+3 CONC laceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF Living
+1 TYPE P
+1 TITL Living
+1 ABBR Living
+1 SENT [person] was living< [Date]>< [PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF Elected
+1 TYPE P
+1 TITL Election
+1 ABBR Elected
+1 SENT [person] was elected< as [Desc]>< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the election of [person] as [Desc]< [Date]>< [Pl
+3 CONC aceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF Excomm
+1 TYPE P
+1 TITL Excommunication
+1 ABBR Excomm
+1 SENT [person] was excommunicated< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the excommunication of [person]< [Date]>< [Place
+3 CONC Details]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF Namesake
+1 TYPE P
+1 TITL Namesake
+1 ABBR Namesake
+1 SENT [person] was named after [Desc]< [Date]>< [PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF Separation
+1 TYPE F
+1 TITL Separation
+1 ABBR Separation
+1 SENT [couple] were separated< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [ThisPerson] witnessed the separation of [couple]< [Date]>< [PlaceDetai
+3 CONC ls]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC N
+0 _EVDEF Alt. Name
+1 TYPE P
+1 TITL Alternate name
+1 ABBR Alt. Name
+1 SENT [person] was also known as [Desc]< [Date]>.
+1 PLAC N
+1 DATE Y
+1 DESC N
+0 _EVDEF _DNA
+1 TYPE P
+1 TITL DNA test
+1 ABBR DNA
+1 SENT [person] had a DNA test performed< [Date]>.
+1 PLAC N
+1 DATE Y
+1 DESC N
+0 _EVDEF Association
+1 TYPE P
+1 TITL Association
+1 ABBR Association
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 _EVDEF Misc
+1 TYPE P
+1 TITL Miscellaneous
+1 ABBR Misc
+1 SENT [person]< [Desc]>< [Date]>< [PlaceDetails]>< [Place]>.
+1 ROLE Witness
+2 SENT [person]< [Desc]>< [Date]>< [PlaceDetails]>< [Place]>.
+1 PLAC Y
+1 DATE Y
+1 DESC Y
+0 TRLR
