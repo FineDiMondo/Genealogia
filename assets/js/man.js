@@ -4,8 +4,11 @@
 
   var pages = {
     help: "help: elenco comandi | man <cmd>: dettaglio comando",
+    start: "start: apre il frontespizio operativo GNHM0001 (home gateway)",
+    home: "home: alias di start, riporta al frontespizio operativo",
+    risorgimento: "risorgimento: forza tema risorgimentale e apre il frontespizio operativo",
     status: "status: mostra stato DB, ambiente e conteggi",
-    "db import": "db import: apre file picker ZIP e importa tabelle selezionate",
+    "db import": "db import: apre il gateway in modalita import ZIP (PF3)",
     "db export": "db export: esporta DB in AAAAGGMMHHMM.zip",
     maps: "maps: elenco mappe ASCII disponibili (MAPPA 1..9, varianti A/B/C/D)",
     mappa: "mappa <n|n[a-d]>: mostra una mappa ASCII completa o una sua variante",

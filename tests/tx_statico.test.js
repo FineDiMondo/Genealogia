@@ -4,6 +4,9 @@ const BASE_URL = process.env.GN370_TEST_URL || "http://localhost:8080";
 
 async function load(page) {
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
+  await expect
+    .poll(async () => page.evaluate(() => Boolean(window.__GN370_BOOT_DONE)), { timeout: 5000 })
+    .toBe(true);
 }
 
 test.describe("TX-STATIC-001..002", () => {

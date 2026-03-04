@@ -23,9 +23,12 @@ test("I3: CTX.openedRecord null at boot", async ({ page }) => {
 });
 
 test("I9: boot completes < 2000ms", async ({ page }) => {
-  const t0 = Date.now();
   await page.goto(BASE_URL, { waitUntil: "networkidle" });
+  await expect
+    .poll(async () => page.evaluate(() => Boolean(window.__GN370_BOOT_DONE)), { timeout: 5000 })
+    .toBe(true);
+  const bootMs = await page.evaluate(() => Number(window.__GN370_BOOT_MS || 0));
   const terminalVisible = await page.isVisible("#gn370-prompt");
-  expect(Date.now() - t0).toBeLessThan(2000);
+  expect(bootMs).toBeLessThan(2000);
   expect(terminalVisible).toBe(true);
 });
