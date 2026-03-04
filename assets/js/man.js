@@ -7,6 +7,7 @@
     start: "start: apre il frontespizio operativo GNHM0001 (home gateway)",
     home: "home: alias di start, riporta al frontespizio operativo",
     risorgimento: "risorgimento: forza tema risorgimentale e apre il frontespizio operativo",
+    prototipo: "prototipo: apre la pagina web-only /prototipo/ con preview mappe e skin CSS",
     lista: "lista: mostra gli archivi .zip presenti in /salvataggi",
     carica: "carica <nomefile.zip>: importa lo ZIP da /salvataggi senza file picker",
     status: "status: mostra stato DB, ambiente e conteggi",

@@ -106,6 +106,7 @@
       '<button type="button" class="gnhm-btn" id="gn370-btn-pick-zip" data-gnhm-action="import-zip">PF3 Ripristino ZIP</button>' +
       '<button type="button" class="gnhm-btn" data-gnhm-action="expert-console">PF4 Console Esperto</button>' +
       '<button type="button" class="gnhm-btn" data-gnhm-action="theme-risorgimentale">PF9 Tema Risorgimentale</button>' +
+      '<button type="button" class="gnhm-btn" data-gnhm-action="open-prototipo">PROTOTIPO WEB</button>' +
       '<button type="button" class="gnhm-btn" data-gnhm-action="open-player">PLAYER FLAC</button>' +
       '<div class="gnhm-zip-stage" id="gn370-zip-stage"></div>' +
       "</section>" +

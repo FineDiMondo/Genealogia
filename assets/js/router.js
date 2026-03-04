@@ -124,7 +124,7 @@
           GN370.RENDER.line("PLAYER FLAC: " + GN370.PLAYER_COMMANDS.helpText);
           return;
         }
-        GN370.RENDER.line("Comandi: help man start home risorgimento lista carica <nomefile.zip> status clear mem refresh db import db list db show db reset db export import gedcom [--dry-run --auto-skip-low --strict] import status import log [--n N --record <id> --family <family_key>] import conflicts import review <corr_id> import accept <corr_id> import batch rerun import herald import notarial import nobility player pls load play pause stop seek next prev stat add tx statico <testo> open find tree maps mappa proto map timeline validate story journal monitor config theme quit");
+        GN370.RENDER.line("Comandi: help man start home risorgimento prototipo lista carica <nomefile.zip> status clear mem refresh db import db list db show db reset db export import gedcom [--dry-run --auto-skip-low --strict] import status import log [--n N --record <id> --family <family_key>] import conflicts import review <corr_id> import accept <corr_id> import batch rerun import herald import notarial import nobility player pls load play pause stop seek next prev stat add tx statico <testo> open find tree maps mappa proto map timeline validate story journal monitor config theme quit");
         return;
       }
 
@@ -152,6 +152,11 @@
         }
         GN370.RENDER.line("Tema attivo: " + activeTheme, "line-ok");
         GN370.RENDER.line("Percorso rapido: esegui `proto home 80` o clicca PF1 nel gateway.", "line-ok");
+        return;
+      }
+
+      if (cmd === "prototipo") {
+        global.location.href = "prototipo/";
         return;
       }
 

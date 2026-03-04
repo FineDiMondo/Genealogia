@@ -137,6 +137,12 @@
             return;
           }
 
+          if (action === "open-prototipo") {
+            writeHomeJournal("HOME_GATEWAY_ACTION", "PROTOTIPO", "Apertura pagina prototipo web");
+            global.location.href = "prototipo/";
+            return;
+          }
+
           if (action === "proto-nav") {
             writeHomeJournal("HOME_GATEWAY_ACTION", "PROTO_NAV", "Schema inter-mondi");
             runGatewayCommand("proto nav");
