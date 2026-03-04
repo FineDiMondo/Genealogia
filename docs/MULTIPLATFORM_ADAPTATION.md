@@ -48,3 +48,9 @@ Consolidare una base multipiattaforma orientata a build ripetibili e DB embedded
     - `GN370_IMPORT_FAMILY_LOG`
   - `assets/js/sql-runtime.js` ora sincronizza sia `GN370_ROW_STORE` sia mirror typed.
   - mantenuto invariato il comportamento deterministico di reset/boot e il row-store come fallback canonico.
+
+- 2026-03-04: step 2 completato.
+  - aggiunto test runtime parity memoria/SQL: `tests/sql_runtime_parity.test.js`.
+  - lo script `npm run test:sql` ora esegue:
+    - `tests/sql_runtime.test.js` (wiring/static checks)
+    - `tests/sql_runtime_parity.test.js` (parity `table_meta`/`typed_meta` + `import_audit` + reset SQL)

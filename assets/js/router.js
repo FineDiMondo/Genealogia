@@ -44,6 +44,69 @@
     });
   }
 
+  function sanitizeZipFileName(rawName) {
+    var base = String(rawName || "").trim();
+    if (!base) {
+      return "";
+    }
+    if (!/\.zip$/i.test(base)) {
+      base += ".zip";
+    }
+    if (/[\\/]/.test(base) || base.indexOf("..") >= 0) {
+      throw new Error("NOME_FILE_NON_VALIDO");
+    }
+    return base;
+  }
+
+  async function fetchSalvataggiList() {
+    var res = await fetch("api/salvataggi", { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error("SALVATAGGI_API_HTTP_" + res.status);
+    }
+    var payload = await res.json();
+    if (!payload || !Array.isArray(payload.files)) {
+      throw new Error("SALVATAGGI_API_PAYLOAD_INVALIDO");
+    }
+    return payload.files;
+  }
+
+  async function loadZipFromSalvataggi(rawFileName) {
+    var requested = sanitizeZipFileName(rawFileName);
+    if (!requested) {
+      throw new Error("USO: carica <nomefile.zip>");
+    }
+
+    var files = await fetchSalvataggiList();
+    var found = files.find(function (name) {
+      return String(name || "").toLowerCase() === requested.toLowerCase();
+    });
+
+    if (!found) {
+      throw new Error("FILE_NON_TROVATO_IN_SALVATAGGI: " + requested);
+    }
+
+    var fileUrl = "salvataggi/" + encodeURIComponent(found);
+    var fileRes = await fetch(fileUrl, { cache: "no-store" });
+    if (!fileRes.ok) {
+      throw new Error("CARICA_HTTP_" + fileRes.status);
+    }
+
+    var zipPayload = await fileRes.blob();
+    try {
+      zipPayload.name = found;
+    } catch (_) {
+      // name is best-effort for import metadata only
+    }
+    var entries = await GN370.DB_ENGINE.listZipEntries(zipPayload);
+    var importResult = await GN370.DB_ENGINE.importZip(zipPayload, entries);
+
+    return {
+      fileName: found,
+      entries: entries,
+      importResult: importResult
+    };
+  }
+
   async function dispatch(raw) {
     var tokens = tokenize(raw);
     if (!tokens.length) {
@@ -61,12 +124,39 @@
           GN370.RENDER.line("PLAYER FLAC: " + GN370.PLAYER_COMMANDS.helpText);
           return;
         }
-        GN370.RENDER.line("Comandi: help man status clear mem refresh db import db list db show db reset db export import gedcom [--dry-run --auto-skip-low --strict] import status import log [--n N --record <id> --family <family_key>] import conflicts import review <corr_id> import accept <corr_id> import batch rerun import herald import notarial import nobility player pls load play pause stop seek next prev stat add tx statico <testo> open find tree maps mappa proto map timeline validate story journal monitor config theme quit");
+        GN370.RENDER.line("Comandi: help man start home risorgimento prototipo lista carica <nomefile.zip> status clear mem refresh db import db list db show db reset db export import gedcom [--dry-run --auto-skip-low --strict] import status import log [--n N --record <id> --family <family_key>] import conflicts import review <corr_id> import accept <corr_id> import batch rerun import herald import notarial import nobility player pls load play pause stop seek next prev stat add tx statico <testo> open find tree maps mappa proto map timeline validate story journal monitor config theme quit");
         return;
       }
 
       if (cmd === "man") {
         GN370.RENDER.line(GN370.MAN.get(tokens.slice(1).join(" ")));
+        return;
+      }
+
+      if (cmd === "start" || cmd === "home") {
+        if (GN370.RENDER && typeof GN370.RENDER.showHomeGateway === "function") {
+          GN370.RENDER.showHomeGateway();
+          GN370.RENDER.line("HOME GATEWAY attiva: usa PF1/PF2/PF3/PF4 o seleziona un mondo.", "line-ok");
+        } else {
+          GN370.RENDER.showHomeImport();
+        }
+        return;
+      }
+
+      if (cmd === "risorgimento") {
+        var activeTheme = GN370.CONFIG.applyTheme("risorgimentale");
+        if (GN370.RENDER && typeof GN370.RENDER.showHomeGateway === "function") {
+          GN370.RENDER.showHomeGateway();
+        } else {
+          GN370.RENDER.showHomeImport();
+        }
+        GN370.RENDER.line("Tema attivo: " + activeTheme, "line-ok");
+        GN370.RENDER.line("Percorso rapido: esegui `proto home 80` o clicca PF1 nel gateway.", "line-ok");
+        return;
+      }
+
+      if (cmd === "prototipo") {
+        global.location.href = "prototipo/";
         return;
       }
 
@@ -133,9 +223,38 @@
         return;
       }
 
+      if (cmd === "lista") {
+        var files = await fetchSalvataggiList();
+        if (!files.length) {
+          GN370.RENDER.line("salvataggi/: nessun file .zip trovato.", "line-warn");
+          return;
+        }
+        GN370.RENDER.line("salvataggi/: " + files.length + " file .zip disponibili", "line-ok");
+        files.forEach(function (name) {
+          GN370.RENDER.line("- " + name);
+        });
+        return;
+      }
+
+      if (cmd === "carica") {
+        var rawFileName = tokens.slice(1).join(" ").trim();
+        if (!rawFileName) {
+          GN370.RENDER.line("Uso: carica <nomefile.zip>", "line-warn");
+          return;
+        }
+        var loadResult = await loadZipFromSalvataggi(rawFileName);
+        GN370.RENDER.setStatus("DB: READY");
+        GN370.RENDER.line("CARICA OK: " + loadResult.fileName + " (" + loadResult.entries.length + " tabelle)", "line-ok");
+        return;
+      }
+
       if (cmd2 === "db import") {
-        GN370.RENDER.showHomeImport();
-        GN370.RENDER.line("HOME IMPORT attiva: seleziona ZIP e poi IMPORTA.");
+        if (GN370.RENDER && typeof GN370.RENDER.showHomeGateway === "function") {
+          GN370.RENDER.showHomeGateway({ focusAction: "import-zip" });
+        } else {
+          GN370.RENDER.showHomeImport();
+        }
+        GN370.RENDER.line("HOME IMPORT attiva: usa PF3 o il pulsante 'Ripristino ZIP'.");
         return;
       }
 
@@ -163,7 +282,11 @@
       if (cmd2 === "db reset") {
         GN370.DB_ENGINE.reset();
         GN370.RENDER.setStatus("DB: EMPTY");
-        GN370.RENDER.showHomeImport();
+        if (GN370.RENDER && typeof GN370.RENDER.showHomeGateway === "function") {
+          GN370.RENDER.showHomeGateway();
+        } else {
+          GN370.RENDER.showHomeImport();
+        }
         GN370.RENDER.line("DB reset completato", "line-ok");
         return;
       }
@@ -171,7 +294,11 @@
       if (cmd2 === "mem refresh" || cmd2 === "memory reset") {
         GN370.DB_ENGINE.reset();
         GN370.RENDER.setStatus("DB: EMPTY");
-        GN370.RENDER.showHomeImport();
+        if (GN370.RENDER && typeof GN370.RENDER.showHomeGateway === "function") {
+          GN370.RENDER.showHomeGateway();
+        } else {
+          GN370.RENDER.showHomeImport();
+        }
         GN370.RENDER.line("MEM refresh completato", "line-ok");
         return;
       }
@@ -430,7 +557,7 @@
       }
 
       if (cmd === "theme") {
-        var theme = tokens[1] || "terminal";
+        var theme = tokens[1] || "risorgimentale";
         var applied = GN370.CONFIG.applyTheme(theme);
         GN370.RENDER.line("Tema attivo: " + applied, "line-ok");
         return;

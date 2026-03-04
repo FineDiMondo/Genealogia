@@ -95,3 +95,16 @@ Versione 0 e la baseline operativa del progetto GN370:
 - Allineamento completo man/docs con comandi reali.
 - Pipeline import stabile su dataset campione.
 - Pacchetto documentale unico e coerente.
+
+## 8) Evoluzione documentata (GNHM0001)
+
+E stata definita una proposta di revisione completa della pagina iniziale per ridurre attrito d'ingresso e rendere immediato l'accesso alla vista risorgimentale/prototipo.
+
+Documenti di riferimento:
+- `docs/ANALISI_FUNZIONALE_GNHM0001.md`
+- `docs/ANALISI_TECNICA_GNHM0001.md`
+
+Principi garantiti dalla proposta:
+- invarianti di boot/gate invariati;
+- no auto-fetch dati in fase di avvio;
+- canale shell esperto preservato.

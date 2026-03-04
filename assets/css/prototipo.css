@@ -1,0 +1,320 @@
+:root {
+  --bg: #efe3ce;
+  --paper: #f6eddb;
+  --paper-2: #ead8bb;
+  --ink: #26180e;
+  --ink-soft: #53392b;
+  --line: rgba(63, 42, 27, 0.22);
+  --accent: #2f6234;
+  --accent-soft: rgba(47, 98, 52, 0.16);
+  --glow: rgba(164, 123, 31, 0.28);
+  --mono: "IBM Plex Mono", "Consolas", "Courier New", monospace;
+  --display: "Cinzel", "Bookman Old Style", "Palatino Linotype", serif;
+  --body: "Cormorant Garamond", "Palatino Linotype", "Book Antiqua", serif;
+}
+
+body[data-skin="pergamena"] {
+  --bg: #f4ead9;
+  --paper: #fff8ea;
+  --paper-2: #e6d0b0;
+  --ink: #2d1d11;
+  --ink-soft: #6a4a2d;
+  --line: rgba(77, 50, 28, 0.22);
+  --accent: #846126;
+  --accent-soft: rgba(132, 97, 38, 0.18);
+  --glow: rgba(154, 116, 42, 0.24);
+}
+
+body[data-skin="telegrafo"] {
+  --bg: #d7e7dc;
+  --paper: #ebf4ef;
+  --paper-2: #c8dbd0;
+  --ink: #14221c;
+  --ink-soft: #2d453a;
+  --line: rgba(20, 34, 28, 0.22);
+  --accent: #0f6a55;
+  --accent-soft: rgba(15, 106, 85, 0.16);
+  --glow: rgba(30, 121, 103, 0.22);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--body);
+  color: var(--ink);
+  background:
+    radial-gradient(900px 360px at 5% -10%, var(--glow), transparent 72%),
+    radial-gradient(720px 300px at 97% 0, var(--accent-soft), transparent 68%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.015) 0,
+      rgba(0, 0, 0, 0.015) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    var(--bg);
+}
+
+.proto-shell {
+  width: min(1400px, 100%);
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.proto-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.36));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  padding: 14px 16px;
+}
+
+.proto-kicker {
+  margin: 0 0 4px;
+  font: 700 0.73rem/1.1 var(--mono);
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+}
+
+.proto-header h1 {
+  margin: 0;
+  font: 700 clamp(1.35rem, 2.6vw, 2.15rem) / 1 var(--display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.proto-subtitle {
+  margin: 8px 0 0;
+  font-size: 1.03rem;
+}
+
+.proto-links {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.proto-link {
+  border: 1px solid var(--line);
+  padding: 7px 10px;
+  text-decoration: none;
+  color: inherit;
+  font: 700 0.74rem/1 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(255, 255, 255, 0.52);
+}
+
+.proto-link:hover {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.proto-toolbar {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 10px;
+}
+
+.proto-block {
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.34));
+  padding: 10px 12px;
+}
+
+.proto-block h2 {
+  margin: 0 0 8px;
+  font: 700 0.86rem/1 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.proto-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.proto-tab {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.64);
+  color: inherit;
+  font: 700 0.73rem/1 var(--mono);
+  padding: 8px 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  cursor: pointer;
+}
+
+.proto-tab:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.proto-tab[aria-selected="true"],
+.proto-tab.is-active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.proto-tab:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.proto-layout {
+  display: grid;
+  grid-template-columns: 290px 1fr 290px;
+  gap: 10px;
+  min-height: 0;
+}
+
+.proto-panel {
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.64), rgba(255, 255, 255, 0.31));
+  padding: 12px;
+  min-height: 560px;
+}
+
+.proto-panel h2 {
+  margin: 0;
+  font: 700 1rem/1.1 var(--display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.proto-muted {
+  margin: 8px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+}
+
+.proto-meta {
+  margin: 12px 0 0;
+  display: grid;
+  gap: 8px;
+}
+
+.proto-meta div {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.5);
+  padding: 8px;
+}
+
+.proto-meta dt {
+  margin: 0;
+  font: 700 0.67rem/1 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+.proto-meta dd {
+  margin: 6px 0 0;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+
+.proto-canvas-wrap {
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.79), rgba(255, 255, 255, 0.52)),
+    var(--paper);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.62);
+  min-height: 560px;
+  overflow: auto;
+}
+
+.proto-canvas {
+  margin: 0;
+  padding: 14px;
+  min-height: 100%;
+  font: 400 0.8rem/1.38 var(--mono);
+  color: var(--ink);
+  white-space: pre;
+}
+
+.proto-panel-right {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.proto-legend {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.proto-footer {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.62);
+  padding: 8px 12px;
+  font: 700 0.72rem/1.2 var(--mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.proto-footer code {
+  font-family: var(--mono);
+  text-transform: none;
+}
+
+@media (max-width: 1180px) {
+  .proto-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .proto-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .proto-panel,
+  .proto-canvas-wrap {
+    min-height: 260px;
+  }
+
+  .proto-canvas {
+    font-size: 0.73rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .proto-shell {
+    padding: 10px;
+  }
+
+  .proto-header {
+    padding: 10px;
+  }
+
+  .proto-header h1 {
+    font-size: 1.2rem;
+  }
+
+  .proto-subtitle {
+    font-size: 0.92rem;
+  }
+
+  .proto-tab {
+    font-size: 0.67rem;
+    padding: 7px;
+  }
+}

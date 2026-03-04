@@ -1,0 +1,217 @@
+#gn370-panel {
+  margin-bottom: 10px;
+}
+
+.gnhm-shell {
+  border: 1px solid rgba(50, 34, 20, 0.22);
+  background: rgba(255, 255, 255, 0.33);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.gnhm-head {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(50, 34, 20, 0.2);
+  padding: 8px 10px;
+}
+
+.gnhm-program {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gnhm-state {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.72rem;
+}
+
+.gnhm-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr 260px;
+  gap: 10px;
+  padding: 10px;
+}
+
+.gnhm-pane {
+  border: 1px solid rgba(50, 34, 20, 0.24);
+  background: rgba(255, 255, 255, 0.35);
+  padding: 8px;
+  min-height: 240px;
+}
+
+.gnhm-pane h3 {
+  margin: 0 0 8px 0;
+  font-family: "Garamond", "Palatino Linotype", serif;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+}
+
+.gnhm-btn {
+  width: 100%;
+  border: 1px solid rgba(50, 34, 20, 0.28);
+  background: rgba(255, 255, 255, 0.56);
+  color: inherit;
+  text-align: left;
+  padding: 6px 8px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.78rem;
+}
+
+.gnhm-btn:hover {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.gnhm-btn-primary {
+  border-color: var(--accent, #1fa067);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+}
+
+.gnhm-world-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.gnhm-world-card {
+  border: 1px solid rgba(50, 34, 20, 0.28);
+  background: rgba(255, 255, 255, 0.54);
+  color: inherit;
+  text-align: left;
+  padding: 6px;
+  cursor: pointer;
+  min-height: 72px;
+  display: grid;
+  gap: 6px;
+}
+
+.gnhm-world-card:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.gnhm-world-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.gnhm-world-pf {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--accent, #1fa067);
+}
+
+.gnhm-world-label {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.7rem;
+}
+
+.gnhm-world-summary {
+  font-size: 0.74rem;
+  line-height: 1.25;
+}
+
+.gnhm-hints {
+  margin-top: 8px;
+  font-size: 0.78rem;
+}
+
+.gnhm-oplog {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 5px;
+  max-height: 180px;
+  overflow: auto;
+}
+
+.gnhm-oplog li {
+  border: 1px solid rgba(50, 34, 20, 0.18);
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.35);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.66rem;
+  line-height: 1.3;
+}
+
+.gnhm-log-empty {
+  font-style: italic;
+}
+
+.gnhm-log-ts {
+  display: block;
+  opacity: 0.78;
+}
+
+.gnhm-log-op {
+  display: inline-block;
+  margin-right: 6px;
+  font-weight: 700;
+}
+
+.gnhm-links {
+  margin-top: 8px;
+  display: grid;
+  gap: 6px;
+}
+
+.gnhm-link-btn {
+  border: 1px solid rgba(50, 34, 20, 0.28);
+  background: rgba(255, 255, 255, 0.56);
+  color: inherit;
+  text-decoration: none;
+  padding: 6px 8px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.7rem;
+  display: block;
+  cursor: pointer;
+}
+
+.gnhm-link-btn:hover {
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.gnhm-foot {
+  border-top: 1px solid rgba(50, 34, 20, 0.2);
+  padding: 6px 10px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.7rem;
+}
+
+.gnhm-zip-stage {
+  margin-top: 6px;
+  border-top: 1px dashed rgba(50, 34, 20, 0.26);
+  padding-top: 6px;
+  font-size: 0.72rem;
+}
+
+@media (max-width: 1060px) {
+  .gnhm-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gnhm-world-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .gnhm-world-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gnhm-state {
+    font-size: 0.68rem;
+  }
+}

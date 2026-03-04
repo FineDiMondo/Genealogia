@@ -4,6 +4,7 @@
   var GN370 = global.GN370 = global.GN370 || {};
   var bootStart = Date.now();
   var didBoot = false;
+  var sqlModeReported = false;
 
   function bindInput() {
     var input = document.getElementById("gn370-input");
@@ -22,7 +23,11 @@
   function hardRefreshMemory(reason) {
     GN370.DB_ENGINE.reset();
     GN370.RENDER.setStatus("DB: EMPTY");
-    GN370.RENDER.showHomeImport();
+    if (GN370.RENDER && typeof GN370.RENDER.showHomeGateway === "function") {
+      GN370.RENDER.showHomeGateway();
+    } else {
+      GN370.RENDER.showHomeImport();
+    }
     GN370.RENDER.line("MEM: CLEAN", "line-ok");
     GN370.RENDER.line("DB: EMPTY", "line-ok");
     if (reason) {
@@ -45,19 +50,24 @@
     });
   }
 
+  function reportSqlMode() {
+    if (!didBoot || sqlModeReported || !global.__GN370_SQL_MODE) {
+      return;
+    }
+    GN370.RENDER.line("SQL MODE: " + global.__GN370_SQL_MODE, global.__GN370_SQL_MODE === "ERROR" ? "line-warn" : "line-ok");
+    if (global.__GN370_SQL_ERROR) {
+      GN370.RENDER.line("SQL ERR: " + global.__GN370_SQL_ERROR, "line-warn");
+    }
+    sqlModeReported = true;
+  }
+
   function boot() {
     if (!didBoot) {
       GN370.RENDER.init();
       didBoot = true;
     }
-    GN370.CONFIG.applyTheme(GN370.CONFIG.get("gn370.theme.default") || "terminal");
+    GN370.CONFIG.applyTheme(GN370.CONFIG.get("gn370.theme.default") || "risorgimentale");
     GN370.RENDER.line("GN370 BOOT", "line-ok");
-    if (global.__GN370_SQL_MODE) {
-      GN370.RENDER.line("SQL MODE: " + global.__GN370_SQL_MODE, global.__GN370_SQL_MODE === "ERROR" ? "line-warn" : "line-ok");
-      if (global.__GN370_SQL_ERROR) {
-        GN370.RENDER.line("SQL ERR: " + global.__GN370_SQL_ERROR, "line-warn");
-      }
-    }
     hardRefreshMemory("BOOT");
     GN370.RENDER.focusInput();
 
@@ -69,9 +79,8 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     bindInput();
-    Promise.resolve(initSqlRuntime()).finally(function () {
-      boot();
-    });
+    boot();
+    Promise.resolve(initSqlRuntime()).finally(reportSqlMode);
   });
 
   global.addEventListener("pageshow", function (ev) {

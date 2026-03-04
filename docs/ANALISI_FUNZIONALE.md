@@ -40,3 +40,12 @@
 - Legacy: `maps`, `mappa 1a`, `map 2d`
 - Prototipo V0: `proto home`, `proto world 1 seq`, `proto lint all`
 - Guard warning: segnala output verboso, duplicato o non conforme
+
+## Evoluzione proposta - GNHM0001
+
+- Introduzione di una home gateway guidata per accesso diretto al prototipo risorgimentale.
+- Riduzione dei passaggi iniziali da comandi manuali a interazione click/PF.
+- Conservazione del canale shell esperto senza regressioni dei flussi attuali.
+
+Documento di dettaglio:
+- `docs/ANALISI_FUNZIONALE_GNHM0001.md`

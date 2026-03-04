@@ -19,6 +19,13 @@ Questa documentazione descrive la **Versione 0**: base funzionante, perimetro ch
 4. Aprire `http://localhost:8080`
    - se la porta `8080` e occupata, `npm run serve` usa automaticamente la successiva disponibile (es. `8081`)
 
+## Condivisione GitHub Pages
+
+- Workflow: `.github/workflows/deploy.yml`
+- Deploy automatico su push in `main` e `feature/gnhm0001-home-risorgimentale-docs`
+- Deploy manuale disponibile da tab **Actions** (`workflow_dispatch`)
+- URL prototipo da condividere: `https://finedimondo.github.io/Genealogia/prototipo/`
+
 ## Comandi principali shell
 
 - `help`, `man <cmd>`, `status`, `clear`, `quit`
@@ -35,6 +42,8 @@ Questa documentazione descrive la **Versione 0**: base funzionante, perimetro ch
 - [Analisi requisiti](docs/ANALISI_REQUISITI.md)
 - [Analisi tecnica](docs/ANALISI_TECNICA.md)
 - [Analisi funzionale](docs/ANALISI_FUNZIONALE.md)
+- [Analisi funzionale GNHM0001 (home gateway)](docs/ANALISI_FUNZIONALE_GNHM0001.md)
+- [Analisi tecnica GNHM0001 (home gateway)](docs/ANALISI_TECNICA_GNHM0001.md)
 - [GEDCOM mapping](docs/GEDCOM_MAPPING.md)
 - [Herald format](docs/HERALD_FORMAT.md)
 - [Lessico](docs/LEXICON.md)

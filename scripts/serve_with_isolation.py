@@ -8,11 +8,44 @@ from __future__ import annotations
 import argparse
 import errno
 import http.server
+import json
 import socketserver
 from pathlib import Path
+from urllib.parse import urlsplit
 
 
 class IsolationHandler(http.server.SimpleHTTPRequestHandler):
+    def _send_json(self, payload: dict, status: int = 200) -> None:
+        body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _handle_salvataggi_list(self) -> None:
+        root_dir = Path(self.directory or ".").resolve()
+        salvataggi = root_dir / "salvataggi"
+        salvataggi.mkdir(parents=True, exist_ok=True)
+        files = sorted(
+            p.name
+            for p in salvataggi.iterdir()
+            if p.is_file() and p.suffix.lower() == ".zip"
+        )
+        self._send_json({
+            "folder": "salvataggi",
+            "count": len(files),
+            "files": files,
+        })
+
+    def do_GET(self) -> None:
+        path = urlsplit(self.path).path
+        if path == "/api/salvataggi":
+            self._handle_salvataggi_list()
+            return
+        super().do_GET()
+
     def end_headers(self) -> None:
         self.send_header("Cross-Origin-Opener-Policy", "same-origin")
         self.send_header("Cross-Origin-Embedder-Policy", "require-corp")

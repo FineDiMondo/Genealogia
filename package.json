@@ -5,7 +5,7 @@
   "scripts": {
     "test": "node tests/gate_tests.js && node tests/multienv_tests.js",
     "test:playwright": "npx playwright test",
-    "test:sql": "node tests/sql_runtime.test.js",
+    "test:sql": "node tests/sql_runtime.test.js && node tests/sql_runtime_parity.test.js",
     "test:player": "node tests/player_commands.test.js",
     "build": "node scripts/verify_deployment.js",
     "db:recreate": "python scripts/recreate_sqlite.py --schema db/schema.sql --db out/runtime/gn370.sqlite",

@@ -8,6 +8,7 @@
 4. Supporto import specialistici: araldica, notarile, nobiltario.
 5. Comandi shell uniformi per consultazione e diagnostica.
 6. Esportazione DB in formato ZIP.
+7. Home gateway guidata per accesso al prototipo 9 mondi senza comandi obbligatori.
 
 ## Requisiti non funzionali
 
@@ -15,6 +16,7 @@
 - Gate su accesso dati per impedire letture premature.
 - Tracciabilita operazioni import e sessione.
 - Documentazione minima operativa allineata al codice.
+- Riduzione del carico cognitivo iniziale (recognition over recall).
 
 ## Invarianti V0
 
@@ -30,3 +32,9 @@
 - Orchestrazione backend multiutente.
 - Workflow autorizzativi avanzati.
 - Packaging nativo definitivo per tutti i target.
+
+## Delta documentale GNHM0001
+
+Dettaglio analitico disponibile in:
+- `docs/ANALISI_FUNZIONALE_GNHM0001.md`
+- `docs/ANALISI_TECNICA_GNHM0001.md`

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GN370 Prototipo Web</title>
+  <link rel="stylesheet" href="../assets/css/prototipo.css">
+</head>
+<body data-skin="risorgimentale">
+  <main class="proto-shell">
+    <header class="proto-header">
+      <div class="proto-brand">
+        <p class="proto-kicker">GN370 · PROTOTIPO MONUMENTALE</p>
+        <h1>Visione Web Del Prodotto Finito</h1>
+        <p class="proto-subtitle">
+          Preview locale web-only delle mappe 1..9 con varianti A/B/C/D.
+          Dati invariati, cambia solo la resa CSS.
+        </p>
+      </div>
+      <nav class="proto-links" aria-label="Navigazione rapida">
+        <a class="proto-link" href="../">Torna alla Shell</a>
+        <a class="proto-link" href="../control/">Control Center</a>
+      </nav>
+    </header>
+
+    <section class="proto-toolbar" aria-label="Strumenti prototipo">
+      <div class="proto-block">
+        <h2>Mappe</h2>
+        <div id="proto-map-tabs" class="proto-tabs" role="tablist" aria-label="Seleziona mappa"></div>
+      </div>
+      <div class="proto-block">
+        <h2>Varianti</h2>
+        <div id="proto-variant-tabs" class="proto-tabs" role="tablist" aria-label="Seleziona variante"></div>
+      </div>
+      <div class="proto-block">
+        <h2>Skin CSS</h2>
+        <div class="proto-tabs" role="tablist" aria-label="Seleziona skin visuale">
+          <button class="proto-tab" type="button" data-skin="risorgimentale">Risorgimentale</button>
+          <button class="proto-tab" type="button" data-skin="pergamena">Pergamena</button>
+          <button class="proto-tab" type="button" data-skin="telegrafo">Telegrafo</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="proto-layout">
+      <aside class="proto-panel" aria-label="Informazioni mappa">
+        <h2 id="proto-map-title">Caricamento mappa...</h2>
+        <p id="proto-map-subtitle" class="proto-muted">Attendere il parsing del file mappe.</p>
+        <dl class="proto-meta">
+          <div>
+            <dt>Vista attiva</dt>
+            <dd id="proto-variant-label">-</dd>
+          </div>
+          <div>
+            <dt>Righe</dt>
+            <dd id="proto-row-count">-</dd>
+          </div>
+          <div>
+            <dt>Larghezza</dt>
+            <dd id="proto-col-count">-</dd>
+          </div>
+          <div>
+            <dt>Comando shell</dt>
+            <dd>GN370$ prototipo</dd>
+          </div>
+        </dl>
+      </aside>
+
+      <article class="proto-canvas-wrap" aria-label="Canvas prototipo">
+        <pre id="proto-canvas" class="proto-canvas">Caricamento contenuti...</pre>
+      </article>
+
+      <aside class="proto-panel proto-panel-right" aria-label="Legenda operativa">
+        <h2>Legenda Rapida</h2>
+        <ul class="proto-legend">
+          <li><strong>A</strong> Orizzontale narrativa</li>
+          <li><strong>B</strong> Verticale genealogica</li>
+          <li><strong>C</strong> Wireframe operativo</li>
+          <li><strong>D</strong> Compatibilità ASCII-370</li>
+        </ul>
+        <p class="proto-muted">
+          Questa pagina è una vetrina di prodotto: nessuna logica DB viene eseguita.
+          Il contenuto arriva dal file mappe e viene presentato con skin web.
+        </p>
+      </aside>
+    </section>
+
+    <footer class="proto-footer">
+      <span>Comandi utili: <code>prototipo</code> · <code>mappa 1a</code> · <code>proto world 1 120</code></span>
+    </footer>
+  </main>
+
+  <script src="../assets/js/prototipo.js"></script>
+</body>
+</html>
