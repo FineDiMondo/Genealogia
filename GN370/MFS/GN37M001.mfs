@@ -1,0 +1,99 @@
+         PRINT NOGEN
+***********************************************************************
+* MAPSET: GN37M001
+* MAP   : GN37D001
+* DEVICE: 3270-A02 (24x80)
+* AUTH  : CODEX AI, 2026-03-05
+* DESC  : MAPPA HOME PER TRANSAZIONE GN37HOME
+***********************************************************************
+GN37M001  FMT
+          DEV   TYPE=(3270,2),FEAT=IGNORE,SYSMSG=24
+          MSG   TYPE=INPUT,SOR=(GN37D001I)
+          MSG   TYPE=OUTPUT,SOR=(GN37D001O),NXT=GN37D001I
+          END
+
+GN37D001  FMT
+          DEV   TYPE=(3270,2),SIZE=(24,80)
+***********************************************************************
+* COSTANTI DI LAYOUT FISSO
+***********************************************************************
+          DFLD  'GN370 · ARCHIVIO GENEALOGICO',POS=(2,3),ATTR=(PROT,NORM)
+          DFLD  '[PF10:TEMA]',POS=(2,65),ATTR=(PROT,NORM)
+          DFLD  '──────────────────────────────────────────────────────────────────────────────',POS=(3,2),ATTR=PROT
+          DFLD  '┌───────────────┬───────────────┬───────────────┐',POS=(7,3),ATTR=PROT
+          DFLD  '│',POS=(8,3),ATTR=PROT
+          DFLD  '│',POS=(8,18),ATTR=PROT
+          DFLD  '│',POS=(8,34),ATTR=PROT
+          DFLD  '│',POS=(8,50),ATTR=PROT
+          DFLD  '│',POS=(9,3),ATTR=PROT
+          DFLD  '│',POS=(9,18),ATTR=PROT
+          DFLD  '│',POS=(9,34),ATTR=PROT
+          DFLD  '│',POS=(9,50),ATTR=PROT
+          DFLD  '[PF:1]',POS=(11,6),ATTR=PROT
+          DFLD  '[PF:2]',POS=(11,21),ATTR=PROT
+          DFLD  '[PF:3]',POS=(11,37),ATTR=PROT
+          DFLD  '├───────────────┼───────────────┼───────────────┤',POS=(12,3),ATTR=PROT
+          DFLD  '│',POS=(13,3),ATTR=PROT
+          DFLD  '│',POS=(13,18),ATTR=PROT
+          DFLD  '│',POS=(13,34),ATTR=PROT
+          DFLD  '│',POS=(13,50),ATTR=PROT
+          DFLD  '[PF:4]',POS=(16,6),ATTR=PROT
+          DFLD  '[PF:5] ATTIVO',POS=(16,21),ATTR=PROT
+          DFLD  '[PF:6]',POS=(16,37),ATTR=PROT
+          DFLD  '├───────────────┼───────────────┼───────────────┤',POS=(17,3),ATTR=PROT
+          DFLD  '│',POS=(18,3),ATTR=PROT
+          DFLD  '│',POS=(18,18),ATTR=PROT
+          DFLD  '│',POS=(18,34),ATTR=PROT
+          DFLD  '│',POS=(18,50),ATTR=PROT
+          DFLD  '[PF:7]',POS=(21,6),ATTR=PROT
+          DFLD  '[PF:8]',POS=(21,21),ATTR=PROT
+          DFLD  '[PF:9]',POS=(21,37),ATTR=PROT
+          DFLD  '└───────────────┴───────────────┴───────────────┘',POS=(22,3),ATTR=PROT
+          DFLD  '──────────────────────────────────────────────────────────────────────────────',POS=(23,2),ATTR=PROT
+          DFLD  'CMD:',POS=(24,3),ATTR=(PROT,NORM)
+***********************************************************************
+* CAMPI INPUT / OUTPUT
+***********************************************************************
+*
+* HEADER
+*
+CMDIN     DFLD  POS=(2,48),LTH=8,ATTR=(UNPROT,IC)
+*
+* WORLD GRID LABELS (OUTPUT)
+*
+W1LBL     DFLD  POS=(9,6),LTH=16,ATTR=(PROT,NORM)
+W2LBL     DFLD  POS=(9,21),LTH=16,ATTR=(PROT,NORM)
+W3LBL     DFLD  POS=(9,37),LTH=16,ATTR=(PROT,NORM)
+W4LBL     DFLD  POS=(14,6),LTH=16,ATTR=(PROT,NORM)
+W5LBL     DFLD  POS=(14,21),LTH=16,ATTR=(PROT,BRT)
+W6LBL     DFLD  POS=(14,37),LTH=16,ATTR=(PROT,NORM)
+W7LBL     DFLD  POS=(19,6),LTH=16,ATTR=(PROT,NORM)
+W8LBL     DFLD  POS=(19,21),LTH=16,ATTR=(PROT,NORM)
+W9LBL     DFLD  POS=(19,37),LTH=16,ATTR=(PROT,NORM)
+*
+* WORLD GRID DESCRIPTIONS (CONSTANT)
+*
+          DFLD  'Titoli·Linea',POS=(10,6),ATTR=PROT
+          DFLD  'Nascite·Morti',POS=(10,21),ATTR=PROT
+          DFLD  'Arti·Talenti',POS=(10,37),ATTR=PROT
+          DFLD  'Traumi·Esili',POS=(15,6),ATTR=PROT
+          DFLD  'Storia·Ere',POS=(15,21),ATTR=PROT
+          DFLD  'DNA·Scienza',POS=(15,37),ATTR=PROT
+          DFLD  'Beni·Patrim.',POS=(20,6),ATTR=PROT
+          DFLD  'Lacune·Ignoto',POS=(20,21),ATTR=PROT
+*
+* WORLD 9 #ROOT# FIELDS (OUTPUT)
+*
+ROOTSYM   DFLD  POS=(20,37),LTH=1,ATTR=(PROT,NORM)
+ROOTNAM   DFLD  POS=(20,39),LTH=10,ATTR=(PROT,NORM)
+*
+* FOOTER FIELDS (OUTPUT)
+*
+SELFDSP   DFLD  POS=(24,22),LTH=16,ATTR=(PROT,NORM)
+JOBSTAT   DFLD  POS=(24,45),LTH=8,ATTR=(PROT,NORM)
+THEMEDISP DFLD  POS=(24,58),LTH=16,ATTR=(PROT,NORM)
+*
+* GENERIC MESSAGE FIELD
+*
+MSGDTL    DFLD  POS=(24,8),LTH=72,ATTR=(PROT,BRT)
+          END

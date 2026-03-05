@@ -1,0 +1,10 @@
+{
+  "psbName": "GN37DEMO",
+  "pcbs": [
+    {
+      "pcbName": "GNDEMO01",
+      "ddnames": ["PERSON", "FAMILY", "GEDTOK", "TERMMSG"],
+      "allow": ["OPEN", "READ", "WRITE", "REWRITE", "DELETE", "CLOSE"]
+    }
+  ]
+}

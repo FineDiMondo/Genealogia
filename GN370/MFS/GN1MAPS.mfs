@@ -1,0 +1,139 @@
+         PRINT NOGEN
+***********************************************************************
+* MAPSET : GN1MAPS
+* MAP    : GN1PAGEI / GN1PAGEO
+* DEVICE : 3270 24x80
+* NOTE   : STUB derivato da richiesta "prima pagina" senza layout utente.
+***********************************************************************
+* FIELD CATALOG (ROW,COL,LEN,TYPE,ATTR,LEGEND)
+* IPFKEY  (23,02,02,INPUT,NORM)     [PF:n]
+* ISELFID (04,24,12,INPUT,NORM)     @SELF@
+* INODEID (06,24,08,INPUT,NORM)     {NODE}
+* IRELTXT (07,24,20,INPUT,NORM)     <REL>
+* IEVTTYP (10,24,12,INPUT,NORM)     *EVT*
+* IHYPTXT (11,24,20,INPUT,NORM)     ?HYP?
+* IPROPTX (12,24,20,INPUT,NORM)     $PROP$
+* ITITLET (13,24,20,INPUT,NORM)     ^TITLE^
+*
+* OSELFID (04,24,12,OUTPUT,PROT)    @SELF@
+* OROOTID (05,24,12,OUTPUT,PROT)    #ROOT#
+* ONODEID (06,24,08,OUTPUT,PROT)    {NODE}
+* ORELTXT (07,24,20,OUTPUT,PROT)    <REL>
+* OPATHTX (08,24,40,OUTPUT,PROT)    |PATH|
+* OGAPTXT (09,24,05,OUTPUT,PROT)    ~GAP~
+* OEVTTYP (10,24,12,OUTPUT,PROT)    *EVT*
+* OHYPTXT (11,24,20,OUTPUT,PROT)    ?HYP?
+* OPROPTX (12,24,20,OUTPUT,PROT)    $PROP$
+* OTITLET (13,24,20,OUTPUT,PROT)    ^TITLE^
+* OERATXT (14,24,05,OUTPUT,PROT)    =ERA=
+* OPCBPOS (15,24,20,OUTPUT,PROT)    >ACTIVE<
+* OMSGTXT (20,02,70,OUTPUT,HIGH)    messaggio E***
+* OPFINFO (22,02,70,OUTPUT,PROT)    aiuto PF
+***********************************************************************
+
+GN1PAGEI  MSG   TYPE=INPUT,SOR=(GN1PFMI)
+GN1PAGEO  MSG   TYPE=OUTPUT,SOR=(GN1PFMO)
+
+GN1PFMI   FMT
+          DEV   TYPE=3270
+          DPAGE CURSOR=((4,24))
+          DFLD  'GN370 IMS/DC PRIMA PAGINA (STUB)',POS=(1,19),
+               ATTR=(PROT,HIGH)
+          DFLD  'SELF-ID  (@SELF@) . . . :',POS=(4,2),ATTR=(PROT,NORM)
+          DFLD  ISELFID,POS=(4,24),LTH=12,ATTR=(NORM)
+          DFLD  'ROOT-ID  (#ROOT#) . . . :',POS=(5,2),ATTR=(PROT,NORM)
+          DFLD  'NODE     ({NODE}) . . . :',POS=(6,2),ATTR=(PROT,NORM)
+          DFLD  INODEID,POS=(6,24),LTH=8,ATTR=(NORM)
+          DFLD  'REL      (<REL>) . . . :',POS=(7,2),ATTR=(PROT,NORM)
+          DFLD  IRELTXT,POS=(7,24),LTH=20,ATTR=(NORM)
+          DFLD  'PATH     (|PATH|) . . . :',POS=(8,2),ATTR=(PROT,NORM)
+          DFLD  'GAP      (~GAP~) . . . :',POS=(9,2),ATTR=(PROT,NORM)
+          DFLD  'EVENT    (*EVT*) . . . :',POS=(10,2),ATTR=(PROT,NORM)
+          DFLD  IEVTTYP,POS=(10,24),LTH=12,ATTR=(NORM)
+          DFLD  'HYP      (?HYP?) . . . :',POS=(11,2),ATTR=(PROT,NORM)
+          DFLD  IHYPTXT,POS=(11,24),LTH=20,ATTR=(NORM)
+          DFLD  'PROP     ($PROP$) . . . :',POS=(12,2),ATTR=(PROT,NORM)
+          DFLD  IPROPTX,POS=(12,24),LTH=20,ATTR=(NORM)
+          DFLD  'TITLE    (^TITLE^) . . :',POS=(13,2),ATTR=(PROT,NORM)
+          DFLD  ITITLET,POS=(13,24),LTH=20,ATTR=(NORM)
+          DFLD  'ERA      (=ERA=) . . . :',POS=(14,2),ATTR=(PROT,NORM)
+          DFLD  'ACTIVE   (>ACTIVE<) . .:',POS=(15,2),ATTR=(PROT,NORM)
+          DFLD  'MSG: ',POS=(20,2),ATTR=(PROT,HIGH)
+          DFLD  'PFKEY (01/03/05/06/07/09/11/12):',POS=(23,2),
+               ATTR=(PROT,NORM)
+          DFLD  IPFKEY,POS=(23,32),LTH=2,ATTR=(NORM)
+          MFLD  IPFKEY,LTH=2
+          MFLD  ISELFID,LTH=12
+          MFLD  INODEID,LTH=8
+          MFLD  IRELTXT,LTH=20
+          MFLD  IEVTTYP,LTH=12
+          MFLD  IHYPTXT,LTH=20
+          MFLD  IPROPTX,LTH=20
+          MFLD  ITITLET,LTH=20
+
+GN1PFMO   FMT
+          DEV   TYPE=3270
+          DPAGE CURSOR=((23,32))
+          DFLD  'GN370 IMS/DC PRIMA PAGINA',POS=(1,23),ATTR=(PROT,HIGH)
+          DFLD  'SELF-ID  (@SELF@) . . . :',POS=(4,2),ATTR=(PROT,NORM)
+          DFLD  OSELFID,POS=(4,24),LTH=12,ATTR=(PROT,NORM)
+          DFLD  'ROOT-ID  (#ROOT#) . . . :',POS=(5,2),ATTR=(PROT,NORM)
+          DFLD  OROOTID,POS=(5,24),LTH=12,ATTR=(PROT,NORM)
+          DFLD  'NODE     ({NODE}) . . . :',POS=(6,2),ATTR=(PROT,NORM)
+          DFLD  ONODEID,POS=(6,24),LTH=8,ATTR=(PROT,NORM)
+          DFLD  'REL      (<REL>) . . . :',POS=(7,2),ATTR=(PROT,NORM)
+          DFLD  ORELTXT,POS=(7,24),LTH=20,ATTR=(PROT,NORM)
+          DFLD  'PATH     (|PATH|) . . . :',POS=(8,2),ATTR=(PROT,NORM)
+          DFLD  OPATHTX,POS=(8,24),LTH=40,ATTR=(PROT,NORM)
+          DFLD  'GAP      (~GAP~) . . . :',POS=(9,2),ATTR=(PROT,NORM)
+          DFLD  OGAPTXT,POS=(9,24),LTH=5,ATTR=(PROT,NORM)
+          DFLD  'EVENT    (*EVT*) . . . :',POS=(10,2),ATTR=(PROT,NORM)
+          DFLD  OEVTTYP,POS=(10,24),LTH=12,ATTR=(PROT,NORM)
+          DFLD  'HYP      (?HYP?) . . . :',POS=(11,2),ATTR=(PROT,NORM)
+          DFLD  OHYPTXT,POS=(11,24),LTH=20,ATTR=(PROT,NORM)
+          DFLD  'PROP     ($PROP$) . . . :',POS=(12,2),ATTR=(PROT,NORM)
+          DFLD  OPROPTX,POS=(12,24),LTH=20,ATTR=(PROT,NORM)
+          DFLD  'TITLE    (^TITLE^) . . :',POS=(13,2),ATTR=(PROT,NORM)
+          DFLD  OTITLET,POS=(13,24),LTH=20,ATTR=(PROT,NORM)
+          DFLD  'ERA      (=ERA=) . . . :',POS=(14,2),ATTR=(PROT,NORM)
+          DFLD  OERATXT,POS=(14,24),LTH=5,ATTR=(PROT,NORM)
+          DFLD  'ACTIVE   (>ACTIVE<) . .:',POS=(15,2),ATTR=(PROT,NORM)
+          DFLD  OPCBPOS,POS=(15,24),LTH=20,ATTR=(PROT,NORM)
+*         -------------------------------------------------------------
+*         --                GN370 WORLD LABELS                       --
+*         -------------------------------------------------------------
+          W1LBL   DFLD POS=(17,02),LTH=16,ATTR=(PROT,NORM)
+          W2LBL   DFLD POS=(17,20),LTH=16,ATTR=(PROT,NORM)
+          W3LBL   DFLD POS=(17,38),LTH=16,ATTR=(PROT,NORM)
+          W4LBL   DFLD POS=(18,02),LTH=16,ATTR=(PROT,NORM)
+          W5LBL   DFLD POS=(18,20),LTH=16,ATTR=(PROT,NORM)
+          W6LBL   DFLD POS=(18,38),LTH=16,ATTR=(PROT,NORM)
+          W7LBL   DFLD POS=(19,02),LTH=16,ATTR=(PROT,NORM)
+          W8LBL   DFLD POS=(19,20),LTH=16,ATTR=(PROT,NORM)
+          W9LBL   DFLD POS=(19,38),LTH=16,ATTR=(PROT,NORM)
+          DFLD  OMSGTXT,POS=(20,2),LTH=70,ATTR=(PROT,HIGH)
+          DFLD  OPFINFO,POS=(22,2),LTH=70,ATTR=(PROT,NORM)
+          MFLD  OSELFID,LTH=12
+          MFLD  OROOTID,LTH=12
+          MFLD  ONODEID,LTH=8
+          MFLD  ORELTXT,LTH=20
+          MFLD  OPATHTX,LTH=40
+          MFLD  OGAPTXT,LTH=5
+          MFLD  OEVTTYP,LTH=12
+          MFLD  OHYPTXT,LTH=20
+          MFLD  OPROPTX,LTH=20
+          MFLD  OTITLET,LTH=20
+          MFLD  OERATXT,LTH=5
+          MFLD  OPCBPOS,LTH=20
+          MFLD  W1LBL,LTH=16
+          MFLD  W2LBL,LTH=16
+          MFLD  W3LBL,LTH=16
+          MFLD  W4LBL,LTH=16
+          MFLD  W5LBL,LTH=16
+          MFLD  W6LBL,LTH=16
+          MFLD  W7LBL,LTH=16
+          MFLD  W8LBL,LTH=16
+          MFLD  W9LBL,LTH=16
+          MFLD  OMSGTXT,LTH=70
+          MFLD  OPFINFO,LTH=70
+          END

@@ -1,0 +1,18 @@
+         PSBGEN PSBNAME=GN1PSB01,LANG=COBOL,COMPAT=YES
+***********************************************************************
+* GN1PSB01 - PSB STUB per transazione GNPG001 (prima pagina IMS/DC)
+* Include IOPCB + 1 DB PCB gerarchico per ROOT/PERSON/EVENT/TITLE/ASSET/
+* RELATE/PLACE.
+***********************************************************************
+IOPCB    PCB   TYPE=TP,MODIFY=YES,EXPRESS=YES
+
+PERSPCB  PCB   TYPE=DB,DBDNAME=GN1DBD01,PROCOPT=GON,KEYLEN=12,POS=S
+         SENSEG NAME=ROOT
+         SENSEG NAME=PERSON,PARENT=ROOT
+         SENSEG NAME=EVENT,PARENT=PERSON
+         SENSEG NAME=TITLE,PARENT=PERSON
+         SENSEG NAME=ASSET,PARENT=PERSON
+         SENSEG NAME=RELATE,PARENT=PERSON
+         SENSEG NAME=PLACE,PARENT=ROOT
+
+         END

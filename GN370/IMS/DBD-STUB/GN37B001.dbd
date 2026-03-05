@@ -1,0 +1,35 @@
+      TITLE 'STUB DBD FOR GN370 HOME TRANSACTION'
+DBD   NAME=GN37B001,ACCESS=HDAM
+***********************************************************************
+*   SEGMENTO RADICE (STUB)
+***********************************************************************
+SEGM  NAME=ROOTSEG,PARENT=0,BYTES=20
+FIELD NAME=(ROOTKEY,SEQ,U),BYTES=8,START=1,TYPE=C
+
+***********************************************************************
+*   SEGMENTI FIGLI PRINCIPALI
+***********************************************************************
+SEGM  NAME=PERSSEG,PARENT=ROOTSEG,BYTES=84
+FIELD NAME=(PERSKEY,SEQ,U),BYTES=8,START=1,TYPE=C
+
+SEGM  NAME=PLACESG,PARENT=ROOTSEG,BYTES=60
+FIELD NAME=(PLACEKEY,SEQ,U),BYTES=8,START=1,TYPE=C
+
+***********************************************************************
+*   SEGMENTI DI SECONDO LIVELLO (FIGLI DI PERSONA)
+***********************************************************************
+SEGM  NAME=EVNTSEG,PARENT=PERSSEG,BYTES=30
+FIELD NAME=(EVNTKEY,SEQ,U),BYTES=8,START=1,TYPE=C
+
+SEGM  NAME=TITLSEG,PARENT=PERSSEG,BYTES=30
+FIELD NAME=(TITLKEY,SEQ,U),BYTES=8,START=1,TYPE=C
+
+SEGM  NAME=ASSTSEG,PARENT=PERSSEG,BYTES=30
+FIELD NAME=(ASSTKEY,SEQ,U),BYTES=8,START=1,TYPE=C
+
+SEGM  NAME=RELTSEG,PARENT=PERSSEG,BYTES=30
+FIELD NAME=(RELTKEY,SEQ,U),BYTES=8,START=1,TYPE=C
+
+      DBDGEN
+      FINISH
+      END
