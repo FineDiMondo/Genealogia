@@ -22,7 +22,7 @@ World labels represent logical concepts within the GN370 user interface. They ar
 
 ### 1.2. Implementation
 
-- **COBOL Copybook:** Label definitions are available to COBOL programs via the `COPY/GNLABEL.cpy` copybook.
+- **COBOL Copybook:** Label definitions are available to COBOL programs via the `CPY/GNLABEL.cpy` copybook.
 - **MFS Map:** The labels are displayed on the main map (`GN1MAPS`) as 16-character, protected, output-only fields (`W1LBL` to `W9LBL`).
 - **Initialization:** A COBOL program is responsible for loading the default values or overriding them from a configuration source.
 
@@ -59,5 +59,5 @@ System symbols are single-character logical markers used throughout MFS maps to 
 
 ### 2.2. Implementation
 
-- **COBOL Copybook:** Symbol constants are available to COBOL programs via the `COPY/GNSYMB.cpy` copybook.
+- **COBOL Copybook:** Symbol constants are available to COBOL programs via the `CPY/GNSYMB.cpy` copybook.
 - **Values:** Symbols are defined with a `PIC X` and a `VALUE` clause (e.g., `SYM-SELF PIC X VALUE "@"`).
