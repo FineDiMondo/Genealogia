@@ -1,0 +1,13 @@
+      TITLE 'PSB FOR GN370 WORLD-1 PROG GN37P002'
+***********************************************************************
+*   I/O PCB PER COMUNICAZIONE MFS
+***********************************************************************
+IOPCB1   PCB   TYPE=IO,MODIFY=YES
+***********************************************************************
+*   DB PCB PER ACCESSO AL DATABASE GN37B001 (STUB)
+*   PROCOPT=A (ALL) PER FLESSBILITA' NELLO STUB
+***********************************************************************
+DBPCB1   PCB   TYPE=DB,DBDNAME=GN37B001,PROCOPT=A,KEYLEN=8
+***********************************************************************
+      PSBGEN LANG=COBOL,PSBNAME=GN37S002
+      END

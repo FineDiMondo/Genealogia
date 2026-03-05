@@ -1,0 +1,151 @@
+         PRINT NOGEN
+***********************************************************************
+* MAPSET: GN37M002
+* MAP   : GN37D002
+* DEVICE: 3270-A02 (24x80)
+* AUTH  : CODEX AI, 2026-03-05
+* DESC  : MAPPA PER MONDO 1 (ORIGINI) - TX GN37W01
+***********************************************************************
+GN37M002  FMT
+          DEV   TYPE=(3270,2),FEAT=IGNORE,SYSMSG=24
+          MSG   TYPE=INPUT,SOR=(GN37D002I)
+          MSG   TYPE=OUTPUT,SOR=(GN37D002O),NXT=GN37D002I
+          END
+
+GN37D002  FMT
+          DEV   TYPE=(3270,2),SIZE=(24,80)
+***********************************************************************
+* COSTANTI DI LAYOUT FISSO
+***********************************************************************
+          DFLD  '==============================================================================',POS=(3,2),ATTR=PROT
+          DFLD  '#',POS=(4,2),ATTR=PROT
+          DFLD  '#',POS=(4,17),ATTR=PROT
+          DFLD  '#',POS=(4,62),ATTR=PROT
+          DFLD  '#',POS=(4,79),ATTR=PROT
+          DFLD  '#',POS=(5,2),ATTR=PROT
+          DFLD  '#',POS=(5,17),ATTR=PROT
+          DFLD  '#',POS=(5,62),ATTR=PROT
+          DFLD  '#',POS=(5,79),ATTR=PROT
+          DFLD  '#',POS=(6,2),ATTR=PROT
+          DFLD  '#',POS=(6,17),ATTR=PROT
+          DFLD  '#',POS=(6,62),ATTR=PROT
+          DFLD  '#',POS=(6,79),ATTR=PROT
+          DFLD  '#',POS=(7,2),ATTR=PROT
+          DFLD  '#',POS=(7,17),ATTR=PROT
+          DFLD  '#',POS=(7,62),ATTR=PROT
+          DFLD  '#',POS=(7,79),ATTR=PROT
+          DFLD  '#',POS=(8,2),ATTR=PROT
+          DFLD  '#',POS=(8,17),ATTR=PROT
+          DFLD  '#',POS=(8,62),ATTR=PROT
+          DFLD  '#',POS=(8,79),ATTR=PROT
+          DFLD  '#',POS=(9,2),ATTR=PROT
+          DFLD  '#',POS=(9,17),ATTR=PROT
+          DFLD  '#',POS=(9,62),ATTR=PROT
+          DFLD  '#',POS=(9,79),ATTR=PROT
+          DFLD  '#',POS=(10,2),ATTR=PROT
+          DFLD  '#',POS=(10,17),ATTR=PROT
+          DFLD  '#',POS=(10,62),ATTR=PROT
+          DFLD  '#',POS=(10,79),ATTR=PROT
+          DFLD  '#',POS=(11,2),ATTR=PROT
+          DFLD  '#',POS=(11,17),ATTR=PROT
+          DFLD  '#',POS=(11,62),ATTR=PROT
+          DFLD  '#',POS=(11,79),ATTR=PROT
+          DFLD  '#',POS=(12,2),ATTR=PROT
+          DFLD  '#',POS=(12,17),ATTR=PROT
+          DFLD  '#',POS=(12,62),ATTR=PROT
+          DFLD  '#',POS=(12,79),ATTR=PROT
+          DFLD  '#',POS=(13,2),ATTR=PROT
+          DFLD  '#',POS=(13,17),ATTR=PROT
+          DFLD  '#',POS=(13,62),ATTR=PROT
+          DFLD  '#',POS=(13,79),ATTR=PROT
+          DFLD  '#',POS=(14,2),ATTR=PROT
+          DFLD  '#',POS=(14,17),ATTR=PROT
+          DFLD  '#',POS=(14,62),ATTR=PROT
+          DFLD  '#',POS=(14,79),ATTR=PROT
+          DFLD  '#',POS=(15,2),ATTR=PROT
+          DFLD  '#',POS=(15,17),ATTR=PROT
+          DFLD  '#',POS=(15,62),ATTR=PROT
+          DFLD  '#',POS=(15,79),ATTR=PROT
+          DFLD  '#',POS=(16,2),ATTR=PROT
+          DFLD  '#',POS=(16,17),ATTR=PROT
+          DFLD  '#',POS=(16,62),ATTR=PROT
+          DFLD  '#',POS=(16,79),ATTR=PROT
+          DFLD  '#',POS=(17,2),ATTR=PROT
+          DFLD  '#',POS=(17,17),ATTR=PROT
+          DFLD  '#',POS=(17,62),ATTR=PROT
+          DFLD  '#',POS=(17,79),ATTR=PROT
+          DFLD  '#',POS=(18,2),ATTR=PROT
+          DFLD  '#',POS=(18,17),ATTR=PROT
+          DFLD  '#',POS=(18,62),ATTR=PROT
+          DFLD  '#',POS=(18,79),ATTR=PROT
+          DFLD  '#',POS=(19,2),ATTR=PROT
+          DFLD  '#',POS=(19,17),ATTR=PROT
+          DFLD  '#',POS=(19,62),ATTR=PROT
+          DFLD  '#',POS=(19,79),ATTR=PROT
+          DFLD  '#',POS=(20,2),ATTR=PROT
+          DFLD  '#',POS=(20,17),ATTR=PROT
+          DFLD  '#',POS=(20,62),ATTR=PROT
+          DFLD  '#',POS=(20,79),ATTR=PROT
+          DFLD  '#',POS=(21,2),ATTR=PROT
+          DFLD  '#',POS=(21,17),ATTR=PROT
+          DFLD  '#',POS=(21,62),ATTR=PROT
+          DFLD  '#',POS=(21,79),ATTR=PROT
+          DFLD  '==============================================================================',POS=(22,2),ATTR=PROT
+          DFLD  'CMD:',POS=(24,3),ATTR=PROT
+          DFLD  '(SEQ)=step #ROOT#=origine @SELF@=io ~GAP~=lacuna ?HINT?=AI $=patrimonio',POS=(26,2),ATTR=PROT
+***********************************************************************
+* CAMPI DINAMICI
+***********************************************************************
+*
+* HEADER
+*
+HDRTITLE  DFLD  'GN370 · MONDO 1 : ORIGINI',POS=(2,3),LTH=25,ATTR=PROT
+          DFLD  '[PF:1]',POS=(2,55),ATTR=PROT
+          DFLD  '[PF9:TEMA]',POS=(2,65),ATTR=PROT
+*
+* NAV AREA (SINISTRA)
+*
+          DFLD  'SEQUENZA 1 :',POS=(6,4),ATTR=PROT
+NAVMRK1   DFLD  '>',POS=(8,4),LTH=1,ATTR=(PROT,BRT)
+NAVTXT1   DFLD  '(1)ENTRA',POS=(8,5),LTH=9,ATTR=(PROT,BRT)
+NAVMRK2   DFLD  ' ',POS=(9,4),LTH=1,ATTR=PROT
+NAVTXT2   DFLD  '(2)SURVEY',POS=(9,5),LTH=9,ATTR=PROT
+NAVMRK3   DFLD  ' ',POS=(10,4),LTH=1,ATTR=PROT
+NAVTXT3   DFLD  '(3)SELECT',POS=(10,5),LTH=9,ATTR=PROT
+NAVMRK4   DFLD  ' ',POS=(11,4),LTH=1,ATTR=PROT
+NAVTXT4   DFLD  '(4)EXPAND',POS=(11,5),LTH=9,ATTR=PROT
+NAVMRK5   DFLD  ' ',POS=(12,4),LTH=1,ATTR=PROT
+NAVTXT5   DFLD  '(5)FOCUS',POS=(12,5),LTH=9,ATTR=PROT
+NAVMRK6   DFLD  ' ',POS=(13,4),LTH=1,ATTR=PROT
+NAVTXT6   DFLD  '(6)TRACE',POS=(13,5),LTH=9,ATTR=PROT
+NAVMRK7   DFLD  ' ',POS=(14,4),LTH=1,ATTR=PROT
+NAVTXT7   DFLD  '(7)ARRIVE',POS=(14,5),LTH=9,ATTR=PROT
+NAVMRK8   DFLD  ' ',POS=(15,4),LTH=1,ATTR=PROT
+NAVTXT8   DFLD  '(8)REFLECT',POS=(15,5),LTH=9,ATTR=PROT
+NAVMRK9   DFLD  ' ',POS=(16,4),LTH=1,ATTR=PROT
+NAVTXT9   DFLD  '(9)EXPORT',POS=(16,5),LTH=9,ATTR=PROT
+*
+* CANVAS AREA (CENTRO) - MULTILINE STUB
+*
+CANVAS1   DFLD  POS=(6,20),LTH=40,ATTR=PROT
+CANVAS2   DFLD  POS=(7,20),LTH=40,ATTR=PROT
+CANVAS3   DFLD  POS=(8,20),LTH=40,ATTR=PROT
+CANVAS4   DFLD  POS=(9,20),LTH=40,ATTR=PROT
+*
+* INFO AREA (DESTRA)
+*
+INFOSTP   DFLD  'Step: 1 di 9',POS=(6,64),LTH=12,ATTR=PROT
+INFOACT   DFLD  'ENTRA',POS=(9,64),LTH=12,ATTR=(PROT,BRT)
+          DFLD  'DESC:',POS=(12,64),ATTR=PROT
+INFODSC   DFLD  'Ingresso',POS=(13,64),LTH=12,ATTR=PROT
+          DFLD  '[AVANZA ►]',POS=(15,64),ATTR=PROT
+          DFLD  '[◄ INDIETRO]',POS=(16,64),ATTR=PROT
+          DFLD  '[ESCI MONDO]',POS=(17,64),ATTR=PROT
+*
+* FOOTER
+*
+CMDIN     DFLD  POS=(24,8),LTH=40,ATTR=(UNPROT,IC)
+JOBSTAT   DFLD  'IDLE',POS=(24,52),LTH=8,ATTR=PROT
+THEMEDISP DFLD  '⬡ TEMA',POS=(24,62),LTH=8,ATTR=PROT
+SELFDSP   DFLD  '@SELF@ gen:XIV',POS=(24,70),LTH=12,ATTR=PROT
+          END
